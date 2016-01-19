@@ -1,0 +1,263 @@
+Nucleic Acids Research, 2007, Vol. 35, Web Server issue W43–W46
+doi:10.1093/nar/gkm234
+OligoCalc: an online oligonucleotide properties
+calculator
+Warren A. Kibbe*
+Robert H. Lurie Comprehensive Cancer Center, The Feinberg School of Medicine, Northwestern University,
+Chicago, IL 60611, USA
+Received January 30, 2007; Revised March 22, 2007; Accepted March 29, 2007
+ABSTRACT
+We developed OligoCalc as a web-accessible,
+client-based computational engine for reporting
+DNA and RNA single-stranded and double-
+stranded properties, including molecular weight,
+solution concentration, melting temperature,
+estimated absorbance coefficients, inter-molecular
+self-complementarity estimation and intra-
+molecular hairpin loop formation. OligoCalc has a
+familiar ‘calculator’ look and feel, making it
+readily understandable and usable. OligoCalc incor-
+porates three common methods for calculating
+oligonucleotide-melting temperatures, including a
+nearest-neighbor thermodynamic model for melting
+temperature. Since it first came online in 1997, there
+have been more than 900 000 accesses of OligoCalc
+from nearly 200 000 distinct hosts, excluding search
+engines. OligoCalc is available at http://basic.north
+western.edu/biotools/OligoCalc.html, with links to
+the full source code, usage patterns and statistics
+at that link as well.
+INTRODUCTION
+Even prior to PCR, DNA oligonucleotides were used
+extensively in molecular biology as primers and as probes.
+With the availability of completely sequenced genomes,
+various genomic and array technologies including DNA
+microarrays and bead arrays have made oligonucleotides
+even more important reagents. OligoCalc provides a
+convenient web interface for calculating the physical
+properties of DNA and RNA oligonucleotides including
+melting temperature, molecular weight, %GC content
+and absorbance coeﬃcient for a given oligonucleotide
+sequence. The recent interest and availability of biological
+applications for siRNAs has resulted in the addition of
+RNA oligonucleotides as common laboratory reagents,
+and OligoCalc can be used to calculate the properties of
+single-stranded and double-stranded RNA as well as
+DNA. OligoCalc provides the results of three common
+melting temperature calculations. Performing these
+calculations are all straightforward—enter the nucleotide
+sequence into a textbox, and hit return or click on the
+‘Calculate’ button. In addition to these calculations,
+the user can enter absorbance readings to calculate the
+concentration of the oligonucleotide in ng/mmol and
+micrograms present in 1ml of solution, and enter the
+predicted salt and/or primer concentrations in the ﬁnal
+hybridization solution to more accurately predict the
+melting temperature. The user can also select options
+such as single- or double-stranded DNA and RNA
+molecules (ssDNA is the default), and the user can
+select from more than seventy 50 and 30 chemical
+modiﬁcations that reﬁne the molecular weight and
+absorbance calculations for oligonucleotides with those
+modiﬁcations. Other options include the swapping of the
+entered sequence for its complement, submitting the
+sequence to the NCBI BLAST site, calculating self-
+complementarity between two identical oligonucleotide
+molecules, and calculating potential intra-molecular
+hairpin loop formation.
+USING OLIGOCALC TO CALCULATE THE
+PROPERTIES OF OLIGONUCLEOTIDES
+OligoCalc has a familiar ‘calculator’ interface and the
+basic properties can be calculated by pasting or entering
+the sequence followed by one of the following actions:
+clicking out of the sequence box, entering a ‘tab’, hitting
+‘return’ or clicking ‘Calculate’. OligoCalc will use the
+currently entered sequence, selected options and entered
+conditions to calculate the length, molecular weight,
+estimated absorbance at 260 nm, the micromolar concen-
+tration and micrograms of oligonucleotide present in a
+1ml solution with an absorbance of one for the
+sequence entered. The calculator is available at the
+URL http://basic.northwestern.edu/biotools/OligoCalc.
+html and loading that URL in a browser will display
+the interface shown in Figure 1.
+Once the user has entered a sequence, several additional
+options can be selected or entered. The absorbance at
+260 nm (A260) can be entered for the oligonucleotide, and
+*To whom correspondence should be addressed. Tel: þ1 312 695-1334; Fax: þ1 847 510 0540; Email: wakibbe@northwestern.edu
+ 2007 The Author(s)
+This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License (http://creativecommons.org/licenses/
+by-nc/2.0/uk/) which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.
+will result in the calculation of the micromolar concentra-
+tion of oligonucleotide as well as the micrograms of the
+oligonucleotide present in a 1ml solution with that
+absorbance. The millimolar concentration of salt [Naþ]
+can be entered and will adjust the salt adjusted and nearest
+neighbor melting temperature calculations. The default
+value is 50mM. The nanomolar concentration of primer
+in the hybridization solution can also be entered and
+will adjust the nearest neighbor melting temperature.
+The composition of the oligonucleotide (DNA or RNA,
+Figure 1. Entry and main calculation screen for OligoCalc.
+W44 Nucleic Acids Research, 2007, Vol. 35,Web Server issue
+single-stranded or double-stranded) can be selected and
+will change many of the calculations, although the
+absorption coeﬃcients are only accurate for single-
+stranded oligonucleotides. There are a number of 50 and
+30 modiﬁcations that can be selected, and will change the
+molecular weight and in some cases the absorbance
+coeﬃcient for the oligonucleotide. The entry of IUPAC
+codes are also supported (for instance W for A or T) and
+results in a range of values being reported for melting
+temperature, %GC content, molecular weight, concentra-
+tion and micrograms present in a 1ml solution with a
+A260 of 1, with the range representing the highest
+and lowest values possible for the set of possible
+oligonucleotides.
+Clicking the ‘Swap Strands’ button swaps the entered
+strand for its reverse complement, and updates the
+properties of the oligonucleotide based on the new
+strand sequence. Note that if the ‘dsDNA’ or ‘dsRNA’
+molecule type has been selected, swapping strands has no
+eﬀect on the overall properties, since both strands are
+already taken into account by the calculations.
+Clicking the ‘mfold button results in a new window that
+posts to the mfold web server (1,2) with likely hairpin and
+self-complementary areas highlighted.
+A ﬁnal option available is ‘BLAST’, which opens a new
+window and posts the sequence entered to the NCBI
+BLAST page and starts a blastn analysis of the entered
+sequence against the current set of non-redundant
+sequences (nr) available at the NCBI (3), with ﬁltering
+for low-complexity sequences enabled.
+There is also considerable documentation available,
+including a page of chemical modiﬁcations, including the
+chemical names for the common synonyms and links to
+the structures of the modiﬁcations, when available. This
+page is available at http://www.basic.northwestern.edu/
+biotools/OligoCalcModiﬁcations.html.
+AVAILABLE CALCULATIONS
+Molecular weight calculations are based on the molecular
+weights available from Aldrich Chemicals, St. Louis, MO,
+USA. The absorbance coeﬃcients and calculations
+are done as described in Molecular Cloning, a Lab
+Manual (4). The basic melting temperature calculation
+(5,6) is provided as a baseline for comparison, and is the
+least preferred method. The salt adjustment calculation
+is performed as described in Howley et al. (7) and the
+nearest neighbor thermodynamic calculations are done
+essentially as described by Breslauer et al. (8), but using
+the values published by Sugimoto et al. (9). RNA
+thermodynamic properties were taken from Xia et al.
+(10). The equations and the values used in all calcula-
+tions are posted at the OligoCalc website, http://basic.
+northwestern.edu/biotools/.
+Although OligoCalc is compatible with version
+4 browsers (IE 4 and Netscape 4), browsers using either
+the Gecko or KHTML engines, or Internet Explorer 5.5
+or higher are preferred. This includes Mozilla, Netscape 7,
+Camino, Safari, Konqueror or FireFox browsers.
+JavaScript must be enabled in the client browser for
+OligoCalc to work.
+Available melting temperature method comparisons
+The basic melting temperature is the least preferred
+method, however is perhaps the most often employed
+method for calculating melting temperature by bench
+scientists. OligoCalc was designed to give researchers an
+easy tool for ﬁnding and comparing melting temperatures
+using more accurate calculations. For oligonucleotides
+between 8 and 40 nt, the nearest neighbor method is
+the preferred method (8–12). Note that the equations and
+derived parameters were obtained using 14–20 mers,
+so this method is the most accurate for oligonucleotides
+of this length. A comparison of these data sets and
+recommendations were recently published (13) and
+implemented as a web server (14), and predominantly
+agree with the methods we have chosen. For longer
+sequences, or for oligonucleotides with base substitutions
+or modiﬁcations, the salt adjusted melting temperature
+calculation is the preferred method. Please note that these
+calculations are only estimates and many other factors
+can aﬀect the melting temperature, including detergents,
+presence of other counter ions, solvents (ethanol for
+instance), formamide, etc.
+ACKNOWLEDGEMENTS
+The current utility of OligoCalc was aided by the initial
+prototype created by Eugene Buehler at the University of
+Pittsburgh Medical School which is still available at http://
+www.bioinformatics.org/JaMBW/3/1/9/index.html, the
+eﬀorts of Qing Cao while she was a research associate at
+Northwestern, the monomer structures and molecular
+weights provided by Dr Bob Somers while at Glen
+Research Corporation. The initial requirements for
+OligoCalc came from a discussion with Dr Jim Kaput
+while he was the director of the Biotechnology Core
+Facility at Northwestern. The RNA calculations were a
+result of very helpful conversations with Dr Suzanne
+Kennedy at Qiagen, the ﬂuorescent tags and options,
+along with the properties of the modiﬁed bases were
+requested and provided by Dr Regina Bichlmaier at
+metabion GmbH. I would also like to thank the reviewers,
+who made many substantial and insightful suggestions that
+dramatically improved this manuscript as well as the
+documentation and features available through OligoCalc.
+Finally, OligoCalc users have identiﬁed bugs and provided
+numerous suggestions and feature requests over the years.
+Thank you all. The Feinberg School of Medicine and the
+Robert H. Lurie Comprehensive Cancer Center of
+Northwestern University provided ﬁnancial support for
+development and operation of OligoCalc. Funding to pay
+the Open Access publication charges for this article was
+provided by Northwestern University institutional sources.
+Conﬂict of interest statement. None declared.
+REFERENCES
+1. Zuker,M. (2003) Mfold web server for nucleic acid folding and
+hybridization prediction. Nucleic Acids Res., 31, 3406–3415.
+2. Mathews,D.H., Sabina,J., Zuker,M. and Turner,D.H. (1999)
+Expanded sequence dependence of thermodynamic parameters
+Nucleic Acids Research, 2007, Vol. 35,Web Server issue W45
+improves prediction of RNA secondary structure. J. Mol. Biol., 288,
+911–940.
+3. McGinnis,S. and Madden,T.L. (2004) BLAST: at the core of a
+powerful and diverse set of sequence analysis tools. Nucleic Acids
+Res., 32, W20–W25.
+4. Sambrook,J. and Russell,D.W. (2001) Molecular Cloning:
+A Laboratory Manual. Cold Spring Harbor Laboratory Press,
+Cold Spring Harbor, NY, USA.
+5. Marmur,J. and Doty,P. (1962) Determination of the base compo-
+sition of deoxyribonucleic acid from its thermal denaturation
+temperature. J. Mol. Biol., 5, 109–118.
+6. Wallace,R.B., Shaﬀer,J., Murphy,R.F., Bonner,J., Hirose,T. and
+Itakura,K. (1979) Hybridization of synthetic oligodeoxyribonucleo-
+tides to phi chi 174 DNA: the eﬀect of single base pair mismatch.
+Nucleic Acids Res., 6, 3543–3557.
+7. Howley,P.M., Israel,M.F., Law,M-F. and Martin,M.A. (1979)
+A rapid method for detecting and mapping homology between
+heterologous DNAs. Evaluation of polyomavirus genomes.
+J. Biol. Chem., 254, 4876–4883.
+8. Breslauer,K.J., Frank,R., Blo¨cker,H. and Marky,L.A. (1986)
+Predicting DNA duplex stability from the base sequence.
+Proc. Natl Acad. Sci. USA, 83, 3746–3750.
+9. Sugimoto,N., Nakano,S., Yoneyama,M. and Honda,K. (1996)
+Improved thermodynamic parameters and helix initiation factor
+to predict stability of DNA duplexes. Nucleic Acids Res., 24,
+4501–4505.
+10. Xia,T., SantaLucia,J., Burkard,M.E., Kierzek,R., Schroeder,S.J.,
+Jiao,X., Cox,C. and Turner,D.H. (1998) Thermodynamics para-
+meters for an expanded nearest-neighbor model for formation
+of RNA duplexes with Watson-Crick base pairs. Biochemistry, 37,
+14719–14735.
+11. SantaLucia,J. Jr (1998) A uniﬁed view of polymer, dumbell, and
+oligonucleotide DNA nearest-neighbor thermodynamics. Proc. Natl
+Acad. Sci. USA, 95, 1460–1465.
+12. Owczarzy,R., Vallone,P.M., Gallo,F.J., Paner,T.M., Lane,M.J.
+and Benight,A.S. (1997) Predicting sequence-dependent melting
+stability of short duplex DNA oligomers. Biopolymers, 44,
+217–239.
+13. Panjkovich,A. and Melo,F. (2005) Comparison of diﬀerent melting
+temperature calculation methods for short DNA sequences.
+Bioinformatics, 21, 711–722.
+14. Panjkovich,A., Norambuena,T. and Melo,F. (2005) dnaMATE:
+a consensus melting temperature prediction server for short DNA
+sequences. Nucleic Acids Res., 33, W570–W572.
+W46 Nucleic Acids Research, 2007, Vol. 35,Web Server issue

@@ -1,0 +1,1441 @@
+3600-3609 Nucleic Acids Research, 1994, Vol. 22, No. 17
+The FSSP database of structurally aligned protein fold
+families
+Liisa Holm* and Chris Sander
+Protein Design Group, European Molecular Biology Laboratory, D-69012 Heidelberg, Germany
+ABSTRACT
+FSSP (families of structurally similar proteins) is a
+database of structural alignments of proteins in the
+Protein Data Bank (PDB) [1]. The database currently
+contains an extended structural family for each of 330
+representative protein chains. Each data set contains
+structural alignments of one search structure with all
+other structurally significantly similar proteins in the
+representative set (remote homologs, < 30 % sequence
+identity), as well as all structures in the Protein Data
+Bank with 70 - 30 % sequence identity relative to the
+search structure (medium homologs). Very close
+homologs (above 70 % sequence identity) are excluded
+as they rarely have marked structural differences. The
+alignments of remote homologs are the result of
+pairwise all-against-all structural comparisons in the set
+of 330 representative protein chains. All such
+comparisons are based purely on the 3D co-ordinates
+of the proteins and are derived by automatic (objective)
+structure comparison programs. The significance of
+structural similarity is estimated based on statistical
+criteria. The FSSP database is available electronically
+from the EMBL file server and by anonymous ftp (file
+transfer protocol).
+INTRODUCTION
+It has been estimated that the biochemistry of all living organisms
+involves no more than 1,000 divergently related protein families
+[2]. A majority of newly determined protein sequences can be
+classified into families by detectable sequence homology. The
+HSSP database of sequence alignments [3] shows that at least
+26% of known sequences deposited in public databases (not
+counting cDNA fragments) have a relative of known 3D
+structure. However, protein families are known to retain the shape
+of the fold even when sequences have diverged below the limit
+of detection of significant similarities at the sequence level.
+Structural comparisons merge protein families of known 3D
+structure into structural classes, the members of which may or
+may not be evolutionarily related [4-7]. The FSSP database of
+structural alignments provides a rich source of information for
+the study of both divergent and convergent aspects of the
+evolution of protein folds.
+The FSSP data sets have a wide field of applications. These
+include studies to discover remote evolutionary connections in
+the twilight zone of sequence similarity; to build a multiple
+alignment of remotely related families for the generation of
+sequence profiles or sequence patterns that may identify additional
+remote relatives in sequence databases [8-9]; to classify folds,
+such as TIM barrels, in order to study their structural principles
+[10]; to define structural cores for sequence-structure alignment
+(T. Smith, pers. comm.), for modular construction of novel
+proteins, or for model building by homology [11]; to test the
+accuracy of sequence alignment methods (B. Rost and
+R.Schneider, pers. comm.); or, to use test sets of remotely
+homologous pairs for fold recognition (M. Sippl, pers. comm.)
+and to extract representative data sets for statistical structural
+analyses [ 12]. Other uses are only limited by your imagination.
+FORM AND CONTENT OF THE DATABASE
+Structural alignments
+For a protein chain in the representative set, with PDB identifier
+Nxxx (like: IPPT, 5PCY) and chain identifier Y (omitted if
+blank), there is an ASCII (text) file Nxxx.FSSP or NxxxY.FSSP
+which contains a few or tens of proteins structurally similar to
+the search structure (Z-score above 2 in the pairwise structural
+comparison, see below), alongside the secondary structure and
+solvent accessibility extracted from the 3D coordinates of the
+search structure [13]. The structurally equivalent residues are
+reported in the form of a multiple alignment and as a list of
+matching fragments and can be inspected using three-dimensional
+graphics. The co-ordinates must be retrieved separately from the
+corresponding PDB data sets, e.g. Nxxx.PDB. Details about the
+methods used to derive the database are given in [14,15].
+Figure 1 shows an example dataset from FSSP, that for the
+SH3 domain of chicken brain alpha-spectrin (ISHG.FSSP).
+General information about the structure and notation are given
+at the top of the dataset. The dataset contains 5 (NALIGN)
+structurally aligned proteins which are listed in the '# #
+PROTEINS' section. ISHF-A is the homologous SH3 domain
+from fyn (PROTEIN column) and is aligned with a positional
+root mean square deviation of 1.6 A (RMSD column) over 57
+residues (LALI column) and has 33 % sequence identity after
+structural alignment (%IDE column). The other structural
+homologs are two more SH3 domains (lHSP is misannotated
+in the PDB), actinidin, and biotin repressor. Some structural
+details are given in the ' # # ALIGNMENTS' section. Residue
+W42 (Trp) of 1SHG is in a beta-strand (E) and has a solvent
+*To whom correspondence should be addressed
+.=) 1994 Oxford University Press
+Nucleic Acids Research, 1994, Vol. 22, No. 17 3601
+FSSP FAMILIES OF STRUCTURALLY SIMILAR PROTEINS, VERSION 0.3 1994
+PDBID lshg
+DATE file generated on 7-Jun-94
+DATABASE 360 chains from the Protein Data Bank with 30 % sequence identity
+DATABASE cutoff, based on PDB-select by Hobohm & al, Protein Science 1, 409-417
+METHOD Dali version 1.0: Holm, L., Sander, C. (1993) J.Mol.Biol. 233,123-138.
+PARAMETER elastic alignment with similarity threshold 0.20
+THRESHOLD This file has been filtered to contain only hits that have similarity
+THRESHOLD scores > two standard deviations above database average.
+REFERENCE Holm, L., Ouzounis, C., Tuparev, G., Vriend, G., Sander, C. (1992)
+REFERENCE A database of protein structure families with comnon folding motifs.
+REFERENCE Protein Science 1, 1691-1698.
+CONTACT e-mail (Internet) Holm6EMBL-Heidelberg.DE or SanderQEMBL-Heidelberg.DE
+CONTACT phone +49-6221-387361 / fax +49-6221-387306
+AVAILABLE Free academic use. Commercial users must apply for licence.
+AVAILABLE No incorporation into other databases.
+HEADER CYTOSKELETON 19-MAY-93 1SHG
+COMPND ALPHA SPECTRIN (SH3 DOMAIN)
+SOURCE CHICKEN (GALLUS GALLUS) BRAIN
+AUTHOR M.NOBLE,R.PAUPTIT,A.MUSACCHIO,M.SARASTE,M.SARASTE,
+SEQLENGTH 57
+NALIGN 5
+NCHAIN 1 chain(s) in data set /data/dssp/lshg.dssp
+NOTATION: STRID1/STRID2: PDB identifiers of search protein (STRID1) and structurally
+NOTATION: aligned protein (STRID2) with chain identifier
+NOTATION: RMSD: positional root mean square deviation of superimposed CA atoms in A
+NOTATION: LALI: total length of the aligned fragments for each pair comparison by
+NOTATION: structural alignment. The list of alignmentsis sorted by LALI.
+NOTATION: LSEQ2: length of the entire chain of the aligned structure.
+NOTATION: %IDE: percentage of sequence identity over aligned positions
+NOTATION: REVERS: number of fragments matching in reversed chain direction
+NOTATION: PERMUT: number of topological permutations
+NOTATION: NFRAG: total number of aligned fragments
+NOTATION: TOPO: 'S' sequential order of aligned fragments; 'N' non-sequential alignment
+NOTATION: NR: sequential index of structurally aligned pairs
+NOTATION: PROTEIN: COMPND record from the PDB file of the aligned structure
+NOTATION: SeqNo, PDBNo, AA, STRUCTURE, BP1, BP2, ACC: sequential and PDB residue
+NOTATION: numbers, aminc) acid (lower case = Cys),secondary structure,
+NOTATION: solvent exposure as in DSSP (Kabsch and Sander, Biopolymers 22,
+NOTATION: 2577-2637, 1983). The alignments show the amino acid sequence
+NOTATION: and DSSP code (in lower case) of the aligned fragments.
+NOTATION: NOCC: number of aligned structures spanning this position
+NOTATION: RANGEl/RANGE2: sequential and PDB residue numbers of aligned fragments in
+NOTATION: search struct.ure (RANGE1) and structurally aligned protein (RANGE2);
+NOTATION: topological permutations and matches in reverse chain direction are flagged;
+NOTATION: .<-->' reads 'is equivalent to; PDB residue numbers in parentheses
+## PROTEINS PDB/chain identifiers
+NR. STRID1 STRID2 RMSD LALI LSEQ2
+1: lshg lshf-A 1.6 57 59
+2: lshg lhsp 2.9 56 71
+3: lshg lpnj 1.7 53 86
+4: lshg 2act 2.6 47 218
+5: lshg lbia 2.7 44 292
+## ALIGNMENTS
+PDBNo
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+1 - 5
+AA STRUCTURE BEP1 BP2 ACC NOCC
+K 0 0 184 5
+E - 0 0 75 5
+L E -AB 27 56A 71 5
+V E -AB 26 55A 0 5
+L E -AB 25 54A 49 5
+A E - B 0 53A 2 5
+L + 0 0 55 5
+Y S S- 0 0 126 5
+D - 0 0 81 5
+Y B -F 20 08B 18 4
+Q - 0 0 94 4
+E + 0 u 61 4
+K + 0 0 149 4
+S S > S- 0 0 32 4
+P T 3 S+ 0 0 137 4
+R T 3 S+ 0 158 4
+E B < -c 47 OA 10 3
+V - 0 0 2 2
+T + 0 0 55 3
+M B -F 10 08 3 3
+K > - 0 0 138 3
+K T 3 S+ 0 0 137 5
+G T 3 S+ 0 0 46 5
+D < - 0 0 53 5
+I E -A 5 OA 96 5
+L E -A 4 OA 0 5
+T E -AD 3 40A 30 5
+L E + D 0 39A 10 5
+L E - 0 0 59 4
+and structural alignment statistics
+%IDE REVERS PERMUT NFRAG TOPO PROTEIN
+33 0 0 2 S FYN PROTO-ONCOGENE TYROSINE KINASE
+27 0 0 3 S PHOSPHOLIPASE C$GAMMA (SH2 DOMAIN)
+28 0 0 3 S PHOSPHATIDYLINOSITOL 3-KINASE (P85
+6 0 0 7 S ACTINIDIN (SULFHYDRYL PROTEINASE)
+9 O- 0 3 S BIOTIN OPERON REPRESSOR (BIRA) BIO
+V K Gs P Nt
+T C Y Ve Rs
+Le A Qe Se Pe
+Fe Vb Ye Ve Ve
+Ve Ke Re Ae Ke
+Ae Ae Ae Le Le
+Ls Ls L D Ie
+Ys Fs YsA Ie
+D D D A Gt
+Yb Y Yb Fh
+E Kb K Kh
+A As K Qh
+Rs QsE Y
+Ts Rs RsA
+Es Es Et Ss
+Ds Dt Et Gs
+Db Et Db
+L I
+S TbD
+Fb F Lb
+H I H
+Kt Ks Lt V Ke
+Gt Ss Gt D Ee
+E A D He Ie
+Ke Ie Ae Fe
+Fe Ib Le Ie Ge
+Qe Q Te Ve Ie
+Ie Ns V Ie Se
+Le Vb. Ve Re
+SeqNo
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+3602 Nucleic Acids Research, 1994, Vol. 22, No. 17
+30 35 N E
+31 36 S
+32 37 T
+33 38 N S
+34 39 K S
+35 40 D S
+36 41 W E
+37 42 W E
+38 43 K E
+39 44 V E
+40 45 E E
+41 46 V E >
+42 47 N T 3
+43 48 D T 3
+44 49 R E <
+45 50 Q E
+46 51 G E
+47 52 F E
+48 53 V E
+49 54 P E >
+50 55 A G >
+51 56 A G 3
+52 57 Y G <
+53 58 V E <
+54 59 K E
+55 60 K E
+56 61 L E
+57 62 D
++ 13
+S-
+S+
+-SE
+- E
++ DE
+-DE
+-DE
+- E
+S-
+S+
+- E
++ E
+- E
++cE
+- E
+- E
+S+
+S+
+S+
+-B
+-B
+-B
+B
+0 38A 72
+0 0 44
+0 0 127
+0 0 77
+0 ) 164
+0 0 77
+0 49A 76
+0 48A 39
+30 47A 63
+28 46A 0
+27 45A 57
+0 44A 16
+0 0 149
+0 0 112
+0 41A 108
+0 40A 102
+O :'9A 2
+17 38A 56
+0 37A 0
+0 36A 16
+0 0 15
+0 0 76
+0 0 89
+6 OA 11
+5 OA 107
+4 OA 82
+3 OA 62
+0 0 215
+4 Ne E Ge Ge
+4 r K Ye Ie
+4 Ss Q Ge D
+4 Es Es Et Kt
+4 Gs Gt I Qt
+4 Ds Gt G Gs
+4 We W We. A
+5 We Wb Le We Le
+5 Ee R Ne Ie Le
+5 Ae Gb Ge Ve Le
+5 Re Db Ye Ke Ee
+5 Se Y Ne N Qe
+5 Tt Gs Et Ss Dt
+5 G Gs Gt Wb Gt
+5 E K Ee Gt Ie
+S Te Kb Re Ye Ie
+S Ge L Ge Me Ke
+5 Ye W De Re Pe
+5 Ie Fb Fe Ie We
+4 Pe P Pe Ms
+4 Sg Ss Gs Tg .
+5 Ng Ns Ts cg Gs
+5 Yg Ys Ys Gg G
+5 Ve Ve Ve It Ee
+5 Ae Ee Ee Ms Ie
+5 Pe E Ye P Se
+5 V Ms Ie Se Le
+5 D V Ge Ye R
+## FRAGMENTS: ranges
+NR. STRIDI STRID2
+1: lshg lshf-A
+1: lshg lshf-A
+2: lshg lhsp
+2: lshg lhsp
+2: lshg lhsp
+3: lshg lpnj
+3: lshg lpnj
+3: lshg lpnj
+4: lshg 2act
+4: lshg 2act
+4: lshg 2act
+4: lshg 2act
+4: lshg 2act
+4: lshg 2act
+4: lshg 2act
+5: lshg lbia
+5: lshg lbia
+5: lshg lbia
+of superimposed residues
+1 LYS (
+42 ASN (
+1 LYS
+19 THR (
+46 GLY (
+1 LYS
+33 ASN (
+43 ASP (
+1 LYS
+10 TYR (
+2 2 LYS (
+37 TRP (
+44 ARG (
+50 ALA (
+54 LYS
+1 LYS
+22 LYS (
+51 ALA
+6) -
+47) -
+6 ) -
+24) -
+51) -
+6 ) -
+38) -
+48) -
+6 -
+15) -
+.27 ) -
+42 ) -
+49) -
+55) -
+59) -
+6) -
+27) -
+56) -
+RANGE1
+41 VAL 46)
+57 ASP ( 62)
+17 GLU ( 22)
+45 GLN 50)
+57 ASP 62)
+28 LEU 33)
+42 ASN ( 47)
+57 ASP 62)
+9 ASP 14)
+16 ARG ( 21)
+32 THR 37)
+43 ASP 48)
+48 VAL ( 53)
+53 VAL ( 58)
+57 ASP 62)
+9 ASP 14)
+49 PRO ( 54)
+57 ASP ( 62)
+c--> RANGE2
+<--> 1 VAL
+<--> 44 THR
+<--> 6 LYS
+<--> 24 THR
+.z--> 52 LEU
+<z--> 7 GLY
+<--> 54 GLU
+-:--> 66 GLY
+:--> 132 PRO
+- 144 PHE
+160 VAL
+<--> 178 TRP
+<--> 192 GLY
+.--> 205 THR
+<211 MET
+248 ASN
+258 LYS
+<--> 286 GLY
+84) - 41 SER 124)
+127) - 59 ASP ( 142)
+6) - 22 GLU 22)
+24) - 50 LYS 50)
+52) - 63 VAL ( 63)
+5)- 34 VAL 32)
+52) - 63 GLU ( 61)
+64) - 80 GLY 78)
+132) - 140 ALA ( 140)
+144) - 150 GLY ( 150)
+160) - 170 GLY 170)
+178) - 184 TRP 184)
+192) - 196 ILE ( 196)
+(205) - 208 ILE ( 208)
+(211) - 214 TYR ( 214)
+(273) - 256 GLY ( 281)
+(283) - 285 MET ( 310)
+311) - 292 ARG ( 317)
+Figure 1. Format of an FSSP file. One FSSP file contains a structural protein family: the search structure and structurally homologous proteins from the PDB.
+File organization is line-oriented and strictly formatted. Lines have a maximum length of 132 bytes. The file is divided into four sections, HEADER, PROTEINS,
+ALIGNMENTS and FRAGMENTS. The sections are separated by double hashes (# #). The HEADER section is mandatory. The HEADER, PROTEINS and
+ALIGNMENTS sections are similar to those in the HSSP database [3], with obvious modifications of notation that are explained in the HEADER block. The FRAGMENTS
+section reports the beginning and ending residue numbers of structurally equivalent segments. The residue ranges are given both according to sequential numbering
+starting from 1 and, in parentheses, according to the numbering in the PDB files.
+accessibility (ACC column) of 39 A2. W42 has a structurally
+equivalent residue in 5 (NOCC) of the aligned structures, of
+which three are tryptophans (W), two are leucines (L), and all
+five are in beta-strands (b or e in We, Wb, Le, We, Le). Finally,
+the '# # FRAGMENTS' section says that to superimpose the
+3D coordinates of lSHG with those of 1SHF, residues 6-46
+and 47-62 of 1SHG should be equivalenced with residues
+A84-A124 and A127-A142 of 1SHF.
+The default files (Nxxx.FSSP) contain structural alignments
+generated by the program Dali [15] and are constrained to
+preserve sequential ordering of the aligned segments. Alignments
+optimized allowing topological permutations (loop reconnections
+and chain reversals) are available in files Nxxx_dali.FSSP.
+Alignments using other methods are available in datasets
+Nxxxsuppos.FSSP and Nxxx_comp3D.FSSP [14].
+Index of protein fold families
+To aid navigation in the database, the 330 protein chains contained
+in the representative set have been clustered into fold families
+(Table I). A dendrogram of the families was produced by average
+linkage clustering based on structural similarity scores [15]. Chain
+length effects were corrected for by transforming the pairwise
+similarities into statistical significance scores (Z-scores). Families
+and subfamilies result from truncating the tree at different cut
+levels of Z-score. The higher the cut, the larger the resulting
+number of distinct fold families (Figure 2). 142 families resulting
+from the cut at an average Z-score of 2 are numbered in the first
+column of Table I. Second and further members of a family are
+indicated by indentation relative to the first member at the given
+level of significance. For example, if one decided to derive a
+Nucleic Acids Research, 1994, Vol. 22, No. 17 3603
+more refined selection of fold families using a Z-score cutoff of
+3 instead of 2, then the set of families should be expanded by
+all subfamilies that are indented by one letter space in Table I,
+yielding a total of 168 families. The most refined selection
+possible in the representative set would place each of the 330
+chains in a distinct family, but even a cut as high as a Z-score
+of 10 yields only 255 families (Figure 2).
+In comparing proteins with very low sequence identity, there
+is no direct relationship between the structural Z-score and
+evolutionary relatedness. To assert descent by common ancestry,
+the biological function, sequence signatures and architectural
+detail should be considered. For example, the very distantly
+related animal/plant lysozymes and T4 lysozyme are classified
+into two neighbouring families (21 and 22) using the structural
+Z-score, although they share some structural and biochemical
+features. As an example of common folding motifs, family 57
+in Table I contains six structures with the babbab fold typified
+by muconolactone isomerase (IMLI).
+DISTRIBUTION
+Network access
+The FSSP data sets can be obtained from the EMBL file server
+[ 16]. To get detailed instructions on how to use the service send
+the messages 'HELP' and 'HELP proteindata' to the network
+address Netserv@embl-heidelberg.de. If you have access to
+Internet you can obtain FSSP files by anonymous ftp (file transfer
+protocol) from ftp.embl-heidelberg.de, directory: /pub/data-
+bases/protein-extras \ fssp. Access to the database is also
+possible over the World Wide Web (WWW), e.g. using the
+XMosaic interface; the URL address is http://www.embl-
+heidelberg.de/databases/proteinr extras \ fssp. Distribution by
+the Protein Data Bank (pdb.pdb.bnl.gov) is planned for late 1994.
+0@ 350 size of=
+E... -complete
+I set = 330
+255
+250 221
+20O 200 188 03
+200 - 168 e
+142 0
+.a 150
+0 100
+0 50
+E
+0
+1 2 3 4 5 6 7 8 9 10
+level of structural similarity
+Figure 2. Definition of structural classes. The June 1994 release of the FSSP
+database is based on a sequence-representative set of 330 protein chains (less
+than 30 % sequence identity). Average linkage clustering using the similarity
+scores from an all-against-all structural comparison yielded a tree representation
+of structural relations in the set (cf. Table 1). Truncating the tree at different
+levels of structural similarity (horizontal axis, Z-score) defines distinct families,
+i.e., separated branches of the tree. Cutting at a very low level (Z < < 2) leads
+to a collapse into a very few general classes (all-alpha, all-beta). Cutting at a
+high level increases the number of distinct families, with a gradual approach to
+one family per protein chain.
+The SUPPOS program is available as part of the WHAT IF
+package (available from G.Vriend, email: vriend@embl-
+heidelberg.de). The program Dali is currently not available for
+distribution. Requests for alignments of newly solved
+crystallographic or solution NMR structures (Ca co-ordinates
+required) may be sent to L.Holm by email (holm@embl-
+heidelberg.de).
+Conditions
+Academic redistribution of single files or of the entire database
+is permitted. No inclusion in other databases or database services,
+academic or other, without explicit permission of the authors.
+All rights reserved. Not to be used for classified research. Users
+are asked to refer to this paper and ref. 14 in reporting results
+on use of the database.
+Size of the current release
+The content and size of the FSSP database is of course tightly
+coupled to the development of the Protein Data Bank which is
+currently increasing at the rate of hundreds of datasets every year.
+The size of the sequence-representative set of PDB files [17],
+which is used here as a point of departure, has increased from
+154 in December 1992 to 204 in October 1993 to 330 in June
+1994. The complete set of data files (June 1994) requires about
+11 Mb of disk storage. Regular and frequent updates of the
+database are planned.
+Limitations
+The structure comparison program Dali [15] defines the extent
+of the common structural core by maximizing the agreement of
+intramolecular CA-CA distances. The scoring function was
+deliberately designed to allow inter-domain conformational
+flexibility; hence, positional root mean square deviations for the
+corresponding rigid-body superimpositions are often higher than
+for comparison methods that put an absolute upper limit on
+intermolecular positional deviations. This, however, is only an
+apparent disadvantage.
+The current database contains at most one alignment per pair
+of full length proteins. In future releases, the significance of
+alignments will be evaluated at the level of structural domains
+[18], i.e., parts of structures, and significant suboptimal
+alignments will be included. PDB data sets are referred to by
+the PDB code; no provision can be made for asynchronous
+revisions of the PDB data sets relative to the derived database.
+Related data banks and programs
+It is often useful to complement the compilation of structure
+alignments with sequence and variability information by direct
+reference to the latest version of the HSSP database of sequence-
+aligned protein families [3]. Users interested in detailed local
+structural properties of each protein, such as hydrogen bonding
+patterns, may refer to the DSSP database of secondary structures,
+derived from PDB files. The HSSP and DSSP databases are
+available by the same mechanism of network access as FSSP,
+see above. An X-windows based protein query and 3D inspection
+system, ProtQuiz 0.7 (Sander & Scharf, unpubl.; test version
+available via anonymous ftp from ftp.embl-heidelberg.de), can
+be used for interactive evaluation of pairwise alignments. The
+FSSP database is cross-referenced with several sequence and
+other databases in the information retrieval system SRS [19] with
+access provided on www.embl-heidelberg.de. Kindly report any
+problems to the authors by electronic mail.
+3604 Nucleic Acids Research, 1994, Vol. 22, No. 17
+REFERENCES
+1. Bernstein F.C., Koetzle T.F., Williams G.J.B., Meyer E.F., Brice M.D.,
+Rodgers J.R., Kennard O., Shimanouchi T., Tasumi M., J. Mol. Biol.
+112:535-542 (1977).
+2. Chothia C. Nature 357:543-544 (1992).
+3. Sander C., Schneider R., Proteins 9:56-68 (1991).
+4. Overington J., Johnson M.S., Sali A., Blundell T.L., Proc. R. Soc. Lond.
+B241:132-145 (1990).
+5. Pascarella S., Argos P., Prot. Eng. 5:121-137 (1992).
+6. Orengo C.A., Flores T.P., Taylor W.R., Thornton J.M., Prot. Eng.
+6:485-500 (1993).
+7. Holm L., Sander C., Proteins 19:165-173 (1994).
+8. Bashford D., Chothia C., Lesk A.M., J. Mol. Biol. 196:199-216 (1987).
+9. Taylor W.R., Prot. Eng. 2:77-86 (1988).
+10. Wilmanns M., Hyde C.C., Davies D.R., Kirschner K., Jansonius J.N.,
+Biochemistry 30:9161-9169 (1991).
+11. Sutcliffe M.J., Haneef I., Carney D., Blundell T.L., Prot. Eng. 1:377-384
+(1987).
+12. Maiorov V.N., Crippen G.M., J.Mol.Biol. 235:625-634 (1994).
+13. Kabsch W., Sander C., Biopolymers 22:2577-2637 (1983).
+14. Hohn L., Ouzounis C., Sander C., Tuparev G., Vriend G., Protein Science
+1:1691-1698 (1992).
+15. Holm L., Sander C., J. Mol. Biol. 233:123-138 (1993).
+16. Stoehr P.J., Omond R.A., Nucleic Acids Res. 17:6763-6764 (1989).
+17. Hobohm U., Scharf M., Schneider R., Sander C., Protein Science 3:409-417
+(1992).
+18. Holm L., Sander C., Proteins 19:256-268 (1994).
+19. Etzold T., Argos P., CABIOS 9:49-57 (1993).
+Nucleic Acids Research, 1994, Vol. 22, No. 17 3605
+Table I. Protein fold families
+family PDB code protein
+1 lacx
+1 lcobB
+2 lten
+2 2hhrB
+2 __2hlaA
+2 4fabL
+2 3hlaB
+2 1__ fc2D
+2 lcid
+2 ltlk
+2 lcd8
+2 lcd4
+2 lcdb
+3 lltsC
+4 2hmgB
+5 Ishl
+6 ldfnB
+7 lprcM
+8 2bp2
+9 Imat
+10 2hhmA
+10 3fbpB
+11 lcsel
+12 2rveB
+13 llgaA
+13 3ccp
+14 llfb
+14 lhddC
+15 lvsgB
+15 lJhlhA
+15 IropA
+15 thffa
+15 2tmvP
+15 lIlpe
+15 lbbhB
+15 256bA
+15 2ccyB
+15 2hmzA
+15 lbrd
+16 lmrrA
+16 2ztaA
+16 3inkC
+16 lbgc
+16 _lrcb
+16 _lifa
+16 lgmfA
+17 ldsbA
+17 lgplA
+18 3trx
+18 lgstB
+18 lego
+18 laba
+19 lgal
+19 _ ltrb
+19 lnpx
+19 llpfA
+19 lphh
+19 3grs
+20 lipd
+20 6icd
+20 lglt
+20 __lgrcB
+20 lgdlR
+20 5ldh
+20 _4mdhB
+20 ldhr
+20 lhsdA
+20 ludpA
+20 lpgd
+20 8adh
+20 lhmy
+ACTINOXANTHIN
+SUPEROXIDE DISMUTASE (*CO SUBSTITUTED)
+TENASCIN (THE THIRD FIBRONECTIN TYPE Ill REPEAT)
+HUMAN GROWTH HORMONE COMPLEX WITH ITS RECEPTOR
+HUMAN CLASS I HISTOCOMPATIBILITY ANTIGEN AW 68.1
+4-4-20 (IG*G2A=KAPPA=) FAB FRAGMENT - FLUORESCEIN (DIANION)
+HUMAN CLASS I HISTOCOMPATIBILITY ANTIGEN A2.1
+IMMUNOGLOBULIN FC AND FRAGMENT B OF PROTEIN A COMPLEX
+CD4 (DOMAINS 3 AND 4)
+TELOKIN
+T CELL CO-RECEPTOR CD8
+/CD4$ (1 - 183 PLUS ASP - THR) (/D1D2$) (N-TERMINAL
+CD2 (T LYMPHOCYTE GLYCOPROTEIN, ADHESION DOMAIN)
+HEAT-LABILE ENTEROTOXIN (LT); CHOLERA-LIKE TOXIN, AB5 TOXIN
+HEMAGGLUTININ (/G146(A)D$) (BROMELAIN DIGESTED) (MUTANT
+NEUROTOXIN I (SH I) (ENERGY MINIMIZED AVERAGE STRUCTURE)
+DEFENSIN /HNP$-3
+PHOTOSYNTHETIC REACTION CENTER
+PROPHOSPHOLIPASE A=2=
+METHIONINE AMINOPEPTIDASE (E.C.3.4.11.18)
+HUMAN INOSITOL MONOPHOSPHATASE DIMER COMPLEXED WITH
+FRUCTOSE-1,6-BISPHOSPHATASE (D-FRUCTOSE-1,6-BISPHOSPHATE
+SUBTILISIN CARLSBERG (E.C.3.4.21.14) (COMMERCIAL PRODUCT
+ECO RV ENDONUCLEASE COMPLEX WITH DNA
+LIGNIN PEROXIDASE (LIP) (E.C. 1. 1 .1.-) (FERRIC)
+YEAST CYTOCHROME $C PEROXIDASE (E.C.1.1.1.5) MUTANT WITH
+TRANSCRIPTION FACTOR LFB1 (HOMEODOMAIN)
+ENGRAILED HOMEODOMAIN COMPLEX WITH /DNA$
+VARIANT SURFACE GLYCOPROTEIN (N-TERMINAL DOMAIN)
+HELIX-LOOP-HELIX DOMAIN (ONLY) FROM THE E47 PROTEIN PRODUCT
+ROP: COL*E1 REPRESSOR OF PRIMER
+FERRITIN (H-CHAIN) MUTANT (LYS 86 REPLACED BY GLN) (K86Q)
+INTACT TOBACCO MOSAIC VIRUS (FIBER DIFFRACTION STUDY)
+APOLIPOPROTEIN-*E3 (/LDL$ RECEPTOR BINDING DOMAIN)
+CYTOCHROME C (PRIME)
+CYTOCHROME $B562 (OXIDIZED)
+CYTOCHROME $C(PRIME)
+HEMERYTHRIN (ADIZOMET)
+BACTERIORHODOPSIN
+MANGANESE SUBSTITUTED PROTEIN R2 OF
+/GCN4$ LEUCINE ZIPPER
+INTERLEUKIN-2 MUTANT WITH CYS 125 REPLACED BY ALA (C125A)
+GRANULOCYTE COLONY STIMULATING FACTOR (RBG-CSF)
+INTERLEUKIN-4
+INTERFERON BETA (MURINE)
+GRANULOCYTE-MACROPHAGE COLONY-STIMULATING FACTOR
+DSBA (DISULFIDE BOND FORMATION PROTEIN)
+GLUTATHIONE PEROXIDASE (E.C. 1. 1.1.9)
+THIOREDOXIN (REDUCED FORM)
+ISOENZYME 3-3 OF GLUTATHIONE S-TRANSFERASE (2.5.1.18)
+OXIDIZED GLUTAREDOXIN
+GLUTAREDOXIN MUTANT WITH VAL 15 REPLACED BY GLY AND TYR 16
+GLUCOSE OXIDASE EC 1.1.3.4
+THIOREDOXIN REDUCTASE (E.C.1.6.4.5) MUTANT WITH CYS 138
+NADH PEROXIDASE (E.C.1.ll.1.1) NON-ACTIVE FORM WITH
+LIPOAMIDE DEHYDROGENASE (E.C. 1.8.1.6)
+$P-*HYDROXYBENZOATE HYDROXYLASE (/PHBH$) (E.C.1.14.13.2) -
+GLUTATHIONE REDUCTASE (E.C.1.6.4.2), OXIDIZED FORM (E)
+3-ISOPROPYLMALATE DEHYDROGENASE (E.C. 1.1.1.85)
+ISOCITRATE DEHYDROGENASE (E.C.1.1.1.42) (MUTANT WITH SER 113
+GLUTATHIONE SYNTHASE
+GLYCINAMIDE RIBONUCLEOTIDE TRANSFORMYLASE (EC 2.1.2.2)$HOLO-*D-*GLYCERALDEHYDE-3-PHOSPHATE DEHYDROGENASE
+LACTATE DEHYDROGENASE H=4= AND S-$LAC-/NAD$= = + COMPLEX
+CYTOPLASMIC MALATE DEHYDROGENASE (E.C.1.1.1.37)
+DIHYDROPTERIDINE REDUCTASE (DHPR) (E.C.1.6.99.10) COMPLEX
+3ALPHA,20BETA-*HYDROXYSTEROID DEHYDROGENASE (HOLO FORM)
+URIDINE DIPHOSPHOGALACTOSE 4-EPIMERASE (E.C.5.1.3.2)
+6-PHOSPHOGLUCONATE DEHYDROGENASE (6-PGDH)
+APO-LIVER ALCOHOL DEHYDROGENASE (E.C.1.1.99.8)
+HHAI DNA (CYTOSINE-C5-)-METHYLTRANSFERASE (E.C.2.1.1.37)
+3606 Nucleic Acids Research, 1994, Vol. 22, No. 17
+Table I. (cont.)
+family PDB code protein
+20 lpfkA
+20 2atcA
+20 lgdhA
+20 8abp
+20 ldri
+20 2gbp
+20 2liv
+20 3chy
+20 2fcr
+20 lfxl
+20 InipA
+20 letu
+20 5p21
+20 l_iminA
+20 lminB
+20 lJtgl
+20 2sc2
+20 2had
+20 lace
+20 Iltpt
+20 lulb
+20 3cpa
+20 Ilap
+20 __3adk
+20 lgky
+21 1184
+22 lbaa
+22 llhm
+23 4fisB
+24 lwrpR
+25 lsnc
+26 lbovA
+26 lltsD
+27 lphs
+28 2dpv
+28 _2bpal
+28 ltnfA
+28 __lbmv2
+28 lbbtl
+28 1r093
+28 2mevl
+28 2tbvB
+28 1r092
+28 2 2mev3
+28 _4sbvA
+28 Irmul
+28 lbmvl
+28 2bpa2
+28 2stv
+28 llte
+28 layh
+28 3hmgE
+29 lgsgP
+29 3tsl
+30 8catA
+30 Jlifb
+30 imup
+30 lrbp
+30 lbbpA
+31 lms2A
+3 1 _3bc1
+31 lomf
+3 1 2por
+32 3dpa
+32 .4ait
+33 Ithi
+34 lpcdA
+34 2pabB
+35 IhigA
+36 lcSa
+37 lppt
+PHOSPHOFRUCTOKINASE (E.C.2.7.1.11) (R-STATE) COMPLEX WITH
+ASPARTATE CARBAMOYLTRANSFERASE (ASPARTATE TRANSCARBAMYLASE)
+D-GLYCERATE DEHYDROGENASE (APO FORM) (E.C.1.1.1.29)
+L-*ARABINOSE-BINDING PROTEIN (MUTANT WITH MET 108 REPLACED
+D-RIBOSE-BINDING PROTEIN
+D-*GALACTOSE/D-*GLUCOSE BINDING PROTEIN (/GGBP$)
+LEUCINE(SLASH)*ISOLEUCINE(SLASH)*VALINE-BINDING PROTEIN
+CHE*Y
+FLAVODOXIN
+FLAVODOXIN
+NITROGENASE IRON PROTEIN
+ELONGATION FACTOR TU (DOMAIN I) - *GUANOSINE DIPHOSPHATE
+$C-*H-RAS $P21 PROTEIN (AMINO ACIDS 1 - 166) COMPLEX WITH
+NITROGENASE MOLYBDENUM-IRON PROTEIN
+NITROGENASE MOLYBDENUM-IRON PROTEIN
+TRIACYLGLYCEROL ACYLHYDROLASE (E.C.3. 1.1.3)
+SERINE CARBOXYPEPTIDASE II (E.C.3.4.16.1) (CPDW-II)
+HALOALKANE DEHALOGENASE ($P*H 6.2)
+ACETYLCHOLINESTERASE (E.C.3.1.1.7)
+THYMIDINE PHOSPHOYLASE (E.C.2.4.2.4)
+PURINE NUCLEOSIDE PHOSPHORYLASE (E.C.2.4.2.1) COMPLEX WITH
+CARBOXYPEPTIDASE A=ALPHA= (COX) (E.C.3.4.17.1) COMPLEX WITH
+LEUCINE AMINOPEPTIDASE (E.C.3.4. 11.1)
+ADENYLATE KINASE (E.C.2.7.4.3)
+GUANYLATE KINASE (E.C.2.7.4.8) COMPLEX WITH
+LYSOZYME (E.C.3.2.1.17) MUTANT WITH CYS 54 REPLACED BY THR,
+BARLEY ENDOCHITINASE (26 KD)
+LYSOZYME (E.C.3.2.1.17) (MUTANT WITH CYS 77 REPLACED BY ALA
+FIS PROTEIN (FACTOR FOR INVERSION STIMULATION) MUTANT
+$TRP REPRESSOR (TRIGONAL FORM)
+STAPHYLOCOCCAL NUCLEASE (E.C.3.1.31.1) COMPLEX WITH
+VEROTOXIN-1 (B-OLIGOMER), ALSO CALLED SHIGA-LIKE TOXIN-1
+HEAT-LABILE ENTEROTOXIN (LT); CHOLERA-LIKE TOXIN, AB5 TOXIN
+PHASEOLIN
+CANINE PARVOVIRUS, STRAIN D, VIRAL PROTEIN 2
+BACTERIOPHAGE PHIX174 CAPID PROTEINS GPF, GPG, GPJ AND
+TUMOR NECROSIS FACTOR-ALPHA (CACHECTIN)
+BEAN POD MOTTLE VIRUS (MIDDLE COMPONENT)
+FOOT AND MOUTH DISEASE VIRUS 0=1 =BFS 1860 (FMDVO= 1 =BFS)
+RHINOVIRUS 14 (/HRV$14) COMPLEX WITH ANTIVIRAL AGENT
+MENGO ENCEPHALOMYOCARDITIS VIRUS COAT PROTEIN
+TOMATO BUSHY STUNT VIRUS
+RHINOVIRUS 14 (/HRV$14) COMPLEX WITH ANTIVIRAL AGENT
+MENGO ENCEPHALOMYOCARDITIS VIRUS COAT PROTEIN
+SOUTHERN BEAN MOSAIC VIRUS COAT PROTEIN
+RHINOVIRUS 14 (/HRV$14) (MUTANT WITH CYS 1 199 REPLACED BY
+BEAN POD MOTTLE VIRUS (MIDDLE COMPONENT)
+BACTERIOPHAGE PHIX174 CAPID PROTEINS GPF, GPG, GPJ AND
+SATELLITE TOBACCO NECROSIS VIRUS
+LECTIN COMPLEX WITH LACTOSE
+HYBRID(l -3,1-4)-BETA-D-GLUCAN-4-GLUCANOHYDROLASE H(A16-M)
+HEMAGGLUTININ (/L226(A)Q$) (BROMELAIN DIGESTED) (MUTANT
+GLUTAMINYL-T/RNA$ SYNTHETASE (GLN/RS$) COMPLEX WITH
+TYROSYL-TRANSFER /RNA$ SYNTHETASE (E.C.6.1.1.1) COMPLEXED
+CATALASE (E.C.1.11.1.6)
+INTESTINAL FATTY ACID BINDING PROTEIN (APO FORM 1)
+MAJOR URINARY PROTEIN COMPLEX WITH 2-(SEC-BUTYL)
+RETINOL BINDING PROTEIN
+BILIN BINDING PROTEIN (/BBP$)
+/MS$2 VIRUS (BACTERIOPHAGE)
+BACTERIOCHLOROPHYLL-A PROTEIN
+MATRIX PORIN (OMPF)
+PORIN (CRYSTAL FORM B)
+PAP*D
+TENDAMISTAT (ENERGY MINIMIZED MODEL USING '/FANTOM$')
+THAUMATIN I
+PROTOCATECHUATE 3,4-*DIOXYGENASE (E.C.1.13.11.3)
+PREALBUMIN (HUMAN PLASMA)
+INTERFERON-GAMMA
+DES-ARG= =74= =-COMPLEMENT C5A
+AVIAN PANCREATIC POLYPEPTIDE
+Nucleic Acids Research, 1994, Vol. 22, No. 17 3607
+Table I. (cont.)
+family PDB code protein
+38 lpafA
+38 laaiA
+39 2il8A
+40 ldpi
+41 lpowA
+41 _ 3pgk
+42 itfi
+43 lInt
+43 _lrmbA
+43 1 sarA
+44 3fxc
+44 _ 2pia
+44 _lfnr
+45 lubq
+45 2gbl
+46 3gfl
+47 9insB
+48 llab
+49 lf3g
+50 lpda
+50 labg
+50 labh
+50 lomp
+51 4dfrB
+51 3dfr
+51 _2reb
+51 __3aat
+52 hlis
+53 3cp4
+54 2utgA
+55 4tms
+56 lpba
+57 imli
+57 .lnrcA
+57 laps
+57 __lndk
+57 ltbpA
+57 2glsA
+58 lpgi
+59 lmsbA
+60 2crd
+60 lgps
+61 3csc
+62 labd
+62 lfc2C
+63 laak
+64 lshaA
+64 I sryA
+64 lbia
+65 lcpcA
+65 lcpcB
+65 11h3
+65 lecd
+65 2mba
+65 lcohB
+65 lmbn
+65 IcolA
+66 igly
+67 IglaG
+67 latnA
+67 2yhx
+67 _lhsc
+68 lrnh
+68 lhmi
+69 lwsyB
+69 3pgm
+70 8atcB
+71 lmypC
+72 ltml
+72 3cbh
+72 lpyk
+POKEWEED ANTIVIRAL PROTEIN
+RICIN
+INTERLEUKIN 8 (IL-8) (NEUTROPHIL ACTIVATION PROTEIN) /NAP$
+/DNA$ POLYMERASE I (KLENOW FRAGMENT) (E.C.2.7.7.7) $D/CMP$
+PYRUVATE OXIDASE (E.C.1.2.3.3) (WILD TYPE)
+PHOSPHOGLYCERATE KINASE (E.C.2.7.2.3) COMPLEX WITH ATP,
+TRANSCRIPTIONAL ELONGATION FACTOR SII (TFIIS, NUCLEIC-ACID
+RIBONUCLEASE T= 1 =(E.C.3.1.27.3) ISOZYME-2(PRIME)-GUANYLIC
+BARNASE (G SPECIFIC ENDONUCLEASE) (E.C.3.4.21.15) COMPLEX
+RIBONUCLEASE SA (E.C.3.1.4.8)
+FERREDOXIN
+PHTHALATE DIOXYGENASE REDUCTASE (E.C. 1.18.1.)
+FERREDOXIN:/NADP= = + = =$ OXIDOREDUCTASE (FERREDOXIN REDUCTASE)
+UBIQUITIN
+PROTEIN G (Bi DOMAIN) (/NMR$, RESTRAINED MINIMIZED AVERAGED
+INSULIN-LIKE GROWTH FACTOR (NMR, 10 STRUCTURES)
+INSULIN
+LIPOYLATED DOMAIN (RESIDUES 1-80) OF THE LIPOAMIDE
+PHOSPHOCARRIER III= =GLC= = =FAST=
+PORPHOBILINOGEN DEAMINASE (HYDROXYMETHYL BILANE
+SULFATE-BINDING PROTEIN WITH SULFATE
+PHOSPHATE-BINDING PROTEIN COMPLEX WITH PHOSPHATE
+D-MALTODEXTRIN-BINDING PROTEIN
+DIHYDROFOLATE REDUCTASE (E.C.1.5.1.3) COMPLEX WITH
+DIHYDROFOLATE REDUCTASE (E.C.1.5.1.3) COMPLEX WITH NADPH AND
+REC*A PROTEIN
+ASPARTATE AMINOTRANSFERASE (E.C.2.6.1.1) (MUTANT WITH ARG
+LYSIN
+CYTOCHROME P450CAM (CAMPHOR MONOOXYGENASE) (E.C. 1.14.15.1)
+UTEROGLOBIN
+THYMIDYLATE SYNTHASE (E.C.2.1.1.45)
+PROCARBOXYPEPTIDASE *B (E.C.3.4.17.2) (ACTIVATION DOMAIN)
+MUCONOLACTONE ISOMERASE (E.C.5.3.3.4)
+PROTEIN FROM Ul SMALL NUCLEAR RIBONUCLEOPROTEIN (SNRNP UI)
+ACYLPHOSPHATASE (E.C.3.6.1.7) (NMR, 5 STRUCTURES)
+NUCLEOSIDE DIPHOSPHATE KINASE (E.C.2.7.4.6) MUTANT WITH
+TATA-BINDING PROTEIN (TBP, C-TERMINAL 179 AMINO ACIDS)
+GLUTAMINE SYNTHETASE (E.C.6.3.1.2)
+D-GLUCOSE 6-PHOSPHATE ISOMERASE (E.C.5.3.1.9)
+MANNOSE BINDING PROTEIN *A (LECTIN DOMAIN) COMPLEX WITH
+CHARYBDOTOXIN (NMR, 12 STRUCTURES)
+GAMMA-1-P THIONIN (NMR, 8 MODELS)
+CITRATE SYNTHASE (E.C.4.1.3.7)- L-MALATE - ACETYL
+ACYL-COENZYME A BINDING PROTEIN (ACBP)
+IMMUNOGLOBULIN FC AND FRAGMENT B OF PROTEIN A COMPLEX
+UBIQUITIN CONJUGATING ENZYME
+V-SRC TYROSINE KINASE TRANSFORMING PROTEIN (PHOSPHOTYROSINE
+SERYL-TRNA SYNTHETASE (E.C.6.1.1.11)
+BIOTIN OPERON REPRESSOR (BIRA) BIOTIN HOLOENZYME SYNTHETASE
+C-PHYCOCYANIN
+C-PHYCOCYANIN
+LEGHEMOGLOBIN (CYANO,MET)
+HEMOGLOBIN (ERYTHROCRUORIN, DEOXY)
+MYOGLOBIN
+ALPHA-FERROUS-CARBONMONOXY, BETA-COBALTOUS-DEOXY HEMOGLOBIN
+MYOGLOBIN (FERRIC IRON - METMYOGLOBIN)
+COLICIN *A (C-TERMINAL DOMAIN) (PORE-FORMING DOMAIN)
+GLUCOAMYLASE (GLUCAN 1,4-ALPHA-GLUCOSIDASE)
+GLYCEROL KINASE (ATP:GLYCEROL PHOSPHOTRANSFERASE
+DEOXYRIBONUCLEASE I COMPLEX WITH ACTIN
+YEAST HEXOKINASE B (E.C.2.7.1.1) COMPLEX WITH
+44 K /ATP$ASE FRAGMENT (N-TERMINAL) OF 70K HEAT-SHOCK COGNATE
+SELENOMETHIONYL RIBONUCLEASE H (E.C.3.1.26.4)
+HUMAN IMMUNODEFICIENCY VIRUS TYPE 1 REVERSE TRANSCRIPTASE
+TRYPTOPHAN SYNTHASE (E.C.4.2.1.20)
+PHOSPHOGLYCERATE MUTASE (E.C.2.7.5.3) DE-PHOSPHO ENZYME
+ASPARTATE CARBAMOYLTRANSFERASE (ASPARTATE TRANSCARBAMYLASE)
+MYELOPEROXIDASE (E.C. 1.11.1.7)
+ENDO-1,4-BETA-D-GLUCANASE (E.C.3.2.1.4)
+CELLOBIOHYDROLASE /II$ CORE PROTEIN (E.C.3.2.1.91) (/CBHII$)
+PYRUVATE KINASE (E.C.2.7.1.40)
+3608 Nucleic Acids Research, 1994, Vol. 22, No. 17
+cont.)
+PDB code
+lcgt
+lbtc
+lads
+lada
+lgox
+lpii
+4rubB
+lypiA
+2t2aaA
+2rusA
+lwsyA
+lald
+Imle
+5xiaB
+9apiA
+2act
+lhsp
+.lpnj
+lshg
+lhid
+_leaa
+22cla
+lhstA
+3gapA
+larrA
+lcmcB
+lprcC
+8rubS
+lcbp
+lpaz
+6pcy
+lnrd
+2azaA
+lsil
+6nn9
+lnsbB
+4tln
+llccA
+3croL
+llmbB
+lprcH
+latnD
+2ssi
+2fxb
+lcm
+2ca2
+lomb
+lcbh
+2kaiA
+4ptp
+larb
+lpO4A
+lsgt
+lcroA
+ltpm
+lixa
+4tgf
+-lepi
+lhc6
+lend
+2pmgB
+lprf
+3blm
+lrhd
+lpec
+lavr
+Sacn
+lrec
+scpA
+Scpv
+Stnc
+protein
+CYCLODEXTRIN GLYCOSYLTRANSFERASE (E.C.2.4.1.19)
+BETA-AMYLASE COMPLEXED WITH ALPHA-CYCLODEXTRIN, (ALPHA-I,
+ALDOSE REDUCTASE (E.C.1.1.1.21) COMPLEX WITH NADPH
+ADENOSINE DAMINASE (E.C.3.5.4.4) COMPLEX WITH
+GLYCOLATE OXIDASE (E.C.1.1.3.1)
+N-(5'PHOSPORIBOSYL)ANTHRANILATE ISOMERASE (E.C.5.3.1.6):
+RIBULOSE 1,5-BISPHOSPHATE CARBOXYLASE(SLASH)OXYGENASE
+TRIOSE PHOSPHATE ISOMERASE (/TIM$) (E.C.5.3. 1.1)
+TAKA-*AMYLASE A (E.C.3.2.1.1)
+RUBISCO (RIBULOSE-1,5-BISPHOSPHATE
+TRYPTOPHAN SYNTHASE (E.C.4.2.1.20)
+ALDOLASE *A (E.C.4.1.2.13)
+MUCONATE LACTONIZING ENZYME (CIS,CIS MUCONATE
+D-*XYLOSE ISOMERASE (E.C.5.3.1.5), XYLITOL COMPLEX
+MODIFIED ALPHA= 1 =-*ANTITRYPSIN
+ACTINIDIN (SULFHYDRYL PROTEINASE) (E.C.NUMBER NOT ASSIGNED)
+PHOSPHOLIPASE C$GAMMA (SH2 DOMAIN) (/NMR$, MINIMIZED MEAN
+PHOSPHATIDYLINOSITOL 3-KINASE (P85-ALPHA SUBUNIT,
+ALPHA SPECTRIN (SH3 DOMAIN)
+HISTIDINE-CONTAINING PHOSPHOCARRIER PROTEIN HPR (NMR)
+CATALYTIC DOMAIN (RESIDUES 384-637) OF DIHYDROLIPOYL
+CHLORAMPHENICOL ACETYLTRANSFERASE (E.C.2.3.1.28)
+HISTONE H5 (GLOBULAR DOMAIN)
+CATABOLITE GENE ACTIVATOR PROTEIN - CYCLIC /AMP$ COMPLEX
+ARC REPRESSOR
+E.COLI MET HOLOREPRESSOR (METJ)
+PHOTOSYNTHETIC REACTION CENTER
+RIBULOSE 1,5-BISPHOSPHATE CARBOXYLASE(SLASH)OXYGENASE
+CUCUMBER BASIC PROTEIN
+PSEUDOAZURIN (OXIDIZED CU + + AT $P*H 6.8)
+PLASTOCYANIN (CUl +,$P*H 3.8)
+NITRITE REDUCTASE (E.C.1.7.99.3)
+AZURIN (OXIDIZED)
+SIALIDASE (E.C.3.2.1.18) COMPLEX WITH 2-DEOXY-2,3-
+NEURAMINIDASE N9 (E.C.3.2.1.18) (SIALIDASE) (MUTANT WITH
+NEURAMINIDASE SIALIDASE (E.C.3.2.1.18)
+THERMOLYSIN (E.C.3.4.24.4) COMPLEX WITH
+LAC REPRESSOR ('HEADPIECE') COMPLEX WITH AN 11 BASE-PAIR
+434 CRO PROTEIN COMPLEX WITH 20 BASE PAIR PIECE OF /DNA$
+$LAMBDA REPRESSOR-OPERATOR COMPLEX
+PHOTOSYNTHETIC REACTION CENTER
+DEOXYRIBONUCLEASE I COMPLEX WITH ACTIN
+STREPTOMYCES SUBTILISIN INHIBITOR
+FERREDOXIN
+CRAMBIN
+CARBONIC ANHYDRASE /111$ (CARBONATE DEHYDRATASE) (/HCA 1I$)
+OMEGA-AGA-IVB (NMR, MINIMIZED AVERAGE STRUCTURE)
+C-TERMINAL DOMAIN OF CELLOBIOHYDROLASE I (/CT-CBH$ I)
+KALLIKREIN A (E.C.3.4.21.8) COMPLEX WITH BOVINE PANCREATIC
+BETA TRYPSIN, DIISOPROPYLPHOSPHORYL INHIBITED
+ACHROMOBACTER PROTEASE I
+ALPHA-LYTIC PROTEASE (E.C.3.4.21.12) COMPLEX WITH
+TRYPSIN (/SGT$) (E.C.3.4.21.4)
+CRO REPRESSOR
+TISSUE-TYPE PLASMINOGEN ACTIVATOR (TYPE 1 FIBRIN-BINDING
+EGF-LIKE MODULE OF HUMAN FACTOR IX
+DES-VAL= = ===,VAL= =2= =-TRANSFORMING GROWTH FACTOR ALPHA
+EPIDERMAL GROWTH FACTOR (EGF) IN PH 6.8 SOLUTION (/NMR$,
+ARTHROPODAN HEMOCYANIN (DEOXYGENATED) SUBUNIT 6 REFINED
+ENDONUCLEASE V
+PHOSPHOGLUCOMUTASE (E.C.2.7.5.1)
+PROFILIN IA
+BETA-*LACTAMASE (E.C.3.5.2.6)
+RHODANESE (E.C.2.8.1.1)
+PECTATE LYASE C (PLC) (E.C.4.2.2.2)
+ANNEXIN V (RHOMBOHEDRAL)
+ACONITASE (E.C.4.2.1.3) (INACTIVE (3FE-4S) CLUSTER FORM)
+RECOVERIN (CALCIUM SENSOR IN VISION)
+SARCOPLASMIC CALCIUM BINDING PROTEIN
+CALCIUM-BINDING PARVALBUMIN B
+TROPONIN-*C
+Table I. (i
+family
+72
+72
+72
+72
+72
+72
+72
+72
+72
+72
+72
+72
+72
+72
+73
+74
+75
+75
+75
+76
+76
+76
+77
+77
+78
+79
+80
+81
+82
+82
+82
+82
+82
+83
+83
+83
+84
+85
+85
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+94
+94
+94
+94
+95
+96
+97
+98
+98
+99
+100
+101
+102
+102
+103
+104
+105
+106
+107
+107
+107
+107
+Nucleic Acids Research, 1994, Vol. 22, No. 17 3609
+Table I. (cont.)
+family PDB code protein
+107 3icb
+108 ifas
+108 lcdtA
+108 3ebx
+109 lcms
+109 3er3E
+109 _lmvpA
+109 3hvp
+110 3sdpB
+111 lbds
+112 2ila
+112 laaiB
+112 ltie
+112 _ _ 4ilb
+113 2polA
+114 labk
+115 lrbbB
+116 lpyaB
+117 lbw3
+118 Imon
+119 lpyp
+120 lbbl
+121 IhieB
+121 .8apiB
+122 lpyaA
+123 2gn5
+124 ltgsl
+124 IchoI
+125 leps
+126 lfkf
+127 lerp
+128 lpi2
+129 lcpl
+130 lc2rA
+130 lycc
+130 l_Ic53
+130 451c
+130 lccS
+131 lltsA
+132 lcy3
+133 lhcc
+134 lmhu
+135 2mrt
+136 4sgbl
+137 8pti
+138 2mev4
+139 6hir
+140 7wgaB
+141 4cpal
+142 lisuA
+142 V2hipB
+CALCIUM-BINDING PROTEIN (VITAMIN D-DEPENDENT, MINOR A FORM)
+FASCICULIN 1
+CARDIOTOXIN V=4 /111$ (TOXIN /111$)
+ERABUTOXIN $B
+CHYMOSIN B (FORMERLY KNOWN AS RENNIN) (E.C.3.4.23.4)
+ENDOTHIA ASPARTIC PROTEINASE (ENDOTHIAPEPSIN)
+MYELOBLASTOSIS ASSOCIATED VIRAL PROTEASE (E.C.3.4.23)
+(/ABA$= =67,95= =)-/HIV$-1 PROTEASE (/SF2$ ISOLATE)
+IRON SUPEROXIDE DISMUTASE (E.C. 1.15.1.1)
+/BDS-I$ (/NMR$, MINIMIZED MEAN STRUCTURE)
+INTERLEUKIN-1*ALPHA (/IL$-1*ALPHA)
+RICIN
+ERYTHRINA TRYPSIN INHIBITOR (KUNITZ) DE-3
+INTERLEUKIN-1*BETA (/IL$-1*BETA)
+BETA SUBUNIT OF POL IH (E.C.2.7.7.7)
+ENDONUCLEASE III (E.C.3.1.25.1) (ACS REG 60184-90-9)
+RIBONUCLEASE B (E.C.3.1.27.5)
+PYRUVOYL-DEPENDENT HISTIDINE DECARBOXYLASE (L-HISTIDINE
+BARWIN, BASIC BARLEY SEED PROTEIN, HOMOLOGOUS TO THE
+MONELLIN
+INORGANIC PYROPHOSPHATASE (E.C.3.6. 1.1)
+E3-BINDING DOMAIN OF THE DIHYDROLIPOAMIDE
+HORSE LEUCOCYTE ELASTASE INHIBITOR (HLEI)
+MODIFIED ALPHA=1=-*ANTITRYPSIN
+PYRUVOYL-DEPENDENT HISTIDINE DECARBOXYLASE (L-HISTIDINE
+GENE 5 /DNA$ BINDING PROTEIN
+TRYPSINOGEN COMPLEX WITH PORCINE PANCREATIC SECRETORY
+ALPHA-CHYMOTRYPSIN (E.C.3.4.21.1) COMPLEX WITH TURKEY
+5-ENOL-PYRUVYL-3-PHOSPHATE SYNTHASE (E.C.2.5.1.9)
+/FK506$ BINDING PROTEIN (/FKBP$) COMPLEX WITH
+PHEROMONE ER-10 (NMR, 20 MODELS)
+BOWMAN-*BIRK PROTEINASE INHIBITOR /PI-ll$
+CYCLOPHILIN
+CYTOCHROME $C=2=
+CYTOCHROME C (ISOZYME 1) (REDUCED)
+CYTOCHROME C553
+CYTOCHROME $C=551 = (REDUCED)
+CYTOCHROME C=5= (OXIDIZED)
+HEAT-LABILE ENTEROTOXIN (LT); CHOLERA-LIKE TOXIN, AB5 TOXIN
+CYTOCHROME $C=3=
+16TH COMPLEMENT CONTROL PROTEIN (/CCP$) OF FACTOR H
+CD-7 METALLOTHIONEIN-2 (ALPHA DOMAIN) (/NMR$)
+CD-7 METALLOTHIONEIN-2 (BETA DOMAIN) (/NMR$)
+SERINE PROTEINASE B COMPLEX WITH THE POTATO INHIBITOR
+BOVINE PANCREATIC TRYPSIN INHIBITOR (/BPTI$) MUTANT (TYR 35
+MENGO ENCEPHALOMYOCARDITIS VIRUS COAT PROTEIN
+HIRUDIN (MUTANT WITH LYS 47 REPLACED BY GLU) (/K47E$)
+WHEAT GERM AGGLUTININ (ISOLECTIN 1)
+CARBOXYPEPTIDASE A=ALPHA= (COX) (E.C.3.4.17.1) COMPLEX WITH
+HIGH-POTENTIAL IRON-SULFUR PROTEIN (HIPIP)
+HIGH POTENTIAL IRON SULFUR PROTEIN (HI/PIP$)
+Structural classification of protein chains in the database of three-dimensional structures (PDB). The sequential index of the fold family is followed by PDB and
+chain identifiers and protein names of a family member. Family 1 has 2 members (lacx, lcobB), family 2 has 11 members (Iten, 2hhrB, ...) and so on. Indentation
+in the 'PDB code' column means that a protein belongs to the same family/subfamily as the protein above. The families are defined by cutting an average linkage
+clustering tree at a similarity level of 2 standard deviations above expected (Z = 2). Subfamilies are defined by cuts at similarity levels of Z = 3, 4, 5, 6 and
+10; more refined family divisions can be made at each level of similarity. For example, 3dpa and 4ait of family 32 are split in two separate families if the cut is
+made at Z = 3 rather than at Z = 2; lacx and lcobB (family 1) end up in different families if a cut is made at Z=5; 2hhmA and 3fbpB (family 10) stay together
+even at Z = 10. Only chains in the sequence-representative set (maximally 30% sequence identity) are reported here; higher than 30% sequence identity between
+homologous proteins implies, in general, structural similarity that would be far off the scale to the right.

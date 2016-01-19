@@ -1,0 +1,1076 @@
+Nanoliter high throughput quantitative PCR
+Tom Morrison, James Hurley, Javier Garcia, Karl Yoder, Arrin Katz, Douglas Roberts,
+Jamie Cho, Tanya Kanigan, Sergey E. Ilyin1, Daniel Horowitz1, James M. Dixon1 and
+Colin J.H. Brenan*
+BioTrove Inc., 12 Gill Street, Suite 4000, Woburn, MA 01810, USA and 1Johnson & Johnson Pharmaceutical
+Research & Development, LLC, Spring House, PA 19477, USA
+Received June 15, 2006; Revised and Accepted August 16, 2006
+ABSTRACT
+Understanding biological complexity arising from
+patterns of gene expression requires accurate and
+precise measurement of RNA levels across large
+numbers of genes simultaneously. Real time PCR
+(RT-PCR) in a microtiter plate is the preferred
+method for quantitative transcriptional analysis but
+scaling RT-PCR to higher throughputs in this fluidic
+format is intrinsically limited by cost and logistic
+considerations. Hybridization microarrays measure
+the transcription of many thousands of genes
+simultaneously yet are limited by low sensitivity,
+dynamic range, accuracy and sample throughput.
+The hybrid approach described here combines the
+superior accuracy, precision and dynamic range of
+RT-PCR with the parallelism of a microarray in an
+array of 3072 real time, 33 nl polymerase chain
+reactions (RT-PCRs) the size of a microscope slide.
+RT-PCR is demonstrated with an accuracy and
+precision equivalent to the same assay in a 384-
+well microplate but in a 64-fold smaller reaction
+volume, a 24-fold higher analytical throughput and a
+workflow compatible with standard microplate
+protocols.
+INTRODUCTION
+Central to research into cell survival, growth and differentia-
+tion in normal and diseased states is the ability to quantify
+altered patterns of gene expression. Oligonucleotide (1,2)
+and cDNA (3) hybridization microarrays have emerged as
+the leading quantitative tool for analyzing transcription of
+many thousands of genes in a sample simultaneously (4)
+yet have known limitations in analytical performance and
+sample throughput (5–7). Real time or quantitative poly-
+merase chain reaction (qPCR) (8) is the superior alternative
+because of its high accuracy, precision and dynamic range
+and, as a consequence, is the reference assay for calibration
+and validation of microarray data (9). However, scaling
+qPCR to analyze larger numbers of genes and samples
+simultaneously is intrinsically prohibited by the logistics
+and cost of the assay in its current microliter format in
+96- or 384-well microplates.
+High throughput PCR strategies have focused on smaller
+reaction volumes and follow one of two fluidics methods.
+Fast sequential analysis is exemplified by monolithic,
+functionally integrated lab-on-a-chip devices that flow a sam-
+ple bolus through fixed temperature zones of a microma-
+chined channel for target sequence PCR amplification,
+followed by sequence specific capture by hybridization and
+electrochemical detection (10), fluorescence detection (11)
+or electrophoretic separation with fluorescent detection (12).
+With quantitative performance similar to a microarray, detec-
+tion sensitivity is further constrained by sample throughput
+and the increased potential for cross-contamination from
+processing samples in a common microchannel.
+Many of these problems are mitigated in a parallel fluidics
+approach. Miniaturized versions of microplates based on
+high-density arrays of wells etched in a planar substrate is
+the basis for nanoliter- (13–16) or picoliter-scale PCR (17)
+in an array format. Other embodiments include PCR in
+microdroplets on a patterned hydrophobic–hydrophilic sur-
+face (18) or in a 2D array of communicating microchannels
+(19–21). Reports of quantitative nucleic acid measurement
+in these devices have focused on limiting dilution schemes
+(22–24), which is clearly not high-throughput. Achieving
+high areal densities of physically independent reaction con-
+tainers (>4/mm2) requires stringent fluidic isolation between
+adjacent containers and a high degree of environmental con-
+trol to prevent cross-contamination and evaporative loss
+during temperature cycling. Despite these challenges, parallel
+micro- or nanofluidics offers throughput advantages by
+thermal cycling and imaging many reactions at once to
+quantify target copy number in multiple genes and samples,
+simultaneously. Imaging reactions in parallel allows for
+longer integration times, improves detected signal-to-noise
+ratios and benefits PCR specificity and sensitivity by requir-
+ing fewer temperature cycles to detect a given target copy
+number. Shorter cycle times are facilitated by rapid heat
+transfer across proportionally larger surface areas as the
+reaction volume is reduced.
+*To whom correspondence should be addressed. Tel: +1 781 721 3615; Fax: +1 781 721 3601; Email: cbrenan@biotrove.com
+ 2006 The Author(s).
+This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License (http://creativecommons.org/licenses/
+by-nc/2.0/uk/) which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.
+Published online 25 September 2006 Nucleic Acids Research, 2006, Vol. 34, No. 18 e123
+doi:10.1093/nar/gkl639
+ at Pennsylvania State U
+niversity on M
+arch 1, 2014
+http://nar.oxfordjournals.org/
+D
+ow
+nloaded from
+ 
+Intuitively, an approach to high-throughput qPCR
+grounded in a high-density array of nanoliter reactions is
+attractive because it combines the high precision, accuracy
+and dynamic range of qPCR with the parallelism of a
+microarray for simultaneous quantification of gene expression
+across multiple genes and samples. For this to occur, two
+challenges need to be overcome. The first is creation of a
+simple interface for precise and accurate transfer of liquids
+between the wells of a microplate to those of a nanoplate.
+The second is achieving the accuracy, precision and sensitiv-
+ity demanded by qPCR in a 96- or 384-well microplate but in
+a substantially reduced reaction volume. Discovery of a facile
+interface for speedy transfer of liquids between micro- and
+nanoplates and identifying a robust approach to ensure
+qPCR assay performance at the nanoliter-scale has been at
+the leading edge of our development efforts.
+We have solved these problems with an approach based on
+through-hole arrays (25–27). Effectively thought of as a high-
+density version of a microplate, our nanoplates combine the
+high-throughput and reagent savings of a nanofluidic system
+with the macroscale performance of qPCR in microplates. A
+stainless steel (317 stainless steel) platen the size of a micro-
+scope slide (25 mm · 75 mm · 0.3 mm) is photolithographi-
+cally patterned and etched to form a rectilinear array of 3072,
+320 mm diameter through-holes. The through-holes are
+grouped in 48 subarrays of 64 holes each and spaced on a
+4.5 mm pitch equal to that of wells in a 384-well microplate
+(Figure 1). A series of vapor and liquid deposition steps
+covalently attaches a PCR compatible polyethylene glycol
+(PEG) hydrophilic layer amine-coupled to the interior surface
+of each through-hole, and a hydrophobic fluoroalkyl layer
+to the exterior surface of the platen. The differential
+hydrophilic–hydrophobic coating facilitates precise loading
+and isolated retention of fluid in each channel. Primer pairs
+stored in 384-well microplates are transferred into individual
+through-holes by an array of 48 slotted pins manipulated by a
+4-axis robot (XYZ) in an environmentally controlled cham-
+ber to prevent evaporative loss during loading. Once a platen
+is fully populated with primer pairs, the solvent is evaporated
+in a controlled manner leaving the primers immobilized in a
+PEG matrix on the inside surface of each through-hole. The
+array loaded with primer is stored in an evacuated Mylar
+bag at 20C, ready for sample addition.
+Up to 48 different, previously prepared cDNA samples at a
+concentration of 32 ng/ml are mixed with off-the-shelf qPCR
+reagents for SYBR Green PCR (see Materials and Methods;
+PCR Mix) and dispensed into each sub-array (one sample per
+sub-array) with an automated 48 pipette tip dispensing
+device. A slotted cassette for holding the platen is assembled
+by sandwiching a U-shaped glass-reinforced epoxy polymer
+spacer between two microscope slides patterned with an opa-
+que ink to optically mask background autofluorescence from
+the spacer. A degassed, immiscible perfluorinated liquid
+(Fluorinert) is dispensed into the cassette, the platen
+inserted and the assembly hermetically sealed with a plug
+of ultraviolet (UV) curable epoxy.
+Real time PCR (RT-PCR) occurs in a computer-controlled
+imaging thermal cycler whose essential components are
+two pairs of off-axis, high energy light emitting diode
+(LED) excitation sources, a thermoelectric flat block
+holding up to three encased arrays, two emission filters in a
+computer-controlled filter wheel and a thermoelectrically-
+cooled CCD camera. Under software control, the real time
+method for 9216 PCR amplifications and dissociation curves
+is implemented in <4 h. Post-acquisition data processing
+generates fluorescence amplification and melt curves for
+each through-hole in the array, from which cycle threshold
+(CT) and melt temperature (Tm) are computed. All data are
+stored in a flat file (*.csv) format for ready export to a
+database or third party software for further analysis.
+MATERIALS AND METHODS
+Through-hole array fabrication
+Sheets comprised of 12 arrays attached by thin tabs to a sup-
+port frame were purchased from Tech-Etch Inc. (Plymouth,
+MA). The arrays are fabricated by double-sided wet-etching
+of a photolithographically-patterned 300 mm sheet of
+317 stainless steel resulting in the hole pattern shown in
+Figure 1. The sheets are cleaned for 2 h in 10% RBS
+35 (Pierce) at 50C, rinsed in reverse osmosis de-ionized
+(RODI) salt water and dried with a stream of dry
+nitrogen gas. A vinyl-terminated silane monolayer
+(7-octenyltrimethoxysilane, Gelest) is vapor deposited [5 h,
+100C in a vacuum oven (VWR)] followed by a 30 min
+NH3(g) cure.
+Next, the vinyl groups inside the through-holes are selec-
+tively oxidized by first immersing the sheet in a 1l bath of
+ethanol to overcome the surface tension of the hydrophobic
+coating followed by immersion in 1L of RODI water. The
+sheet is next slowly passed through a layer of 30 ml of an
+oxidation solution (5 mM KMnO4 and 19.5 mM NaIO4) float-
+ing on 1l of Fluorinert (FC3283), incubated for 2 h, rinsed
+in RODI water and dried in a stream of dry nitrogen gas.
+Array crosssection
+4.5 mm
+Hydrophobic exterior
+Hydrophilic interior
+33 nL reaction
+volume
+Figure 1. A stainless steel platen (317 stainless steel) the size of a microscope
+slide (25 mm · 75 mm · 0.3 mm) is photolithographically patterned and wet
+etched to form a rectilinear array of 3072 micro-machined, 320 mm diameter
+holes of 33 nl each. The 48 groups of 64 holes are spaced at 4.5 mm to match
+the pitch of the wells in a 384-well microplate. A PCR compatible PEG
+hydrophilic layer is amine-coupled to the interior surface of each hole and a
+hydrophobic fluoroalkyl layer is vinyl-coupled to the exterior surface of the
+platen, resulting in the retention in individual, isolated containers of PCR
+reagents and sample introduced onto the array.
+e123 Nucleic Acids Research, 2006, Vol. 34, No. 18 PAGE 2 OF 9
+ at Pennsylvania State U
+niversity on M
+arch 1, 2014
+http://nar.oxfordjournals.org/
+D
+ow
+nloaded from
+ 
+After oxidation, a hydrophilic PEG layer is deposited inside
+the through-holes by repeating the previous steps except
+replacing the oxidation solution with 30 ml of 15 mg/ml
+EDC (Pierce) and 5 mg/ml PEG 5000 (Nektar-Synasia) in
+HEPES buffer (pH 7.5). After incubation for 2 h, the sheet
+is removed and dried overnight at 100C under vacuum. A
+second hydrophobic layer is added by vapor deposition of
+heptadecafluorotriethoxysilane (Gelest) for 2 h, 150C in a
+vacuum oven followed by a 30 min cure with NH3(g).
+Finally, the array sheets are rinsed in RODI water to remove
+the physisorbed PEG layer, thus exposing the underlying
+covalently linked hydrophilic PEG.
+cDNA preparation
+RNA samples were converted to randomly primed first strand
+cDNA using High Capacity cDNA Archive Kit (Applied
+BioSystems, Foster City, CA). To reduce non-specific prod-
+uct formation during qPCR, the cDNA sample was heated
+to 75C for 10 min to inactivate the reverse transcriptase;
+snap chilled on ice for 5 min, then treated 1 h with
+1.3 U/ml Exonuclease I (Amersham Biosciences, Piscataway,
+NJ). The Exonuclease I is heat inactivated at 85C for 10 min
+and the resulting cDNA solution is stored at 20C.
+PCR mix
+The PCR master mix consists of 1· LightCycler FastStart
+DNA Master SYBR Green I (Roche Applied Science, Indi-
+anapolis, IN), 0.2% (w/v) Pluronic F-68 (Gibco, Carlsbad,
+CA), 1 mg/ml BSA (Sigma–Aldrich, St. Louis, MO),
+1:4000 SYBR Green I (Sigma–Aldrich), 0.5% (v/v) Glycerol
+(Sigma–Aldrich), 8% (v/v) Formamide (Sigma–Aldrich) and
+sample. For each kinase test of 507 assays, 66 ml of reaction
+mix was required.
+Primer design
+Kinase genes were selected based on their classification in
+Gene Ontology (www.geneontology.org) and their presence
+in the RefSeq database (www.ncbi.nlm.nih.gov/RefSeq).
+Primer pairs biased towards the 30 end of these genes were
+obtained from either PrimerBank (28) and http://pga.mgh.
+harvard.edu/primerbank or designed using Primer3 [http://
+frodo.wi.mit.edu/cgi-bin/primer3_www.cgi]. Primers were
+ordered from a commercial supplier (Sigma-Genosys, www.
+sigma-genosys.com) and their performance was validated
+with the following process. An ABI 7900 (Applied BioSys-
+tems Inc., Foster City, CA) was used to test if each primer
+set run against either five tissue cDNA library (qPCR
+Human Reference cDNA, BD BioSciences, Franklin Lakes,
+NJ) or 37 tissue cDNA library (BD Quick-Clone II Human
+Universal cDNA, BD BioSciences, Franklin Lakes, NJ)
+could generate a product rising above 0.2 DRn. Amplicon
+mobility in 4% agarose E-gels (Invitrogen, Carlsbad, CA)
+was measured from images captured with a gel imager
+(AlphaImager, AlphaInnotech, San Leandro, CA) and pro-
+cessed by software (Quantity One 1-D Analysis Software;
+BioRad, Hercules, CA) to confirm the primer set made a
+product within 10% of the predicted length. Amplicons
+generated from primer pairs passing the above criteria were
+pooled and gel purified to remove fragments <80 and >400
+bp in size. This pool was used as a source of template in
+subsequent PCR array validation experiments. All amplicons
+were sequenced; 70% matched all or part of the expected
+target sequence while although the remainder could not be
+confirmed by sequencing, these amplicons nonetheless
+matched the expected size of the predicted amplified product.
+Primer validation
+The primer concentration where each primer set fails to
+produce a product in the PCR array was determined. The
+working primer concentration was adjusted to 8-fold above
+this concentration to ensure that small quantities of primer
+carryover between holes during sample loading will reduce
+interference with PCR in adjacent holes. Assays were demon-
+strated to have at least a 95% confidence of detecting 4-fold
+change at >100 copies by first measuring a <0.5 CT STD
+across greater than five replicates and then demonstrating a
+DCT shift of 2 +/1 cycle for a sample diluted 4-fold. The
+template for these experiments was the pooled amplicon
+template in 1 ng total RNA equivalent randomly primed
+liver cDNA, with an average of 200 +/100 starting copy
+number. A pass rate of 60% was observed with this validation
+process.
+Real time thermal cycler protocol
+The PCR array thermal cycling protocol consisted of 10 min,
+92C polymerase activation step followed by 35 cycles of 15 s
+@ 92C, 1 min @ 55C and 1 min @ 72C (imaging step).
+Following amplification, amplicon dissociation was measured
+by cooling the PCR array to 65C then slowly heated to
+92C @ 1/min, with images collected every 0.25C.
+Human umbilical vein endothelial cells (HUVEC
+sample preparation
+Pooled HUVEC and Endothelial Cell Medium-2
+(EGM(tm)-2) were purchased from CAMBREX BIO SCI-
+ENCE (Walksersville, MD). Recombinant Human TNF-a
+(10 ng/ml in EGM-2), purchased from R & D Systems
+Inc. (Minneapolis, MN) was added to HUVEC cultures that
+were 50% confluent in T150 tissue culture flasks. Cultures
+were incubated for 4 h at 37C, 5% CO2. Medium was removed
+and 2.5 ml of TRI Reagent
+ (Molecular Research Center) was
+added to lyse cells. RNA was purified using an RNeasy Mini
+Kit (Qiagen Inc.) and reverse transcription was done using a
+High Capacity cDNA Archive Kit (Applied Biosystems).
+Samples were treated with Exonuclease I (10 U/ml)
+(Amersham Biosciences).
+RESULTS
+Baseline qPCR performance: uniformity, precision,
+accuracy, sensitivity and dynamic range
+To examine amplification uniformity, three arrays were
+uniformly loaded with PCR mastermix, CycA primer pairs
+and amplicon, resulting in an average of 500 starting copies
+of amplicon per through-hole. OD260 of purified amplicon
+was used to independently confirm the number of starting
+copies per hole. An image generated by subtracting pixel
+values of the first and 19th cycling image (Figure 2A)
+provides a visualization of amplicon replication in each
+PAGE 3 OF 9 Nucleic Acids Research, 2006, Vol. 34, No. 18 e123
+ at Pennsylvania State U
+niversity on M
+arch 1, 2014
+http://nar.oxfordjournals.org/
+D
+ow
+nloaded from
+ 
+through-hole of the array. Dark holes resulting from a sample
+loading failure are detected by the absence of SYBR Green
+fluorescence. Fluidics errors are typically <2% and are stoch-
+astically distributed amongst the through-holes as failed
+PCRs (Figure 2B). The dimmer holes along the first and
+last column of the array image are not from reduced yield
+of PCR product but rather from reduced SYBR fluorescence
+intensity from non-uniformities in LED excitation, imaging
+field of view and slight variations in optical path at the refrac-
+tive index boundaries across the array. These fluorescent
+signal differences (6% CV, data not shown) are corrected
+for in the instrument calibration. Residual optical differences
+are taken into account by fluorescent baseline normalization
+of the amplification curve for each through-hole prior to
+crossing threshold (CT) calculation. The mean CT for
+500 starting copies is 15.3 cycles, on average about 11 cycles
+earlier than microplate-based qPCR systems. The CT shift
+results from a higher concentration of amplified products
+expected for PCR at reduced volumes (22) and an improved
+CT calling algorithm we developed by combining baseline
+intercept with numerical modeling of the exponential ampli-
+fication phase. The instrument precision at 500 starting copies
+was +/0.16 CT (or <12% CV on copy number), estimated
+from the CT STD for >9100 amplification reactions
+(Figure 2D). The CT distribution (Figure 2C) follows a
+Gaussian distribution slightly skewed towards delayed
+(higher) CT and with 0.6% of the through-holes having outlier
+CTs > 3 STD from the mean. While the CT map (Figure 2B)
+indicates a small CT gradient spanning 0.32 cycles diagonally
+from the middle of the array, outliers map stochastically (data
+not shown). We speculate that the reduced PCR efficiency of
+the outlier population may arise from random micro-scale
+defects of the interior polymer surface coating and/or
+contamination by random interfering particulates, but their
+impact on data quality is substantially reduced with replicate
+assays.
+PCR array thermal uniformity was examined by melt curve
+analysis of the amplicon products shown in Figure 3. Follow-
+ing PCR, the array temperature was equilibrated to 65C,
+slowly ramped to 92C at 1C per minute, and SYBR
+Green fluorescence images were collected every 0.25C to
+record SYBR Green dye quenching on amplicon dissociation.
+The product melt temperature, Tm, for each through-hole is
+derived as the maximum of dF/dT, where T is the array
+temperature and F is the fluorescence emission from a
+through-hole at each temperature (29). The Tm distribution
+across the PCR array (Figure 3A) indicates the array center
+was 1 cooler than at its edge. The Tm computed across
+three arrays produced a similar Tm distribution (Figure 3B)
+and mean Tm, with an array-to-array Tm STD equal to
+±0.28C (Figure 3C).
+The dynamic range and accuracy of the instrument was mea-
+sured by performing RT-PCR on a CycA amplicon titration.
+Figure 4A depicts 12 replicate amplification profiles for each
+log dilution, ranging from 107 to 1 starting copies per hole
+and a no template control. The high quality curves showed
+>150-fold signal-to-noise, and >4 cycles exponential-phase
+amplification. The CT computed from these curves were linear
+A. B.
+D.
+0
+500
+1000
+1500
+2000
+2500
+14
+.5
+15
+.0
+15
+.5
+16
+.0
+16
+.5
+17
+.0
+CT
+Fr
+eq
+ue
+nc
+y f
+ro
+m
+ A
+rr
+ay
+s 1
+-3
+Arrays 1-3 Array 1 Array 2 Array 3
+CT Average 15.3 15.3 15.3 15.4
+CT STD 0.16 0.13 0.18 0.16
+% Failed PCR 1.1 0.4 1.3 1.5
+% > 3 STD 0.6 0.4 0.7 0.7
+CT STD No Outliers 0.13 0.12 0.13 0.14
+C.
+Figure 2. Three through-hole arrays were loaded with PCR reagents containing 500 starting templates per hole and subjected to 32 cycles of PCR. The amplicon
+product image (A) was generated by pixel-by-pixel subtraction of cycle image 1 from 19 for Array 1. The CT color map for Array 1 (B) indicates holes within CT
+1 STD from average (white), CT < average 1 STD (blue), CT > average +1 STD (red) and failed reactions (yellow). CT distribution plot (C) for all three arrays,
+and performance specifications table (D) for each array analyzed either independently or combined, summarize the instrumentation uniformity results.
+e123 Nucleic Acids Research, 2006, Vol. 34, No. 18 PAGE 4 OF 9
+ at Pennsylvania State U
+niversity on M
+arch 1, 2014
+http://nar.oxfordjournals.org/
+D
+ow
+nloaded from
+ 
+over 6 log amplicon concentrations (Figure 4B, R2¼ 0.99), and
+near perfect amplification efficiency based on slope of CT
+versus log starting copy plot. The precision for measurements
+>1000 starting copies was equivalent to the earlier PCR
+uniformity experiment, averaging around 0.17 STD CT. The
+no template control had no detectable product, indicating
+carryover between subarrays is below the limit of detection.
+Sensitivity can be estimated by measuring the frequency of
+PCR positive reactions near the limit of assay detection. The
+decreasing precision below 1000 copies appears to follow the
+noise contribution based on the Poisson effect (Figure 4B).
+Holes predicted to have an average of a single starting copy
+produced 49 of 64 positive assays (77%); reasonably close
+to the 63% predicted by Poisson statistics. Taken together,
+the through-hole array demonstrated single copy sensitivity.
+Additional thermal cycling of these arrays show no increase
+in assay positive holes, indicating that there is no intra
+subarray carryover of primers at the level of single copy
+sensitivity.
+qPCR measurement of differential expression of human
+kinase genes between human heart and human liver
+RNA samples
+To assess the performance of the system with a biologically
+relevant example, an array was constructed with primer pairs
+targeting expression of 508 human kinases, 13 endogenous
+(housekeeping) controls in quadruplicate and 208 negative
+controls for analyzing four samples per array (see Materials
+and Methods, Primer Validation). Normal human heart and
+liver RNA from a commercial source was reverse transcribed
+into cDNA equivalent and divided into two aliquots of 0.25
+and 1 ng cDNA per through-hole. The pipette sample loader
+transferred sample mixed with PCR mastermix into arrays
+pre-loaded with the assay primer sets and the arrays were
+processed according to the real time procedure described in
+the Methods section.
+Correlation of CT technical replicates for the heart
+(Figure 5A) and liver (Figure 5B) samples at 1 and 0.25 ng
+of cDNA per through-hole shows high assay precision and
+accuracy across a large dynamic range of responses. With
+1 ng cDNA per through-hole, 78% of the assays for the
+heart sample have STD <0.5 while for liver, 72% of the
+assays had this precision or better (Figure 5C). Assay accu-
+racy was estimated from computing the mean CT difference
+between two different cDNA concentrations for the heart
+and liver samples. A histogram of DCT for all assays in
+both tissues shows a median CT of 1.8 ± 0.48 for heart and
+1.7 ± 0.61 for the liver sample, indicative of a 4-fold change
+in cDNA concentration. Negative controls in each subarray
+A
+Arrays 1-3 Array 1 Array 2 Array 3
+TM Average 80.7 80.8 80.8 80.7
+Tm STD 0.28 0.26 0.32 0.23
+0
+200
+400
+600
+800
+1000
+1200
+1400
+1600
+79
+.5
+79
+.7
+79
+.9
+80
+.1
+80
+.3
+80
+.5
+80
+.7
+80
+.9
+81
+.1
+81
+.3
+81
+.5
+Melting Point (C)
+Fr
+eq
+ue
+nc
+y
+B
+C.
+79.5 80 80.5 81
+Figure 3. Following 32 cycles of PCR, the arrays in Figure 2 were cooled
+to 65C then slowly heated to 92C at 1 C/min. A dissociation curve
+(F versus T) and Tm [(dF/dT)max] was calculated for each sample from
+fluorescent images collected every 0.25C. The heat map (A) for Array 1
+indicates Tm spanning 79.5
+C (yellow) to 81.3C (light blue). Plot
+(B) indicates the Tm distribution for all three arrays and Table (C) breaks
+down the Tm performance either independently or combined.
+A. B.
+0
+5
+10
+15
+20
+25
+30
+0 2 4 6
+Log Starting Copies
+A
+ve
+ra
+ge
+ C
+T
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+ST
+D 
+CT
+3.0
+3.2
+3.4
+3.6
+3.8
+4.0
+4.2
+4.4
+0 10 20 30
+Lo
+g 
+SY
+BR
+ F
+lu
+or
+es
+ce
+nc
+e
+1 3 5 7
+y = -3.3x + 25.2
+R2 = 0.99
+Cycles
+Figure 4. qPCR Titration Curve. (A) depicts cycle-by-cycle log SYBR fluorescence of each through hole colored according to average starting amplicon copy
+per hole [107 to 1 plus no template control (gray), 12 of the 64 replicates depicted]. (B) indicates average CT (open circles) and STD CT (filled circles) plotted
+against log starting copies (n ¼ 64); line formula and Pearsons Coefficient were calculated from dashed CT curve. Predicted Poisson noise is indicated by the
+solid curve.
+PAGE 5 OF 9 Nucleic Acids Research, 2006, Vol. 34, No. 18 e123
+ at Pennsylvania State U
+niversity on M
+arch 1, 2014
+http://nar.oxfordjournals.org/
+D
+ow
+nloaded from
+ 
+showed no detectable carry-over between through-holes
+(0/1728 negative controls).
+Differential gene expression between the heart and liver
+samples at 1 ng cDNA per through-hole was determined by
+comparing the difference in mean CTs for each gene in the
+liver and heart assay populations (Figure 6A). Positive assays
+for which an accurate CT could be measured passed the fol-
+lowing criteria: (i) the amplicon product was detected and
+confirmed by melt curve analysis; (ii) target expression
+greater than single copy in both tissues (CT < 25) and (iii)
+each assay had a technical replicate >2. Eighty-three assays
+were rejected based on these criteria and the remaining 442
+positive assays were normalized relative to the geometric
+mean of the same 13 housekeeping genes for each tissue.
+Two subpopulations are observed when the difference in
+expression for the same gene is compared between the two
+tissues: (i) tissue-specific expression where the gene
+expressed at less than 10 copies in one tissue but not the
+other and (ii) the gene expressed in both tissues with an abun-
+dance >10 copies but there is a significant difference in
+expression between the tissues based on Student’s t-test
+(two-tailed distribution and two-sample unequal variance)
+with a P-value <0.005. Segmentation of the assay population
+based on these criteria is not surprising given the physiolo-
+gical differences between heart and liver tissue, even for
+common functional pathways.
+Consider the well-studied glycolysis pathway as a point
+of comparison where multiple kinases play fundamental
+roles in the multi-step oxidation of glucose to pyruvate and
+ATP (30). The first step in this process is ATP-dependent
+phosphorylation of glucose to the intermediate glucose-6-
+phosphate by the liver-specific hexokinase isozyme gluco-
+kinase (GCK; NM_000162). We detected insignificant
+expression levels in the heart sample (<1 copy) compared
+with substantially higher levels in the liver sample
+(>200 000-fold higher). A similar pattern of tissue-specific
+expression was recorded for the liver (PFKL; NM_002626)
+and muscle (PFKM; NM_000289) isoforms of phospho-
+fructose kinase; and the muscle (PKLR; NM_000298) and
+liver (PKM2; NM_002654) isoforms of pyruvate kinase.
+In contrast, PGK1 (NM_000291), one of two isoforms of
+phosphoglycerate kinase, shows a small yet significant
+difference in expression between the heart and liver
+sample (4.7-fold; P ¼ 6 · 107) yet is expressed at high
+0
+10
+20
+30
+40
+50
+60
+70
+80
+90
+0.0 0.4 0.8 1.2 1.6 2.0 2.4 2.8 3.v 3.6 4.0
+10
+15
+20
+25
+30
+10 15 20 25 30
+CT
+ (H
+ea
+rt 
+Re
+pli
+ca
+te 
+2)
+10
+15
+20
+25
+30
+10 15 20 25 30
+CT
+ (L
+ive
+r R
+ep
+lic
+ate
+ 2)
+A.
+C. D.
+0.00%
+20.00%
+40.00%
+60.00%
+80.00%
+100.00%
+0.01 0.1 1 10
+STD CT
+CD
+F
+Heart
+B.
+CT (Heart Replicate 1) CT (Liver Replicate 1)
+Liver F
+re
+qu
+en
+cy
+dCT
+Figure 5. Human heart and liver differential kinase gene expression. A Gene Ontology database was used to select 507 human kinase genes along with 13
+housekeeping genes. Primers were designed, loaded into a through-hole array and SYBR Green PCR was used to measure transcript levels of normal human liver
+(B) or heart (A) samples. Replicate 1 samples were at 1 ng/hole, whereas replicate 2 samples were at either 1 ng/hole (filled circles) or 0.25 ng/hole (open
+circles). The solid diagonal lines represent 1:1 correlation for 1 ng cDNA/through-hole, and the dashed line the 1:1 correlation for 0.25 ng cDNA/through-hole.
+The cumulative distribution of assay standard deviation at 1 ng/hole for both liver and heart samples (C) shows over 70% of the assays have a precision <0.5. DCT
+for the difference in sample assay pair (Replicate 2–Replicate 1) is represented in histogram (D), liver indicated by unfilled bars and heart indicated by filled bars.
+e123 Nucleic Acids Research, 2006, Vol. 34, No. 18 PAGE 6 OF 9
+ at Pennsylvania State U
+niversity on M
+arch 1, 2014
+http://nar.oxfordjournals.org/
+D
+ow
+nloaded from
+ 
+levels in both tissues, indicative of its known ubiquitous
+expression. Expression of the second isoform, PGK2
+(NM_138733), was not detected in either sample; this is
+not surprising given that PGK2 is only expressed in
+meiotic spermatocytes and postmeiotic spermatids during
+spermatogenesis (31).
+To externally validate assay predictions, 21 assays showing
+higher, equal and lower expression in liver than heart were
+run in a microplate on a real time thermal cycler (ABI
+7900). The resulting measurements showed a high degree
+of concordance with the PCR array results (R2 ¼ 0.98) with
+equivalent precision (Figure 6B).
+qPCR measurement of differentially expressed genes in
+TNF-a stimulated NK-b pathway
+HUVEC TNF-a response was examined using both a kinase
+array and a custom array. The custom array contained 26
+TNF response pathway assays selected from a library of
+2800 validated primer pairs (see Materials and Methods; Pri-
+mer Validation). The layout of the custom array allows 48
+samples per PCR array and the data analysis was similar to
+the heart-liver comparison. Figure 7A depicts the DCT
+between the TNF-a treated and vehicle treated HUVEC
+ 
+ 
+A
+M
+ea
+n 
+Li
+ve
+r  
+∆
+ 
+∆C
+T
+-5
+20
+20
+-5
+10
+10
+Mean Heart  ∆CT
+B
+-8
+-6
+-4
+-2
+0
+2
+4
+6
+8
+-8 -6 -4 -2 0 2 4 6 8
+PC
+R 
+Ar
+ (∆
+∆C
+T 
+H
+ea
+rt
+ - 
+Li
+ve
+r)
+R2 = 0.98
+ABI (∆∆CT Heart - Liver)
+Figure 6. Liver and heart kinase genes differential expression. CT data from
+both tissues at 1 ng/hole was normalized relative to the geometric mean of six
+housekeeping genes; B2M (NM_004048), ACTB (NM_001101), EEF1A1
+(NM_001402), HMBS (NM_000190), TBP (NM_003194), PPIA
+(NM_021130) and plotted as (DCT)Heart versus (DCT)Liver in (A). Open
+circles are DCT measurements (n ¼ 3 replicates) and solid circles are
+housekeeping genes normalizing dataset (n ¼ 4 replicates). Error lines
+(dashed lines) are STD compared with linear fit to housekeeping genes (solid
+line, R2 ¼ 0.99). Genes with tissue-specific expression (CT> 20 in one tissue,
+CT < 20 in the other tissue) are indicated by crosses. Expression of individual
+genes are indicated as follows: GCK (filled diamond), PGK1 (filled square),
+PGK2 (open square), PKLR (filled triangle), PKM2 (open triangle),
+PFKL (filled circle) and PFKM (open circle). Concordance data (B) for
+21 transcript assays selected from 7 kinase genes spanning a 4000-fold
+differential heart and liver expression, along with 12 housekeeping genes,
+were used to perform microplate qPCR in an ABI 7900 at 3 replicates per
+sample. Average DDCT were calculated and compared with the same assays
+in the PCR array; STD (error bars), and 1:1 correlation (dashed line).
+A
+-10
+15
+-10 15
+Treated HUVEC (∆CT)
+Co
+nt
+ro
+l H
+UV
+EC
+  (∆
+CT
+)
+B
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+-0.2 0 0.2 0.4 0.6 0.8 1 1.2 1.4
+dC
+T 
+(co
+ntr
+ol 
+- tr
+ea
+ted
+)
+PCR Array
+Microplate
+Log [cDNA] (ng/µL)
+Figure 7. Transcript analysis of TNF-a treated HUVEC. PCR arrays were
+used to make transcript measurements of cDNA generated from pooled
+HUVEC cells treated with either TNF-a or vehicle. Samples were normalized
+(DCT) by subtracting the geometric mean of 13 housekeeping genes from the
+CT of each assay. (A) Correlates DCT between treated and untreated assays
+(circles), triangles showing significant difference were, from left-to-right
+genes CCL2 (NM_002982), SELE (NM_000450), TNFAIP2 (NM_006291),
+TNFAIP3 (NM_006290), VCAM1 (P < 0.001, n > 2 technical replicates) and
+targets detected in one sample but not the other (pluses). (B) Examines fold
+difference in expression in SELE between treated and control HUVEC
+measured in PCR array and microplate at differing cDNA input quantity
+(error bars are STD, n > 3).
+PAGE 7 OF 9 Nucleic Acids Research, 2006, Vol. 34, No. 18 e123
+ at Pennsylvania State U
+niversity on M
+arch 1, 2014
+http://nar.oxfordjournals.org/
+D
+ow
+nloaded from
+ 
+(see Materials and Methods). Of the 533 targets screened, 406
+were positive in both samples. Negative controls in each sub-
+array showed no detectable carry-over between through-holes
+(0/1224 negative controls). As predicted, the TNF-a treat-
+ment increased selectin E (SELE; NM_000450) and vascular
+cell adhesion molecule 1 (VCAM1; NM_001078) expression
+level >100-fold (32,33). The dynamic range of SELE was
+compared between microplate and PCR array (Figure 7B)
+by diluting the sample and determining if the resulting
+housekeeping-normalized DCT gave the same measurement
+across the dilution series. The PCR array produced a similar
+DCT until the SELE starting copy number reached single copy
+in the PCR array hole, 0.03 ng/hole.
+DISCUSSION
+A nanofluidic system for performing solution-phase RT-PCR
+in an array of isolated through-holes overcomes limitations of
+existing micro- or nanofluidic devices by implementing a par-
+allel approach to fluidic handling that lends itself well to
+interfacing with microtiter plates for simple and efficacious
+transfer of liquid samples and reagents into the nanofluidic
+structure using arrays of slotted pins or pipette tips. The reac-
+tion containers are kept separate and distinct by selective and
+controlled modification of the platen surface to make the
+inside surfaces of the through-holes chemically distinct
+from the outside surfaces. In the system described here, the
+interior surface of each hole is modified to be hydrophilic
+and the exterior surface hydrophobic.
+We validated the system performance by carrying out thou-
+sands of real time SYBR Green PCR assays for a number of
+sample sets. With amplicon as the target, the baseline perfor-
+mance of the system had the same dynamic range, sensitivity
+and precision as PCR in a microplate but in 64-fold smaller
+reaction volumes. The increase in CT variability with decreas-
+ing number of target amplicon was shown to follow a Poisson
+distribution at low copy number, demonstrating the system is
+capable of single copy detection. Further, the thermal unifor-
+mity was demonstrated by the small spread in CT and Tm in a
+uniformly loaded array. With volume miniaturization, we
+identified the need to increase sample concentration to main-
+tain a constant number of target molecules in the reaction
+volume to obtain the high quality PCR observed.
+When challenged with cDNA prepared from normal human
+heart and liver RNA, the high replicate precision and accu-
+racy enabled detection of tissue-specific expression of kinase
+genes and discrimination in differential kinase expression
+between the two tissue types. A large number of genes
+showed small differences in expression (<2-fold) with a
+high degree of significance (P < 0.001), suggesting the
+system is potentially capable of revealing new patterns of
+transcription across large numbers of genes. The data from
+TNF-a stimulation of the NF-b pathway in HUVEC cells
+demonstrates this point. The high sample throughput of
+over 27 000 RT-PCR analyses per person per day, based on
+a workflow of 3 h to prepare three arrays and three processing
+runs per day per person, is a 24-fold increase in analytical
+throughput based on current 384-well microplates and
+opens new possibilities in genetic system analysis not
+currently possible. Clearly, the nanofluidic PCR array has
+the potential to span the space of genomic applications
+requiring the parallelism of hybridization microarrays with
+the specificity, accuracy, dynamic range and precision of
+solution phase PCR.
+ACKNOWLEDGEMENTS
+The authors wish to thank John Linton, Leila Hasan, Elen
+Ortenberg, Kevin Pappenfuss, Maria Sousa, Candice Albritton,
+Mahima Santhanam and Amy Goldberger for their technical
+assistance. Funding to pay the Open Access publication
+charges for this article was provided by BioTrove Inc.
+Conflict of interest statement. None declared.
+REFERENCES
+1. Pease,A.C., Solas,D., Sullivan,E.J., Cronin,M.T., Holmes,C.P. and
+Fodor,S.P. (1994) Light generated oligonuleotide arrays for rapid DNA
+sequence analysis. Proc. Natl Acad. Sci. USA, 11, 5022–5026.
+2. Lipshutz,R.J., Morris,D., Chee,M., Hubbell,E., Kozal,M.J., Shah,N.,
+Shen,N., Yang,R. and Fodor,S.P. (1995) Using oligonucleotide probe
+arrays to access genetic diversity. Biotechniques, 19, 442–447.
+3. Schena,M., Shalon,D., Davis,R.W. and Brown,P.O. (1995) Quantitative
+monitoring of gene expression patterns with a complementary DNA
+microarray. Science, 5235, 368–369.
+4. Gershon,D. (2002) Micorarray technology: an array of opportunites.
+Nature, 416, 885–891.
+5. Murphy,D. (2002) Gene expression studies using microarrays:
+principles, problems and prospects. Adv. Physiol. Educ., 26, 256–270.
+6. Petersen,D., Chandramouli,G.V., Geoghegan,J., Hilburn,J.,
+Paarlberg,J., Kim,C.H., Munroe,D., Gangi,L., Han,J., Puri,R. et al.
+(2005) Three microarray platforms: an analysis of their concordance in
+profiling gene expression. BMC Genomics, 6, 63.
+7. Bammler,T., Beyer,R.P., Bhattacharya,D., Boorman,G.A., Boyles,A.,
+Bradford,B.U., Bumgarner,R.E., Bushel,P.R., Chaturvedi,K., Choi,D.C.
+et al. (2005) Standardizing global gene expression analysis between
+laboratories and across platforms. Nature Meth., 5, 351–356.
+8. Higuchi,R., Fockler,C., Dollinger,G. and Watson,R. (1993) Kinetic
+PCR analysis: real-time monitoring of DNA amplification reactions.
+Biotechnology, 9, 1026–1030.
+9. Larkin,J.E., Frank,B.C., Gavras,H., Sultana,R. and Quackenbush,J.
+(2005) Independence and reproducibility across microarray platforms.
+Nature Meth., 5, 337–343.
+10. Liu,R.H., Yang,J., Lenigk,R., Bonano,J. and Grodzinski,P. (2004)
+Self-contained, fully integrated biochip for sample preparation,
+polymerase chain reaction amplification, and DNA microarray
+detection. Anal. Chem., 76, 1824–1831.
+11. Lee,D.S., Park,S.H., Yang,H., Chung,K.H., Yoon,T.H., Kim,S.J.,
+Kim,K. and Kim,Y.T. (2004) Bulk-micromachined
+submicroliter-volume PCR chip with very rapid thermal response and
+low power consumption. Lab Chip, 4, 401–407.
+12. Lagally,E.T., Medintz,I. and Mathies,R.A. (2001) Single-molecule
+DNA amplification and analysis in an integrated microfluidic device.
+Anal. Chem., 3, 565–570.
+13. Nagai,H., Murakami,Y., Yokoyama,K. and Tamiya,E. (2001)
+High-throughput PCR in silicon based microchamber array. Biosens.
+Bioelectron., 16, 1015–1019.
+14. Nagai,H., Murakami,Y., Morita,Y., Yokoyama,K. and Tamiya,E.
+(2001) Development of a microchamber array for picoliter PCR. Anal.
+Chem., 73, 1043–1047.
+15. Matsubara,Y., Kerman,K., Kobayashi,M., Yamamura,S., Morita,Y. and
+Tamiya,E. (2004) On-chip nanoliter-volume multiplex TaqMan
+polymerase chain reaction from a single copy based on counting
+fluorescence released from microchambers. Anal. Chem., 21,
+6434–6439.
+16. Matsubara,Y., Kerman,K., Kobayashi,M., Yamamura,S., Morita,Y.,
+Takamura,Y. and Tamiya,E. (2005) Microchamber array based DNA
+quantification and specific sequence detection from a single copy via
+PCR in nanoliter volumes. Biosens. Bioelectron., 20, 1482–1490.
+e123 Nucleic Acids Research, 2006, Vol. 34, No. 18 PAGE 8 OF 9
+ at Pennsylvania State U
+niversity on M
+arch 1, 2014
+http://nar.oxfordjournals.org/
+D
+ow
+nloaded from
+ 
+17. Leamon,J.H., Lee,W.L., Tartaro,K.R., Lanza,J.R., Sarkis,G.J.,
+de Winter,A.D., Berka,J., Weiner,M., Rothberg,J.M. and Lohman,K.L.
+(2003) A massively parallel PicoTiterPlate based platform for
+discrete picoliter-scale polymerase chain reactions. Electrophoresis,
+24, 3769–3777.
+18. Silver,J., Mi,Z., Takamoto,K., Bunqay,P., Brown,J. and Powell,A.
+(1999) Controlled formation of low-volume liquid pillars between
+plates with a lattice of wetting patches by use of a second immiscible
+fluid. J. Coll. Inter. Sci., 219, 81–89.
+19. Daridon,A. (2005) Picofluidic digital PCR. In Proceedings of the
+Conference on Quantitative PCR. LaJolla, CA, USA.
+20. Liu,J., Enzelberger,M. and Quake,S. (2003) A nanoliter rotary
+device for polymerase chain reaction. Electrophoresis, 23,
+1531–1536.
+21. Marcus,J.S., Anderson,W.F. and Quake,S.R. (2006) Parallel
+picoliter RT–PCR assays using microfluidics. Anal. Chem., 78,
+956–958.
+22. Kalinina,O., Lebedeva,I., Brown,J. and Silver,J. (1997) Nanoliter scale
+PCR with TaqMan detection. Nucleic Acids Res., 10, 1999–2004.
+23. Brown,J.F., Silver,J.E. and Kalinina,O.V. (2000) Method of sampling,
+amplifying and quantifying segment of nucleic acid, polymerase chain
+reaction assembly having nanoliter-sized sample chambers, and method
+of filling assembly. US Patent 6143496.
+24. Brown,J.F., Silver,J.E. and Kalinina,O.V. (2002) Method of sampling,
+amplifying and quantifying segment of nucleic acid, polymerase chain
+reaction assembly having nanoliter-sized sample chambers, and method
+of filling assembly. US Patent 6391559 B1.
+25. Brenan,C.J.H., Domansky,K., Kurzawski,P. and Griffth,L.G. (2000)
+BioMEMS applied to the development of cell-based bioassay systems.
+SPIE Proceedings, 3912, 76–87.
+26. Kanigan,T.K., Brenan,C.J.H., Lafontaine,S., Sosnowski,L.,
+Madden,P.G. and Hunter,I.W. (2000) Living Chips for drug discovery.
+SPIE Proceedings, 3926, 172–180.
+27. Brenan,C.J.H., Morrison,T., Stone,K., Heitner,T., Katz,A.,
+Kanigan,T.S. and Hess,R. (2002) A massively parallel microfluidics
+platform for storage and ultra high throughput screening. SPIE
+Proceedings, 4626, 560–569.
+28. Wang,X. and Seed,B. (2003) A PCR primer bank for quantitative gene
+expression analysis. Nucleic Acids Res., 31, e154.
+29. Ririe,K.M., Rasmussen,R.P. and Wittwer,C.T. (1997) Product
+differentiation by analysis of DNA melting curves during the
+polymerase chain reaction. Anal. Biochem., 245, 154–160.
+30. Lodish,H., Berk,A., Matsudaira,P., Kaiser,C.A., Krieger,M.,
+Scott,M.P., Zipursky,S.L. and Darnell,J. (2004) Molecular Cell
+Biology, 5th edn. W.H. Freeman and Company, NY, pp. 304–307.
+31. Robinson,M.O. and Simon,M.I. (1991) Determining transcript number
+using the polymerase chain-reaction: PGK-2, MP2 and PGK-2
+transgene messenger-RNA levels during spermatogenesis. Nucleic
+Acids Res., 19, 1557–1562.
+32. Meagher,L., Mahiouz,D., Sugars,K., Burrows,N., Norris,P.,
+Yarwood,H., Becker-Andre,M. and Haskard,D.O. (1994) Measurement
+of mRNA for E-selectin, VCAM-1 and ICAM-1 by reverse
+transcription and the polymerase chain reaction. J. Immunol. Meth.,
+175, 237–246.
+33. Kuldo,J., Westra,J., Asgeirsdottir,S.A., Kok,R.J., Oosterhuis,K.,
+Rots,M.G., Schouten,J.P., Limburg,P.C. and Molema,G. (2005)
+Differential effects of NF-kB and p38 MAPK inhibitors and
+combinations thereof on TNF-a and IL-1b-induced proinflammatory
+status of endothelial cells in vitro. Am. J. Physiol. Cell. Physiol., 289,
+C1229–C1239.
+PAGE 9 OF 9 Nucleic Acids Research, 2006, Vol. 34, No. 18 e123
+ at Pennsylvania State U
+niversity on M
+arch 1, 2014
+http://nar.oxfordjournals.org/
+D
+ow
+nloaded from
+ 

@@ -1,0 +1,2641 @@
+Investment Timing under Incomplete Information
+Jean-Paul De´camps∗ Thomas Mariotti† Ste´phane Villeneuve‡
+First draft: September 2000
+This draft: April 2004
+Abstract
+We study the decision of when to invest in a project whose value is perfectly observable
+but driven by a parameter that is unknown to the decision-maker ex-ante. This problem is
+equivalent to an optimal stopping problem for a bivariate Markov process. Using filtering
+and martingale techniques, we show that the optimal investment region is characterized by
+a continuous and non-decreasing boundary in the value-belief state space. This generates
+path-dependency in the optimal investment strategy. We further show that the decision-
+maker always benefit from an uncertain drift relative to an average drift situation, and
+that the value of the option to invest is not globally increasing with respect to the volatility
+of the value process.
+MSC 2000 subject classification. Primary: 60G40, 60G35.
+OR/MS subject classification. Primary: Finance/investment.
+Key words. Investment under uncertainty, optimal stopping, free boundary, filtering.
+∗GREMAQ and IDEI, Universite´ de Toulouse 1, 21, Alle´e de Brienne, 31000 Toulouse, France; e-mail:
+decamps@cict.fr.
+†GREMAQ, Universite´ de Toulouse 1, 21, Alle´e de Brienne, 31000 Toulouse, France, and Department of
+Economics, London School of Economics and Political Science, Houghton Street, WC2A 2AE London, United
+Kingdom; e-mail: mariotti@cict.fr.
+‡GREMAQ, Universite´ de Toulouse 1, 21, Alle´e de Brienne, 31000 Toulouse, France; e-mail:
+stephane.villeneuve@univ-tlse1.fr.
+1. Introduction. Uncertainty and irreversibility have long been recognized as key
+determinants of investment (Arrow and Fisher 1974, Henry 1974). In contrast with the net
+present value rule, which implicitly requires investment expenditures to be fully recoverable,
+or investment opportunities to be seized on a now-or-never basis, the real option literature
+has emphasized the ability of firms to delay their irreversible investment decisions (Dixit and
+Pindyck 1994). In the presence of sunk costs, this flexibility in the timing of investment is
+valuable because it gives firms the option to wait for new information. Conversely, the loss
+of this option value at the time the firm invests generates an additional opportunity cost of
+investment. As a consequence, investment options are exercised significantly above the point
+at which expected discounted cash-flows cover the sunk investment expenditures.
+In the benchmark case of a single project, the optimal investment policy can be formally
+obtained as the solution to an optimal stopping problem. The prototype of this approach
+is the model of McDonald and Siegel (1986), in which the underlying value of the project
+evolves as a geometric Brownian motion. Under this assumption, the optimal investment time
+can be explicitly characterized using Samuelson and McKean’s (1965) celebrated smooth-fit
+principle. These results have been recently extended in various directions. For instance,
+Hu and Øksendal (1998) study an environment in which the investment cost is driven by a
+sum of correlated geometric Brownian motions, while Mordecki (1999) considers the case of
+a jump-diffusion value process. However, a common feature of these contributions is their
+focus on complete information settings, in which decision-makers have no uncertainty about
+the fundamental characteristics of investment projects.
+In this paper, we consider the problem of investing in a project whose value is observable
+but driven by a parameter that is unknown to the decision-maker ex-ante. Specifically, the
+value of the project evolves as an arithmetic Brownian motion, whose drift can take one
+of two non-negative values. (Extensions to arbitrary finite numbers of values for the drift,
+including negative ones, and to geometric Brownian motion, will be considered in Section 7.)
+Uncertainty about the drift adds a structural risk component besides the standard diffusion
+component of the value process. This captures in a simple way a variety of empirically relevant
+investment situations. For instance, a firm might not know the exact growth characteristics
+of a market on which it contemplates investing. Alternatively, the owner of an asset who
+considers selling it might not know the future distribution of potential buyers’ valuations.
+By observing the evolution of the value, the decision-maker can update his beliefs about the
+unknown drift of the value process. This information is noisy, however, since it does not
+allow to distinguish perfectly between the relative contributions of the drift and diffusion
+components to the instantaneous variations of the value.
+The filtering techniques of Liptser and Shiryaev (1977) allow us to restate our problem
+recursively as an optimal stopping problem for a bivariate Markov process. The relevant
+state variables are the current value of the project and the posterior belief of the decision-
+maker about the unknown drift of the value process. The multi-dimensionality of the state
+space is a key feature of our model, that distinguishes it from related investment or learning
+models. It reflects the fact that the value process coincides with the observation process, so
+that the diffusion component is both a genuine component of the value and a source of noise
+for the identification of the drift. While this prevents us from using smooth-fit techniques to
+characterize the optimal investment strategy, the martingale approach developed by Lakner
+(1995), Karatzas (1997), Karatzas and Zhao (2001) or Benes˘ et al. (2004) in the context of
+optimal control problems with partial observation allows us to derive analytical properties of
+the value of the investment option as a function of the current state variables.
+An important analytical result is that the optimal investment region is characterized by
+1
+a continuous and non-decreasing boundary in the value-belief state space. Thus, in contrast
+with standard real options models, the optimal decision rule is not described by a simple
+threshold for the current value of the investment, above which it becomes optimal to invest no
+matter the past evolution of value. The presence of learning generates this path-dependency,
+although there is no option to suspend or abandon the project, in contrast to Dixit (1989).
+As a result, a striking feature of the optimal investment strategy is that it may be rational
+to invest after a drop in the value of the investment. This is because such a drop brings bad
+news about the unknown drift, and thus about the future evolution of the value, thereby
+reducing the current opportunity cost of investment. If the current value of the investment
+is high enough relative to his new estimate of the drift, the decision-maker may give up on
+learning, reflecting that “a bird in the hand is worth two in the bush.”
+An important question is whether uncertainty about the drift actually benefits or harms
+the decision-maker. Specifically, we compare the value of an investment project with unknown
+drift and learning with that of an investment project with same volatility in which the drift of
+the value process is known and equal to the prior expectation of the drift in the first project.
+Using dynamic programming techniques, we show that the decision-maker always prefers the
+former unknown drift project to the latter average drift project, despite the fact that the value
+process only conveys a noisy signal of the drift. In other terms, an investment opportunity
+with uncertain growth prospects dominates one with average growth prospects. The intuition
+of this result is particularly easy to grasp whenever the volatility of the observation-value
+process is close to zero. In these circumstances, the value becomes a very accurate signal of
+the drift, so that learning occurs at a very fast rate. The fact that the unknown drift problem
+has a higher value for the decision-maker than the average drift problem then simply reflects
+that the value of the latter is convex with respect to the drift.
+To get some intuition about the shape of the investment boundary, as well as about the
+wedge between the unknown drift problem and the average drift problem, we perform a local
+analysis whenever the volatility of the observation-value process is close to zero. We show
+that, as the volatility converges to zero, the loss in value arising from the need to learn about
+the drift vanishes, so that the value of the incomplete information problem converges to that
+of the complete information problem. An interesting by-product of this analysis is that, in
+contrast with standard models of investment under uncertainty, the value of the unknown
+drift problem is not everywhere increasing with respect to the volatility. This illustrates
+again the duality of the value process in our model. An increase in the volatility makes the
+payoff of the decision-maker upon investing more volatile, which tends to increase the value
+of the investment opportunity and the incentive to delay investment. However, since the
+value process coincides with the observation process, this also lowers the rate at which the
+decision-maker accumulates information about the unknown drift, which tends to decrease
+the value of the investment opportunity and the incentive to delay investment.
+The paper is organized as follows. The model is described in Section 2. In Section 3,
+we provide the recursive formulation of our problem, and derive some basic properties of the
+value function. Section 4 derives the continuity of the investment boundary. In Section 5,
+we compare the unknown drift problem with the average drift problem. Section 6 is devoted
+to a local study of the investment boundary whenever the volatility of the observation-value
+process is close to zero. In Section 7, we investigate extensions of our model to an arbitrary
+finite number of values for the drift, including negative ones, and to a geometric Brownian
+motion specification of the value process. Section 8 concludes. Proofs not given in the text
+are in the Appendix.
+2
+2. The investment problem.
+2.1. The basic model. The following notation will be maintained throughout the
+paper. Time is continuous, and labelled by t ≥ 0. Uncertainty is modelled by a complete
+probability space (Ω,F ,P), the precise description of which we defer until the end of this
+section. We denote by E the expectation operator associated to P. For any stochastic process
+X = {Xt; t ≥ 0} defined on (Ω,F ,P), FX = {FXt ; t ≥ 0} is the P–augmentation of the
+filtration {σ(Xs; s ≤ t); t ≥ 0} generated by X, and T X is the set of FX–adapted stopping
+times, with values in R+ ∪ {∞}.
+An infinitely lived decision-maker has to choose when to invest in a risky project. The
+investment is irreversible and entails a sunk cost I > 0. The value of the project follows an
+arithmetic Brownian motion with unknown drift µ and known variance σ,
+(1) dVt = µdt+ σdWt; t ≥ 0,
+where (W,FW ) is a standard Wiener process independent of µ. In the basic version of the
+model, µ can take only two non-negative values, normalized to 0 and 1. We denote by v the
+initial value of the project. The decision-maker is risk-neutral, and discounts future revenues
+and costs at a constant rate r > 0.
+A key assumption of our model is that the decision-maker does not know the true value
+of µ ex-ante. We denote by p = P [µ = 1] his prior belief that µ = 1. The decision-maker
+then perfectly observes the value process V , but neither the drift µ, nor the evolution of W .
+His information at any time t is thus summarized by FVt . It is clear from (1) that the value
+process conveys some information about µ. However, because of the unobservable shocks σW
+to the value, this information is noisy.
+At any time t prior to investment, the decision-maker chooses whether to pay the sunk cost
+I to earn the gross profit Vt, or to delay further his investment. Since the only information
+available to him ex-post is generated by the value process, his decision problem is to find a
+stopping time τ∗ ∈ T V such that:
+(2) sup
+τ∈T V
+E
+[
+e−rτ (Vτ − I)
+]
+= E
+[
+e−rτ
+∗
+(Vτ∗ − I)
+]
+.
+We shall denote this problem by P. Our objective is to characterize as fully as we can the
+optimal investment strategy for P.
+Our notation and modelling assumptions are worthy of some comments. First, it should
+be noted that we allow for non P–almost surely finite stopping times. While this added
+degree of freedom is not useful when µ only takes non-negative values, it is required when
+the model is extended to allow for negative values of µ, see Section 7. The notation in (2) is
+without ambiguity since e−rτ (Vτ −I) = limt→∞ e−rt(Vt−I) = 0 P–almost surely on {τ =∞}
+for any τ ∈ T V . Second, under the formulation (1), the value V of the project can become
+negative. This can arise if V represents the difference between the true value of the project
+and opportunity costs of investment not captured by I. One way to avoid this issue altogether
+is to assume that V follows a geometric Brownian motion with drift µ. We defer until Section
+7 the extension of the model to this case.
+For further reference, it will be useful to describe precisely the underlying probability
+space (Ω,F ,P). Specifically, define Ω = {0, 1} × C(R+) and F = 2{0,1}⊗ B(C(R+)), where
+C(R+) is the space of continuous real-valued functions on R+ with Borel σ–field B(C(R+)).
+Finally, define P = M ⊗W, where M is a probability measure on ({0, 1}, 2{0,1}) such that
+3
+M [{1}] = p, and W is the Wiener measure on (C(R+),B(C(R+))). Now µ can be defined as
+a random variable on ({0, 1}, 2{0,1}) with distribution M, and W as the coordinate mapping
+process on (C(R+),B(C(R+))), Wt(φ) = φ(t), t ≥ 0, φ ∈ C(R+), which is a standard
+one-dimensional Brownian motion under the Wiener measure W. Last, two filtrations on
+(Ω,F ,P) are worth emphasizing. (i) One is the filtration generated by µ and W , Fµ,W =
+{σ(µ)⊗FWt ; t ≥ 0}, which corresponds to the information available to the modeller. Since µ
+and W are independent by construction, W is also a Brownian motion under this filtration.
+(ii) The other is the filtration generated by V , FV , which corresponds to the information
+available to the decision-maker. In contrast with the previous case, it should be noted that
+W is not a Brownian motion under this filtration.
+2.2. Related literature. Before we proceed with the analysis, it might be helpful to
+briefly contrast our model with some closely related contributions.
+As in the real option literature, we model the investment decision as an optimal stopping
+problem (McDonald and Siegel 1986, Dixit and Pindyck 1994). The distinguishing feature of
+our setting is that, since the decision-maker can observe neither the drift µ nor the evolution
+of the diffusion term W , he has incomplete information about the dynamics of the value
+process V . As a result, his beliefs about the drift become sensitive to information about the
+past evolution of the value, which in turn affects his anticipations about the future evolution
+of the value. This implies that the current value of the project is not a sufficient statistic for
+the investment problem P.
+The problem of sequentially testing the two alternative hypotheses on the drift µ given
+the observation process V has been solved by Chernoff (1972, §17.5) assuming constant
+linear waiting costs. The solution consists to accumulate information until an upper or lower
+threshold is reached by the process of posterior beliefs about the drift. By contrast, a key
+feature of our model is that the observation process coincides with the value process, so that
+the diffusion term W affects directly the payoff of the decision-maker. This implies that the
+current belief about the drift of the observation process is not a sufficient statistic for the
+investment problem P.
+Sequential control problems under incomplete information and learning have been the
+focus of the economics literature on optimal experimentation. Most contributions follow
+Chernoff (1972) as we do in parameterizing the unknown state of nature by the drift of the
+observation-value process. However, the current belief about the drift remains a sufficient
+statistic, because the value process is interpreted in a cumulative sense (Jovanovic 1979, Felli
+and Harris 1996, Bolton and Harris 1999, Keller and Rady 1999, Bergemann and Va¨lima¨ki
+2000, Bernardo and Chowdhry 2002), or because terminal payoffs depend only on beliefs
+(Moscarini and Smith 2001).
+The classical consumption-portfolio problem (Merton 1971) has been recently extended
+to situations in which the investor is uncertain about the drift of the stock price process.
+While Lakner (1995) tackles the problem via martingale methods, Karatzas and Zhao (2001)
+show that the Bellman principle can be applied and leads to explicit solutions for particular
+choices of utility functions (see also Brennan 1998). In order to explain excess volatility and
+time-variability of stock returns, Veronesi (1999, 2000) studies rational expectation models
+of equilibrium asset prices in which the drift of fundamentals may shift between several
+unobservable states at random times.
+3. Markov formulation. In this section, we first derive a recursive representation
+of P, for which a natural state variable is the pair (V, P ) formed by the current value of
+4
+investing in the project and the current belief about the drift of the value process. This
+allows us to prove the existence of an optimal stopping time for P. We then use a change of
+measure argument to derive some basic properties of the value function.
+3.1. An existence result. The decision-maker in P faces a standard signal extraction
+problem. As µ is either equal to 0 or 1, his belief about µ at any time t is summarized by the
+probability that µ = 1 conditional on information available up to time t, Pt = P [µ = 1 | FVt ].
+From Liptser and Shiryaev (1977, Theorems 7.12 and 9.1), the belief process (P,FV ) satisfies
+the following filtering equation:
+(3) dPt =
+Pt(1− Pt)
+σ
+dW¯t; t ≥ 0,
+where the innovation process (W¯ ,FV ) is a standard Wiener process given by:
+(4) dW¯t =
+dVt − Ptdt
+σ
+; t ≥ 0.
+Heuristically, the change in beliefs dPt is normally distributed with mean 0 and variance
+[P 2t (1− Pt)2/σ2]dt. By construction, (P,FV ) is a martingale.
+It is worth noting that 0 and 1 are absorbing barriers for the belief process. However, if
+the latter does not start at one of these values, then neither can be attained in finite time.
+These useful properties are summarized in the following lemma.
+Lemma 1. For any p ∈ [0, 1], the unique solution (P p,FV ) of (3) satisfying P p0 = p lies
+P–almost surely in [0, 1] and satisfies:
+(i) P 0 = 0 and P 1 = 1, P–almost surely;
+(ii) For any p ∈ (0, 1), inf{t ≥ 0 | P pt 6∈ (0, 1)} =∞, P–almost surely.
+Solving P when p is equal to 0 or 1 amounts to finding an optimal stopping time for a
+discounted arithmetic Brownian motion with known drift 0 or 1. This a problem for which a
+closed-form solution is available, and the optimal stopping time is a trigger strategy. When
+p = 0 or p = 1, the optimal investment strategy consists to invest when the value respectively
+reaches v∗(0) = I + σ2/
+√
+2rσ2 and v∗(1) = I + σ2/(
+√
+1 + 2rσ2 − 1), see Section 5. Note in
+particular that v∗(1) > v∗(0) > I, reflecting the option value of waiting.
+Since W is not a Brownian motion under the filtration FV of the observation process,
+the formulation (1)–(2) of P is not recursive. What the filtering approach allows us to do is
+to transform P into a stopping time problem for a two-dimensional Markov process. Indeed,
+it is immediate from (3)–(4) that the joint value-belief process can be rewritten as:
+(5) d
+[
+V vt
+P pt
+]
+=
+[
+P pt
+0
+]
+dt+
+[
+σ
+P pt (1− P pt )/σ
+]
+dW¯t; t ≥ 0,
+where we have made explicit the dependence of V and P upon their respective initial values
+v and p. Since the innovation process W¯ , unlike W , is a Brownian motion under FV , it is
+clear from (5) that the value-belief process Xv,p = (V v, P p) is a Markov process under FV .
+We can thus restate P as the problem of finding a value function G∗ : R × [0, 1] → R and a
+stopping time τ∗ ∈ T V such that:
+(6) G∗(v, p) = sup
+τ∈T V
+E
+[
+e−rτ g(Xv,pτ )
+]
+= E
+[
+e−rτ
+∗
+g(Xv,pτ∗ )
+]
+; (v, p) ∈ R× [0, 1],
+5
+where g(v, p) = v − I for any (v, p) ∈ R × [0, 1]. Given the recursive representation (6), we
+are in position to prove the existence of a solution to P by using standard results in optimal
+stopping theory for Markov processes.
+Proposition 1.
+(i) There exist a value function G∗ and a P–almost surely finite stopping time τ∗ ∈ T V
+that solve (6);
+(ii) The coincidence set S∗ = {(v, p) ∈ R × [0, 1] | G∗(v, p) = g(v, p)} for (6) is non-empty
+and satisfies S∗ = ⋃p∈[0,1]{p} × [v∗(p),∞), where v∗(p) = inf{v ∈ R | (v, p) ∈ S∗} <∞
+for any p ∈ [0, 1].
+Proposition 1 implies that τ∗ = inf{t ≥ 0 | (V vt , P pt ) ∈ S∗} = inf{t ≥ 0 | V vt ≥ v∗(P pt )},
+so that the optimal investment strategy consists to invest whenever the value-belief process
+crosses a boundary that depends on the current belief about µ. We will refer to v∗ as the
+investment boundary function for the unknown drift problem.
+3.2. A Girsanov transformation. Following Lackner (1995), Karatzas (1997) and
+Karatzas and Zhao (2001), we now construct a probability measure Q under which V and µ
+are independent. Specifically, consider:
+(7) Zt(µ) = exp
+(
+−
+(µ
+σ
+)
+Wt − 12
+(µ
+σ
+)2
+t
+)
+; t ≥ 0.
+By construction, (Z(µ),Fµ,W ) is a martingale and E [Zt(µ)] = 1 for each t ≥ 0. For any such t,
+let Qt be the unique probability measure on (Ω,Fµ,Wt ) such that, for any (A,B) ∈ σ(µ)×FWt ,
+Qt[A×B] = E [1A×BZt(µ)] =
+∫
+AQ
+m
+t [B]M(dm), where, for any m ∈ {0, 1}:
+Qmt [B] = EW
+[
+1B exp
+(
+−
+(m
+σ
+)
+Wt − 12
+(m
+σ
+)2
+t
+)]
+; B ∈ FWt .
+Here, EW is the expectation operator associated to the Wiener measure W. It follows from
+a standard extension argument that, for any m ∈ {0, 1}, there exists a unique probability
+measure Qm on (C(R+),B(C(R+))) such that Qm[B] = Qmt [B] for any t ≥ 0 and B ∈ FWt
+(Karatzas and Shreve 1991, §3.5.A, Discussion). To complete the construction, define Q as
+the unique probability measure on (Ω,F) such that Q [A × B] = ∫AQm[B]M(dm) for any
+(A,B) ∈ σ(µ)× B(C(R+)).
+By construction, Q [C] = E [1CZt(µ)] for any C ∈ Fµ,Wt . As {µ = 1} ∈ Fµ,W0 and
+Z0(µ) = 1, one obtains in particular that Q [µ = 1] = P [µ = 1] = p. A standard computation
+based on Bayes’ rule (Karatzas and Shreve 1991, Lemma 3.5.3) implies that the process
+(B,Fµ,W ) defined by:
+(8) Bt =Wt +
+(µ
+σ
+)
+t; t ≥ 0
+is a Brownian motion under Q. Since µ is Fµ,W0 –measurable and independent of W , and
+B has independent increments, B and µ are independent under Q. Note that B is also a
+Brownian motion with respect to its own filtration FB under Q. Since dVt = σ dBt, the
+filtrations FB and FV generated by B and V are identical, as well as the sets of stopping
+times T B and T V . We denote by EQ the expectation operator associated to Q.
+6
+3.3. Properties of the value function. Define:
+(9) Ht(µ) = exp
+((µ
+σ
+)
+Bt − 12
+(µ
+σ
+)2
+t
+)
+; t ≥ 0,
+whereBt is given by (8). It follows from our previous results that (H(µ),Fµ,W ) is a martingale
+under Q. One has the following useful lemma.
+Lemma 2. For any τ ∈ T V ,
+E
+[
+e−rτ (Vτ − I)
+]
+= EQ
+[
+e−rτHτ (µ)(v + σBτ − I)
+]
+.
+Then, the following holds.
+Proposition 2. For any (v, p) ∈ R× [0, 1],
+(10) G∗(v, p) = sup
+τ∈T B
+EQ
+[
+e−rτ
+{
+1 + p
+[
+exp
+(
+Bτ
+σ
+− τ
+2σ2
+)
+− 1
+]}
+(v + σBτ − I)
+]
+.
+Proof. For any (v, p) ∈ R× [0, 1],
+G∗(v, p) = sup
+τ∈T V
+EQ
+[
+e−rτHτ (µ)(v + σBτ − I)
+]
+= sup
+τ∈T V
+EQ
+[
+EQ
+[
+e−rτHτ (µ)(v + σBτ − I) | FVτ
+]]
+= sup
+τ∈T B
+EQ
+[
+e−rτEQ
+[
+Hτ (µ) | FBτ
+]
+(v + σBτ − I)
+]
+= sup
+τ∈T B
+EQ
+[
+e−rτ [pHτ (1) + (1− p)Hτ (0)](v + σBτ − I)
+]
+= sup
+τ∈T B
+EQ
+[
+e−rτ
+{
+1 + p
+[
+exp
+(
+Bτ
+σ
+− τ
+2σ2
+)
+− 1
+]}
+(v + σBτ − I)
+]
+,
+where the first equality follows from Lemma 2, the third from FV = FB, and the fourth
+from the fact that, for any τ ∈ T V , µ and Bτ are independent under Q, which implies that
+Q [µ = 1 | FBτ ] = Q [µ = 1] = p. ¤
+This result admits a natural interpretation. Under Q, the value process V v = v + σB
+is independent of µ, so that no learning occurs. We have thus transformed an incomplete
+information stopping problem into a complete information one. Of course, this requires
+a corresponding modification of the payoffs. Under Q, the decision-maker maximizes the
+expectation of a discounted weighted average of H(m,B)(v + σB − I), m = 0, 1, where the
+weights 1− p and p reflect his prior beliefs about µ.
+The Girsanov transformation allows us to represent the belief process in terms of the
+value process. A direct application of Bayes’ rule yields:
+(11) P pt =
+pHt(1)
+pHt(1) + 1− p =
+p exp
+(
+V vt − v
+σ2
+− t
+2σ2
+)
+p exp
+(
+V vt − v
+σ2
+− t
+2σ2
+)
++ 1− p
+; t ≥ 0,
+see Shiryayev (1978, §4.2.1). It is immediate from (11) that beliefs satisfy a non-crossing
+property, in the sense that p+ > p− implies that P
+p+
+t > P
+p−
+t at any time t, P–almost surely.
+7
+Using the characterizations provided in Propositions 1 and 2, we can now derive some
+basic properties of the value function. From (5) and (6), note first that:
+(12) G∗(v, p) = sup
+τ∈T V
+E
+[
+e−rτ
+(
+v +
+∫ τ
+0
+P pt dt+ σW¯τ − I
+)]
+; (v, p) ∈ R× [0, 1].
+From (12) and the non-crossing property of the belief process, we immediately obtain the
+following monotonicity result.
+Corollary 1.
+(i) For any p ∈ [0, 1], the mapping v 7→ G∗(v, p) is increasing on R;
+(ii) For any v ∈ R, the mapping p 7→ G∗(v, p) is non-decreasing on [0, 1].
+Our next result follows immediately from (10) and the fact that the supremum of a family
+of linear functions is convex.
+Corollary 2.
+(i) For any p ∈ [0, 1], the mapping v 7→ G∗(v, p) is convex on R;
+(ii) For any v ∈ R, the mapping p 7→ G∗(v, p) is convex on [0, 1].
+The decision-maker is thus ready to accept risky bets on the initial value v of the project,
+for a fixed value of p, or on the probability p that the project has a high drift, for a fixed value
+of v. The latter implies that costless information about µ, in the form of a mean-preserving
+spread over p, always has a positive value for the decision-maker. However, it does not follow
+from (10) that G∗ is convex with respect to the pair (v, p), and thus that the decision-maker
+would be ready to accept risky bets on both v and p simultaneously. Indeed, we shall argue
+in Section 6 that G∗ cannot be convex on its whole domain.
+The last result of this section concerns the continuity of the value function with respect
+to the initial conditions (v, p) and the variance σ of the observation-value process. In the
+latter case, we denote the value function by G∗σ instead of G∗.
+Corollary 3.
+(i) The mapping (v, p) 7→ G∗(v, p) is continuous on R× [0, 1];
+(ii) The mapping σ 7→ G∗σ(v, p) is continuous on R++.
+4. The optimal investment region. As P is intrinsically a two-dimensional problem,
+the standard partial differential equation approach to optimal stopping is of little help, since
+no closed-form solution for G∗ is available. In particular, it is not clear whether the usual
+smooth-pasting condition holds along the investment boundary (for a discussion of this point,
+see Shiryayev 1978, §3.8.1). Instead of focusing on the value function, a task we shall return
+to in Section 5, we first determine some properties of the investment boundary function. The
+following result summarizes our findings.
+Theorem 1. The investment boundary function v∗ : [0, 1] → R++ is continuous and
+non-decreasing on [0, 1].
+Before we proceed with the proof of Theorem 1, some comments are in order. The
+monotonicity of the investment boundary function with respect to beliefs reflects the intuitive
+8
+idea that, for any given current value of the project, the more optimistic the decision-maker
+is about the drift of the value process, the more he is ready to experiment by delaying his
+investment. This generalizes to our incomplete information setting the standard result that
+the optimal investment trigger for a project whose value follows an arithmetic Brownian
+motion with a constant and known drift is increasing in the value of the drift.
+Since v∗(1) > v∗(0) and v∗ is continuous on [0, 1], the optimal strategy τ∗ for P is not
+a trigger strategy, that is, a stopping time of the form τ(v¯) = inf {t ≥ 0 | Vt ≥ v¯} for some
+threshold v¯. In contrast with predictions of standard models of irreversible investment under
+uncertainty (Dixit and Pindyck 1994), the value of the project at the time of investment does
+not therefore necessarily coincide with its maximum historic value. As pointed out in the
+introduction, a rational decision-maker may even optimally decide to invest after a drop of
+the value. The model thus allows some form of ex-post regret. For instance, the owner of
+a house who sells it at a discount might regret not having accepted an earlier high quote
+because he then anticipated a sustained boom of the housing market.
+The path-dependency of the investment strategy reflects the fact that the innovations
+of the belief process are positively correlated with the fluctuations of the value, as is easily
+seen from (5). Specifically, the fluctuations of the value have two opposite effects on the
+investment decision. On one hand, a positive shock on V increases the payoff from investing
+immediately. This direct effect makes the decision-maker less willing to delay investment. On
+the other hand, a positive shock on V increases the subjective probability that the unknown
+drift µ is high, thus providing good news about the likelihood of further future increases of
+V . This indirect effect makes the decision-maker more willing to delay investment. These
+effects are reversed in the case of a negative shock on V .
+Theorem 1 is established through a series of lemmas. Monotonicity and left-continuity of
+v∗ follow from standard arguments (see for instance Villeneuve 1999, Proposition 3.2).
+Lemma 3. v∗ is non-decreasing on [0, 1].
+Proof. By Proposition 1, G∗(v, p) = v − I for any v ≥ v∗(p). Moreover, the mapping
+p 7→ G∗(v, p) is non-decreasing according to Corollary 1. It follows that G∗(v, p0) = v− I for
+any p0 ≤ p and v ≥ v∗(p), which implies that v∗(p0) ≤ v∗(p). ¤
+Lemma 4. v∗ is left-continuous on (0, 1].
+Proof. Let {pn} be a non-decreasing sequence in [0, 1] converging to p ∈ (0, 1]. From
+Lemma 3, the sequence {v∗(pn)} is non-decreasing and bounded above by v∗(p), and therefore
+converges to a limit v∗(p−). By definition, G∗(v∗(pn), pn) = v∗(pn) − I for any n ∈ N. By
+Corollary 2, G∗ is continuous, so that G∗(v∗(p−), p) = v∗(p−) − I. Hence v∗(p) ≤ v∗(p−),
+and thus v∗(p) = limn→∞ v∗(pn), which implies the result. ¤
+The proof that v∗ is right-continuous is a bit more involved. We will need the following
+lemma, which reflects the fact that the belief process is locally Lipschitzian with respect to
+its initial condition.
+Lemma 5. For any (p0, x) ∈ [0, 1)× R++, there exists p > p0 such that:
+(13) sup
+τ∈T V
+E
+[
+e−rτ
+[
+x+
+∫ τ
+0
+(P pt − P p0t ) dt
+]]
+= x.
+We are now ready to complete the proof of Theorem 1.
+Lemma 6. v∗ is right-continuous on [0, 1).
+9
+Proof. Let p0 ∈ [0, 1), and suppose that limp↓p0 v∗(p) = v∗(p+0 ) > v∗(p0). Fix some
+v ∈ (v∗(p0), v∗(p+0 )). For any p ∈ (p0, 1], let τ∗v,p be the optimal stopping time given initial
+conditions (v, p). Then, by (6) and (12),
+G∗(v, p) = E
+[
+e−rτ
+∗
+v,p
+(
+v +
+∫ τ∗v,p
+0
+P pt dt+ σW¯τ∗v,p − I
+)]
+(14)
+≤ v∗(p0)− I + E
+[
+e−rτ
+∗
+v,p
+[
+v − v∗(p0) +
+∫ τ∗v,p
+0
+(P pt − P p0t ) dt
+]]
+,
+where we have used the fact that G∗(v∗(p0), p0) = v∗(p0)− I. Since v − v∗(p0) > 0, Lemma
+5 implies that there exists p > p0 such that:
+E
+[
+e−rτ
+∗
+v,p
+[
+v − v∗(p0) +
+∫ τ∗v,p
+0
+(P pt − P p0t ) dt
+]]
+≤ v − v∗(p0).
+Hence, from (14), G∗(v, p) ≤ v − I and, since the reverse inequality always hold, G∗(v, p) =
+v − I, so that v∗(p) ≤ v by definition of v∗. As v∗ is non-decreasing by Lemma 3, it follows
+that v ≥ v∗(p+0 ). This contradicts the fact that, by assumption, v < v∗(p+0 ). ¤
+5. Comparison with the average drift problem. In this section, we provide a
+comparison between the unknown drift problem and the standard problem of finding an
+optimal investment time for a project whose value follows an arithmetic Brownian motion
+with constant and known drift. Specifically, we determine whether the decision-maker prefers
+an investment project with unknown drift µ equal to 0 with probability 1− p and to 1 with
+probability p, to an average drift project with a known drift equal to p.
+5.1. The average drift problem. Suppose that the decision-maker has now the
+opportunity to invest, at cost I, into an alternative project whose value is observable and
+follows an arithmetic Brownian motion with known drift p ∈ [0, 1] and known variance σ,
+(15) dVˆt = pdt+ σdWt; t ≥ 0.
+Assume that the two investment projects with values V and Vˆ are mutually exclusive and
+that the decision-maker must choose at date 0 the project he might later invest in. If he
+chooses the project with value Vˆ , we can state his decision problem as of finding a value
+function Gˆ(·, p) : R→ R and a stopping time τˆ ∈ T W such that:
+(16) Gˆ(v, p) = sup
+τ∈TW
+E
+[
+e−rτ (Vˆ vt − I)
+]
+= E
+[
+e−rτˆ (Vˆ vτˆ − I)
+]
+; v ∈ R,
+where v refers to the initial value of the project. We shall denote this average drift problem
+by Pˆ, in contrast with the unknown drift problem P. The optimal strategy for Pˆ is a trigger
+strategy, that is, a stopping time of the form τˆ(v¯) = inf
+{
+t ≥ 0 | Vˆ vt ≥ v¯
+}
+for some threshold
+v¯. We have the following result.
+Lemma 7. For any p ∈ [0, 1], let f(p) =
+√
+p2 + 2rσ2 − p and vˆ(p) = I + σ2/f(p). Then
+τˆ(vˆ(p)) is an optimal stopping time for Pˆ.
+10
+Lemma 7 is standard, and results from the fact that the Laplace transform of τˆ(v¯) is given
+by E [e−rτˆ(v¯)] = exp((v− v¯)f(p)/σ2) (Karatzas and Shreve 1991, §3.5.C). The value function
+for Pˆ can then be written as:
+(17) Gˆ(v, p) =
+
+exp
+(
+−1 + f(p)
+σ2
+(v − I)
+)
+σ2
+f(p)
+if v < I +
+σ2
+f(p)
+,
+v − I if v ≥ I + σ
+2
+f(p)
+.
+There is no a priori obvious relationship between G∗ and Gˆ, except of course when p is equal
+to 0 or 1, in which case the decision-maker in P knows with certainty the value of the drift,
+so that G∗(·, 0) = Gˆ(·, 0) and G∗(·, 1) = Gˆ(·, 1). With a slight abuse of terminology, we will
+refer to vˆ as the investment boundary function for the average drift problem.
+5.2. The comparison result. Since the objective function in (16) is linear in the
+drift p of Vˆ , the value function Gˆ for the average drift problem Pˆ is convex in p. This
+implies that a risk-neutral decision-maker is ready to exchange the option to invest in the
+average drift problem for an option to invest in a project with value V vt = v + µt+ σWt and
+uncertain drift µ ∈ {0, 1} drawn according to P [µ = 1] = p, provided he is informed of the
+value of µ immediately after its realization, and can thus take his investment decision under
+complete information about µ. In the unknown drift problem P, the information structure
+of the decision-maker is coarser, since he has only access to an imperfect learning technology,
+namely, the observation of V . Nevertheless, we have the following result.
+Theorem 2. For any (v, p) ∈ R× [0, 1],
+G∗(v, p) ≥ Gˆ(v, p).
+Thus the value of the unknown drift problem is higher than that of the average drift
+problem, despite the fact that, in the former, the decision-maker has to acquire information
+about the drift before taking his investment decision. Geometrically, in the value-belief space,
+the investment boundary v∗ for the unknown drift problem P is to the right of the investment
+boundary vˆ for the average drift problem Pˆ, that is v∗ ≥ vˆ, see Figure 1 below.
+The proof of Theorem 2 relies on standard discrete-time approximations of P and Pˆ. Let
+Ψ be the space of continuous ψ : R × [0, 1] → R such that the family {ψ(V vτ , P pτ ) | τ ∈ T V }
+is uniformly integrable, and let Ψˆ be the space of continuous ψˆ : R→ R such that the family
+{ψˆ(Vˆ vτ ) | τ ∈ T W } is uniformly integrable. For any fixed δ > 0, interpreted as the duration
+of a discrete-time period, define operators acting respectively on Ψ and Ψˆ by:
+(18) Qδ(ψ)(v, p) = max
+{
+ψ(v, p),E
+[
+e−rδψ(V vδ , P
+p
+δ )
+]}
+; ψ ∈ Ψ, (v, p) ∈ R× [0, 1],
+and:
+(19) Qˆδ(ψˆ)(v) = max
+{
+ψˆ(v),E
+[
+e−rδψˆ(Vˆ vδ )
+]}
+; ψˆ ∈ Ψˆ, v ∈ R.
+It is clear from these definitions that Qδ and Qˆδ map respectively Ψ and Ψˆ into themselves.
+Therefore, for any ψ ∈ Ψ, ψˆ ∈ Ψˆ, and n ∈ N, one can define Qnδ (ψ) and Qˆnδ (ψˆ) recursively.
+Two key properties are that Qδ is monotone, that is Qδ(φ) ≤ Qδ(ψ) whenever φ ≤ ψ, and
+that Qˆδ preserves convexity by the convexity of the maximum operator and of the process
+Vˆ v with respect to its initial condition v.
+11
+For any v ∈ R, let ψˆ(v) = v−I, and let pi1 : R× [0, 1]→ R be the projection of elements of
+R× [0, 1] on their first coordinate. It is immediate to check that ψˆ ∈ Ψˆ and ψˆ ◦ pi1 ∈ Ψ. Our
+next result follows immediately from the characterization of the value function of an optimal
+stopping problem as the smallest excessive upper bound of the reward function (Shiryayev
+1978, §3.2.2, Lemma 3, and §3.3.1, Theorem 1).
+Lemma 8. For any (v, p) ∈ R× [0, 1],
+(i) limδ→0 limn→∞Qnδ (ψˆ ◦ pi1)(v, p) = G∗(v, p);
+(ii) limδ→0 limn→∞ Qˆnδ (ψˆ)(v) = Gˆ(v, p).
+The interpretation of this approximation result is clear. For any fixed δ > 0, the limit
+with respect to n yields the value of the infinite-horizon, discrete-time problem, where the
+investor is constrained to stopping times with range in {nδ | n ∈ N}. Letting then δ go to
+0 yields the value of the continuous-time problem. Given Lemma 8, Theorem 2 is a direct
+consequence of the following lemma.
+Lemma 9. For any (δ, n) ∈ R++ × N,
+Qnδ (ψˆ ◦ pi1) ≥ Qˆnδ (ψˆ) ◦ pi1.
+Proof. We proceed by induction. First, for any (v, p) ∈ R× [0, 1],
+Qδ(ψˆ ◦ pi1)(v, p) = max
+{
+ψˆ(v),E
+[
+e−rδψˆ(v + µδ + σWδ)
+]}
+≥ max
+{
+ψˆ(v),E
+[
+e−rδψˆ(v + pδ + σWδ)
+]}
+= (Qˆδ(ψˆ) ◦ pi1)(v, p),
+where the inequality follows from the convexity of ψˆ and the independence between µ and
+W , together with Jensen’s inequality. Next, suppose that Qnδ (ψˆ ◦ pi1) ≥ Qˆnδ (ψˆ) ◦ pi1 for some
+n ∈ N. Then, for any (v, p) ∈ R× [0, 1],
+Qn+1δ (ψˆ ◦ pi1)(v, p) = Qδ(Qnδ (ψˆ ◦ pi1))(v, p)
+≥ Qδ(Qˆnδ (ψˆ) ◦ pi1)(v, p)
+≥ (Qˆδ(Qˆnδ (ψˆ)) ◦ pi1)(v, p)
+= (Qˆn+1δ (ψˆ) ◦ pi1)(v, p),
+where the first inequality follows from the induction hypothesis and the monotonicity of Qδ,
+and the second inequality from the first part of the proof together with the fact that Qˆδ
+preserves convexity. Hence the result. ¤
+5.3. A remark on trigger strategies. In the previous subsection, we have used
+dynamic programming techniques to compare the unknown drift problem P with the average
+drift problem Pˆ. Since the optimal stopping time in Pˆ is a trigger strategy, one might wonder
+12
+whether a more direct approach would not consist to restrict the strategy space in P to trigger
+strategies conditional on the current value V of the project, and to compare the value of this
+constrained problem to that of Pˆ. While this approach turns out not to be conclusive, it is
+nevertheless instructive to understand why. To do so, let T¯ V be the subset of T V composed
+of stopping times of the form τ(v¯) = inf{t ≥ 0 | Vt ≥ v¯} for some threshold v¯, and consider
+the following constrained problem:
+(20) G¯(v, p) = sup
+τ∈T¯ V
+E
+[
+e−rτ (V vτ − I)
+]
+.
+Using (10), a standard computation based on Girsanov’s theorem (Karatzas and Shreve 1991,
+Corollary 3.5.2) and on the formula for the Laplace transform of the passage time to a level
+v¯ for an arithmetic Brownian motion yields the following result.
+Lemma 10. For any (v, p) ∈ R× [0, 1],
+(21) G¯(v, p) = max
+v¯≥v
+Γ(v, p, v¯),
+where, for any v¯ ∈ R,
+(22) Γ(v, p, v¯) =
+[
+p exp
+(
+v − v¯
+σ2
+f(1)
+)
++ (1− p) exp
+(
+v − v¯
+σ2
+f(0)
+)]
+(v¯ − I).
+The expression (22) for the objective in (21) admits a natural interpretation. When
+choosing an optimal trigger v¯ in P, the decision-maker maximizes a weighted average of the
+payoffs he would get from playing τ(v¯) if he knew the true value of the drift, where the
+weights 1−p and p reflect his prior beliefs about µ. It is clear from (22) that the choice of an
+optimal trigger in (21) depends on the the initial value v of the project as well as on his prior
+belief p. Thus this choice is not dynamically consistent, in the sense that a decision-maker
+constrained to trigger strategies would like to revise his choice of a trigger strategy as the
+value changes and new information about the drift becomes available. Formulas (21)–(22)
+do not allow to derive a closed-form solution for the optimal trigger v¯(v, p) conditional on
+the initial state (v, p). However, one can unambiguously compare v¯(v, p) with the optimal
+trigger vˆ(p) for the average drift problem, at least for specific values of v and p. Specifically,
+let v˜(p) = I + σ2/[pf(1) + (1− p)f(0)] for any p ∈ [0, 1]. Then one has the following result.
+Proposition 3. For any p ∈ (0, 1) and v ≥ v˜(p), v¯(v, p) = v.
+Since f is convex and positive, v˜(p) < vˆ(p) whenever p ∈ (0, 1). Hence, for any such p and
+v ∈ [v˜(p), vˆ(p)), v¯(v, p) < vˆ(p) and thus G¯(v, p) = v − I < Gˆ(v, p). For these values of (v, p),
+the decision-maker, when constrained to use trigger strategies, invests as if the drift were
+constant and equal to f−1(σ2/(v − I)) < p, making him just ready to invest immediately.
+This reflects an implicit risk-aversion due to the additional uncertainty generated by the
+randomness of µ. Clearly, Proposition 3 does not us allow to compare P and Pˆ. In a sense,
+this is not surprising, as the restriction to trigger strategies in P essentially amounts to
+deprive the decision-maker from the benefits of learning about the unknown drift.
+6. A local study of the investment boundary. While the comparison result of
+Theorem 2 provides a useful lower bound for the value function G∗ of problem P, it says
+little about the shape of the investment boundary function v∗, nor about the wedge between
+the unknown drift problem and the average drift problem. We now address these and related
+questions in the case in which the variance σ of the observation-value process is small.
+13
+6.1. A strict comparison result. In the remaining of the paper, we systematically
+index the value processes V and Vˆ , the value functions G∗ and Gˆ, and the investment
+boundary functions v∗ and vˆ by the variance parameter σ. Our objective in this section is to
+compare G∗σ and Gˆσ, as well as the investment boundaries v∗σ and vˆσ for small values of σ.
+Specifically, consider the open domain D = (I, I +1/r)× (0, 1). Our discussion will be based
+on the following strict comparison result.
+Theorem 3. For any compact set K ⊂ D, there exists σK > 0 such that for any
+(σ, v, p) ∈ (0, σK ]×K,
+G∗σ(v, p) > Gˆσ(v, p).
+The proof of Theorem 3 is based on three uniform convergence lemmas. First, we study
+the solution to the average drift problem Pˆ as σ goes to 0. Next, we introduce an auxiliary
+problem P˜ which yields a value uniformly close to that of P as σ goes to 0. We conclude by
+proving that P˜ yields a strictly higher value than Pˆ as σ goes to 0.
+First, we study the behavior of Gˆσ when the variance σ of Vˆσ becomes arbitrarily small.
+When σ = 0, solving Pˆ simply amounts to finding a maximum of t 7→ e−rt(v+pt−I), yielding
+tˆ0(v, p) = max{0, (I − v)/p + 1/r} whenever p > 0 and tˆ0(v, 0) = 0 whenever v > I. It is
+then straightforward to check that, for any (v, p) ∈ D,
+(23) Gˆ0(v, p) =
+
+exp
+(
+−1 + r
+p
+(v − I)
+)
+p
+r
+if v < I +
+p
+r
+,
+v − I if v ≥ I + p
+r
+.
+A key observation is that, for any initial value v, Gˆ0(v, p) is convex in p. In particular,
+(24) pGˆ0(v, 1) + (1− p)Gˆ0(v, 0) > Gˆ0(v, p); (v, p) ∈ D.
+One has the following result.
+Lemma 11. limσ→0 Gˆσ(v, p) = Gˆ0(v, p) uniformly in (v, p) on any compact set K ⊂ D.
+To compare G∗σ and Gˆσ, it will be helpful to consider an auxiliary optimal stopping
+problem that differs from P only in that the Gaussian component of the value is omitted in
+the decision-maker’s payoff:
+(25) G˜σ(v, p) = sup
+τ∈T Vσ
+E
+[
+e−rτ (v + µτ − I)].
+We shall denote this problem by P˜. Note that the information structure is the same in P
+and P˜. This leads to the following result.
+Lemma 12. limσ→0G∗σ(v, p)− G˜σ(v, p) = 0 uniformly in (v, p) on R× [0, 1].
+It should be noted that the decision-maker can secure the payoff Gˆ0(v, p) in P or P˜ by
+mimicking the optimal strategy in Pˆ when σ = 0, that is, by delaying investment by the
+deterministic time amount tˆ0(v, p). This follows immediately from the linearity of the payoff
+functions in (6) and (25) with respect to µ. We now prove that, as σ goes to 0, G˜σ converges
+uniformly to the function v 7→ pGˆ0(v, 1) + (1 − p)Gˆ0(v, 0), which implies Theorem 3 given
+Lemmas 11 and 12 and inequality (24).
+Lemma 13. limσ→0 G˜σ(v, p) = pGˆ0(v, 1) + (1 − p)Gˆ0(v, 0) uniformly in (v, p) on any
+compact set K ⊂ D.
+14
+The intuition is as follows. As already mentioned, the decision-maker can always secure
+the payoff Gˆ0(v, p) in P˜. In fact, he can do strictly better by first waiting a deterministic
+time amount ε > 0 and only then playing the optimal strategy in Pˆ for σ = 0, conditional
+on the expected value of (v + µε, µ) at time ε. The delay ε corresponds to a learning phase,
+during which the decision-maker accumulates information about µ before taking his decision.
+As σ goes to 0, the accuracy of Vσ as a signal of µ becomes infinite, so this learning phase
+can be made arbitrarily short. In the limit, everything happens as if the decision-maker knew
+exactly the value of µ at date 0, which implies pointwise convergence.
+The fact that convergence is uniform in (v, p) on any compact subset of D follows from a
+time-change argument. For a fixed duration ε of the learning phase, reducing the variance of
+the observation process effectively amounts to increasing the duration of the learning phase
+while keeping the variance constant. Since beliefs follow a martingale, this generates a mean-
+preserving spread in the beliefs of the decision-maker. As his expected gain at the end of the
+learning phase is convex in (v + εPε, Pε), the payoff from this investment strategy increases
+as σ decreases to 0, which implies the result.
+6.2. Comments and interpretations. An immediate consequence of Lemmas 11,
+12, and 13 is that limσ→0G∗σ(v, p)−[pGˆσ(v, 1)+(1−p)Gˆσ(v, 0)] = 0 uniformly on any compact
+subset of D. This means that, as σ goes to 0, the value of the unknown drift problem P
+converges uniformly to the value of an investment problem in which the drift µ of the value
+process is first selected according to a lottery on 0 and 1 with respective probabilities 1−p and
+p, and immediately revealed to the decision-maker, who then takes his investment decision
+under complete information about µ. The loss in value arising from the need to learn about
+the drift vanishes as the variance of the observation process converges to 0. The fact that
+the unknown drift problem P is strictly preferred by the decision-maker to the average drift
+problem Pˆ for small values of σ simply reflects the fact that the value function Gˆσ of Pˆ is
+convex on D with respect to p, and that learning about µ in P is fast when σ is small.
+From Lemma 7, the optimal investment strategy in the average drift problem Pˆ with drift
+p consists to delay investment until the value Vˆ hits the threshold vˆσ(p). It is easy to check
+that, as σ goes to 0, vˆσ converges monotonically from above to the mapping p 7→ I + p/r.
+This implies that any pair (v, p) ∈ D′ = {(v, p) ∈ D | v > I + p/r} satisfies Gˆσ(v, p) = v − I
+for σ close enough to 0. It follows then from Theorem 3 that G∗σ(v, p) > v − I, that is, (v, p)
+belongs to the continuation region of P for σ close enough to 0. Moreover, this reasoning can
+be made uniform on compact subsets of D.
+Corollary 4. For any compact subset K ⊂ D′, there exists σK > 0 such that for any
+(σ, v, p) ∈ (0, σK ]×K,
+G∗σ(v, p) > v − I = Gˆσ(v, p).
+We can actually characterize exactly the asymptotic behavior of the investment boundary
+function v∗σ as σ converges to 0.
+Corollary 5.
+(i) limσ→0 v∗σ(0) = I;
+(ii) For any p ∈ (0, 1], limσ→0 v∗σ(p) = I + 1/r.
+The optimal investment boundary function v∗σ converges pointwise to the discontinuous
+function v∗0 = I+1(0,1]/r as σ goes to 0. The proof simply consists to apply Corollary 4 to an
+increasing sequence {Kn} of compact subsets of D′ such that
+⋃∞
+n=0Kn = D′. To interpret this
+15
+result, consider the limit problem arising from P when the Gaussian component is omitted
+both in the information structure of the decision-maker and in his payoff:
+(26) G∗0(v, p) = sup
+τ∈T V0
+E
+[
+e−rτ (v + µτ − I)].
+As the signal V0 is perfect, all learning about µ takes place at date 0, and the belief process
+jumps instantaneously to one of its absorbing barriers, 0 with probability 1 − p, or 1 with
+probability p. If v ≥ I then, in the first case, it is optimal to invest immediately, while in
+the second, it is optimal to wait until the value reaches the threshold I + 1/r. Thus v∗0 can
+be interpreted as the investment boundary for the limit problem (26). It should be noted
+that G∗0(v, p) = pGˆ0(v, 1) + (1 − p)Gˆ0(v, 0), in line with Lemma 13. The triangular area
+D′ therefore represents the discrepancy between the unknown drift problem and the average
+drift problem as σ goes to 0. Our results are illustrated on Figure 1.
+D′
+-
+6
+p
+v
+1
+I I + 1/rv∗σ(0)
+v∗σ(1)
+vˆσ
+ﬀ v∗σ
+PPPq
+Figure 1. Local comparison between P and Pˆ.
+While vˆσ is unambiguously convex, the concave shape of v∗σ is only meant to be suggestive.
+However, in virtue of Corollary 5, v∗σ cannot be globally convex on [0, 1] when σ is small.
+This implies in particular that the value function G∗σ is not globally convex with respect
+to the value-belief pair. Indeed, if it were, then, for any two points (v, p) and (v˜, p˜) on the
+investment boundary, and for any convex combination (vλ, pλ) of these points, we would have
+G∗σ(vλ, pλ) ≤ λG∗σ(v, p) + (1− λ)G∗σ(v˜, p˜) = vλ − I, so that G∗σ(vλ, pλ) = vλ − I and (vλ, pλ)
+would belong to the investment region as well. But this can only hold if v∗σ is globally convex
+on [0, 1], a contradiction.
+The convergence of the investment boundary v∗σ to the discontinuous function v∗0 as σ goes
+to 0 has a striking consequence. Indeed, consider some (v, p) ∈ D′ such that, for some σ > 0,
+G∗σ(v, p) = v−I, and thus it is optimal to invest in the state (v, p) when the observation-value
+process has variance σ. It is clearly possible to find a triple (v, p, σ) satisfying this condition,
+since v∗σ is continuous with respect to p and v∗σ(0) is close to I for small enough σ. But since
+v < I + 1/r and p > 0, Corollary 5 implies that, for all σ˜ < σ that are close enough to
+0, v∗σ˜(p) > v and thus G
+∗
+σ˜(v, p) > v − I. In other terms, the value of problem P can be a
+decreasing function of the variance σ of the value process, at least locally. Our findings are
+illustrated on Figure 2. Here, σ˜ < σ, and, on the hatched zone, G∗σ˜(v, p) > G
+∗
+σ(v, p) = v − I.
+Again, the exact shapes of v∗σ and v∗σ˜, as well as the fact that they cross only twice, are only
+meant to be suggestive.
+16
+-6
+p
+v
+1
+I I + 1/rv∗σ˜(0)
+v∗σ˜(1)
+D′
+-v∗σ˜
+v∗σ(0)
+v∗σ(1)
+@
+@@I
+v∗σ
+Figure 2. Non-monotonocity with respect to σ.
+This non-monotonicity result contrasts sharply with the predictions of standard real option
+models (Dixit and Pindyck 1994, §5.4). There, a greater uncertainty (in the sense of a higher
+σ) typically increases the value of a firm’s investment opportunity, and increases the critical
+value at which investment takes place by raising the opportunity cost of exercising the option
+to invest. A similar result also holds for the average drift problem, as vˆσ and therefore Gˆσ are
+clearly increasing in σ. The intuition is that when the variance increases, the decision-maker
+can achieve a higher exposition to upside realizations of the value by increasing his investment
+trigger, while being protected from downside risk.
+By contrast, in the incomplete information problem, the decision-maker is not protected
+from downside risk, since the investment boundary is not flat in p. An increase in σ has thus
+an ambiguous effect on the value of the option to invest, because of the interplay between two
+opposite effects. On the one hand, an increase in σ raises the variance of the payoff of the
+decision-maker at the time of investment, which tends to increase the value of the option to
+invest. One might call this standard effect the real option effect by analogy with the complete
+information case. On the other hand, a raise in σ decreases the variance of the belief process,
+which tends to impede learning about µ, and thus to reduce the opportunity cost to exert the
+option to invest. One might call this countervailing effect the inefficient learning effect. On
+the hatched zone in Figure 2, the inefficient learning effect clearly dominates. In this zone,
+a reduction in σ is likely to delay investment. This casts some doubt on the effectiveness of
+policies aiming at promoting investment by reducing the level of uncertainty, at least when
+such a reduction in uncertainty facilitates learning.
+Overall, the impact of an increase in σ on the value of the option to invest depends on
+which of the real option and the inefficient learning effects dominates. It is difficult to map
+precisely the parameter space in terms of this distinction. Note however that, since v∗σ(0) and
+v∗σ(1) are both increasing functions of σ and v∗σ(p) is a continuous non-decreasing function
+of p, v∗σ(p) must at least be locally increasing in σ in neighborhoods of 0 and 1, as well as
+G∗σ(v, p) for v close enough to v∗σ(p) (see Figure 2 for an illustration of this effect). Intuitively,
+if the decision-maker is already fairly confident in his estimate of µ, an increase in σ will only
+have a marginal impact on the efficiency of learning, since his beliefs are unlikely to change
+very fast anyway. The increased variance of his payoff make him however willing to delay his
+investment further, thereby increasing the value of his option to invest. In that case, the real
+option effect compensates for the decreased efficiency of learning.
+17
+7. Extensions. In this section, we discuss some extensions of our model. First, we
+allow the unknown drift of the value process to take an arbitrary finite number of possibly
+negative values. Next, we discuss the problems arising when the drift is allowed to take
+an infinite number of values. Last, we study the robustness of our results to a geometric
+Brownian motion specification of the value process.
+7.1. Finitely many drift values. Our basic assumptions are unchanged, except that
+µ can now take any of M ≥ 2 values m1 ≤ . . . ≤ mM in R. For any i = 1, . . . ,M , we
+denote by pi = P [µ = mi] the prior belief of the decision-maker that µ = mi, and we let
+p = (p1, . . . , pM ). At any time t, the belief of the decision-maker about µ is represented by a
+vector Pt = (P 1t , . . . , P
+M
+t ), where P
+i
+t = P [µ = mi | FVt ] for any i = 1, . . . ,M . From Liptser
+and Shiryaev (1977, Theorems 7.12 and 9.1), the belief process (P,FV ) satisfies the following
+filtering equation:
+(27) dP it =
+P it
+(
+mi −∑Mj=1 P jt mj)
+σ
+dW¯t; t ≥ 0, i = 1, . . . ,M,
+where the innovation process (W¯ ,FV ) is a standard Wiener process given by:
+(28) dW¯t =
+dVt −
+∑M
+j=1 P
+j
+t m
+jdt
+σ
+; t ≥ 0.
+The recursive formulation of the problem is again given by (6), bearing in mind that (P p,FV )
+is now a vector-valued process with values in the unit simplex ∆ of RM . The following result
+parallels Proposition 1.
+Proposition 4.
+(i) There exist a value function G∗ and a stopping time τ∗ ∈ T V that solve (6);
+(ii) The coincidence set S∗ = {(v, p) ∈ R×∆ | G∗(v, p) = g(v, p)} for (6) is non-empty and
+satisfies S∗ = ⋃p∈∆{p} × [v∗(p),∞), where v∗(p) = inf{v ∈ R | (v, p) ∈ S∗} < ∞ for
+any p ∈ ∆.
+A key difference with Proposition 1 is that the optimal stopping time is no longer P–
+almost surely finite if the drift can take negative values. The investment boundary function
+v∗ now determines a surface in R ×∆, and it is optimal to invest whenever the value-belief
+process crosses this surface. The characterization of the value functionG∗ is analogous to that
+provided in Section 3. Specifically, the Girsanov transformation extends straightforwardly
+to the multiple drift case, as well as Lemma 2, which leads to the following corollary of
+Proposition 2.
+Corollary 6. For any (v, p) ∈ R×∆,
+(29) G∗(v, p) = sup
+τ∈T B
+EQ
+[
+e−rτ
+M∑
+i=1
+pi exp
+((
+mi
+σ
+)
+Bτ − 12
+(
+mi
+σ
+)2
+τ
+)
+(v + σBτ − I)
+]
+.
+As in (11), the belief process can be represented in terms of the value process:
+(30) P i,pt =
+piHt(mi)∑M
+j=1 p
+jHt(mj)
+=
+pi exp
+((
+mi
+σ
+)
+V vt − v
+σ
+− 1
+2
+(
+mi
+σ
+)2
+t
+)
+M∑
+j=1
+pj exp
+((
+mj
+σ
+)
+V vt − v
+σ
+− 1
+2
+(
+mj
+σ
+)2
+t
+) ; t ≥ 0,
+18
+and the analogue of (12) is:
+(31) G∗(v, p) = sup
+τ∈T V
+E
+[
+e−rτ
+(
+v +
+∫ τ
+0
+M∑
+i=1
+P i,pt m
+i dt+ σW¯τ − I
+)]
+; (v, p) ∈ R×∆.
+From (29) and (31), it is clear that Corollary 1(i) and Corollary 2 still hold, as well as the
+continuity properties of Corollary 3. The multi-dimensional analogue of Corollary 1(ii) can
+be stated as follows.
+Corollary 7. Suppose that p and p˜ are ordered in the sense of the monotone likelihood
+ratio property, that is, pi/p˜i is increasing in i = 1, . . . ,M . Then G∗(v, p) ≥ G∗(v, p˜).
+The proof is an immediate consequence of (31) together with the fact that Bayesian
+updating preserves the monotone likelihood property. The comparison result with the average
+drift problem is unaffected. To see this, redefine the dynamics of Vˆ as:
+(32) dVˆt =
+M∑
+i=1
+pimidt+ σdWt; t ≥ 0.
+Lemmas 8 and 9 remain true, provided p is replaced by the prior expectation of the drift∑M
+i=1 p
+imi. Thus Theorem 2 holds for an arbitrary finite number of values for the drift.
+Our approach of the strict comparison result can be extended provided the largest possible
+value for the drift, mM , is strictly positive. One needs only to redefine the domain D as
+(I, I +mM/r)×∆, and the key inequality (24) is replaced by:
+(33)
+M∑
+i=1
+piGˆ0(v,mi) > Gˆ0
+(
+v,
+M∑
+i=1
+pimi
+)
+; (v, p) ∈ D.
+The analogues of Lemmas 11, 12 and 13 are easily derived, from which Theorem 3 follows.
+The asymptotic behavior of the investment boundary function v∗σ as σ converges to 0 can
+then be straightforwardly characterized along the lines of Subsection 6.2. For instance, if the
+drift can take three values −1, 0 and 1, one has limσ→0 v∗σ(1, 0, 0) = limσ→0 v∗σ(0, 1, 0) = I
+and limσ→0 v∗σ(p) = I + 1/r for any p ∈ ∆ \ {(1, 0, 0), (0, 1, 0)}.
+7.2. Infinitely many drift values. The situation is significantly more complex when
+µ can take an infinite number of values. LetM be the probability measure on the Borel σ–field
+B(R) describing the probability law of µ, and suppose that µ ∈ L1(R,B(R),M). Proceeding
+as in Subsection 3.2, one can construct a probability measure Q under which V and µ are
+independent, and whose restriction to Fµ,Wt has a Radon–Nikodym derivative with respect
+to P given by (7). The process (B,Fµ,W ) given by (8) remains a Brownian motion under Q.
+A direct application of Bayes’ rule (Karatzas and Shreve 1991, Lemma 3.5.3) yields that:
+E
+[
+µ | FVt
+]
+=
+EQ
+[
+exp
+((µ
+σ
+)V vt − v
+σ
+− 1
+2
+(µ
+σ
+)2
+t
+)
+µ | FVt
+]
+EQ
+[
+exp
+((µ
+σ
+)V vt − v
+σ
+− 1
+2
+(µ
+σ
+)2
+t
+)
+| FVt
+] = Φ(t, V vt ); t ≥ 0,
+where, by definition:
+Φ(t, x) =
+∫
+R
+exp
+((m
+σ
+)x− v
+σ
+− 1
+2
+(m
+σ
+)2
+t
+)
+mM(dm)∫
+R
+exp
+((m
+σ
+)x− v
+σ
+− 1
+2
+(m
+σ
+)2
+t
+)
+M(dm)
+; x ∈ R.
+19
+One can then decompose the value process in its own filtration and obtain:
+(34) dV vt = Φ(t, V
+v
+t )dt+ σdW¯t; t ≥ 0,
+where (W¯ ,FV ) is a standard Wiener process. The investment problem (2) can then be
+rewritten as follows:
+(35) sup
+τ∈T V
+E
+[
+e−rτ
+[
+v +
+∫ τ
+0
+Φ(s, V vs ) ds+ σW¯τ − I
+]]
+.
+In contrast with (5)–(6), a key feature of (34)–(35) is that it does not allow in general a finite-
+dimensional Markov representation. This represents a challenging problem that is beyond
+the scope of the present paper.
+7.3. Geometric Brownian motion. Returning for simplicity to the case in which
+µ can take only the values 0 and 1, suppose now that the value of the project follows a
+geometric Brownian motion with unknown drift µ and known variance σ,
+(36) dVt = µVtdt+ σVtdWt; t ≥ 0.
+We denote by v ≥ 0 the initial value of the project. To avoid confusion with P, we denote
+by Pg the corresponding investment problem. To ensure the existence of a solution to Pg,
+we assume that r > 1. From Liptser and Shiryaev (1977, Theorems 7.12 and 9.1), the
+belief process (P,FV ) satisfies again (3), where the innovation process (W¯ ,FV ) is a standard
+Wiener process given by:
+(37) dW¯t =
+dVt/Vt − Ptdt
+σ
+; t ≥ 0.
+From (3)–(37), the joint value-belief process can be rewritten as:
+(38) d
+[
+V vt
+P pt
+]
+=
+[
+P pt V
+v
+t
+0
+]
+dt+
+[
+σV vt
+P pt (1− P pt )/σ
+]
+dW¯t; t ≥ 0.
+We denote by G∗g and τ∗g the value function and the optimal stopping time for the unknown
+drift problem Pg. One can then restate Pg as in (6), with the sole difference that G∗g is now
+defined over R+ × [0, 1]. Existence of an optimal stopping time τ∗g and of an investment
+boundary function v∗g follows along the same lines as in the proof of Proposition 1, bearing
+in mind that r > 1. The extension of Lemma 2 to the case of geometric Brownian motion is
+straightforward, and one obtains the following characterization of the value function.
+Corollary 8. For any (v, p) ∈ R+ × [0, 1],
+(39) G∗g(v, p) = sup
+τ∈T B
+EQ
+[
+e−rτ
+{
+1 + p
+[
+exp
+(
+Bτ
+σ
+− τ
+2σ2
+)
+− 1
+]}[
+v exp
+(
+σBτ − σ
+2
+2
+τ
+)
+− I
+]]
+.
+The analogue of (12) is:
+(40) G∗g(v, p) = sup
+τ∈T V
+E
+[
+e−rτ
+[
+v exp
+(∫ τ
+0
+P pt dt+ σW¯τ −
+σ2
+2
+τ
+)
+− I
+]]
+; (v, p) ∈ R+ × [0, 1].
+From (39) and (40), it is easy to check that Corollary 1, 2 and 3 hold for the value function
+G∗g. Using the same arguments as those provided for Lemmas 3 and 4, it follows that the
+20
+investment boundary function v∗g is non-decreasing on [0, 1] and left-continuous on (0, 1].
+For any t ≥ 0, let Mt = exp(σW¯t − σ2t/2). By analogy with Lemma 5, the proof that v∗g is
+right-continuous on [0, 1) requires the following auxiliary result.
+Lemma 14. For any (p0, x) ∈ [0, 1)× (1,∞), there exists p > p0 such that:
+(41) sup
+τ∈T V
+E
+[
+e−rτMτ
+[
+x exp
+(∫ τ
+0
+P pt dt
+)
+− exp
+(∫ τ
+0
+P p0t dt
+)]]
+= x− 1.
+One has then the following analogue of Lemma 6.
+Lemma 15. v∗g is right-continuous on [0, 1).
+Proof. Let p0 ∈ [0, 1), and suppose that limp↓p0 v∗g(p) = v∗g(p+0 ) > v∗g(p0). Fix some
+v ∈ (v∗g(p0), v∗g(p+0 )). For any p ∈ (p0, 1], let τ∗gv,p be the optimal stopping time given initial
+conditions (v, p). Then, by the analogue of (6) and (40),
+G∗g(v, p) = E
+[
+e−rτ
+∗g
+v,p
+[
+v exp
+(∫ τ∗gv,p
+0
+P pt dt+ σW¯τ∗gv,p −
+σ2
+2
+τ∗gv,p
+)
+− I
+]]
+≤ v∗g(p0)− I(42)
++ v∗g(p0)E
+[
+e−rτ
+∗g
+v,p Mτ∗gv,p
+[
+v
+v∗g(p0)
+exp
+(∫ τ∗gv,p
+0
+P pt dt
+)
+− exp
+(∫ τ∗gv,p
+0
+P p0t dt
+)]]
+,
+where we have used the fact that G∗g(v∗g(p0), p0) = v∗g(p0)−I. Since v/v∗g(p0) > 1, Lemma
+14 implies that there exists p > p0 such that:
+E
+[
+e−rτ
+∗g
+v,p Mτ∗gv,p
+[
+v
+v∗g(p0)
+exp
+(∫ τ∗gv,p
+0
+P pt dt
+)
+− exp
+(∫ τ∗gv,p
+0
+P p0t dt
+)]]
+≤ v
+v∗g(p0)
+− 1.
+Hence, from (42), G∗g(v, p) ≤ v− I and, since the reverse inequality always hold, G∗g(v, p) =
+v − I, so that v∗g(p) ≤ v by definition of v∗g. As v∗g is non-decreasing, it follows that
+v ≥ v∗g(p+0 ). This contradicts the fact that, by assumption, v < v∗g(p+0 ). ¤
+We have thus proved the following result.
+Theorem 4. The investment boundary function v∗g : [0, 1] → R++ is continuous and
+non-decreasing on [0, 1].
+We now check the robustness of our comparison result. In the average drift problem, the
+value is observable and follows a geometric Brownian motion with known drift p ∈ [0, 1] and
+known variance σ,
+(43) dVˆt = pVˆtdt+ σVˆtdWt; t ≥ 0.
+We denote by Gˆg(·, p) and τˆ g(vˆg(p)) the value function and the optimal stopping time for the
+average drift problem Pˆ. One can restate Pˆg as in (16), with the sole difference that Gˆg(·, p)
+is now defined over R+. The following result is standard (Dixit and Pindyck 1994, §5.2).
+Lemma 16. For any p ∈ [0, 1], let β = 1/2 − p/σ2 + √(1/2− p/σ2)2 + 2r/σ2 and
+vˆg(p) = βI/(β − 1). Then τˆ g(vˆg(p)) is an optimal stopping time for Pˆ.
+21
+The comparison between G∗g and Gˆg when the value processes V and Vˆ follow geometric
+Brownian motions can be reduced to the arithmetic Brownian motion case by observing that
+Lemmas 8 and 9 remain valid when the unknown drift in (1) can take the values −σ2/2 and
+1 − σ2/2 with respective probabilities 1 − p and p, and when the payoff function ψˆ is given
+by ψˆ(v) = exp(v) − I for any v ∈ R. The key property in that respect is that the operator
+Qˆδ preserves convexity. It therefore follows that:
+sup
+τ∈T V
+E
+[
+e−rτ
+[
+exp
+(
+ln(v) +
+(
+µ− σ
+2
+2
+)
+τ + σWτ
+)
+− I
+]]
+≥ sup
+τ∈T W
+E
+[
+e−rτ
+[
+exp
+(
+ln(v) +
+(
+p− σ
+2
+2
+)
+τ + σWτ
+)
+− I
+]]
+; (v, p) ∈ R+ × [0, 1],
+and one has the following result.
+Theorem 5. For any (v, p) ∈ R+ × [0, 1],
+G∗g(v, p) ≥ Gˆg(v, p).
+The above discussion suggests that the only difference between the arithmetic and the
+geometric Brownian motion cases lies in the payoff function, which is linear in the arithmetic
+case, and exponential in the geometric case. This additional element of convexity makes
+the comparison result less surprising in the geometric than in the arithmetic case. Strict
+comparison results analogous to Theorem 3 and Corollary 4 are easy to derive, and are
+therefore omitted.
+8. Concluding remarks. This paper has focused on the qualitative properties of the
+optimal decision to invest in a project whose value is observable but driven by a parameter
+that is unknown to the decision-maker ex-ante. In the case where the drift can take only two
+values, we have shown that the optimal investment strategy is characterized by a continuous
+and non-decreasing boundary in the value-belief state space. The presence of learning implies
+that the optimal investment strategy is path-dependent. In particular, the value of the project
+at the time of the investment does not necessarily coincide with its historic maximum.
+We have shown that the decision-maker always benefit from being uncertain about the
+drift of the value process, in the sense that he prefers the option to invest in a project
+with unknown drift to that of investing in a project with a constant drift equal to the prior
+expectation of the drift in the first option. Thus one might expect the value of claims on
+structurally risky assets, for instance in an emerging sector in which future growth prospects
+are uncertain, to be higher than that of claims on assets in more traditional sectors with
+otherwise identical risk characteristics.
+A significant point of departure with standard real option models is that the value of
+the option to invest is not everywhere increasing with respect to the volatility of the value
+process. Thus, while drift uncertainty always benefit a risk-neutral investor, non-structural
+uncertainty might prove harmful. As we argued, this non-monotonicity can be interpreted in
+terms of two countervailing effects, the real option effect and the inefficient learning effect.
+Appendix.
+Proof of Lemma 1. For any t ≥ 0, P 0t =
+∫ t
+0 P
+0
+s (1− P 0s ) dW¯s satisfies:
+E
+[
+(P 0t )
+2
+]
+=
+∫ t
+0
+E
+[
+(P 0s )
+2(1− P 0s )2
+]
+ds ≤
+∫ t
+0
+E
+[
+(P 0s )
+2
+]
+ds.
+22
+Thus, by Gronwall’s lemma, E [(P 0t )2] = 0, and therefore P 0t = 0, P–almost surely. Since
+1 − P 1t =
+∫ t
+0 P
+0
+s (1 − P 0s ) dW¯s, this also implies that P 1t = 1, P–almost surely. Hence (i)
+follows. (ii) is a direct application of Feller’s test for explosions (Karatzas and Shreve 1991,
+Theorem 5.5.29). ¤
+Proof of Proposition 1. Note first that, since inf{t ≥ 0 | V vt ≥ I} ∈ T V , the
+supremum in (6) must be non-negative. Next, from (5) and the definition of g, it follows
+that, for any (v, p) ∈ R× [0, 1],
+G∗(v, p) = sup
+τ∈T V
+E
+[
+e−rτ
+(
+v +
+∫ τ
+0
+P pt dt+ σW¯τ − I
+)]
+≤ sup
+τ∈T V
+E
+[
+e−rτ
+(
+v + τ + σW¯τ − I
+)]
+(44)
+= G∗(v, 1),
+where the last equality follows from the fact that W¯ is a Brownian motion under FV . In
+particular, G∗ is well-defined. Let C∗ = {(v, p) ∈ R × [0, 1] | G∗(v, p) > g(v, p)} be the
+continuation region for our problem, and let τ∗ = inf{t ≥ 0 | Xv,pt 6∈ C∗}. Since the family of
+random variables {e−rτW¯−τ | τ ∈ T V } is uniformly integrable as supτ∈T V E [e−2rτW 2τ ] < ∞,
+a sufficient condition for:
+G∗(v, p) = E
+[
+e−rτ
+∗
+g(Xv,pτ∗ )
+]
+= E
+[
+e−rτ
+∗
+(
+v +
+∫ τ∗
+0
+P pt dt+ σW¯τ∗ − I
+)]
+is that τ∗ be P–almost surely finite (Øksendal 2000, Theorem 10.1.9, and discussion p. 205).
+To prove this, note that τ∗ ≤ T v(v∗(1)) = inf{t ≥ 0 | V vt ≥ v∗(1)}, P–almost surely. Indeed,
+if not, then with positive P–probability,
+G∗
+(
+v∗(1), P pT v(v∗(1))
+)
+> v∗(1)− I = G∗(v∗(1), 1),
+which contradicts (44). Since T v(v∗(1)) ≤ inf{t ≥ 0 | v + σWt ≥ v∗(1)} which is P–almost
+surely finite, (i) follows. Furthermore, S∗ = R× [0, 1]\C∗ 6= ∅. Suppose now that (v, p) ∈ S∗,
+so that G∗(v, p) = v−I. For any h > 0, discounting implies that G∗(v+h, p) ≤ G∗(v, p)+h =
+v+h−I. Since the reverse inequality always holds as immediate stopping is a feasible strategy,
+one has G∗(v+ h, p) = v+ h− I, hence (v+ h, p) ∈ S∗. As τ∗ ≤ T v(v∗(1)), (ii) follows . ¤
+Proof of Lemma 2. For any t ≥ 0, let Yt = e−rt(Vt − I). The following holds.
+(i) limt→∞ Yt = 0, P– and Q–almost surely. (ii) The sequence {|Yn|} converges to 0 in
+L1(Ω,F ,P) as E[e−rn|Wn|] ≤ e−rn
+√
+2n/pi for any n ∈ N. (iii) The sequence {Hn(µ)|Yn|}
+converges to 0 in L1(Ω,F ,Q) as EQ [Hn(µ)|Yn|] = E [|Yn|]. (iv) Finally supτ∈T V E [|Yτ |] <∞
+as supτ∈T V E [e−rτ |Wτ |] ≤ supτ∈T W E [e−rτ |Wτ |] <∞, where the first inequality follows from
+the inclusion FV ⊂ Fµ,W and the independence of µ and W , and the second from standard
+optimal stopping theory. For any τ ∈ T V and n ∈ N, one has E [Yτ∧n] = EQ [Hτ∧n(µ)Yτ∧n],
+or, equivalently,
+(45) E
+[
+Yτ1{τ≤n}
+]
++ E
+[
+Yn1{τ>n}
+]
+= EQ
+[
+Hτ (µ)Yτ1{τ≤n}
+]
++ EQ
+[
+Hn(µ)Yn1{τ>n}
+]
+.
+We study the convergence of each term in (45) as n goes to infinity. Since E [|Yτ |] < ∞ by
+(iv), the dominated convergence theorem implies that the sequence {E [Yτ1{τ≤n}]} converges
+to E [Yτ1{τ<∞}], which is equal to E [Yτ ] by (i). By (ii), the sequence {|Yn1{τ>n}|} converges
+to 0 in L1(Ω,F ,P) and thus the sequence {E [Yn1{τ>n}]} converges to 0. To apply the same
+23
+reasoning to the right-hand side of (45), one simply needs to prove that EQ [Hτ (µ)|Yτ |] <∞.
+To see this, note that, by Fatou’s lemma and (iv):
+EQ [Hτ (µ)|Yτ |] = EQ
+[
+lim inf
+n→∞ Hτ∧n(µ)|Yτ∧n|
+]
+≤ lim inf
+n→∞ EQ [Hτ∧n(µ)|Yτ∧n|]
+= lim inf
+n→∞ E [|Yτ∧n|]= E [|Yτ |] <∞,
+where the first equality follows from (i), and the last from an argument similar to the one
+used to prove that the left-hand side of (45) converges to E[Yτ ]. Thus, letting n go to infinity
+in (45) yields E [Yτ ] = EQ [Hτ (µ)Yτ ] for any τ ∈ T V , which implies the result by (8). ¤
+Proof of Corollary 3. First, note from (6) that, for any (v, v0, p) ∈ R2 × [0, 1],
+(46) |G∗(v, p)−G∗(v0, p)| ≤ |v − v0|.
+For any (v, p) ∈ R × [0, 1], let τ∗v,p be the optimal stopping time for problem P given initial
+conditions (v, p). Using (10) and the fact that the mapping p 7→ G∗(v, p) is non-decreasing
+by Corollary 1, simple manipulations imply that for any (v, p, p0) ∈ R× [0, 1]2,∣∣∣∣G∗(v, p)−G∗(v, p0)p− p0
+∣∣∣∣ ≤ maxp1∈{p,p0}EQ
+[
+e−rτ
+∗
+v,p1
+(
+v + σBτ∗v,p1 − I
+)[
+exp
+(
+Bτ∗v,p1
+σ
+− τ
+∗
+v,p1
+2σ2
+)
+− 1
+]]
+≤ sup
+τ∈T V
+EQ
+[
+e−rτ (v + σBτ − I)
+[
+exp
+(
+Bτ
+σ
+− τ
+2σ2
+)
++ 1
+]]
+(47)
+≤ G∗(v, 0) +G∗(v, 1),
+where the second inequality follows from the fact that both v+σBτ∗v,p− I and v+σBτ∗v,p0 − I
+must be non-negative P–almost surely, and the third from (10), applied respectively to p = 0
+and p = 1. Using the two uniform upper bounds (46) and (47), we obtain that for any
+(v, v0, p, p0) ∈ R2 × [0, 1]2,
+|G∗(v, p)−G∗(v0, p0)| ≤ |G∗(v, p)−G∗(v0, p)|+ |G∗(v0, p)−G∗(v0, p0)|
+≤ |v − v0|+ [G∗(v0, 0) +G∗(v0, 1)]|p− p0|,
+which implies (i). To prove (ii), let Nt = exp(Bt/σ− t/(2σ2))− exp(Bt/σ0− t/(2σ20)) for any
+t ≥ 0, where (B,FB) is a Brownian motion on (Ω,F ,Q) independent of µ. Using (10) and
+proceeding as for (47), we obtain that for any (v, p, σ, σ0) ∈ R× [0, 1]× R2++,∣∣G∗σ(v, p)−G∗σ0(v, p)∣∣≤ |σ − σ0| max
+σ1∈{σ,σ0}
+sup
+τ∈T B
+∣∣∣∣EQ[e−rτ{1 + p[exp(Bτσ1 − τ2σ21
+)
+− 1
+]}
+Bτ
+]∣∣∣∣
+(48)
++ p max
+σ1∈{σ,σ0}
+sup
+τ∈T B
+∣∣EQ[e−rτNτ (v + σ1Bτ − I)]∣∣.
+Let σ1 ∈ {σ, σ0}. Along the lines of Subsection 3.2, one can show that there exists a unique
+probability measure Pσ1 on (Ω,F) such that:
+Pσ1 [A] = EQ
+[
+1A exp
+(
+Bt
+σ1
+− t
+2σ21
+)]
+24
+for any A ∈ FBt , and a direct application of Girsanov’s theorem (Karatzas and Shreve 1991,
+Corollary 3.5.2) implies that the process (Bσ1 ,FB) defined by Bσ1t = Bt− t/σ1 is a Brownian
+motion on (Ω,F ,Pσ1). Using the fact that T B = T Bσ1, and an argument similar to Lemma
+2, it is then easy to check that:
+sup
+τ∈T B
+∣∣∣∣EQ[e−rτ{1 + p[exp(Bτσ1 − τ2σ21
+)
+− 1
+]}
+Bτ
+]∣∣∣∣ ≤ sup
+τ∈T Bσ1
+EPσ1
+[
+e−rτ |Bσ1τ |
+]
++
+1
+σ1
+sup
+t≥0
+e−rtt.
+From standard optimal stopping theory, the first term on the right-hand side of this inequality
+is finite and independent of σ1, and the second is bounded for σ in a neighborhood of σ0 as
+σ0 > 0. It follows that the first term on the right-hand side of (48) converges to 0 as σ
+converges to σ0. Consider now the second term on the right-hand side of (48). Proceeding
+as above, it is straightforward to check that:
+sup
+τ∈T B
+∣∣EQ[e−rτNτ (v + σ1Bτ − I)]∣∣≤ 2 max
+σ2∈{σ,σ0}
+sup
+τ∈T Bσ2
+EPσ2
+[
+e−rτ
+∣∣∣∣v + σ1σ2 τ + σ1Bσ2τ − I
+∣∣∣∣],
+which is easily seen to be finite. The dominated convergence theorem implies then that:
+(49) lim
+n→∞ supτ∈T B
+∣∣EQ[e−rτNτ (v + σ1Bτ − I)1{τ>n}]∣∣= 0.
+Next, for any (τ, n) ∈ T B × N, we obtain, from Jensen’s and Cauchy–Schwartz inequalities:∣∣EQ[e−rτNτ (v + σ1Bτ − I)1{τ≤n}]∣∣≤ EQ[e−rτ ∣∣Nτ (v + σ1Bτ − I)1{τ≤n}∣∣]
+≤
+√
+EQ
+[
+N2τ 1{τ≤n}
+]
+EQ
+[
+(v + σ1Bτ − I)21{τ≤n}
+]
+(50)
+≤ 2
+√
+EQ[N2n]
+[
+(v − I)2 + 4√n |v − I|σ1 + 4σ21
+]
+,
+where the last step follows from:
+EQ
+[
+sup
+t≤n
+Bt
+]
+≤
+√
+EQ
+[
+sup
+t≤n
+B2t
+]
+together with Doob’s inequality applied to the martingales B and N . It is easy to check from
+the definition of N that Nn =
+∫ n
+0 [(1/σ− 1/σ0) exp(Bt/σ− t/(2σ2)) +Nt/σ0] dBt. From Itoˆ’s
+isometry and Gronwall’s inequality, we get, after some straightforward computations:
+(51) EQ
+[
+N2n
+]≤ σ
+σ0
+σ
+(
+1
+σ
+− 1
+σ0
+)[
+(σ + σ0)
+(
+en/σ
+2 − 1
+)
+− 2σ0(en/(σσ0) − 1)
+]
+en/σ
+2
+0 .
+Let ε > 0. By (49), supτ∈T B |EQ [e−rτNτ (v + σ1Bτ − I)1{τ>n}]| < ε/2 for large enough n.
+Similarly, from (50) and (51), supτ∈T B |EQ [e−rτNτ (v + σ1Bτ − I)1{τ≤n}]| < ε/2 for σ close
+enough to σ0. It follows that the second term on the right-hand side of (48) converges to 0
+as σ converges to σ0, which concludes the proof of (ii). ¤
+Proof of Lemma 5. Suppose first that p0 ∈ (0, 1), and let p ∈ (p0, 1]. Then, from (11),
+the process P p − P p0 can be written as (p − p0)f(H(1), p, p0), where H(1) is defined as in
+(9), and for any h ∈ R+,
+(52) f(h, p, p0) =
+h
+pp0(h− 1)2 + (p+ p0)(h− 1) + 1 .
+25
+It is easy to check from (52) that the mapping h 7→ f(h, p, p0) reaches a maximum on R+
+at h(p, p0) =
+√
+(1− p)(1− p0)/pp0, and that the mapping p 7→ f(h(p, p0), p, p0) is bounded
+above by some positive constant C(p0) in a neighborhood of p0. Thus,
+(53) sup
+t≥0
+|P pt − P p0t | ≤ C(p0)|p− p0|
+for all p in a neighborhood of p0, P–almost surely. It follows from (53) that:
+sup
+τ∈T V
+E
+[
+e−rτ
+[
+x+
+∫ τ
+0
+(P pt − P p0t ) dt
+]]
+≤ sup
+t≥0
+e−rt[x+ C(p0)(p− p0)t].
+The mapping t 7→ e−rt[x+ C(p0)(p− p0)t] is decreasing on R+ if C(p0)(p− p0) ≤ rx. Since
+the supremum in (13) is greater or equal than x, the result follows. Suppose now that p0 = 0.
+Then, by Lemma 1, P p0t = 0 P–almost surely, and, for any τ ∈ T V ,
+(54) E
+[
+e−rτ
+(
+x+
+∫ τ
+0
+P pt dt
+)]
+≤ E
+[
+e−rτx+
+∫ τ
+0
+e−rtP pt dt
+]
+=
+p
+r
++E
+[
+e−rτx−
+∫ ∞
+τ
+e−rtP pt dt
+]
+,
+where the equality follows from the monotone convergence theorem. Next,
+E
+[∫ ∞
+τ
+e−rtP pt dt
+]
+= E
+[
+E
+[∫ ∞
+τ
+e−rtP pt dt | FVτ
+]]
+= E
+[
+e−rτ E
+[∫ ∞
+0
+e−rtP pt+τ dt | FVτ
+]]
+= E
+[
+e−rτ
+∫ ∞
+0
+e−rt E
+[
+P pt+τ | FVτ
+]
+dt
+]
+= E
+[
+e−rτ
+P pτ
+r
+]
+,
+where the third equality follows from the monotone convergence theorem and the fourth from
+the strong Markov property together with the fact that P p is a martingale. From (54), we
+thus need only to prove that there exists some p > 0 such that:
+(55) G◦(p) = sup
+τ∈T V
+E
+[
+e−rτ
+(
+x− P
+p
+τ
+r
+)]
+= x− p
+r
+.
+If rx ≥ 1, G◦(p) = x−p/r since x−P p/r is then a positive martingale. If rx < 1, a standard
+computation (see for instance Bolton and Harris 1999) yields that a solution to (55) is given
+by τ◦ = inf{t ≥ 0 | P pt ≤ p◦}, where p◦ = (γ − 1) rx/(γ − 2rx+ 1) > 0 with γ =
+√
+1 + 8rσ2.
+Hence G◦(p) = x− p/r if p ≤ p◦, which implies the result. ¤
+Proof of Proposition 3. For any (v, p) ∈ R× [0, 1] and for any v¯ ≥ v, one gets, using
+(22) and the definitions of vˆ and f :
+∂Γ(v, p, v¯)
+∂v¯
+=
+pf(1)
+σ2
+exp
+(
+v − v¯
+σ2
+f(1)
+)
+[vˆ(1)− v¯] + (1− p)f(0)
+σ2
+exp
+(
+v − v¯
+σ2
+f(0)
+)
+[vˆ(0)− v¯].
+Thus argmaxv¯≥v Γ(v, p, v¯) = {v} whenever v ≥ vˆ(1), and argmaxv¯≥v Γ(v, p, v¯) ⊂ [vˆ(0), vˆ(1))
+otherwise. From now on, we focus on the latter case. Let us first show that v¯ 7→ Γ(v, p, v¯) is
+26
+quasi-concave on [v, vˆ(1)]. If ∂Γ(v, p, v¯)/∂v¯ < 0 whenever v¯ ∈ [v, vˆ(1)], the result is immediate
+and argmaxv¯≥v Γ(v, p, v¯) = {v}. Otherwise, let v¯ ∈ [v, vˆ(1)] such that ∂Γ(v, p, v¯)/∂v¯ = 0.
+Then, one has:
+∂2Γ(v, p, v¯)
+∂v¯2
+∝ [vˆ(1)− v¯][v¯ − vˆ(0)] f(0)− f(1)
+σ2
+− [vˆ(1)− vˆ(0)]
+(56)
+≤ [vˆ(1)− vˆ(0)]
+{
+[vˆ(1)− vˆ(0)][f(0)− f(1)]
+4σ2
+− 1
+}
+.
+A direct computation reveals that the right-hand side of (56) is negative for all (r, σ) ∈ R2++,
+which implies the strict quasi-concavity of v¯ 7→ Γ(v, p, v¯) on [v, vˆ(1)]. For any v ∈ [v˜(p), vˆ(1)),
+∂Γ(v, p, v¯)
+∂v¯
+∣∣∣∣
+v¯=v
+= 1 +
+I − v
+v˜(p)− I < 0,
+so that ∂Γ(v, p, v¯)/∂v¯ < 0 for any v¯ ∈ [v, vˆ(1)) by strict quasi-concavity of v¯ 7→ Γ(v, p, v¯) on
+[v, vˆ(1)]. Therefore argmaxv¯≥v Γ(v, p, v¯) = {v} in that case as well. ¤
+Proof of Lemma 11. Pointwise convergence follows immediately from (17) and (23)
+together with the fact that limσ→0 σ2/fσ(p) = p/r by L’Hoˆpital rule. Next, for any p ∈ [0, 1],
+the quantity σ2/fσ(p) is an increasing function of σ. Since Gˆ0 is continuous and the mapping
+x 7→ exp(−1 + (v − I)/x) is increasing on [v − I,∞) for any v ∈ R, the result follows
+immediately from Dini’s theorem. ¤
+Proof of Lemma 12. From (6) and (25), we have, for any (v, p) ∈ R× [0, 1],∣∣∣G∗σ(v, p)− G˜σ(v, p)∣∣∣ ≤ σ sup
+τ∈T Vσ
+E
+[
+e−rτ |Wτ |
+] ≤ σ sup
+τ∈TW
+E
+[
+e−rτ |Wτ |
+]
+,
+where the second inequality follows from the inclusion FVσ ⊂ Fµ,W and the independence
+of µ and W . Since supτ∈TW E[e−rτ |Wτ |] < ∞ from standard optimal stopping theory, the
+result follows. ¤
+Proof of Lemma 13. Note first that, for any σ > 0 and for any prior belief p ∈ [0, 1]
+that µ = 1, we have, from (25) and the inclusion FVσ ⊂ Fµ,W ,
+G˜σ(v, p) ≤ sup
+τ∈T µ,W
+E
+[
+e−rτ (v + µτ − I)]= pGˆ0(v, 1) + (1− p)Gˆ0(v, 0).
+It follows that lim supσ→0 G˜σ(v, p) ≤ pGˆ0(v, 1) + (1 − p)Gˆ0(v, 0) for any (v, p) ∈ R × [0, 1].
+To prove the converse, consider the following strategy in P˜. First, wait for a deterministic
+time amount ε ∈ (0, tˆ0(v, p)). Next, delay further investment by tˆ0(v + εP pε , P pε ), that is, the
+amount of time that is optimal in Pˆ in the state (v + εP pε , P pε ). We have:
+G˜σ(v, p) ≥ E
+[
+e−r[ε+tˆ0(v+εP
+p
+ε ,P
+p
+ε )]{v + µ[ε+ tˆ0 (v + εP pε , P pε )]− I}]
+= E
+[
+e−rε E
+[
+e−rtˆ0(v+εP
+p
+ε ,P
+p
+ε )
+[
+v + µε+ µtˆ0(v + εP pε , P
+p
+ε )− I
+] | FVσε ]](57)
+= E
+[
+e−rεGˆ0(v + εP pε , P
+p
+ε )
+]
+,
+27
+where the last equality follows from the definition of Gˆ0 and the fact that E [µ | FVσε ] = P pε .
+Rewriting (11) and making the dependence of P p on σ explicit, we obtain:
+P pε (σ) =
+p exp
+(
+σWε + (µ− 12)ε
+σ2
+)
+p exp
+(
+σWε + (µ− 12)ε
+σ2
+)
++ 1− p
+,
+from which we get that limσ→0 P
+p
+ε (σ) = µ, P–almost surely. As Gˆ0(v + εP pε (σ), P pε (σ)) is
+positive and bounded above by Gˆ0 (v + ε, 1) for any σ > 0, it follows from (57) and the
+dominated convergence theorem that:
+lim inf
+σ→0
+G˜σ(v, p) ≥ E
+[
+e−rεGˆ0(v + µε, µ)
+]
+= e−rε
+[
+pGˆ0(v + ε, 1) + (1− p)Gˆ0(v, 0)
+]
+.
+Since Gˆ0 is continuous, we get that lim infσ→0 G˜σ(v, p) ≥ pGˆ0(v, 1)+(1−p)Gˆ0(v, 0) by letting
+ε go to 0. Since the reverse inequality holds for the lim sup, pointwise convergence follows.
+To prove that this convergence is uniform, note first that:{
+x ∈ R |
+∫ ε
+−ε
+σ2dy
+(x+ y)2(1− x− y)2 =∞ for any ε > 0
+}
+= {0, 1},
+so that, by the Engelbert–Schmidt criterion (Karatzas and Shreve 1991, Theorem 5.5.7), the
+stochastic differential equation (3) has a unique solution P p(σ) in the sense of probability
+law for any initial condition p ∈ [0, 1]. Thus, from the time-change theorem for diffusion
+processes (Øksendal 2000, Theorem 8.5.7), P pt (σ) coincides in law with P
+p
+t/σ2
+(1) for any t ≥ 0
+and σ > 0. It follows that:
+E
+[
+e−rεGˆ0(v + εP pε (σ˜), P
+p
+ε (σ˜))
+]
+= E
+[
+e−rεGˆ0
+(
+v + εP p
+ε/σ˜2
+(1), P p
+ε/σ˜2
+(1)
+)]
+= E
+[
+E
+[
+e−rεGˆ0
+(
+v + εP p
+ε/σ˜2
+(1), P p
+ε/σ˜2
+(1)
+)
+| FV1
+ε/σ2
+]]
+≥ E
+[
+e−rεGˆ0
+(
+v + εP p
+ε/σ2
+(1), P p
+ε/σ2
+(1)
+)]
+= E
+[
+e−rεGˆ0(v + εP pε (σ), P
+p
+ε (σ))
+]
+,
+for any ε ∈ (0, tˆ0(v, p)) and σ > σ˜ > 0, where the first and last equalities follow from the
+above time-change argument, and the inequality from the fact that P p(1) is a martingale and
+Gˆ0 is convex as the supremum of linear functions of (v, p), together with Jensen’s inequality.
+Hence, the mapping σ 7→ E [e−rεGˆ0(v + εP pε (σ), P pε (σ))] is decreasing. Since the mapping
+(v, p) 7→ E[e−rεGˆ0(v+ µε, µ)] = pGˆ0(v, 1) + (1− p)e−rεGˆ0(v, 0) is continuous, it follows from
+Dini’s theorem that:
+(58) lim
+σ→0
+E
+[
+e−rεGˆ0(v + εP pε (σ), P
+p
+ε (σ))
+]
+= E
+[
+e−rεGˆ0(v + µε, µ)
+]
+uniformly on every compact set K ⊂ D. Note that this holds for every ε ∈ (0, tˆ0(v, p)). As ε
+goes to 0, the right-hand side of (58) converges uniformly to pGˆ0(v, 1) + (1 − p)Gˆ0(v, 0) on
+every compact set K ⊂ D. The result follows. ¤
+28
+Proof of Proposition 4. Following the same steps as in the proof of Proposition 1, it
+is easy to see that G∗ is well-defined, with (44) replaced by:
+G∗(v, p) = sup
+τ∈T V
+E
+[
+e−rτ
+(
+v +
+∫ τ
+0
+P pt dt+ σW¯τ − I
+)]
+≤ sup
+τ∈T V
+E
+[
+e−rτ
+(
+v +mMτ + σW¯τ − I
+)]
+(59)
+= G∗(v, eM ),
+where eM = (0, . . . , 0, 1) ∈ ∆. Let C∗ = {(v, p) ∈ R × ∆ | G∗(v, p) > g(v, p)} be the
+continuation region for our problem, and let τ∗ = inf{t ≥ 0 | Xv,pt 6∈ C∗}. From optimal
+stopping theory, the process {e−r(t∧τ∗)G∗(V vt∧τ∗ , P pt∧τ∗); t ≥ 0} is a martingale under FV (El
+Karoui 1981). Hence, for any n ∈ N,
+G∗(v, p) = E
+[
+e−r(n∧τ
+∗)G∗(V vn∧τ∗ , P
+p
+n∧τ∗)
+]
+= E
+[
+e−rτ
+∗
+G∗(V vτ∗ , P
+p
+τ∗)1{τ∗≤n}
+]
++ E
+[
+e−rnG∗(V vn , P
+p
+n)1{τ∗>n}
+]
+(60)
+= E
+[
+e−rτ
+∗
+(V vτ∗ − I)1{τ∗≤n}
+]
++ E
+[
+e−rnG∗(V vn , P
+p
+n)1{τ∗>n}
+]
+.
+Since e−rτ∗(V vτ∗ − I) ≥ 0 and e−rτ
+∗
+(V vτ∗ − I) = 0 P–almost surely on {τ∗ = ∞}, the first
+term on the last line of (60) converges to E [e−rτ∗(V vτ∗ − I)] as n goes to infinity. By (59),
+the second term is smaller than E [e−rnG∗(V vn , eM )]. An explicit computation similar to (17)
+reveals that this is less than E [e−rnmax{V vn , C}] for some positive constant C, and this in
+turns converges to 0 as n goes to infinity. Thus we have G∗(v, p) = E [e−rτ∗(V vτ∗ − I)], and
+τ∗ is an optimal stopping time, which implies (i). (ii) then follows along the same lines as in
+the proof of Proposition 1. ¤
+Proof of Lemma 14. Suppose first that p0 ∈ (0, 1), and let p ∈ (p0, 1]. Proceeding as
+in Subsection 3.2, one can show that there exists a unique probability measure P˜ on (Ω,F)
+such that P˜ [A] = E [1AMt] for any A ∈ FVt . Using this change of measure together with
+r > 1, x > 1 and (53), one obtains:
+sup
+τ∈T V
+E
+[
+e−rτMτ
+[
+x exp
+(∫ τ
+0
+P pt dt
+)
+− exp
+(∫ τ
+0
+P p0t dt
+)]]
+≤ sup
+τ∈T V
+E
+[
+e−(r−1)τMτ
+[
+x exp
+(∫ τ
+0
+P pt dt−
+∫ τ
+0
+P p0t dt
+)
+− 1
+]]
+≤ sup
+t≥0
+e−(r−1)t[x exp(C(p0)(p− p0)t)− 1].
+The mapping t 7→ e−(r−1)t[x exp(C(p0)(p− p0)t)− 1] is decreasing on R+ if C(p0)(p− p0) ≤
+(x−1)(r−1)/x. Since the supremum in (41) is greater or equal than x−1, the result follows.
+Suppose now that p0 = 0. Then, by Lemma 1, P
+p0
+t = 0 P–almost surely, and, for any τ ∈ T V ,
+E
+[
+e−rτMτ
+[
+x exp
+(∫ τ
+0
+P pt dt
+)
+− 1
+]]
+= EP˜
+[
+e−rτ
+[
+x exp
+(∫ τ
+0
+P pt dt
+)
+− 1
+]]
+(61)
+≤ EP˜
+[
+e−ρτ
+(
+x− 1 + x
+∫ τ
+0
+P pt dt
+)]
+,
+29
+where ρ = r−1 > 0 and the inequality follows from the convexity of the exponential function
+together with the fact that P p ≤ 1. In turn, the right-hand side of (61) is bounded above by:
+EP˜
+[
+e−ρτ (x− 1) + x
+∫ τ
+0
+e−ρtP pt dt
+]
+= xEP˜
+[∫ ∞
+0
+e−ρtP pt dt
+]
++ EP˜
+[
+e−ρτ (x− 1)− x
+∫ ∞
+τ
+e−ρtP pt dt
+]
+,
+where the equality follows from the monotone convergence theorem. Note that, as P p ∈ [0, 1],
+the expectation EP˜ [
+∫∞
+0 e
+−ρtP pt dt] is well-defined and finite. Next,
+EP˜
+[∫ ∞
+τ
+e−ρtP pt dt
+]
+= E
+[
+EP˜
+[∫ ∞
+τ
+e−ρtP pt dt | FVτ
+]]
+= EP˜
+[
+e−ρτ EP˜
+[∫ ∞
+0
+e−ρtP pt+τ dt | FVτ
+]]
+= EP˜
+[
+e−ρτ
+∫ ∞
+0
+e−ρt EP˜
+[
+P pt+τ | FVτ
+]
+dt
+]
+= EP˜
+[
+e−ρτ
+∫ ∞
+0
+e−ρtf(t, P pτ ) dt
+]
+,
+where the third inequality follows form the monotone convergence theorem and the fourth
+from the strong Markov property, with the notation f(t, p) = EP˜ [P
+p
+t ]. From (61), we thus
+need only to prove that there exists some p > 0 such that:
+(62) G•(p) = sup
+τ∈T V
+EP˜
+[
+e−ρτ
+(
+x− 1− x
+∫ ∞
+0
+e−ρtf(t, P pτ ) dt
+)]
+= x−1−xEP˜
+[∫ ∞
+0
+e−ρtP pt dt
+]
+.
+Note that (62) is a Markovian optimal stopping problem. From optimal stopping theory,
+the process {e−ρ(t∧τ•)G•(P pt∧τ•); t ≥ 0} is a martingale under FV , where by definition τ• =
+inf{t ≥ 0 | G•(P pt ) = x − 1 − x
+∫∞
+0 e
+−ρtf(t, P pt ) dt} (El Karoui 1981). Using Feller’s test
+for explosions (Karatzas and Shreve 1991, Theorem 5.5.29), it is easy to check that for
+any p ∈ (0, 1), inf{t ≥ 0 | P pt 6∈ (0, 1)} = ∞, P˜–almost surely. Suppose that τ• = ∞,
+or equivalently, that the optimal stopping region for (62) is reduced to {0}, which is not
+attainable in finite time. Then the process {e−ρtG•(P pt ); t ≥ 0} is a martingale. Thus for
+any p > 0 and t ≥ 0, G•(p) = EP˜ [e−ρtG•(P pt )] ≤ e−ρt(x− 1) and therefore G•(p) = 0 for any
+p > 0. However, for any such p,
+(63) G•(p) ≥ x− 1− x
+∫ ∞
+0
+e−ρtf(t, p) dt = x− 1− xEP˜
+[∫ ∞
+0
+e−ρtP pt dt
+]
+.
+We shall get a contradiction by showing that limp↓0 EP˜ [
+∫∞
+0 e
+−ρtP pt dt] = 0. A standard
+application of Doob’s inequality and Gronwall’s lemma imply that for any n ∈ N, there exists
+a positive constant Cn such that:
+EP˜
+[
+sup
+t≤n
+(P pt )
+2
+]
+≤ Cnp2
+for any p > 0. Using Cauchy–Schwartz inequality, it follows that:
+30
+EP˜
+[∫ ∞
+0
+e−ρtP pt dt
+]
+= EP˜
+[∫ n
+0
+e−ρtP pt dt
+]
++ EP˜
+[∫ ∞
+n
+e−ρtP pt dt
+]
+≤
+√
+EP˜
+[
+sup
+t≤n
+(P pt )2
+]∫ n
+0
+e−2ρt dt+
+e−ρn
+ρ
+(64)
+≤
+√
+Cn
+2ρ
+p+
+e−ρn
+ρ
+for any p > 0. Since x > 1, there exists ε > 0 such that x(1 − ε) − 1 > 0. Choosing n such
+that e−ρn/ρ ≤ ε/2 and p > 0 such that √Cn/2ρ p ≤ ε/2, it follows from (63) and (64) that
+G•(p) ≥ x(1 − ε) − 1 > 0, a contradiction. It thus follows that the optimal stopping region
+for (62) is not reduced to {0} and that there exists p > 0 such that (62) holds. Hence the
+result. ¤
+Acknowledgments. We would like to thank Bruno Biais, Nicole El Karoui, Christian
+Gollier and Damien Lamberton for thoughtful discussions and suggestions. We would also
+like to thank seminar participants at ESC Toulouse, Institut Henri Poincare´, London School
+of Economics, Se´minaire Bachelier and University of Munich for their comments. Financial
+support from STICERD is gratefully acknowledged by the second author. We remain of
+course solely responsible for the content of this paper.
+References
+Arrow, K., A.C. Fisher. 1974. Environmental preservation, uncertainty, and irreversibility.
+Quart. J. Econom. 88 312–319.
+Benes˘, V.E., I. Karatzas, D. Ocone, H. Wang. 2004. Control with partial information and
+an explicit solution of Mortensen equation. To appear in Appl. Math. Optim.
+Bergemann, D., J. Va¨lima¨ki. 2000. Experimentation in markets. Rev. Econom. Stud. 67
+213–234.
+Bernardo, A.E., B. Chowdhry. 2002. Resources, real options, and corporate strategy. J. Fin.
+Econom. 63 211–234.
+Bolton, P., C. Harris. 1999. Strategic experimentation. Econometrica 67 349–374.
+Brennan, M.J. 1998. The role of learning in dynamic portfolio decision. Eur. Finance Rev. 1
+295–306.
+Chernoff, H. 1972. Sequential Analysis and Optimal Design. Society for Industrial and
+Applied Mathematics, Philadelphia.
+Dixit, A.K. 1989. Entry and exit decisions under uncertainty. J. Polit. Econom. 97 620–638.
+————–, R.S. Pindyck. 1994. Investment under Uncertainty. Princeton University Press,
+Princeton.
+31
+El Karoui, N. 1981. Les aspects probabilistes du controˆle stochastique. J.P. Bickel, ed.,
+Ecole d’Ete´ de Probabilite´s de Saint-Flour, IX, 1979, Lecture Notes in Mathematics
+876, Springer-Verlag, New York, 74–239.
+Felli, L., C. Harris. 1996. Learning, wage dynamics, and firm-specific human capital. J.
+Polit. Econom. 104 838–868.
+Henry, C. 1974. Investment decisions under uncertainty: the irreversibility effect. Amer.
+Econom. Rev. 64 89–104.
+Hu, Y., B. Øksendal. 1998. Optimal time to invest when the price processes are geometric
+Brownian motions. Finance Stoch. 2 295–310.
+Jovanovic, B. 1979. Job matching and the theory of turnover. J. Polit. Econom. 87 972–990.
+Karatzas, I. 1997. Adaptive control of a diffusion to a goal and a parabolic Monge-Ampe`re-
+type equation. Asian J. Math. 1 295–313.
+————–, S. Shreve. 1991. Brownian Motion and Stochastic Calculus. Springer-Verlag,
+New York.
+————–, X. Zhao. 2001. Bayesian adaptive portfolio optimization. E. Jouini, J. Cvitanic´,
+M. Musiela, eds., Handbook of Mathematical Finance, Cambridge University Press,
+Cambridge, U.K., 632–670.
+Keller, G., S. Rady. 1999. Optimal experimentation in a changing environment. Rev.
+Econom. Stud. 66 475–507.
+Lackner, P. 1995. Utility maximization with partial information. Stochastic Process. Appl.
+56 247–273.
+Liptser, R.S, A.N. Shiryayev. 1977. Statistics of Random Processes I. Springer-Verlag, New
+York.
+McDonald, R., D. Siegel. 1986. The value of waiting to invest. Quart. J. Econom. 101
+707–727.
+McKean, H.P. 1965. A free boundary problem for the heat equation arising from a problem
+of mathematical economics. Indust. Manag. Rev. 60 32–39.
+Merton, R. 1971. Optimum consumption and portfolio rules in a continuous time model. J.
+Econom. Theory 3 373–413.
+Mordecki, E. 1999. Optimal stopping for a diffusion with jumps. Finance Stoch. 3 227–236.
+Moscarini, G., L. Smith. 2000. The optimal level of experimentation. Econometrica 69
+1629–1644.
+Øksendal, B. 2000. Stochastic Differential Equations. Springer-Verlag, New York.
+Samuelson, P.A. 1965. Rational theory of warrant pricing. Indust. Manag. Rev. 60 13–32.
+Shiryayev, A.N. 1978. Optimal Stopping Rules. Springer-Verlag, New York.
+32
+Veronesi, P. 1999. Overreaction to bad news in good times: a rational expectations equilib-
+rium model. Rev. Fin. Stud. 12 975–1007.
+————–. 2000. How does information quality affect stock returns. J. Finance 55 807–837.
+Villeneuve, S. 1999. Exercise regions of American options on several assets. Finance Stoch.
+3 295–322.
+33

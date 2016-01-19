@@ -1,0 +1,958 @@
+Ann Oper Res (2008) 159: 215–231
+DOI 10.1007/s10479-007-0271-4
+Scheduling problems in master-slave model
+Joseph Y.-T. Leung · Hairong Zhao
+Published online: 1 December 2007
+© Springer Science+Business Media, LLC 2007
+Abstract We consider scheduling problems in the master slave model, which was intro-
+duced by Sahni in 1996. The goal is to minimize the makespan and the total completion time.
+It has been shown that the problem of minimizing makespan is NP-hard. Sahni and Vairak-
+tarakis developed some approximation algorithms to generate schedules whose makespan
+is at most constant times the optimal. In this paper, we show that the problem of minimiz-
+ing total completion time is NP-hard in the strong sense. Then we develop algorithms to
+generate schedules whose total completion time and makespan are both bounded by some
+constants times their optimal values.
+Keywords Total completion time · Makespan · Approximation algorithms · NP-hard ·
+Master slave model
+1 Master-slave model and its applications
+1.1 Master-slave model
+The master-slave model was introduced by Sahni in 1996. In this model, each job has to
+be processed sequentially in three stages. In the first stage, the preprocessing task runs on a
+master machine; in the second stage, the slave task runs on a dedicated slave machine; and
+in the last stage, the postprocessing task again runs on a master machine, possibly different
+from the master machine in the first stage. The preprocessing, slave and postprocessing tasks
+Research supported in part by the National Science Foundation through grant DMI-0300156.
+J.Y.-T. Leung ()
+Department of Computer Science, New Jersey Institute of Technology, Newark, NJ 07102, USA
+e-mail: leung@oak.njit.edu
+H. Zhao
+Department of Mathematics, Computer Science, and Statistics, Purdue University Calumet,
+2200 169th Street, Hammond, IN 46323-2094, USA
+e-mail: hairong@calumet.purdue.edu
+216 Ann Oper Res (2008) 159: 215–231
+and their lengths of job i are denoted by ai , bi and ci , respectively. It is assumed that ai > 0,
+bi > 0 and ci > 0.
+A job may have a release time ri ≥ 0, i.e., ai cannot start until ri . Without loss of gener-
+ality, we may assume that min rj = 0. Unless stated otherwise, all jobs are assumed to have
+the same release time. There are two cases when arbitrary release time is present. The first
+case deals with offline problems, i.e., the release times and processing times of all jobs are
+known in advance. The second case deals with online problems, i.e., no information of a job
+i is given until it arrives at ri , and when it arrives, all parameters about job i are given. We
+use the quadruple (ri, ai, bi, ci) to denote job i. For simplicity, if ri = 0, we use the triplet
+(ai, bi, ci) to represent job i.
+Each machine is either a master machine or a slave machine. The master machines are
+used to run preprocessing and/or postprocessing tasks, and the slave machines are used to
+run slave tasks, one slave machine for each slave task. In a single-master system, there
+is a single master to execute all preprocessing tasks (a tasks) and postprocessing tasks
+(c tasks). In a multi-master system, there are more than one master, each of which is ca-
+pable of processing both a tasks and c tasks. Finally, in some systems, there are distinct
+preprocessing masters (preprocessors) and postprocessing masters (postprocessors), which
+are dedicated to process a tasks and c tasks, respectively.
+The master-slave model is closely related to the flow shop model. The system which
+has a single preprocessor and a single postprocessor can be seen as a two-machine flow
+shop with transfer lags. In this flow shop model, each job j has two operations: the first
+operation is scheduled on the upstream machine and the second operation is scheduled on the
+downstream machine. The interval or time lag between the finish time of the first operation
+and the start time of the second operation must be exactly or at least lj . If the lj ’s are large
+enough such that all of the first operations finish before the start of any second operation,
+then the flow shop problem is equivalent to the problem of scheduling on a single machine
+with time lags and two tasks per job, subject to the constraint that all of the first operations
+are scheduled first. The latter problem is a special case of the single-master master-slave
+scheduling model.
+When there are more than one preprocessing and postprocessing masters, the master-
+slave model can be seen as a two-stage hybrid flow shop with transfer lags. In this sense,
+the single master case can be regarded as a three-stage hybrid flow shop where the first and
+the last stage has a single machine and the second stage has n machines. Hybrid flow shop
+is often found in electronic manufacturing environment such as IC packaging and make-
+to-stock wafer manufacturing. In recent years, hybrid flow shop has received significant
+attention, see Buten and Shen (1973), Langston (1987), Sriskandarajah and Sethi (1989),
+Cheng and Sin (1990), Lee and Vairaktarakis (1994), Gupta and Tunc (1994), Guinet and
+Solomon (1996) and Allaoui and Artiba (2006).
+1.2 Applications of master-slave model
+The master-slave model finds many applications in parallel computer scheduling and in-
+dustrial settings such as semiconductor testing, machine scheduling, transportation mainte-
+nance, etc. Some of them are listed in the following. For more applications, see Sahni (1996),
+Sahni and Vairaktarakis (1996), Sahni and Vairaktarakis (2004) and Vairaktarakis (1997).
+Industrial applications of the master-slave paradigm include the case of consolidators
+that receive orders to manufacture quantities of various items. The actual manufacturing
+is done by a collection of slave agencies. In this example, the consolidator is the master
+machine and the slave agencies are the slave machines. The consolidator needs to assemble
+Ann Oper Res (2008) 159: 215–231 217
+the raw material needed for each task, load the trucks that will deliver this material to the
+slave machines, and perform an inspection before the consignment leaves. All of these work
+belong to preprocessing task. The slave machines need to wait for the arrival of the raw
+material, inspect the received goods, perform the manufacture, load the goods onto the trucks
+for delivery, perform an inspection as the trucks are leaving. These activities together with
+the delay involved in getting the trucks to their destination (i.e., the consolidator) represent
+the slave work. When the finished goods arrive at the consolidator, they are inspected and
+inventoried. This represents the postprocessing.
+Several applications of the master-slave model are found in parallel computer schedul-
+ing. A common parallel programming paradigm involves the use of a main computational
+thread whose function is to prepare data then fork and initiate new child threads that do
+the computations on different processors. After the computation of a child thread, the main
+thread collects the computation results and performs some processing on the results. Here,
+each child thread can be seen as a job with three tasks: the thread initiation and data prepa-
+ration is the preprocessing task, the computation is the slave task and the postprocessing of
+the results from the computation is the postprocessing task.
+It is easy to see that both of the above examples generalize to multi-master systems or
+distinct preprocessing and postprocessing master systems.
+2 Scheduling problems in master-slave model
+2.1 Definitions and notations
+Given a set of jobs in the master-slave system, a non-preemptive schedule is one that sched-
+ules each task without interruption. Note that in such a schedule, it is still possible that there
+is an interval between the finish time of ai and the start time of bi , or the finish time of bi
+and the start time of ci . However, without loss of generality, one can always assume that
+bi is scheduled immediately after ai completes. In a preemptive schedule, a job running on
+one machine may be interrupted for some time, and later resumed on possibly a different
+machine. A non-preemptive schedule S is order preserving if for any two jobs i and j such
+that ai completes before aj , ci must also complete before cj .
+A no-wait-in schedule is one such that each slave task must be scheduled immediately
+after the corresponding preprocessing task finishes and each postprocessing task must be
+scheduled immediately after the corresponding slave task finishes. In other words, once a
+job starts, it will not stop until it finishes. It is easy to see that a no-wait-in schedule must be
+non-preemptive.
+A canonical schedule on the single master system is one such that all the preprocessing
+tasks complete before any postprocessing tasks can start. (Note that the definition of canon-
+ical schedule is slightly different from the one given in Sahni 1996.) In the multi-master
+system, a canonical schedule is one that is canonical on each master.
+The completion (or finish) time of job i in a schedule S is the time when the postprocess-
+ing task ci finishes. The completion time of i in S is denoted by Ci(S). If S is clear from the
+context, Ci , instead of Ci(S), is used. The makespan of S is the earliest time when all the
+tasks have been completed. The makespan of S is denoted by Cmax(S), or Cmax if S is clear
+from the context. The total completion time of S, denoted by C(S), is the sum of completion
+times of all n jobs, i.e., C(S) = ∑nj=1 Cj(S).
+Makespan and total completion time are two common objectives to minimize. The prob-
+lems of finding a schedule that minimizes the makespan and total completion time are re-
+ferred to as the makespan (Cmax) problem and total completion time (
+∑
+Cj ) problem, respec-
+tively. Corresponding to various constraints, we have order preserving makespan (or total
+218 Ann Oper Res (2008) 159: 215–231
+completion time) problem, no-wait-in makespan (or total completion time) problem, canoni-
+cal total completion time problem, etc. In all cases, a schedule that minimizes Cmax or
+∑
+Cj
+is usually denoted by S∗, and the minimum makespan and the minimum total completion
+time are denoted by C∗max and C∗, respectively.
+In many cases, the problem of minimizing makespan or total completion time is NP-
+hard, i.e. unless P = NP there is no polynomial time algorithms for these problems. So
+people turn to approximation algorithms for these problems. An α-approximation algorithm
+for makespan (or total completion time) is an algorithm that for any set of jobs generates
+a schedule S whose makespan (or total completion time) is at most α times the optimal
+makespan (or total completion time). It is an (α,β)-approximation algorithm if it is an
+α-approximation algorithm for makespan and at the same time a β-approximation algo-
+rithm for total completion time. For a schedule S, if Cmax(S) ≤ αC∗max and C(S) ≤ βC∗,
+then S is said to be an (α,β)-schedule.
+It is easy to see that if all jobs have the same release time, one can always arrange a
+schedule to be canonical without increasing the makespan. Thus, in order to minimize the
+makespan, we only need to focus on canonical schedules. However, this is not true if we
+want to minimize
+∑
+Cj . In fact, the ratio of the total completion time of the best canonical
+schedule versus that of the best non-canonical schedule can be arbitrarily large. Consider the
+example: (n − 1) identical jobs (1, ,1) and one job (n2, ,1), where  is an arbitrary small
+positive number. The optimal canonical schedule has total completion time O(n3), while the
+optimal non-canonical schedule has total completion time O(n2).
+2.2 Previous work
+Kern and Nawijn (1991) showed that the makespan problem is NP-hard in the ordinary
+sense. Sahni (1996) showed that both the no-wait-in makespan problem and the order
+preserving no-wait-in makespan problem are NP-hard in the ordinary sense. He gave an
+O(n logn) algorithm that solves the order preserving makespan problem. For the general
+problem under the single-master systems, Sahni and Vairaktarakis (1996) developed an
+approximation algorithm with a worst-case bound of 3/2. For the multi-master systems,
+they gave approximation algorithms with worst-case bounds of 2. Further algorithms were
+given by Vairaktarakis (1997) when there are m1 preprocessors and m2 postprocessors. Let
+m = max{m1,m2}. He gave approximation algorithms with a worst-case bound of 2 − 1/m
+for the makespan problems with no constraint, or with the constraints of order preserving.
+2.3 Organization of paper
+We first present our new complexity results about the total completion time problem in
+Sect. 3. We show that the total completion time problem, with or without constraints, is NP-
+hard in the strong sense. We then consider a special case of the problem in Sect. 4. In this
+section, we assume that (1) there is a single master, (2) for all i, 1 ≤ i ≤ n, ri = 0, ai = a
+and ci = c, where a and c are constants; i.e. the jobs are different from each other only by
+their slave tasks, (3) no preemption is allowed, and (4) only canonical schedules are con-
+sidered. Our result is that if a ≤ c and we are restricted to canonical and order preserving
+schedules, then in O(n logn) time we can find an optimal schedule that minimizes the total
+completion time and makespan at the same time. Then we develop an approximation algo-
+rithm which generates schedules that not only approximates the minimum total completion
+time very well, but also provides a constant approximation for the minimum makespan. In
+Sects. 5 and 6 we consider general cases of the total completion time and makespan problem.
+Ann Oper Res (2008) 159: 215–231 219
+In Sect. 5, we develop efficient approximation algorithms to generate preemptive schedules
+which approximate both the total completion time and the makespan at the same time within
+constant bounds in various settings. These are the first general results for these problems in
+the master-slave model. Then in Sect. 6, we show that one can convert those preemptive
+schedules into non-preemptive schedules with a slight degradation of the approximation
+ratios. Finally, we end this paper with some conclusion in Sect. 7.
+3 Complexity of total completion time problem
+Yu et al. (2004) showed that the problem F2 | lj , pij = 1 | Cmax is strongly NP-hard. In fact,
+they showed that the problem remains strongly NP-hard even with exact delays constraint.
+We can adapt their proof to show that the problem of minimizing total completion time (and
+makespan as well) with or without constraints in the single-master master-slave model is
+strongly NP-hard.
+Theorem 3.1 The problem of minimizing total completion time is strongly NP-hard, even
+if preemption is allowed and ai = ci = 1 for 1 ≤ i ≤ n. Furthermore, it remains strongly
+NP-hard even if we are restricted to canonical schedules, or no-wait-in schedules, or both
+canonical and no-wait-in schedules.
+As it turns out, the proof of the above theorem does not apply to order preserving schedul-
+ing problems. But by reducing from the 3-partition problem, we can show that the total
+completion time problem, with the no-wait-in and order preserving constraint, is NP-hard in
+the strong sense. Because of space limit, we only give the result. For detailed proof, please
+refer to Leung and Zhao (2005).
+Theorem 3.2 The problem of minimizing the order preserving and no-wait-in total comple-
+tion time is strongly NP-hard even if ai = ci for 1 ≤ i ≤ n.
+4 Optimal and approximation algorithms: Special cases
+The result from Kern and Nawijn (1991) and Theorem 3.1 tell us that unless P = NP, there
+is no hope to find an optimal schedule for the total completion time problem, or makespan
+problem in general. In this section, we will consider special cases of these problems. We
+assume that (1) there is a single master, (2) for all jobs i, 1 ≤ i ≤ n, we have ri = 0, ai = a
+and ci = c, where a and c are some constants; i.e., the jobs are different from each other
+only by their slave tasks, (3) no preemption is allowed, (4) only canonical schedules are
+considered. As our complexity results show, even in this very special case, the makespan
+and the total completion time problems are still NP-hard.
+For this special case, we first show that if a ≤ c and we are restricted to order preserving
+schedules, then in O(n logn) time one can find an optimal schedule that minimizes both
+the total completion time and the makespan. Then we show that the canonical schedule that
+schedules jobs in non-decreasing order of the slave tasks has total completion time only
+slighter larger than the minimum total completion time, and has makespan at most constant
+times the minimum makespan.
+220 Ann Oper Res (2008) 159: 215–231
+Fig. 1 Illustration of the proof of Theorem 4.1, ti+1 ≥ ti ≥ bi ≥ bi+1. (Shaded area represents idle time)
+4.1 Optimal canonical and order preserving schedules
+While the total completion time problem and makespan problem are strongly NP-hard in
+general, there is a special case that admits a polynomial time solution.
+Theorem 4.1 For the special case of a ≤ c, one can find a schedule that minimizes both the
+total completion time and the makespan among all canonical and order preserving schedules
+in O(n logn) time.
+Proof Let S be the canonical and order preserving schedule that schedules jobs in non-
+decreasing order of bi ’s. Let S∗ be an optimal canonical and order preserving schedule with
+respect to the total completion time. Suppose S is not the same as S∗. Then we show that
+we can convert S∗ into S without increasing the total completion time, which means that S
+is also optimal with respect to total completion time.
+For convenience, suppose S schedules the jobs in the order of 1, 2, . . . , n. Since S∗ is not
+the same as S, there must exist two adjacent jobs i and i + 1 in S∗ such that ai is scheduled
+before ai+1 but bi > bi+1. Because S∗ is order preserving ci+1 must be scheduled after ci
+completes. We show that ci+1 must be scheduled immediately after ci finishes in S∗, i.e there
+is no idle time between ci and ci+1 in S∗. Let ti be the interval between the finishing time of
+ai and the starting time of ci . Then we must have ti ≥ bi . Furthermore, the interval between
+the time ai+1 finishes and the time ci finishes is ti+1 = ti + c − a. By assumption a ≤ c, thus
+ti+1 ≥ ti ≥ bi ≥ bi+1. In other words, at the time ci finishes, bi+1 already finishes. Since S∗
+is an optimal schedule, ci+1 must be scheduled immediately without any delay.
+Now since ti ≥ bi ≥ bi+1 and ti+1 ≥ bi ≥ bi+1, if we interchange ai with ai+1 and ci with
+ci+1, and keep all other tasks unchanged, we still get a feasible schedule S ′ with the same
+total completion time as S∗ (see Fig. 1). This means that S ′ is also optimal with respect to
+the total completion time. By repeatedly interchanging jobs, we will arrive at the schedule
+S. Since S has the same completion time as S∗, S is also optimal with respect to the total
+completion time. Notice that when we do the interchanging above, we do not change the
+makespan either, so the same arguments show that scheduling jobs in non-decreasing order
+of bi ’s also generates an optimal schedule with respect to makespan. 
+Note that if a > c, then the canonical schedule that schedules jobs in non-decreasing or-
+der of the processing times of the slave tasks is still order preserving but may not be optimal
+with respect to both the total completion time and the makespan. For makespan, Sahni and
+Vairaktarakis (1996) showed that in case of aj ≥ cj for every job j , scheduling jobs in non-
+increasing order of bj ’s yields an optimal canonical and order preserving schedule. On the
+other hand, the complexity of the problem of finding an optimal canonical and order preserv-
+ing schedule with respect to total completion time when a > c is not known at the present
+time. However, we will show in the next subsection that scheduling jobs in non-decreasing
+order of bj ’s gives a 5/4-approximation with respect to total completion time.
+Ann Oper Res (2008) 159: 215–231 221
+4.2 Approximation algorithms: Special case
+In this subsection, we consider how to approximately solve the total completion time and
+makespan problems in the special case.
+Theorem 4.2 Let S be a schedule that schedules jobs in an arbitrary order. If a < c, then
+S is a (2,2) schedule; if a = c, then S is a (2,4/3) schedule; if a > c, then S is a (2,3/2)
+schedule.
+Proof For makespan, Sahni and Vairaktarakis (1996) have shown that any canonical sched-
+ule is a 2-approximation for makespan. Leung and Zhao (2005) showed that if a ≤ c, then
+an arbitrary canonical schedule gives 1 + 1
+1+ 2ac
+approximation for the total completion time,
+which is asymptotically 2 when a < c and 4/3 when a = c; and if a > c, then an arbitrary
+canonical gives 1 + 12+ ca approximation which is asymptotically 3/2. Combining these two
+results concludes the proof. 
+A better approximation ratio can be obtained by scheduling jobs in non-decreasing order
+of bi ’s.
+Theorem 4.3 Let S be a schedule that schedules jobs in non-decreasing order of bi ’s. If
+a < c, then S is a (3/2,4/3); if a = c, then S is a (3/2,7/6) schedule; if a ≥ c, then S is a
+(2,5/4) schedule.
+Proof As we mentioned before, Sahni and Vairaktarakis (1996) showed that any canoni-
+cal schedule is a 2-approximation for makespan. Furthermore, they showed that if ai ≤ ci
+for every i, then scheduling jobs in non-decreasing order of bi ’s generates a scheduled
+whose makespan is at most 3/2 times the optimal. For the total completion time, Leung
+and Zhao (2005) showed that if a ≥ c, then S is a (1 + 1
+4+ 2ca
+)-approximation for total com-
+pletion time, which is asymptotically 4/3 when a < c and 7/6 when a = c; and if a < c,
+then S is a (1 + 12+ ca )-approximation, which is asymptotically 5/4. Combining these two
+results concludes the proof. 
+5 Approximation algorithms: General cases
+In this and the next section, we consider general cases of makespan and total completion
+time problems. We will not have any assumption about the processing times, so ai , bi and
+ci can be any arbitrary positive number. A job i can also have a release time ri . We will not
+only consider canonical schedules, but non-canonical schedules too; not only single-master
+systems, but multi-master systems and distinct preprocessing and postprocessing master
+systems too. Again, we will focus on approximation algorithms.
+In this section, we design algorithms that generate preemptive schedules and analyze the
+performance of these algorithms. Then in the next section, we will show how to convert
+these preemptive schedules into non-preemptive schedules with a slight degradation in the
+quality of approximation.
+222 Ann Oper Res (2008) 159: 215–231
+5.1 Main idea
+The Shortest-Processing-Time (SPT) rule, which always runs the job with the least process-
+ing time, and the Shortest-Remaining-Processing-Time (SRPT) rule (Schrage 1968; Smith
+1976), which always runs the job with the least remaining processing time, are two well-
+known algorithms for minimizing total completion time. Usually, the SPT rule is used to
+generate non-preemptive schedules, while the SRPT rule is used to generate preemptive
+schedules. Suppose each job consists of a single task. If all jobs are available at time 0, then
+the SPT rule is optimal for total completion time in the single-machine or multi-machine
+environment. If the release times are arbitrary, then the SRPT rule is optimal for a single
+machine and it is a 2-approximation (Phillips et al. 1998) in the multi-machine environment.
+We will adapt both rules for the problems in the master slave model. We use both rules to
+generate preemptive schedules. All these schedules are shown to have small total completion
+time and makespan as well. A scheduling decision is made when an a task or a c task
+completes so that a master machine becomes free, or when a new a task or a c task becomes
+available. At any such time instant, the SPT rule schedules, from the set of available tasks
+(including those that have been preempted but have not yet completed), the one with the
+smallest processing time. Depending on how one chooses from the set of available jobs, one
+can obtain the SPTa rule and the SPTc rule. Specifically, in the SPTa rule, preemption occurs
+only among the a tasks and the preemption is based on the length of ai . In the SPTc rule,
+preemption occurs only among the c tasks and the preemption is based on the length of ci .
+On the other hand, the SRPT rule schedules, from the set of available tasks, the one with
+the smallest remaining processing time. Similarly, one can define the SRPTa rule and the
+SRPTc rule. Both the SPT rule and the SRPT rule may generate schedules with migration
+when there are multiple machines, i.e., after interrupted on one machine, a task is resumed
+on a different machine.
+Preemptive relaxation and linear programming relaxation are two important techniques
+for getting constant-factor approximations for total completion time of non-preemptive
+schedules (Phillips et al. 1998; Hall et al. 1997; Chakrabarti et al. 1996; Goemans 1997;
+Schulz and Skutella 1997). Most of these algorithms work by first constructing a relaxed so-
+lution, either a preemptive schedule or a linear programming relaxation. These relaxations
+are then used to obtain an ordering of the jobs, and the jobs are list scheduled (i.e., no un-
+forced idle time) in this order. In this paper we will use the first approach. By applying the
+ideas of Phillips et al. (1998) and Chekuri et al. (2001) to the master slave models, we will
+show that the preemptive schedules generated above can be converted into non-preemptive
+schedules with certain degradation in the quality of approximation.
+5.2 Single master systems
+For convenience, throughout this section, let A = ∑nj=1 aj , B =
+∑n
+j=1 bj , C =
+∑n
+j=1 cj ,
+R = ∑nj=1 rj . In all cases we have the following trivial lower bound for C∗
+C∗ ≥ A + B + C + R. (1)
+For makespan, we have
+C∗max ≥
+1
+m
+(A + C), (2)
+where m ≥ 1 is the number of master machines in the system and
+C∗max ≥ rj + aj + bj + cj , 1 ≤ j ≤ n, (3)
+for any single master or multi-master systems.
+Ann Oper Res (2008) 159: 215–231 223
+Algorithm Canonical-SPTc Schedule the a tasks in an arbitrary order without preemption.
+After all the a tasks finish, schedule the available c tasks by the SPTc rule.
+Theorem 5.1 Algorithm Canonical-SPTc generates a (2,2) canonical preemptive schedule
+in O(n logn) time when there is a single master and ri = 0 for all jobs i.
+Proof Since preemption among the c tasks can not increase the makespan, by Sahni and
+Vairaktarakis (1996), the schedule generated by Algorithm Canonical-SPTc has makespan
+at most two times the optimal.
+Let Caj denote the time aj completes. Then at time tj = max(A, (Caj + bj )), all the a
+tasks finish and the task cj is available to be scheduled. Since Caj ≤ A, we have tj ≤ A+bj .
+According to the algorithm, if there is another available task ci that is running but hasn’t
+finished at time tj and ci < cj , then cj has to wait until ci finishes. Also, during the execution
+of cj , if there is another task ci < cj that becomes available, then ci preempts cj . In both
+cases, we say that cj is delayed by ci . Let Cj be the completion time of cj in the schedule
+generated by Algorithm Canonical-SPTc . Then,
+Cj = tj + cj +
+∑
+ci delays cj
+ci ≤ (A + bj + cj ) +
+∑
+ci<cj
+ci .
+For canonical schedules, whether preemption is allowed or not, we have the following lower
+bound of minimum total completion time
+C∗ ≥ nA +
+n∑
+j=1
+∑
+ci≤cj
+ci , (4)
+which is based on the fact that a schedule that has no idle time and schedules the c tasks in
+non-decreasing order of their lengths must be an optimal schedule.
+Thus, the total completion time is
+n∑
+j=1
+Cj ≤
+n∑
+j=1
+(
+A + bj + cj +
+∑
+ci<cj
+ci
+)
+=
+(
+nA +
+n∑
+j=1
+∑
+ci<cj
+ci
+)
++ (B + C) < 2C∗,
+where the last inequality comes from the lower bounds (4) and (1). 
+Let S1 = {i : ai ≤ ci} and S2 = {i : ai > ci}. Suppose the jobs in S1 are arranged in
+increasing order of the b’s and the jobs in S2 are arranged in decreasing order of the b’s.
+In Sahni and Vairaktarakis (1996), it was shown that the canonical schedule in which the
+a tasks of S1 are scheduled before the a tasks of S2 has makespan at most 3/2 times the
+optimal schedule. If the a tasks are scheduled in this order in Algorithm Canonical-SPTc ,
+then one still gets a 3/2-approximation for makespan, since preemption on the available c
+tasks will not increase the makespan.
+Corollary 5.1 There is an O(n logn) time algorithm that generates a (3/2,2) canonical
+preemptive schedule when there is a single master and ri = 0 for all i.
+224 Ann Oper Res (2008) 159: 215–231
+Algorithm Non-canonical-SPTa+c For any two jobs, if (aj + cj ) < (ai + ci), then both aj
+and cj are said to have higher priority than ai and ci . At any time, if the master processor is
+free for assignment, assign the available task with the highest priority. If a new task becomes
+available and has higher priority than the currently running task, the new task preempts the
+currently running task.
+Theorem 5.2 Algorithm Non-canonical-SPTa+c generates a (2,2) preemptive schedule for
+a single-master system. Furthermore, if the jobs have arbitrary release times, the schedule
+can be generated online.
+Proof To bound the makespan, we pick the last job j such that cj starts immediately after it
+becomes ready. Then the intervals I1 = [rj ,Caj ) and I2 = [(Caj + bj ),Cmax) must be both
+busy, and the total length |I1| + |I2| of these two intervals is at most ∑nj=1 aj +
+∑n
+j=1 cj =
+A + C ≤ C∗max. Thus,
+Cmax = rj + |I1| + bj + |I2| ≤ (rj + bj ) + C∗max ≤ 2C∗max.
+Now we bound the total completion time of the schedule generated by Algorithm Non-
+canonical-SPTa+c . The schedules generated by Algorithm Non-canonical-SPTa+c are non-
+canonical, the a tasks and the c tasks can be scheduled alternatively. A lower bound on the
+C∗ can be obtained by assuming all the b tasks have length 0:
+C∗ ≥
+n∑
+j=1
+∑
+ai+ci≤aj +cj
+(ai + ci). (5)
+Let S be the schedule generated by Algorithm Non-canonical-SPTa+c . Let Caj be the
+completion time of aj in S. Then,
+Caj = rj +
+⎛
+⎝
+∑
+ai delays aj
+ai +
+∑
+ci delays aj
+ci
+⎞
+⎠ + aj
+and
+Cj = Caj + bj + cj +
+⎛
+⎝
+∑
+ai delays cj
+ai +
+∑
+ci delays cj
+ci
+⎞
+⎠
+= rj +
+⎛
+⎝
+∑
+ai delays aj
+ai +
+∑
+ci delays aj
+ci
+⎞
+⎠ + aj + bj + cj +
+∑
+ai delays cj
+ai +
+∑
+ci delays cj
+ci
+≤
+⎛
+⎝
+∑
+ai+ci<aj +cj
+(ai + ci)
+⎞
+⎠ + (rj + aj + bj + cj ),
+where the last inequality comes from the fact that the two sets of tasks delaying aj and cj
+are disjoint, and they all have higher priority than aj and cj . Thus, we can bound the total
+completion time
+Ann Oper Res (2008) 159: 215–231 225
+n∑
+j=1
+Cj ≤
+n∑
+j=1
+⎛
+⎝
+⎛
+⎝
+∑
+ai+ci<aj +cj
+(ai + ci)
+⎞
+⎠ + (rj + aj + bj + cj )
+⎞
+⎠
+≤
+⎛
+⎝
+n∑
+j=1
+∑
+ai+ci<aj +cj
+(ai + ci)
+⎞
+⎠ + (R + A + B + C) by (5) and (1)
+< 2C∗.
+To conclude the proof, note that Algorithm Non-canonical-SPTa+c schedules jobs in an
+online fashion. 
+5.3 Multi-master systems
+Algorithm Multi-Master-SPTa+c (1) Without loss of generality, we assume that the jobs
+are indexed in non-decreasing order of aj + cj . That is, aj + cj ≤ aj+1 + cj+1 for 1 ≤ j ≤
+n − 1. We may also assume that n is a multiple of m. Otherwise, one can add dummy jobs
+with ai = bi = ci = 0. (2) Assign the jobs to the machines such that jobs 1, 2, . . . , m go to
+machines 1, 2, . . . , m, respectively; jobs m + 1, m + 2, . . . , 2m go to machines m, m − 1,
+. . . , 1, respectively; jobs 2m + 1, 2m + 2, . . . , 3m go to machines 1, 2, . . . , m, respectively;
+and so on until all jobs are assigned. (3) Apply Algorithm Non-canonical-SPTa+c to each
+master machine to schedule the jobs assigned to it.
+Theorem 5.3 Algorithm Multi-Master-SPTa+c generates a (3,2) offline preemptive sched-
+ule without migration for multi-master systems when jobs have arbitrary release times.
+Proof Let p = ∑j scheduled on p(aj + cj ). By the pigeon hole principle, it is easy to see that
+min
+1≤p≤m
+p ≤ 1
+m
+n∑
+j=1
+(aj + cj ) < C∗max.
+For any two machines p and q , by the way the jobs are assigned to the machines
+p − q ≤ max
+1≤k≤n
+(ak + ck) − min
+1≤k≤n
+(ak + ck) ≤ max
+1≤k≤n
+(ak + ck) < C∗max.
+This means that for any machine p, p ≤ min1≤q≤m q + C∗max ≤ 2C∗max.
+First we bound the makespan. Suppose the job with the maximum completion time
+among all jobs is assigned to machine p. Let l be the last job on machine p so that cl is
+scheduled immediately after it is ready. Define Cal as before. Then the machine p is busy
+during the intervals I1 = [rl,Cal ) and I2 = [(Cal + bl),Cmax). The total length of the two
+intervals is |I1| + |I2| ≤ p < 2C∗max. Therefore, the makespan is
+Cmax = rl + |I1| + bl + |I2| < 3C∗max.
+To consider the total completion time, we first give a lower bound. Without loss of gen-
+erality, one may assume that n = mk for some integer k. For convenience, one can rein-
+dex the jobs assigned to each machine p in the form of (p, q) such that a(p,q) + c(p,q) ≤
+a(p,q+1) + c(p,q+1). Let Bp = ∑kq=1 b(p,q).
+226 Ann Oper Res (2008) 159: 215–231
+A lower bound of the total completion time comes from the fact that Algorithm Multi-
+Master-SPTa+c is optimal if b(p,q) = 0 for every job (p, q)
+C∗ ≥
+m∑
+p=1
+k∑
+q=1
+(k − q + 1)(a(p,q) + c(p,q)) (6)
+Now fix a machine p. Using similar argument as in the proof of Theorem 5.2, we have
+k∑
+q=1
+C(p,q) ≤
+⎛
+⎝ max
+1≤q≤k
+r(p,q) +
+k∑
+q=1
+(k − q + 1)(a(p,q) + c(p,q))
+⎞
+⎠ + Bp.
+Thus, the total completion time is
+m∑
+p=1
+k∑
+q=1
+C(p,q) ≤
+m∑
+p=1
+⎛
+⎝
+k∑
+q=1
+(k − q + 1)(a(p,q) + c(p,q)) + Bp + max
+1≤q≤k
+r(p,q)
+⎞
+⎠
+≤
+m∑
+p=1
+⎛
+⎝
+k∑
+q=1
+(k − q + 1)(a(p,q) + c(p,q))
+⎞
+⎠ + B + R by (6) and (1)
+< 2C∗.
+
+The schedules generated by Algorithm Multi-Master-SPTa+c are offline schedules. To
+obtain online schedules, one can apply Algorithm Non-canonical-SPTa+c to multi-master
+systems. We have the following theorem whose proof is omitted (Leung and Zha 2006).
+Theorem 5.4 Algorithm Non-canonical-SPTa+c generates a (3,2) online preemptive
+schedule with migration on multi-master systems when jobs have arbitrary release times.
+5.4 Distinct preprocessing and postprocessing master systems
+Algorithm SRPTa–SPTc Schedule the available a tasks using the SRPTa rule on the pre-
+processing master. Schedule the available c tasks using the SPTc rule on the postprocessing
+master.
+In the following, we let m1 and m2 denote the numbers of preprocessing masters and
+postprocessing masters, respectively.
+Theorem 5.5 Algorithm SRPTa–SPTc generates a (3,2) online preemptive schedule when
+m1 = m2 = 1 and rj ≥ 0 for all j .
+Proof For the makespan, consider the last job l such that cl runs immediately when it is
+available at time Cal + bl . There is no idle time in the interval I1 = [rl,Cal ) and the interval
+I2 = [(Cal +bl),Cmax). The length of each interval is at most C∗max. Therefore, the makespan
+is
+Cmax = rl + |I1| + bl + |I2| ≤ 3C∗max.
+Ann Oper Res (2008) 159: 215–231 227
+Now we consider the total completion time. Let C∗aj be the time aj finishes in an optimal
+schedule. Then,
+C∗ ≥
+n∑
+j=1
+(C∗aj + bj + cj ) =
+⎛
+⎝
+n∑
+j=1
+C∗aj
+⎞
+⎠ + B + C.
+Let Caj be the time aj finishes in the schedule obtained by Algorithm SRPTa–SPTc . Since
+the SRPTa rule is optimal if bj = cj = 0, Algorithm SRPTa–SPTc must have the minimum∑n
+j=1 Caj among all possible schedules. That is
+n∑
+j=1
+Caj ≤
+n∑
+j=1
+C∗aj .
+Thus, the total completion time is at most
+n∑
+j=1
+⎛
+⎝Caj + bj + cj +
+∑
+ci delays cj
+ci
+⎞
+⎠ ≤
+n∑
+j=1
+(
+C+aj bj + cj
+)
++
+n∑
+j=1
+∑
+ci<cj
+ci ≤ 2C∗.
+
+Theorem 5.6 Algorithm SRPTa–SPTc generates a (4,2) preemptive schedule with migra-
+tion when m1 ≥ 1, m2 ≥ 1 and rj = 0 for all j .
+Proof As before, let k be the job with the maximum completion time, and let l be the
+last job such that the task cl runs immediately after it is ready at Cal + bl . Then the
+intervals I1 = [0,Cal − al) and I2 = [(Cal + bl), (Cmax − ck)) must be both busy. And|I1| ≤ ∑aj <al aj /m1 < C∗max and |I2| ≤
+∑
+cj <cl
+cj /m2 < C
+∗
+max. Therefore,
+Cmax = |I1| + (al + bl) + |I2| + ck < 4C∗max.
+Since all a tasks are available at time 0, then the SRPTa rule is the same as the SPTa
+rule. As mentioned before, the SPTa rule minimizes the total completion time of the a tasks.
+Let C∗ai be the finish time of ai in an optimal schedule, and let Cai be the finish time of ai in
+the schedule generated by Algorithm SRPTa–SPTc . Then, as in the case of m1 = m2 = 1, a
+lower bound of the total completion time is
+C∗ ≥
+n∑
+i=1
+(C∗ai + bj + cj ) =
+(
+n∑
+i=1
+C∗ai
+)
++ B + C ≥
+(
+n∑
+i=1
+Cai
+)
++ B + C. (7)
+When the task cj is ready, it can be delayed by a task ci only if ci < cj . The length of the
+interval [(Caj + bj ),Cj − cj ) is at most
+∑
+ci<cj
+ci
+m2
+, since all postprocessing masters must
+be busy and can only run the task ci such that ci < cj during this interval. Hence the total
+completion time is at most
+n∑
+j=1
+Cj ≤
+n∑
+j=1
+(
+Caj + bj + cj +
+∑
+ci<cj
+ci
+m2
+)
+=
+⎛
+⎝
+n∑
+j=1
+Caj + B + C
+⎞
+⎠ +
+n∑
+j=1
+∑
+ci<cj
+ci
+m2
+≤ 2C∗,
+where the last inequality comes from (7) and a trivial lower bound of C∗, C∗ ≥∑n
+j=1
+∑
+ci<cj
+ci
+m2
+. 
+228 Ann Oper Res (2008) 159: 215–231
+Theorem 5.7 Algorithm SRPTa–SPTc generates a (4,3) preemptive schedule with migra-
+tion when m1 ≥ 1, m2 ≥ 1 and rj ≥ 0 for all j .
+Proof Using similar argument as in the proof of Theorem 5.6, one can show that Cmax ≤
+4C∗max.
+Let C∗aj be the completion time of aj in an optimal schedule. Again we have C
+∗ ≥
+(
+∑
+C∗aj ) + B + C. Let Caj be the completion time of aj in the schedule generated by Al-
+gorithm SRPTa–SPTc . As mentioned before, the SRPTa rule is a 2-approximation when
+bj = cj = 0. Thus, it must true that ∑Caj ≤ 2
+∑
+C∗aj , and
+n∑
+j=1
+Cj =
+n∑
+j=1
+⎛
+⎝Caj + bj + cj +
+∑
+ci<cj
+ci/m2
+⎞
+⎠
+≤
+⎛
+⎝
+n∑
+j=1
+Caj
+⎞
+⎠ + B + C +
+n∑
+j=1
+∑
+ci<cj
+ci/m2
+≤
+∑
+C∗aj +
+(∑
+C∗aj + B + C
+)
++
+n∑
+j=1
+∑
+ci≤cj
+ci/m2
+≤ 3C∗.
+This concludes our proof. 
+6 Converting preemptive schedules into non-preemptive schedules
+As we mentioned before, we obtain non-preemptive schedules by converting from preemp-
+tive schedules. Our approach is based on the technique that was introduced by Phillips et al.
+(1998), and improved by Chekuri et al. (2001).
+The model studied in Phillips et al. (1998) consists of one or more identical machines
+and n simple jobs. Let S be a preemptive schedule. To obtain a non-preemptive schedule
+S ′, they form a list of jobs in increasing order of their completion times in S and then list
+schedule the jobs in this list one by one, respecting their release times.
+They showed that if S is a β-approximation for total completion time, then S ′ is a 2β-
+approximation in the single-machine environment and a 3β-approximation in the multi-
+machine environment. In addition, this conversion also yields an online non-preemptive
+algorithm if the preemptive schedule can be generated online.
+Later, Chekuri et al. (2001) improved the above results in the single machine case.
+Chekuri et al. designed a deterministic O(n2) time offline algorithm such that the schedule
+obtained has total completion time at most e
+e−1 times that of the preemptive schedule, where
+e is the base of natural log. As well, they gave a randomized online algorithm with expected
+performance e
+e−1 .
+In the multi-machine case, Chakrabarti et al. (1996) showed that the convert procedure
+given in Phillips et al. (1998) has a bound of 7/3, instead of 3 times that of S. In both
+cases one can show that if S is an α-approximation for makespan, then S ′ is an (α + 1)-
+approximation for makespan.
+In the following, we will describe how to convert preemptive schedules generated in the
+previous section to non-preemptive schedules in the master-slave model. The difficulty of
+Ann Oper Res (2008) 159: 215–231 229
+our conversion is that we need to respect not only the release time of ai , 1 ≤ i ≤ n, but also
+respect the constraint that the interval between the finish time of ai and the start time of ci
+has length at least bi .
+Theorem 6.1 In O(n2) time, one can obtain a ( 52 ,
+2e
+e−1 ) non-preemptive canonical schedule
+when there is a single master and rj = 0 for all j .
+Proof Let S be a preemptive canonical schedule of n jobs obtained by applying Corol-
+lary 5.1. Let Sa be the partial schedule of S during the interval (0,A], and Sc be the partial
+schedule of Sc during the interval (A,Cmax].
+Clearly Sa contains all a tasks only. By the Algorithm Canonical-SPTc , there is no pre-
+emption in Sa . Let Caj be the completion time of aj . It is easy to see that the partial schedule
+Sc contains all c tasks only and it can be seen as a preemptive schedule of n tasks on a single
+machine where each task j has a “release time” max(A,Caj + bj ) and processing time cj .
+To convert S into a non-preemptive schedule S ′, one fixes Sa and convert Sc to a non-
+preemptive schedule S ′c of c tasks by using the approach of Chekuri et al. (2001). Let Cj and
+C ′j be the completion time of cj in S and S ′, respectively. As mentioned at the beginning of
+the section, it has been shown in Chekuri et al. (2001) that C ′j ≤ ee−1Cj and C ′j ≤ Cj +Cmax.
+Since S is a ( 32 ,2) canonical schedule, the obtained schedule is a (
+5
+2 ,
+2e
+e−1 ) non-preemptive
+canonical schedule. This concludes the proof. 
+Theorem 6.2 In O(n logn) time, one can obtain a (3,4) online non-preemptive schedule
+when there is a single master and rj ≥ 0 for all job j .
+Proof Let S be the (2,2) non-canonical schedule in Theorem 5.2. We get a λ-schedule
+S ′, λ = 1, similarly as in Phillips et al. (1998). Using similar arguments as that in Phillips
+et al. (1998), we can show that the obtained schedule is a (3,4) non-preemptive schedule.
+Furthermore, it can be implemented online if the preemptive schedule is online. 
+For multi-master systems, let S be the (2, 2)-schedule generated by Algorithm Multi-
+Master-SPTa+c . Then S has no migration. One can obtain the non-preemptive schedule S ′
+by converting the schedule on each machine separately in the same way as described in the
+proof of Theorem 6.2. The following can be shown; see Leung and Zhao ( 2006) for detail.
+Theorem 6.3 For multi-master systems, one can obtain a (5,4) non-preemptive offline
+schedule.
+Now we consider systems which have m1 preprocessors and m2 postprocessors.
+Suppose m1 = m2 = 1. When the release times of all jobs are identical, then there is no
+preemption on the single preprocessor. So we simply do conversion on the single postproces-
+sor using the approach given in Chekuri et al. (2001). When the release times are arbitrary,
+we need to do the conversion carefully so as to make sure that the difference between the
+finish time of aj and the start time of cj is at least bj . We first remove the preemptions
+among the a tasks as in Chekuri et al. (2001), respecting the release times of the a tasks.
+Next, we remove the preemptions among the c tasks as in Phillips et al. (1998) and make
+sure the interval between the finish time of aj and the start time of cj is at least bj for each
+job j . We summarize the results as follows.
+230 Ann Oper Res (2008) 159: 215–231
+Theorem 6.4 When there is a single preprocessor and a single postprocessor, one can ob-
+tain
+− a (4, 2e
+e−1 ) non-preemptive offline schedule if all jobs have the same release time
+− a (4,4+ 2e
+e−1 ) non-preemptive offline schedule or an online non-preemptive schedule with
+expected performance of (4,4 + 2e
+e−1 ) if the jobs have arbitrary release time.
+Now suppose m1,m2 > 1. When the release times of all jobs are identical, no preemption
+occurs on the preprocessors. So we do conversion on the postprocessors using the approach
+given in Phillips et al. (1998). When the release times are arbitrary, we first remove pre-
+emptions among the a tasks, respecting the release times of the a tasks as in Phillips et al.
+(1998). Next, we remove preemptions among the c tasks and make sure that the interval
+between the finish time of aj and the start time of cj is at least bj for each job j .
+Theorem 6.5 When there are m1 preprocessors and m2 postprocessors, in O(n logn) time,
+one can obtain
+− a (4,14/3) non-preemptive schedule when all jobs have the same release times
+− a (5,13) non-preemptive online schedule when the jobs have arbitrary release times.
+7 Conclusion
+In this paper we have considered the problem of minimizing total completion time and
+makespan in the master-slave model in various settings. We first show that the problem
+of minimizing the total completion time is NP-hard in the strong sense. Then we consider
+some special case of the problems. We show that while the total completion time problem
+and makespan problem are strongly NP-hard in general, there is a special case that admits
+a polynomial time solution. Then we turn to approximation algorithms. We designed ef-
+ficient algorithms to generate preemptive schedules with good performance ratios. In all
+cases, these schedules have small makespan as well. Then we convert the preemptive sched-
+ules into non-preemptive schedules using the techniques developed in Phillips et al. (1998),
+Chakrabarti et al. (1996) and Chekuri et al. (2001).
+Most of the performance bounds derived in this paper are not tight. For future research,
+it will be interesting to tighten these bounds, or develop better approximation algorithms.
+References
+Allaoui, H., & Artiba, A. (2006). Scheduling two-stage hybrid flow shop with availability constraints. Com-
+puters and Operations Research, 33(5), 1399–1419.
+Buten, R. E., & Shen, V. Y. (1973). A scheduling model for computer systems with two classes of processors.
+In Proceedings of 1973 sagamore computer conference on parallel processing (pp. 130–138).
+Chakrabarti, S., Phillips, C., Schulz, A., Shmoys, D. B., Stein, C., & Wein, J. (1996). Improved schedul-
+ing algorithms for minsum criteria. In Proceedings of the 23rd international colloquium on automata,
+languages and programming (pp. 646–657).
+Chekuri, C., Motwani, R., Natarajan, B., & Stein, C. (2001). Approximation techniques for average comple-
+tion time scheduling. SIAM Journal on Computing, 31(1), 146–166.
+Cheng, T. C. E., & Sin, C. C. S. (1990). State-of-the-art review of parallel-machine scheduling research.
+European Journal of Operational Research, 47, 271–290.
+Goemans, M. X. (1997). Improved approximation algorithms for scheduling with release dates. In Proceed-
+ings of the eighth ACM-SIAM symposium on discrete algorithms (pp. 591–598).
+Ann Oper Res (2008) 159: 215–231 231
+Guinet, A. G. P., & Solomon, M. M. (1996). Scheduling hybrid flowshops to minimize maximum tardiness
+or maximum completion-time. International Journal of Production Research, 34, 1643–1654.
+Gupta, J. N. D., & Tunc, E. A. (1994). Scheduling a 2-stage hybrid flowshop with separable setup and removal
+times. European Journal of Operational Research, 77, 415–428.
+Hall, L. A., Schulz, A. S., Shmoys, D. B., & Wein, J. (1997). Scheduling to minimize average completion
+time: Offline and online algorithms. Mathematics of Operations Research, 22, 513–544.
+Kern, W., & Nawijn, W. (1991). Scheduling multi-operation jobs with time lags on a single machine. In
+U. Faigle & C. Hoede (Eds.). Proceedings 2nd twente workshop on graphs and combinatorial optimiza-
+tion, Enschede.
+Langston, M. A. (1987). Interstage transportation planning in the deterministic flow-shop environment. Op-
+erations Research, 35(4), 556–564.
+Lee, C.-Y., & Vairaktarakis, G. L. (1994). Minimizing makespan in hybrid flowshops. Operations Research
+Letters, 16, 149–158.
+Leung, J. Y.-T., & Zhao, H. (2005). Minimizing mean flowtime and makespan on master-slave systems.
+Journal of Parallel and Distributed Computing, 65, 843–856.
+Leung, J. Y.-T., & Zha, H. (2006). Minimizing sum of completion times and makespan in master-slave sys-
+tems. IEEE Transactions on Computers, 55, 985–999.
+Phillips, C., Stein, C., & Wein, J. (1998). Minimizing average completion time in the presence of release
+dates. Mathematical Programming, 82, 199–223.
+Sahni, S. (1996). Scheduling master-slave multiprocessor systems. IEEE Transactions on Computers, 45(10),
+1195–1199.
+Sahni, S., & Vairaktarakis, G. (1996). The master-slave paradigm in parallel computer and industrial settings.
+Journal of Global Optimization, 9, 357–377.
+Sahni, S., & Vairaktarakis, G. (2004). The master-slave scheduling model. In J. Y.-T. Leung (Ed.), Handbook
+of scheduling: Algorithms, models, and performance analysis. Boca Raton: CRC Press.
+Schrage, L. (1968). A proof of the optimality of the shortest remaining processing time discipline. Operations
+Research, 16, 687–690.
+Schulz, A. S., & Skutella, M. (1997). Scheduling-LPs bear probabilities: Randomized approximations for
+min-sum criteria. In Proceedings of the fifth annual European symposium on algorithms (pp. 416 429).
+Smith, D. (1976). A new proof of the optimality of the shortest remaining processing time discipline. Opera-
+tions Research, 26(1), 197–199.
+Sriskandarajah, C., & Sethi, S. P. (1989). Scheduling algorithms for flexible flowshops: worst and average
+case performance. European Journal of Operational Research, 43, 143–160.
+Vairaktarakis, G. (1997). Analysis of algorithms for master-slave system. IIE Transactions, 29(11), 939–949.
+Yu, W., Hoogeveen, H., & Lenstra, J. K. (2004). Minimizing makespan in a two-machine flowshop with
+delays and unit-time operations is NP-hard. Journal of Scheduling, 7(5), 333–348.

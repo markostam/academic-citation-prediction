@@ -1,0 +1,2787 @@
+Branch-and-Price:
+Column Generation
+for
+Solving Huge Integer Programs
+
+Cynthia Barnhart
+1
+Ellis L. Johnson
+George L. Nemhauser
+Martin W.P. Savelsbergh
+Pamela H. Vance
+2
+Georgia Institute of Technology
+School of Industrial and Systems Engineering
+Atlanta, GA 30332-0205
+Abstract
+We discuss formulations of integer programs with a huge number of variables
+and their solution by column generation methods, i.e., implicit pricing of nonbasic
+variables to generate new columns or to prove LP optimality at a node of the branch-
+and-bound tree. We present classes of models for which this approach decomposes
+the problem, provides tighter LP relaxations, and eliminates symmetry. We then
+discuss computational issues and implementation of column generation, branch-and-
+bound algorithms, including special branching rules and ecient ways to solve the
+LP relaxation. We also discuss the relationship with Lagrangian duality.
+1 Introduction
+The successful solution of large-scale mixed integer programming (MIP) problems re-
+quires formulations whose linear programming (LP) relaxations give a good approxima-
+tion to the convex hull of feasible solutions. In the last decade, a great deal of attention
+has been given to the "branch-and-cut" approach to solving MIPs. Homan and Padberg
+[1985], and Nemhauser and Wolsey [1988] give general expositions of this methodology.
+01
+Currently at MIT
+02
+Currently at Auburn University
+0
+This research has been supported by the following grants and contracts: NSF SES-91-22674, NSF
+and AFORS DDM-9115768, NSF DDM-9058074 and IBM MHV2379
+1
+The basic idea of branch-and-cut is simple. Classes of valid inequalities, preferably
+facets of the convex hull of feasible solutions, are left out of the LP relaxation because
+there are too many constraints to handle eciently and most of them will not be binding
+in an optimal solution anyway. Then, if an optimal solution to an LP relaxation is infea-
+sible, a subproblem, called the separation problem, is solved to try to identify violated
+inequalities in a class. If one or more violated inequalities are found, some are added to
+the LP to cut o the infeasible solution. Then the LP is reoptimized. Branching occurs
+when no violated inequalities are found to cut o an infeasible solution. Branch-and-cut,
+which is a generalization of branch-and-bound with LP relaxations, allows separation
+and cutting to be applied throughout the branch-and-bound tree.
+The philosophy of branch-and-price is similar to that of branch-and-cut except that
+the procedure focuses on column generation rather than row generation. In fact, pricing
+and cutting are complementary procedures for tightening an LP relaxation. We will
+describe algorithms that include both, but we emphasize column generation.
+In branch-and-price, sets of columns are left out of the LP relaxation because there
+are too many columns to handle eciently and most of them will have their associated
+variable equal to zero in an optimal solution anyway. Then to check the optimality of
+an LP solution, a subproblem, called the pricing problem, which is a separation problem
+for the dual LP, is solved to try to identify columns to enter the basis. If such columns
+are found, the LP is reoptimized. Branching occurs when no columns price out to enter
+the basis and the LP solution does not satisfy the integrality conditions. Branch-and-
+price, which is a generalization of branch-and-bound with LP relaxations, allows column
+generation to be applied throughout the branch-and-bound tree.
+We have several reasons for considering formulations with a huge number of variables.
+ A compact formulation of a MIP may have a weak LP relaxation. Frequently the
+relaxation can be tightened by a reformulation that involves a huge number of
+variables.
+ A compact formulation of a MIP may have a symmetric structure that causes
+branch-and-bound to perform poorly because the problem barely changes after
+branching. A reformulation with a huge number of variables can eliminate this
+symmetry.
+ Column generation provides a decomposition of the problem into master and sub
+problems. This decomposition may have a natural interpretation in the contextual
+setting allowing for the incorporation of additional important constraints.
+ A formulation with a huge number of variables may be the only choice.
+2
+At rst glance, it may seem that branch-and-price involves nothing more than combin-
+ing well-known ideas for solving linear programs by column generation with branch-and-
+bound. However, as Appelgren [1969] observed 25 years ago, it is not that straightfor-
+ward. There are fundamental diculties in applying column generation techniques for
+linear programming in integer programming solution methods [Johnson 1989]. These
+include:
+ Conventional integer programming branching on variables may not be eective
+because xing variables can destroy the structure of the pricing problem.
+ Solving these LPs to optimality may not be ecient, in which case dierent rules
+will apply for managing the branch-and-price tree.
+Recently, several specialized branch-and-price algorithms have appeared in the litera-
+ture. Our paper attempts to unify this literature by presenting a general methodology for
+branch-and-price and describing applications. It is by no means an extensive survey, but
+does develop some general ideas that have only appeared in very special contexts. Rout-
+ing and scheduling has been a particularly fruitful application area of branch-and-price,
+see Desrosiers et al. [1994] for a survey of these results.
+Section 2 presents the types of MIPs for which branch-and-price can be advanta-
+geous. Section 3 analyzes the similarities and dierences between branch-and-price and
+Lagrangian duality. Section 4 presents the special types of branching that are required
+for branch-and-price to be eective. Section 5 discusses the ecient solution of LPs
+in branch-and-price algorithms. Section 6 considers the implementation of branch-and-
+price in mixed-integer programming codes. Section 7 summarizes computational expe-
+rience with branch-and-price algorithms for binary cutting stock problems, generalized
+assignment problems, urban transit crew scheduling problems and bandwidth packing
+problems.
+2 Suitable Models for Column Generation
+2.1 General Models
+The general problem P we consider is of the form
+max cx
+Ax  b;
+x 2 S; (1)
+x integer;
+3
+where S is a bounded polyhedron. The boundedness assumption is not necessary and is
+made purely for simplicity of exposition.
+The fundamental construct of column generation is that the set
+S
+
+= fx 2 S : x integerg
+is represented by the extreme points y
+1
+; :::; y
+p
+of its convex hull. Note that if x is binary,
+then S
+
+coincides with the extreme points of conv(S
+
+).
+Any point y in conv(S
+
+) can be represented as
+y =
+X
+1kp
+y
+k
+
+k
+;
+subject to the convexity constraint
+X
+1kp
+
+k
+= 1;
+
+k
+ 0 k = 1; :::; p:
+This yields the column generation form of P given by
+max
+X
+1kp
+(cy
+k
+)
+k
+X
+1kp
+(Ay
+k
+)
+k
+ b;
+X
+1kp
+y
+k
+
+k
+integer; (2)
+X
+1kp
+
+k
+= 1;
+
+k
+ 0 k = 1; :::; p:
+When x is binary, the condition
+P
+1kp
+y
+k
+
+k
+integer is equivalent to 
+k
+2 f0; 1g for
+k = 1; :::; p. If the null vector is an extreme point of conv(S
+
+), it may not be explicitly
+included in the formulation, in which case the convexity constraint can be written as an
+inequality, i.e.,
+P
+1kp
+
+k
+ 1.
+If S can be decomposed, i.e., S = [
+1jn
+S
+j
+, we can represent each set
+S
+
+j
+= fx
+j
+2 S
+j
+: x
+j
+integerg
+by the extreme points y
+j
+1
+; :::; y
+j
+p
+j
+of its convex hull, i.e., any point y
+j
+in conv(S
+
+j
+) can be
+represented as
+y
+j
+=
+X
+1kp
+j
+y
+j
+k
+
+j
+k
+;
+4
+subject to the convexity constraint
+X
+1kp
+j
+
+j
+k
+= 1;
+
+j
+k
+ 0 k = 1; :::; p
+j
+:
+This yields a column generation form of P with separate convexity constraints for each
+S
+j
+given by
+max
+X
+1jn
+X
+1kp
+j
+(cy
+j
+k
+)
+j
+k
+X
+1jn
+X
+1kp
+j
+(Ay
+j
+k
+)
+j
+k
+ b;
+X
+1kp
+j
+y
+j
+k
+
+j
+k
+integer j = 1; :::; n; (3)
+X
+1kp
+j
+
+j
+k
+= 1 j = 1; :::; n;
+
+j
+k
+ 0 j = 1; :::; n; k = 1; :::; p
+j
+:
+If the subsets in the decomposition are identical, i.e., S
+j
+= S for j = 1; :::; n, then
+they can be combined into one subset S with the convexity constraints
+X
+1kp
+
+j
+k
+= 1; j = 1; :::; n
+replaced by an aggregated convexity constraint
+X
+1kp
+
+k
+= n:
+This results in the column generation form
+max
+X
+1kp
+(cy
+k
+)
+k
+X
+1kp
+(Ay
+k
+)
+k
+ b;
+X
+1kp
+y
+k
+
+k
+integer, (4)
+X
+1kp
+
+k
+ n;
+
+k
+ 0 k = 1; :::; p;
+5
+where y
+1
+; :::; y
+p
+are the extreme points of conv(S
+
+). Here we have chosen the inequality
+form of the aggregated convexity constraint because in most applications no elements
+are assigned to some subsets. Moreover, if n is not xed as part of the input, then the
+aggregated convexity constraint can be omitted altogether.
+The essential dierence between P and its column generation form is that S has
+been replaced by the extreme point representation of its convex hull. We see that any
+fractional solution to the linear programming relaxation of P is a feasible solution to
+the linear programming relaxation of its column generation form if and only if it can
+be represented by a convex combination of extreme points of conv(S
+
+). In particular,
+Georion [1974] has shown that if the polyhedron S does not have all integral extreme
+points, then the linear programming relaxation of the column generation form of P will
+be tighter than that of P for some objective functions.
+However, since the column generation form frequently contains a huge number of
+columns, it may be necessary to work with restricted versions that contain only a subset
+of its columns, and to generate additional columns only as they are needed. The column
+generation form is called the master problem (MP) and when it does not contain all of
+its columns it is called a restricted master problem (RMP). Column generation is done
+by solving pricing problems of the form
+maxfdx : x 2 S
+
+g or maxfdx : x 2 conv(S
+
+)g
+where d is determined from optimal dual variables of an RMP.
+2.2 Partitioning models
+Many interesting optimization problems can be formulated as set partitioning problems,
+see Balas and Padberg [1976]. Since most of the branch-and-price algorithms we are
+aware of have been developed for set partitioning based formulations, they will be em-
+phasized. In the general set partitioning problem, we have a ground set of elements and
+rules for generating feasible subsets and their costs, and we wish to nd the minimum
+cost partitioning of the ground set into feasible subsets. Let z
+ij
+= 1 if element i is in
+subset j, and 0 otherwise, and let z
+j
+denote the characteristic vector of subset j, i.e., a
+vector with entries z
+ij
+for each element i. Similarly, let c
+ij
+denote the prot associated
+with having element i in subset j and let c
+j
+denote the corresponding prot vector. The
+general partitioning problem is of the form
+max
+X
+1jn
+c
+j
+z
+j
+X
+1jn
+z
+ij
+= 1 i = 1; :::; m;
+6
+zj
+2 S; (5)
+z
+j
+binary;
+where m is the number of elements in the ground set, n is the number of subsets, and S
+is the set of feasible subsets.
+2.2.1 Enumerated subsets
+One important class of partitioning problems for which column generation is desirable
+occurs when we do not know a description of S by linear inequalities, but we do know
+a way of enumerating S. Hopefully, the enumeration can be done cleverly, but even a
+brute force approach may suce.
+This structure occurs, for example, in crew pairing problems, where a sequence of
+ights, called a pairing, has to be constructed and assigned to a crew. The rst ight
+in the sequence must depart from the crew's base, each subsequent ight departs from
+the station where the previous ight arrived and the last ight must return to the base.
+The sequence can represent several days of ying. Pairings are subject to a number of
+constraints resulting from safety regulations and labor contract terms. These constraints
+dictate restrictions such as the maximum number of hours a pilot can y in a day, the
+maximum number of days before returning to the base and minimum overnight rest
+times. The main point is that these restrictions are not eciently described by linear
+inequalities. In addition, the cost of pairings is a messy function of several attributes of
+the sequence.
+Although enumerating pairings is complex because of all the rules that must be
+checked, it can be accomplished by rst enumerating all feasible possibilities for one
+day of ying and then combining the one-day schedules to form pairings. The major
+diculty is the total number of pairings, which grows exponentially with the number of
+ights. For example, in a typical problem with 253 ights, there are 5,833,004 pairings
+[Vance 1993]. However, it is possible to represent pairings as paths in a graph, and to
+evaluate their costs with a multilabel shortest path or dynamic programming algorithm,
+see Desrochers and Soumis [1989], Barnhart et al. [1993], and Vance [1993].
+The enumeration yields the following column generation form
+max
+X
+1kp
+(c
+k
+y
+k
+)
+k
+X
+1kp
+y
+k
+i
+
+k
+= 1 i = 1; :::; m;
+
+k
+2 f0; 1g; k = 1; :::; p;
+7
+where each y
+k
+is an element of S. This column generation form corresponds to the
+`standard' formulation of the set partitioning problem.
+2.2.2 Linearly constrained subsets
+Now we suppose that the rules on feasible subsets in a set partitioning problem can be
+described by linear inequalities.
+Dierent restrictions on subsets
+First, we assume that the feasible subsets have dierent requirements. Assume the
+requirements are given by
+S
+j
+= fz
+j
+: D
+j
+z
+j
+ d
+j
+j = 1; :::; n; z
+j
+binaryg: (6)
+More explicitly, problem P is given by
+max
+X
+1jn
+c
+j
+z
+j
+X
+1jn
+z
+ij
+= 1 i = 1; :::; m; (7)
+D
+j
+z
+j
+ d
+j
+j = 1; :::; n;
+z binary;
+and its column generation form by
+max
+X
+1jn
+X
+1kp
+j
+(c
+j
+y
+j
+k
+)
+j
+k
+X
+1jn
+X
+1kp
+j
+y
+j
+ik
+
+j
+k
+= 1 i = 1; :::; m; (8)
+X
+1kp
+j
+
+j
+k
+ 1 j = 1; :::; n;
+
+j
+k
+2 f0; 1g j = 1; :::; n; k = 1; :::; p
+j
+;
+where the fy
+j
+k
+g, 1  k  p
+j
+are the extreme points of conv(S
+
+j
+) with elements y
+j
+ik
+for
+i = 1; :::; m. We have chosen to write the convexity constraint as an inequality, since in
+many of these applications we may not assign any elements to a given subset.
+To illustrate, consider the generalized assignment problem (GAP). In the GAP the
+objective is to nd a maximum prot assignment of m tasks to n machines such that
+each task is assigned to precisely one machine subject to capacity restrictions on the
+machines.
+8
+The standard integer programming formulation of GAP is
+max
+X
+1im
+X
+1jn
+p
+ij
+z
+ij
+X
+1jn
+z
+ij
+= 1 i = 1; :::; m;
+X
+1im
+w
+ij
+z
+ij
+ d
+j
+j = 1; :::; n;
+z
+ij
+2 f0; 1g i = 1; :::; m; j = 1; :::; n;
+where p
+ij
+is the prot associated with assigning task i to machine j, w
+ij
+is the claim
+on the capacity of machine j by task i, d
+j
+is the capacity of machine j, and z
+ij
+is a 0-1
+variable indicating whether task i is assigned to machine j.
+The column generation form is
+max
+X
+1jn
+X
+1kK
+j
+(
+X
+1im
+p
+ij
+y
+j
+ik
+)
+j
+k
+X
+1jn
+X
+1kK
+j
+y
+j
+ik
+
+j
+k
+= 1 i = 1; :::; m;
+X
+1kK
+j
+
+j
+k
+ 1 j = 1; :::; n;
+
+j
+k
+2 f0; 1g j = 1; :::; n; k = 1; :::; K
+j
+;
+where the rst m entries of a column, given by y
+j
+k
+= (y
+j
+1k
+; y
+j
+2k
+; :::; y
+j
+mk
+), form a feasible
+solution to the knapsack problem
+X
+1im
+w
+ij
+y
+j
+i
+ d
+j
+;
+y
+j
+i
+2 f0; 1g i = 1; :::; m:
+In other words, a column represents a feasible assignment of tasks to a machine. Note
+that by replacing the knapsack constraint by its feasible solutions, we have improved the
+quality of the linear programming relaxation.
+Identical restrictions on subsets
+Now, we assume that the feasible subsets have identical requirements. Then (6) is
+replaced by the single set of inequalities
+S = fz
+j
+: Dz
+j
+ d j = 1; :::; n; z
+j
+binaryg: (9)
+9
+More explicitly, problem P is given by
+max
+X
+1jn
+c
+j
+z
+j
+X
+1jn
+z
+ij
+= 1 i = 1; :::; m; (10)
+Dz
+j
+ d j = 1; :::; n;
+z binary;
+and its column generation form by
+max
+X
+1kp
+(cy
+k
+)
+k
+X
+1kp
+y
+ik
+
+k
+= 1 i = 1; :::; m; (11)
+
+k
+2 f0; 1g k = 1; :::; p:
+Here we have chosen to omit the convexity constraint because it is common in these
+applications for n not to be xed.
+Consider the 0-1 cutting stock problem where item i has length d
+i
+, the demand for
+each item is 1, the length of each stock roll is d and the objective is to meet demand
+using the minimum number of stock rolls. An integer programming formulation is
+min
+X
+1jn
+w
+j
+X
+1jn
+z
+ij
+= 1 i = 1; :::; m;
+X
+1im
+d
+i
+z
+ij
+ dw
+j
+j = 1; :::; n;
+z
+ij
+; w
+j
+2 f0; 1g i = 1; :::; m; j = 1; :::; n;
+where w
+j
+= 1 if roll j is selected and z
+ij
+= 1 if item i is assigned to roll j.
+The column generation formulation is
+min
+X
+1kp
+
+k
+X
+1kp
+y
+ik
+
+k
+= 1; i = 1; :::; m;
+
+k
+2 f0; 1g k = 1; :::; p;
+10
+where each y
+k
+is a binary solution to the knapsack inequality
+X
+1im
+d
+i
+y
+ik
+ d:
+That is, each y
+k
+represents a feasible pattern for cutting one of the stock rolls into some
+subset of the items. MP replaces the knapsack inequality by all of its 0-1 solutions. The
+resulting problem has an LP relaxation which very frequently provides a bound whose
+round up equals the value of an optimal solution, Marcotte [1985]. On the other hand,
+the LP relaxation of the formulation P yields the trivial bound of d(
+P
+1im
+d
+i
+)=de.
+Another major advantage of MP for these problems with identical subset rules is
+that it eliminates some of the inherent symmetry of P that causes branch-and-bound
+to perform very poorly. By this we mean that any solution to P or its LP relaxation
+has an exponential number of representations as a function of the number of subsets.
+Therefore branching on a variable z
+ij
+to remove a fractional solution will likely produce
+the same fractional solution with z
+ik
+equal to the old value of z
+ij
+and vice-versa, unless
+z
+ij
+is fractional for all j. Formulation MP eliminates this symmetry and is therefore
+much more amenable to branching rules in which meaningful progress in improving the
+LP bound can be made as we go deeper in the tree.
+Although the discussion above has focused on set partitioning type master problems,
+in many applications the problem structure allows the master problem to be formulated
+either as a set partitioning problem or as a set covering problem. Consider, for example,
+vehicle routing and scheduling problems, where several vehicles are located at one or
+more depots and must serve geographically dispersed customers. Each vehicle has a given
+capacity and is available in a specied time interval. Each customer has a given demand
+and must be served within a specied time window. The objective is to minimize the
+total cost of travel. A solution to a vehicle routing and scheduling problem partitions
+the set of customers into a set of routes for vehicles. This naturally leads to a set
+partitioning formulation in which the columns correspond to feasible routes and the rows
+correspond to the requirement that each customer is visited precisely once. Alternatively,
+the problem can be formulated as a set covering problem in which the columns correspond
+to feasible routes and the rows correspond to the requirement that each customer is
+visited at least once. Since deleting a customer from a route, i.e., not visiting that
+customer, results in another shorter less costly feasible route, it is easy to verify that an
+optimal set covering solution will be an optimal set partitioning.
+In general, if any subcolumn of a feasible column denes another feasible column
+with lower cost, an optimal solution to the set covering problem will be an optimal set
+partitioning and we can work with either one of the formulations. When there is a choice,
+the set covering formulation is preferred since
+11
+ Its linear programming relaxation is numerically far more stable and thus easier to
+solve.
+ It is trivial to construct a feasible integer solution from a solution to the linear
+programming relaxation.
+2.3 Nondecomposable models
+Column generation is also used for very large nondecomposable models. Here it may
+be the only practical approach. If a model contains so many variables that the storage
+requirements are enormous, then it is usually impossible to solve the LP relaxation
+directly and a column generation approach may be the only alternative.
+This approach has been used to solve large instances of the traveling salesman prob-
+lem, see Junger, Reinelt, and Rinaldi [1994]. To handle the enormous number of variables
+(for a thousand city instance there are a million variables) only variables associated with
+a small subset of the edges, the k shortest edges associated with each vertex, are main-
+tained. When the LP is solved for this reduced edge set, it is necessary to price out all
+the edges not in this set to verify that the true optimum has been found. If edges with
+favorable reduced costs are identied, they are added to the reduced edge set and the
+process is repeated.
+A related approach, called SPRINT, has proven very successful for huge set parti-
+tioning problems. The SPRINT approach solves subproblems consisting of a subset of
+the columns, e.g. 10,000 out of 5 million. A new subproblem is formed by retaining the
+columns in the optimal basis of the old subproblem and collecting a set of good columns
+based on the reduced costs. This is repeated until all columns have been considered and
+then nally, and only once, the full problem is optimized. Using the SPRINT approach
+a linear programming relaxation of a set partitioning problem with nearly 6 million vari-
+ables was solved in less than an hour on an IBM 3090E vector facility, see Anbil, Tanga,
+and Johnson [1992], and even more quickly using a combined interior point/simplex
+sprint approach by Bixby et al. [1992].
+Note that in both cases standard simplex pricing is used to price out the variables
+that are initially left out of the formulation. This can be done because the total number
+of variables is polynomial in the size of the input, in contrast to the other formulations
+we have discussed where the number of variables grows exponentially.
+3 Lagrangian duality
+Lagrangian duality is an alternative to column generation for getting improved relax-
+ations of MIPs. In fact, a standard dualization gives the identical bound to the one
+12
+obtained from column generation, see Brooks and Georion [1966] and Georion [1974].
+The idea is to consider the Lagrangian relaxation of (1) given by
+g() = max [cx  (b Ax)]
+x 2 S (12)
+x integer
+where   0, and the Lagrangian dual given by
+g = minfg() :   0g: (13)
+Using linear programming duality, Georion [1974] proved that the maximum value of
+the linear programming relaxation of (2) equals g. Moreover, the Lagrangian relaxation
+(12) is exactly of the form of the column generation subproblem that is used in the
+solution of the linear programming relaxation of (2). Also the Lagrange multiplier vector
+ corresponds to the dual variables for the constraints
+X
+k
+(Ay
+k
+)
+k
+ b
+in the linear programming relaxation of the restricted master problem.
+Thus the choice between Lagrangian duality and column generation rests largely
+on the issue of which approach produces an optimal  more eciently. In Lagrangian
+duality, the standard approach is to solve (13) by subgradient optimization, see Held et
+al. [1974]. Here, given a solution to (12), we determine a subgradient direction by the
+magnitude of violation of Ax  b and a new  vector by
+
+t+1
+i
+= 
+t
+i
+  #
+t
+[A
+i
+x
+t
+  b
+i
+]
++
+where u
++
+= max(0; u) and #
+t
+is the step size. With an appropriate choice of step size,
+the subgradient algorithm converges in the limit but the sequence g(
+t
+) is not monotone.
+In the column generation approach, 
+t
+is an optimal solution to the t
+th
+restricted lin-
+ear programming relaxation of the restricted master problem. This procedure converges
+nitely and monotonically, although column generation linear programs are known to
+stall near termination.
+Since both methods produce the same theoretical bounds and solve subproblems
+of the same form, other criteria are needed to choose between them. There are clear
+tradeos:
+ The subgradient algorithm is much simpler than the simplex algorithm with column
+generation and therefore is much easier to code.
+13
+ Linear programming uses global information, i.e. x
+1;
+: : : ; x
+t
+to determine 
+t+1
+,
+while the subgradient algorithm uses only local information (
+t
+; x
+t
+).
+ The subgradient algorithm is faster per iteration but generally requires many more
+iterations and practical implementations are not nitely convergent.
+Only extensive empirical tests may settle the issue, but here are some observations.
+Over the past 25 years the Lagrangian approach has been used much more extensively.
+We believe the reasons were the absence of ecient simplex codes with column generation
+capabilities and the lack of sucient computer memory. While it is dicult to implement
+an ecient simplex procedure, a subgradient optimization program only requires a few
+lines of code. However, the situation has changed dramatically with the modern simplex
+codes, see Section 6. With these capabilities in LP-based branch-and-bound codes, it is
+now feasible to take advantage of the global information used by the simplex codes to
+speed up the convergence of . One can see this in comparing the results of Savelsbergh
+[1993] and Guignard and Rosenwein [1989] on the generalized assignment problem, see
+Section 7 on computational experience. This is in contrast with the results obtained by
+Held and Karp [1970, 1971] on the traveling salesman problem more than twenty years
+ago where the limitations of LP solving with column generation led to the conclusion
+that the subgradient algorithm was preferred.
+4 Branching
+An LP relaxation solved by column generation is not necessarily integral and applying a
+standard branch-and-bound procedure to the restricted master problem with its existing
+columns will not guarantee an optimal (or feasible) solution. After branching, it may be
+the case that there exists a column that would price out favorably, but is not present in
+the master problem. Therefore, to nd an optimal solution we must generate columns
+after branching. Nonetheless, many problems have been solved successfully, but not to
+proven optimality, by the heuristic of limiting the column generation to the root node of
+the branch-and-bound tree.
+Consider a branch-and-bound algorithm that has the possibility of generating columns
+at any node of the tree. In particular, suppose using the conventional branching rule
+based on variable dichotomy, we branch on fractional variable 
+k
+, and we are in the
+branch in which 
+k
+is xed to zero. In the column generation phase, it is possible (and
+quite likely) that the optimal solution to the subproblem will be the set represented
+by 
+k
+. In that case, it becomes necessary to generate the column with the 2
+nd
+highest
+reduced cost. At depth l in the branch-and-bound tree we may need to nd the column
+with l
+th
+highest reduced cost. In order to prevent columns that have been branched on
+14
+from being regenerated, we must choose a branching rule that is compatible with the
+pricing problem. By compatible, we mean that we must be able to modify the pricing
+problem so that columns that are infeasible due to the branching constraints will not be
+generated and the pricing problem will remain tractable.
+So the challenge in formulating a branching strategy is to nd one that excludes
+the current solution, validly partitions the solution space of the problem, and provides a
+pricing problem that is still tractable. We need a guarantee that a feasible integer solution
+will be found (or infeasibility proved) after a nite number of branches and we need to
+be able to encode the branching information into the pricing problem. In addition, a
+branch-and-bound algorithm is more likely to be eective if the branching scheme divides
+the feasible set of solutions to the problem evenly, i.e. each new subproblem created has
+approximately the same number of feasible solutions.
+4.1 Set partitioning master problems
+Ryan and Foster [1981] suggested a branching strategy for set partitioning problems
+based on the following proposition.
+Proposition 1 If Y is a 0{1 matrix, and a basic solution to Y  = 1 is fractional, then
+there exist two rows r and s of the master problem such that
+0 <
+X
+k:y
+rk
+=1;y
+sk
+=1
+
+k
+< 1:
+Proof Consider fractional variable 
+k
+0
+. Let row r be any row with y
+rk
+0
+= 1. Since
+P
+1kp
+y
+rk
+
+k
+= 1 and 
+k
+0
+is fractional, there must exist some other basic column k
+00
+with 0 < 
+k
+00
+< 1 and y
+rk
+00
+= 1 as illustrated by the submatrix in Figure 1. Since there
+k k'
+r 1 1
+s 0 1
+Figure 1: Submatrix Present in Candidate Branching Pairs
+are no duplicate columns in the basis, there must exist a row s such that either y
+sk
+0
+= 1
+or y
+sk
+00
+= 1 but not both. This leads to the following sequence of relations:
+1 =
+X
+1kp
+y
+rk
+
+k
+15
+=X
+k:y
+rk
+=1
+
+k
+>
+X
+k:y
+rk
+=1;y
+sk
+=1
+
+k
+where the inequality follows from the fact that the last summation includes either 
+k
+0
+or
+
+k
+00
+but not both. 2
+The pair r; s gives the pair of branching constraints
+X
+k:y
+rk
+=1;y
+sk
+=1
+
+k
+= 1 and
+X
+k:y
+rk
+=1;y
+sk
+=1
+
+k
+= 0:
+This branching is analogous to requiring that rows r and s be covered by the same
+column on the rst (left) branch and by dierent columns on the second (right) branch,
+i.e., elements r and s belong to the same subset on the left branch and to dierent
+subsets on the right branch. Thus on the left branch, all feasible columns must have
+y
+rk
+= y
+sk
+= 0 or y
+rk
+= y
+sk
+= 1, while on the right branch all feasible columns must have
+y
+rk
+= y
+sk
+= 0 or y
+rk
+= 0, y
+sk
+= 1 or y
+rk
+= 1, y
+sk
+= 0. Rather than adding the branching
+constraints to the master problem explicitly, the infeasible columns in the master problem
+can be eliminated. On the left branch, this is identical to combining rows r and s in the
+master problem giving a smaller set partitioning problem. On the right branch, rows
+r and s are restricted to be disjoint, which may yield an easier master problem since
+set partitioning problems with disjoint rows (sets) are more likely to be integral. Not
+adding the branching constraints explicitly has the advantage of not introducing new
+dual variables that have to be dealt with in the pricing problem.
+Usually, enforcing the branching constraints in the pricing problem, i.e., forcing two
+elements to be in the same subset on one branch and forcing two elements to be in
+dierent subsets on the other branch, is fairly easy to accomplish. However, the pricing
+problem on one branch may be more complicated than on the other branch; see Section
+7.
+Proposition 1 implies that if no branching pair can be identied, then the solution to
+the master problem must be integer. The branch and bound algorithm must terminate
+after a nite number of branches since there are only a nite number of pairs of rows.
+The number of branches necessary will generally be considerably fewer than would be
+necessary if individual variables were branched on since there are in general many fewer
+pairs of rows than variables. In addition, each branching decision eliminates a large
+number of variables from consideration.
+A theoretical justication for this branching rule is that the submatrix shown in
+Figure 1 is precisely the excluded submatrix in the characterization of totally balanced
+16
+matrices, see Homan, Kolen, and Sakarovitch [1985]. Total balanceness of the coecient
+matrix is a sucient condition for the LP relaxation of a set partitioning problem to have
+only integral extreme points and the branching rule eventually gives totally balanced
+matrices.
+Applications of this branching rule can be found for urban transit crew scheduling in
+Desrochers and Soumis [1989]; for airline crew scheduling in Anbil, Tanga and Johnson
+[1992], Barnhart et al. [1993] and Vance [1993]; for vehicle routing in Dumas, Desrosiers
+and Soumis [1989], for graph coloring in Mehrotra and Trick [1993]; and for the binary
+cutting stock problem in Vance et al. [1994].
+Dierent requirements on subsets
+Now consider the situation where the rules on feasible subsets can be described by
+linear inequalities and where dierent subsets may have dierent requirements, i.e., the
+formulation for P has the block diagonal structure given by (7) and the associated explicit
+column generation form, with separate convexity constraints for each subset, is given by
+(8).
+In this situation, if we apply the branching rule discussed above but always select
+one partitioning row, say row r, and one convexity row, say s, we obtain a special
+branching scheme that has a natural interpretation in the original formulation and some
+nice computational properties. The pair of branching constraints that results is given by
+X
+1kp
+s
+:y
+s
+rk
+=1
+
+s
+k
+= 1 and
+X
+1kp
+s
+:y
+s
+rk
+=1
+
+s
+k
+= 0: (14)
+This branching rule corresponds to requiring element r to be in subset s on the left
+branch and requiring element r to be in any subset but s on the right branch. This
+branching strategy has a very natural interpretation based on the following proposition.
+Proposition 2 Let  be a feasible solution to the LP-relaxation of (8) and let z
+ij
+=
+P
+1kp
+j
+y
+j
+ik
+
+j
+k
+, then z constitutes a feasible solution to the LP-relaxation of (7) and z is
+integral if and only if  is integral.
+Proof As z is a convex combination of extremal solutions it is feasible. If  is integral,
+then z is integral. Thus z
+j
+is integral for all j. Consider any element i of z
+j
+with z
+ij
+= 1.
+Consequently,
+P
+1kp
+j
+y
+j
+ik
+
+j
+k
+= z
+ij
+= 1. Since
+P
+1kp
+j
+
+j
+k
+ 1, we must have y
+j
+ik
+= 1
+for all k = 1; :::; p
+j
+with 
+j
+k
+> 0. Therefore, all columns associated with variables with
+positive values are identical. Since there are no duplicate columns in the basis, there can
+be only one positive variable, which implies that  is integral. 2
+Consequently, the branching strategy given by (14) corresponds precisely to performing
+17
+standard branching in (7), since
+X
+1kp
+s
+:y
+s
+rk
+=1
+
+s
+k
+= 1)
+X
+1kp
+s
+y
+s
+rk
+
+s
+k
+= 1) z
+rs
+= 1
+and
+X
+1kp
+s
+:y
+s
+rk
+=1
+
+s
+k
+= 0)
+X
+1kp
+s
+y
+s
+rk
+
+s
+k
+= 0) z
+rs
+= 0:
+Furthermore, this branching strategy does not increase the diculty of solving the pricing
+problem. In fact, Sol and Savelsbergh [1994] show that any algorithm for the pricing
+problem used in the root node can also be used in subsequent nodes. To prevent an
+element from being in a generated solution, we just ignore it altogether.
+To force an element to be in the solution, we modify the dual variables such that
+every solution that does not use the element has a nonpositive reduced cost. Let u be
+the dual vector associated with the partitioning constraints, v the dual vector associated
+with the convexity constraints, and w the dual variable associated with constraint
+X
+1kp
+^
+j
+(1  y
+^
+j
+^
+ik
+)
+^
+j
+k
++
+X
+1j 6=
+^
+jn
+X
+1kp
+j
+y
+j
+^
+ik
+
+j
+k
+ 0
+which forces element
+^
+i to be in subset
+^
+j.
+Proposition 3 Let (u; v; w) be an optimal dual solution to the extended restricted master
+problem and let  > 0, then (u
+0
+; v
+0
+; w
+0
+) with u
+0
+:= u  e
+^
+i
+; v
+0
+:= v+ e
+^
+j
+, and w
+0
+:= w+ ,
+where e
+k
+denotes the kth unit vector, is an alternative optimal dual solution.
+Proof When the extended restricted master problem is solved the reduced costs satisfy
+c
+j
+k
+= c
+j
+k
+ 
+X
+i
+y
+j
+ik
+u
+i
+  v
+j
+  y
+j
+^
+ik
+w  0 1  j 6=
+^
+j  n; k = 1; :::; p
+j;
+and
+c
+^
+j
+k
+= c
+^
+j
+k
+ 
+X
+i
+y
+^
+j
+ik
+u
+i
+  v
+^
+j
+  (1  y
+^
+j
+^
+ik
+)w  0 k = 1; :::; p
+^
+j
+:
+To see that the alternative dual solution is feasible for the case y
+^
+j
+^
+ik
+= 1, we have
+c
+0j
+k
+= c
+j
+k
+ 
+X
+i
+y
+j
+ik
+u
+0
+i
+  v
+0
+j
+  y
+j
+^
+ik
+w
+0
+=
+c
+j
+k
+ 
+X
+i6=
+^
+i
+y
+j
+ik
+u
+i
+  y
+j
+^
+ik
+(u
+^
+i
+  )  v
+j
+  y
+j
+^
+ik
+(w+ ) = c
+j
+k
+1  j 6=
+^
+j  n; k = 1; :::; p
+j
+18
+and
+c
+0
+^
+j
+k
+= c
+^
+j
+k
+ 
+X
+i
+y
+^
+j
+ik
+u
+0
+i
+  v
+0
+^
+j
+  (1  y
+^
+j
+^
+ik
+)w
+0
+=
+c
+^
+j
+k
+ 
+X
+i6=
+^
+i
+y
+^
+j
+ik
+u
+i
+  y
+^
+j
+^
+ik
+(u
+^
+i
+  )  (v
+^
+j
++ )  (1  y
+^
+j
+^
+ik
+)(w+ ) = c
+^
+j
+k
+k = 1; :::; p
+^
+j
+:
+For the case y
+^
+j
+^
+ik
+= 0, we have
+c
+0
+^
+j
+k
+= c
+^
+j
+k
+ 
+X
+i
+y
+^
+j
+ik
+u
+0
+i
+  v
+0
+^
+j
+  (1  y
+^
+j
+^
+ik
+)w
+0
+=
+c
+^
+j
+k
+ 
+X
+i6=
+^
+i
+y
+^
+j
+ik
+u
+i
+  y
+^
+j
+^
+ik
+(u
+^
+i
+  )  (v
+^
+j
++ )  (1  y
+^
+j
+^
+ik
+)(w+ ) = c
+^
+j
+k
+  2 k = 1; :::; p
+^
+j
+:
+It is optimal because
+P
+i
+u
+0
+i
++
+P
+j
+v
+0
+j
+=
+P
+i
+u
+i
++
+P
+j
+v
+j
+. 2
+Now by Proposition 3, it follows that by choosing  large enough, we can always ensure
+that c
+^
+j
+k
+ 0 if y
+^
+j
+^
+ik
+= 0.
+Applications of this branching strategy are presented for crew scheduling in Vance
+[1993]; for generalized assignment in Savelsbergh [1993]; for multi-commodity ow in
+Barnhart, Hane, Johnson and Sigismondi [1991] and Parker and Ryan [1993]; for vehicle
+routing in Desrosiers, Soumis and Desrochers [1984] and Desrochers, Desrosiers and
+Solomon [1992]; and for pickup and delivery problems in Sol and Savelsbergh [1994].
+4.2 General mixed integer master problems
+So far, we have discussed branching strategies for set partitioning master problems. A
+branching strategy for general mixed integer master problems with dierent requirements
+on subsets can be derived directly from (3) as follows [Johnson 1989]. The optimal
+solution to the linear programming relaxation is infeasible if and only if
+X
+1kp
+j
+y
+j
+k
+
+j
+k
+has a fractional component r for some j, say with value . This suggests the following
+branching rule: on one branch we require
+X
+1kp
+j
+y
+j
+rk
+
+j
+k
+ bc
+19
+and on the other branch we require
+X
+1kp
+j
+y
+j
+rk
+
+j
+k
+ de:
+This implies that when a new extreme point is generated an upper bound of bc on
+component r has to be enforced on the rst branch and a lower bound of de on the
+second branch. Note that each pricing problem diers only in the lower and upper
+bounds on the components.
+General models with identical restrictions on subsets
+Developing a branching strategy for general mixed integer master problems with identical
+restrictions on subsets is more complex. If the solution to (2) is fractional, we may be
+able to identify a single row r and an integer 
+r
+such that
+X
+k:(Ay
+k
+)
+r
+
+r
+
+k
+= 
+r
+and 
+r
+is fractional. We can then branch on the constraints
+X
+k:(Ay
+k
+)
+r
+
+r
+
+k
+ b
+r
+c and
+X
+k:(Ay
+k
+)
+r
+
+r
+
+k
+ d
+r
+e:
+These constraints place upper and lower bounds on the number of columns with (Ay
+k
+)
+r
+
+
+r
+that can be present in the solution. In general, these constraints will not eliminate
+variables and have to be added to the formulation explicitly. Each branching constraint
+will contribute an additional dual variable to the reduced cost of any new column with
+(Ay
+k
+)
+r
+ 
+r
+. This may complicate the pricing problem.
+It is easy to see that a single row may not be sucient to dene a branching rule.
+Consider a set partitioning master problem that has a fractional solution. The only
+possible value for 
+r
+is 1. However,
+P
+k:y
+kr
+1
+
+k
+= 1 for every row. Thus we may have
+to branch on multiple rows.
+Assume that
+X
+k:(Ay
+k
+)
+r
+
+r
+
+k
+= 
+r
+and 
+r
+is integer for every row r and integer 
+r
+. Pick an arbitrary row, say r, and branch
+on the constraints
+X
+k:(Ay
+k
+)
+r
+
+r
+
+k
+ 
+r
+  1 and
+X
+k:(Ay
+k
+)
+r
+
+r
+
+k
+ 
+r
+:
+20
+Because, the current fractional solution is still feasible in the latter branch, we look for
+a row s such that
+X
+k:(Ay
+k
+)
+r
+
+r
+^(Ay
+k
+)
+s
+
+s
+
+k
+= 
+s
+and 
+s
+is fractional. If such a row exists, we branch on the constraints
+X
+k:(Ay
+k
+)
+r
+
+r
+^(Ay
+k
+)
+s
+
+s
+
+k
+ b
+s
+c and
+X
+k:(Ay
+k
+)
+r
+
+r
+^(Ay
+k
+)
+s
+
+s
+
+k
+ d
+s
+e:
+Otherwise we seek a third row. We note that if the solution is fractional it is always
+possible to nd a set of rows to branch on and that a set of l rows gives rise to l + 1
+branches.
+The branching scheme presented above applied to set partitioning master problems
+gives precisely the branching scheme of Ryan and Foster [1981] discussed in Section 4.1.
+To see this, note that by Proposition 1 we can always branch on two rows, say r and s,
+that the rst branch dened by
+X
+k:y
+rk
+1
+
+k
+ 0
+is empty, and that the other two branches dened by
+X
+k:y
+rk
+1^y
+sk
+1
+
+k
+ 0 and
+X
+k:y
+rk
+1^y
+sk
+1
+
+k
+ 1
+are exactly those dened by the branching scheme of Ryan and Foster.
+5 LP solution
+The computationally most intensive component of a branch-and-price algorithm is the
+solution of the linear programs. Therefore, we have to concentrate on solving these
+linear programs eciently to obtain ecient branch-and-price algorithms. We consider
+two alternatives to accomplish this
+ Employ specialized simplex procedures that exploit the problem structure.
+ Alter the master problem formulation to reduce the number columns.
+21
+5.1 Key Formulations
+Again consider the master problem given by (8), but with an equality convexity con-
+straint.
+max
+X
+1jn
+X
+1kp
+j
+(c
+j
+y
+j
+k
+)
+j
+k
+X
+1jn
+X
+1kp
+j
+y
+j
+ik
+
+j
+ik
+= 1; i = 1; :::; m; (15)
+X
+1kp
+j
+
+j
+k
+= 1; j = 1; :::; n;
+
+j
+k
+2 f0; 1g; j = 1; :::; n; k = 1; :::; p
+j
+:
+Since the column generation form of P has the Dantzig-Wolfe master program structure,
+it can be solved using specialized solution procedures such as the generalized upper
+bounding procedure of Dantzig and Van Slyke [1967] or the partitioning procedure of
+Rosen [1964]. Both of these procedures exploit the block-diagonal problem structure of
+(15) and perform all steps of the simplex method on a reduced working basis of dimension
+m. Both methods transform the MP problem formulation by selecting a key extreme
+point solution 
+j
+and substituting 
+
+j
+= 1  
+P
+1kp
+j
+;k 6=
+j
+
+j
+k
+for each subproblem j.
+With this substitution, the key formulation of (15) becomes
+max
+X
+1jn
+X
+1kp
+j
+(c
+j
+(y
+j
+k
+  y
+
+j
+))
+j
+k
++
+X
+1jn
+c
+j
+y
+
+j
+X
+1jn
+X
+1kp
+j
+;k 6=
+j
+(y
+j
+ik
+  y
+i
+j
+)
+j
+k
+= 1 
+X
+1jn
+y
+i
+j
+i = 1; :::m; (16)
+X
+1kp
+j
+;k 6=
+j
+
+j
+k
+ 1 j = 1; : : : ; n;
+
+j
+k
+2 f0; 1g j = 1; : : : ; n; k = 1; : : : ; p
+j
+:
+The variable 
+j
+k
+indicates whether the key extreme point 
+j
+of subproblem j should be
+transformed into extreme point k of subproblem j (
+j
+k
+= 1) or not (
+j
+k
+= 0). To enforce
+nonnegativity of 
+
+j
+, the key nonnegativity constraints
+P
+1kp
+j
+;k 6=
+j
+
+j
+k
+ 1 are required.
+They can be added explicitly, but in both the Dantzig-Van Slyke and Rosen procedures,
+the key nonnegativity constraints are handled implicitly by changing the key extreme
+point.
+To illustrate, consider the multi-commodity network ow problem. In a column
+generation formulation of the multi-commodity ow problem, the variables represent
+origin-destination ows of commodities. In the associated key formulation, a specic
+22
+origin-destination path p
+
+j
+is selected for each commodity j to serve as a key path. Any
+other origin-destination path p
+j
+for commodity j will be represented by a column with
++1 for each arc in p
+j
+and not in p
+
+j
+;
+-1 for each arc in p
+
+j
+and not in p
+j
+;
+0 for each arc in both or neither p
+j
+and p
+
+j
+; and
++1 for the key path nonnegativity constraint for j.
+The variables of the key formulation represent the symmetric dierence between the
+key path for a commodity and some other origin-destination path for that commodity.
+Since the symmetric dierence of two paths that share a common origin and destination
+is a set of cycles, we can think of these variables as representing ow shifts around these
+cycles, i.e., ow is removed from the key path and placed on an alternative path. (A
+detailed description is provided in Barnhart et al. [1991].)
+Although the Dantzig-Van Slyke and Rosen procedures will improve LP solution
+times, because of the smaller working basis, they do not prevent tailing-o, i.e., slow
+convergence to LP optimality, which is a major eciency issue for column generation
+procedures. To reduce the tailing-o eect, an alternate key formulation having far fewer
+columns may be used. The idea behind the alternate key formulation is to allow columns
+to be represented as a combination of simpler columns.
+Consider the multi-commodity ow problem again. In the key formulation for the
+multi-commodity ow problem, each column corresponds to sets of disjoint cycles. Refer
+to a column containing a single cycle as a simple cycle and to one containing multiple
+cycles as a compound cycle. Since every compound cycle can be represented as the sum
+of simple cycles, every possible multi-commodity ow solution can be represented with
+just simple cycles. In the column generation framework, each column generated by the
+pricing problem has to be decomposed into simple cycles and only the simple cycles not
+already present in the restricted simple cycle master problem are added.
+Since several simple cycles can be chosen, the key path nonnegativity constraints
+have to be modied. The nonnegativity constraint for each key path p
+
+j
+can be replaced
+by a set of constraints, one for each key path arc, ensuring that the ow on the arc is
+nonnegative. As above these constraints can be handled implicitly. As will be explained
+later, the LP relaxations of the original key formulation and this alternate simple cycle
+formulation have equal optimal objective function values.
+The idea presented above for the multi-commodity ow problem generalizes to any
+problem with the master program structure of (8). As before, the key formulation is
+obtained by selecting a key column 
+j
+for subproblem j and substituting it out, i.e.,
+replacing all other columns k of subproblem j by a column with
+23
++1 for each element in k and not in 
+j
+;
+-1 for each element in k and not in
+j
+;
+0 for each element in both or neither k and 
+j
+; and
++1 for the key column nonnegativity constraint for j.
+These columns are referred to as exchanges since one or more elements in the key col-
+umn 
+j
+may be removed from the solution and replaced by new elements in column k.
+Similar to the concept of simple cycles in the multi-commodity ow context, a column
+in the key formulation that cannot be represented as the sum of other columns is called
+an elementary exchange. In a column generation procedure, if recognizing elementary
+exchanges is dicult, a column generated by the pricing problem can be added as is.
+This will result in additional columns but will not aect the validity of the formulation.
+To satisfy the key column nonnegativity constraints, we can add a constraint for each
+element in a key column that ensures that at most one elementary exchange contains it,
+i.e.,
+X
+k: i2k
+
+j
+k
+ 1 i 2 
+j
+; j = 1; :::; n: (17)
+For example, if the key column contains elements 1,2,3 and exchanges 1 and 2 remove
+element 1, exchanges 1 and 3 remove element 2, and exchanges 2 and 3 remove element
+3, then (17) yields
+
+j
+1
++ 
+j
+2
+ 1
+
+j
+1
++ 
+j
+3
+ 1
+
+j
+2
++ 
+j
+3
+ 1:
+While the key formulation (16) is equivalent to the elementary exchange formulation, the
+linear programming relaxation of the elementary exchange formulation may be weaker.
+To see this, note that in the above example 
+1
+= 
+2
+= 
+3
+=
+1
+2
+is feasible to (17) but
+would be excluded by the nonnegativity constraints of (16). However, in the case of
+multi-commoddity ows, the constraints of (17) are totally unimodular and the linear
+programming relaxations give the same bound. To see this, observe that any simple
+cycle meets a set of consecutive arcs on a key path and therefore the rows of (17) can be
+organized to have the consecutive ones property.
+Fractional solutions to the elementary exchange formulation can be removed by the
+addition of cutting planes derived from the node packing polytope or by branching.
+The computational advantage of working with a key formulation based on elementary
+exchanges can be substantial, as demonstrated by Vance [1993].
+24
+5.2 Column management
+In a maximization linear program, any column with positive reduced cost is a candidate
+to enter the basis. The pricing problem nds the column with highest reduced cost.
+Therefore, if a column with positive reduced cost exists the pricing problem will always
+identify it. This guarantees that the optimal solution to the linear program will be found.
+However, it is not necessary to select the column with the highest reduced cost; any
+column with a positive reduced cost will do. Using this observation can improve the
+overall eciency when the pricing problem is computationally intensive.
+Various column generation schemes can be developed based on using approximation
+algorithms to solve the pricing problem. To guarantee optimality, a two-phase approach
+is applied. As long as an approximation algorithm for the pricing problem produces a
+column with positive reduced cost, that column will be added to the restricted master.
+If the approximation algorithm fails to produce a column with positive reduced cost, an
+optimization algorithm for the pricing problem is invoked to prove optimality or produce
+a column with positive reduced cost. Such a scheme reduces the computation time per
+iteration. However, the number of iterations may increase, and it is not certain that the
+overall eect is positive. Depending on the pricing problem, it may even be possible to
+generate more than one column with positive reduced cost per iteration without a large
+increase in computation time. Such a scheme increases the time per iteration, since a
+larger restricted master has to be solved, but it may decrease the number of iterations.
+During the column generation process, the restricted master problem keeps growing.
+It may be advantageous to delete nonbasic columns with very negative reduced cost from
+the restricted master problem in order to reduce the time per iteration.
+These ideas can be combined into the following general column generation scheme:
+1. Determine an initial feasible restricted master problem.
+2. Initialize the column pool to be empty.
+3. Solve the current restricted master problem.
+4. Delete nonbasic columns with high negative reduced costs from the restricted mas-
+ter problem.
+5. If the column pool still contains columns with positive reduced costs, select a subset
+of them, add them to the restricted master, and go to 3.
+6. Empty the column pool.
+7. Invoke an approximation algorithm for the pricing problem to generate one or
+more columns with positive reduced cost. If columns are generated, add them to
+the column pool and go to 5.
+25
+8. Invoke an optimization algorithm for the pricing problem to prove optimality or
+generate one or more columns with positive reduced costs. If columns are gener-
+ated, add them to the column pool and go to 5.
+9. Stop.
+A very fast and promising approach to generate columns with positive reduced costs is
+to use improvement algorithms that take existing columns with reduced cost equal to
+zero (at least all basic columns satisfy this requirement) and try to construct columns
+with a positive reduced cost by performing some simple changes [Sol and Savelsbergh
+1994].
+Notice the similarity between the column management functions performed in branch-
+and-price algorithms and the row management functions performed in branch-and-cut
+algorithms.
+5.3 Alternative bounds
+The branch-and-bound framework has some inherent exibility that can be exploited in
+branch-and-price algorithms. Observe that branch-and-bound is essentially an enumer-
+ation scheme that is enhanced by fathoming based substantially on bound comparisons.
+To control the size of the branch-and-bound tree it is best to work with strong bounds,
+however the method will work with any bound. Clearly, there is a tradeo between the
+computational eorts associated with computing strong bounds and evaluating small
+trees and computing weaker bounds and evaluating bigger trees. In the case of lin-
+ear programming based branch-and-bound algorithms in which the linear programs are
+solved by column generation, there is a very natural way to explore this tradeo, espe-
+cially when the pricing problem is hard to solve. Instead of solving the linear program
+to optimality, i.e., generating columns as long as protable columns exist, we can choose
+to prematurely end the column generation process and work with nonoptimal linear
+programming solutions.
+In some situations prematurely ending the column generation process will not even
+aect the size of the branch-and-bound tree. Suppose we have an upper bound on the
+optimal value of the unrestricted master LP. If the objective function value of the integer
+program is known to be integer, column generation can be stopped once the optimal value
+of the restricted master problem exceeds the round down of this upper bound.
+Lasdon [1970] and Farley [1990] describe simple and easy to compute bounds on the
+nal LP value based on the LP value of the current restricted master problem and the
+current reduced costs. Vance et al. [1993] used Farley's observation to prematurely end
+the column generation process in the root node in their algorithm for the cutting stock
+26
+problem. At nodes deeper in the tree, the LP bound of the parent can be used as an
+upper bound.
+In many situations, the pricing problem is extremely hard to solve and it is only
+feasible, computationally, to solve it approximately. Obviously, in that situation, we
+cannot guarantee optimality of the current LP solution when we cannot identify any
+protable columns, but we can branch anyway.
+5.4 Combining column generation and row generation
+Combining column and row generation can yield very strong LP relaxations. However,
+synthesizing the two generation processes is nontrivial. The principle diculty is their
+incompatibility. That is, the pricing (separation) problem can be much harder after
+additional rows (columns) are added, because the new rows (columns) can destroy the
+structure of the pricing (separation) problem.
+One remedy is to dualize the additional constraints using Lagrangian relaxation.
+Another is to do the pricing only over the original rows, i.e., assuming that the new
+columns have 0 coecients in the additional rows. But then it may be necessary to
+update the columns coecients over the additional rows in order to maintain validity,
+see Mehrotra [1992], or it may be desirable to lift the coecients to increase the strength
+of the valid inequality. Then after the lifting is done, it may be the case that the column
+no longer prices out favorably.
+Despite these diculties, there have been some successful applications of combined
+row and column generation. In problem situations where the objective is to partition the
+ground set into a minimum number of feasible subsets, such as minimizing the number
+of vehicles required to satisfy customer demands in routing and scheduling problems,
+an LP solution with fractional objective function value v can be cut o by adding a
+constraint that bounds the LP solution from above by bvc. Because every column has a
+coecient 1 in this additional constraint, the constraint does not complicate the pricing
+problem and can easily be handled.
+The most successful optimization algorithms for the traveling salesman problem use
+branch-and-cut, see Junger, Reinelt and Rinaldi [1994] for a recent survey. However,
+these algorithms only maintain columns for a small subset of the edges. Consequently,
+when the LP is solved for this reduced edge set, it is necessary to price out all the edges
+not in this set to verify that a true lower bound has been found. If edges with favorable
+reduced costs are identied, they are added to the reduced edge set and the process is
+repeated.
+Nemhauser and Park [1991] combine column and row generation in an LP based algo-
+rithm for the edge coloring problem. No branching in the master problem is required on
+the instances they solve. The edge coloring problem requires a partitioning of the edges
+27
+of a graph into a minimum cardinality set of matchings. Therefore, it can naturally be
+formulated as a set partitioning problem in which the columns correspond to matchings
+of the graph. Consequently, the pricing problem is a weighted matching problem. How-
+ever, to strengthen the linear programming relaxation, they add odd-circuit constraints
+to the restricted master, which destroys the pure matching structure of the pricing prob-
+lem. The pricing problem now becomes a matching problem with an additional variable
+for each odd circuit constraint, and an additional constraint for each odd circuit variable
+which relates the odd circuit variable to the edge variables in the circuit. This problem
+is solved by branch-and-cut. The approach points out the need for recursive calling of
+integer programming systems for the solution of complex problems.
+6 Implementation
+Although implementing branch-and-price algorithms (or branch-and-cut algorithms) is
+still a nontrivial activity, the availability of exible linear and integer programming
+systems has made it a less formidable task than it would have been three years ago.
+Modern simplex codes, such as CPLEX [CPLEX Optimization, 1990] and OSL [IBM
+Corporation, 1990] not only permit column generation while solving an LP but also
+allow the embedding of column generation LP solving into a general branch-and-bound
+structure for solving MIPs.
+The use of MINTO [Nemhauser, Savelsbergh, and Sigismondi 1994, Savelsbergh and
+Nemhauser 1993] may reduce the implementation eorts even further. MINTO (Mixed
+INTeger Optimizer) is based on the belief that to solve large mixed-integer programs
+eciently, without having to develop a full-blown special purpose code in each case,
+you need an eective general purpose mixed integer optimizer that can be customized
+through the incorporation of application functions. Its strength is that it allows users to
+concentrate on problem specic aspects rather than data structures and implementation
+details such as linear programming and branch-and-bound.
+Figures 2 and 3 give the basic ow of control in MINTO and the associated appli-
+cation functions. A call to an application function temporarily transfers control to the
+application program, which can either accept control or decline control. If control is
+accepted, the application program performs the associated task. If control is declined,
+MINTO performs a default action, which in many cases will be \do nothing". To dieren-
+tiate between actions carried out by the system and those carried out by the application
+program, there are dierent \boxes". System actions are in solid line boxes and appli-
+cation program actions are in dashed line boxes. A solid line box with a dashed line
+box enclosed is used whenever an action can be performed by both the system and the
+application program. Finally, to indicate that an action has to be performed by either
+28
+GetProblem
+Preprocess
+Select
+Preprocess
+LP
+DeleteVars
+Do PriceVars n
+PriceVars
+SuccessyAddVars
+zlp>zbest
+n
+Integraly
+PrimalHeuristic
+Feasiblen
+zprim<zbest
+n
+Update
+Fathom
+zlp>zbest
+n
+ModifyBounds
+DeleteCons
+Do GenerateCons n
+GenerateCons
+SuccessyAddCons
+Branch
+Figure 2: The underlying algorithm
+29
+appl_mps
+appl_preprocess
+appl_rank
+appl_delvariables
+appl_terminatelp
+appl_variables
+appl_primal
+appl_feasible
+appl_fathom
+appl_bounds
+appl_delconstraints
+appl_terminatenode
+appl_constraints
+appl_divide
+Figure 3: The application functions
+30
+the system or the application program, but not both, a box with one half in solid lines
+and the other half in dashed lines is used. If an application program does not carry out
+an action, but one is required, the system falls back to a default action. For instance, if
+an application program does not provide a division scheme for the branching task, the
+system will apply the default branching scheme.
+The ow-chart shows two main loops: an inner loop to allow column generation and
+an outer loop to allow row generation. Column management can be done using the
+functions appl delvars, appl vars, appl terminatelp and row management can be
+done using the functions appl delcons, appl cons, appl terminatenode. Developing
+a special branching scheme can be done using the function appl divide.
+To start the column generation scheme, an initial restricted master problem has to
+be provided by appl mps. This initial restricted master problem must have a feasible
+LP relaxation to ensure that proper dual information is passed to the pricing problem
+(appl vars). Depending on the application, it is not always obvious how to construct
+such an initial restricted master. However, if it exists, such an initial restricted master
+can always be found using a two-phase method similar in spirit to the two-phase method
+incorporated in simplex algorithms to nd an initial basic feasible solution: either by
+adding a single articial variable with a large negative cost and associated column con-
+sisting of all ones or by adding a set of articial variables with large negative costs and
+associated columns that form an identity matrix. The articial variables ensure that a
+feasible solution to the LP relaxation exists. The articial variables are kept at all nodes
+of the branch-and-bound tree for the same reason.
+7 Computational Experience
+7.1 The Binary Cutting Stock Problem
+Vance et al. [1993] solve binary cutting stock problems using a branch-and-price algo-
+rithm. Columns are generated by solving a binary knapsack problem with the optimal
+dual prices from the rows of the master problem as the prices on the items. The branch-
+ing rule is identical to the Ryan and Foster rule presented earlier. In cutting stock terms,
+this rule requires two items to be contained in the same pattern on one branch and dif-
+ferent patterns on the other branch. On the branch where the two items must be in the
+same pattern, the resulting knapsack pricing problem has a new super item replacing
+those two items. Thus, on this branch, the column generation problem is a knapsack
+problem with one fewer item. On the other branch a constraint is added to the knapsack
+problem that allows at most one of the items to be chosen. While this pricing problem is
+somewhat more dicult than a knapsack problem, it can still be solved quickly if there
+are not too many additional constraints.
+31
+Computational results are reported for randomly generated test problems. The
+branch-and-price algorithm was able to solve in seconds problems that could not be
+solved using a standard branch-and-bound procedure on an explicit formulation. Stan-
+dard branch-and-bound procedures were unable to solve problems with more than 70
+items. The largest problems solved using the branch-and-price algorithm had 500 items
+and they were solved in less than an hour on an IBM RS/6000.
+7.2 The Generalized Assignment Problem
+Savelsbergh [1993] develops a branch-and-price algorithm for the generalized assignment
+problem discussed in Section 2. The pricing problem is given by
+max
+1jn
+fz(KP
+j
+)  v
+j
+g;
+where v
+j
+is the optimal dual price from the solution to the restricted master problem
+associated with the convexity constraint of machine j and z(KP
+j
+) is the value of the
+optimal solution to the knapsack problem
+max
+X
+1im
+(p
+ij
+  u
+i
+)y
+j
+i
+subject to
+X
+1im
+w
+ij
+y
+j
+i
+ d
+j
+y
+j
+i
+2 f0; 1g j = 1; :::; n
+with u
+i
+being the optimal dual price from the solution to the restricted master problem
+associated with the partitioning constraint of task i. A column prices out to enter the
+basis if its reduced cost is positive. Consequently, if the objective value of the pricing
+problem is less than or equal to zero, then the current optimal solution for the restricted
+master problem is also optimal for the (unrestricted) master problem. The branching
+rule described in Section 4 for master problems with several convexity rows is used. This
+rule assigns task i to machine j on one branch and forbids machine j to perform task
+i on the other. In both cases, the size of the pricing problem for machine j is reduced
+by one task. Furthermore, on the branch where task i must be performed by machine j,
+task i may also be deleted from the pricing problem for each of the other machines.
+Computational results indicate that the branch-and-price algorithm clearly outper-
+forms existing algorithms and is able to solve much larger instances. In one of the com-
+putational experiments the average number of nodes required by the branch-and-price
+32
+algorithm was compared with the average number of nodes required by the dual ascent
+algorithm of Guignard and Rosenwein [1989] for ten randomly generated instances in
+four dierent problem classes. The results are given in Table 1. Although in theory both
+algorithms use the same bounds, the branch-and-price algorithm clearly does better.
+Possible explanations for this phenomenon have been discussed in Section 3.
+Table 1: Dual ascent versus branch-and-price
+Dual ascent branch-and-price
+problem class #nodes #nodes
+A,5,50 7. 1.0
+B,10,50 101. 1.6
+C,10,50 156. 5.7
+D,5,30 102. 40.0
+7.3 The Urban Transit Crew Scheduling Problem
+Desrochers and Soumis [1989] use a branch-and-price algorithm to solve the urban tran-
+sit crew scheduling problem (UTCS). An instance of UTCS is dened by a bus schedule
+and the collective agreement between the drivers and management. The schedule denes
+a set of tasks that must be performed and the collective agreement places restrictions
+on feasible workdays for the drivers and dictates the cost of those workdays. The agree-
+ment may also place global restrictions on the types of workdays included in the schedule.
+The master problem is a set covering problem with additional constraints. There is a
+set covering constraint for each task to be performed, and columns representing feasible
+workdays for a bus driver. The set covering constraints ensure that at least one driver is
+assigned to each task. The additional constraints enforce any global restrictions on the
+characteristics of the nal solution. For example, the number of workdays in the solu-
+tion whose total elapsed time is less than a given threshold may be limited to a certain
+percentage of the total number of workdays. Columns are generated by solving a con-
+strained shortest path problem on a specially constructed network. The branching rule
+is similar to the Ryan and Foster rule presented earlier except that instead of branching
+on whether two tasks are executed in the same workday, they branch on whether two
+tasks are executed consecutively in the same workday. This rule is more easily enforced
+in the constrained shortest path procedure than the more general rule.
+The authors present computational results for two real-world problems. In both
+cases, the branch-and-price algorithm constructed solutions with lower cost than the
+33
+best known solutions.
+7.4 The Bandwidth Packing Problem
+The bandwidth packing problem is to decide which calls on a list of requests should
+be chosen to route on a capacitated network. An example is the routing of video data
+for teleconferencing within a private network. The objective is to minimize the costs of
+routing the selected calls plus the revenue lost from unrouted calls. Parker and Ryan
+[1994] formulate this problem as an integer program as follows.
+Let P
+i
+denote a set of feasible paths for call i. Let r
+i
+denote the revenue of call i, d
+i
+the demand of call i in units of bandwidth, u
+e
+denote the capacity of link e in bandwidth,
+and c
+e
+denote the usage cost of transmitting one bandwidth on link e. Let L be the set
+of all links. There are two types of variables
+x
+ij
+=
+(
+1 if call i uses path j
+0 otherwise
+and
+y
+i
+=
+(
+1 if call i is not routed
+0 otherwise
+:
+Let 
+ej
+be the indicator that is 1 if link e is in path j and 0 otherwise and assume
+that there are n calls to be routed. The problem formulation is
+min
+X
+e2L
+c
+e
+n
+X
+i=1
+X
+j2P
+i
+
+ej
+d
+i
+x
+ij
++
+n
+X
+i=1
+r
+i
+y
+i
+subject to
+X
+j2P
+i
+x
+ij
++ y
+i
+= 1 for each call i
+n
+X
+i=1
+X
+j2P
+i
+
+ej
+d
+i
+x
+ij
+ u
+e
+for each link e.
+The rst set of constraints ensures that each call is either routed or not, and the
+second set ensures the satisfaction of link capacities. The solution method uses column
+generation to solve the LP relaxations within a branch and bound scheme. The LP
+relaxations are similar to multi-commodity network ow problems and are solved using
+standard column generation solution techniques. To obtain integer solutions, Parker and
+Ryan use a hybrid branching strategy. Specically, they rst create one branch setting
+34
+xij
+to 1. This rule is easy to enforce in the pricing subproblem by deleting call i from the
+problem, and removing d
+i
+from the capacity of all links on path j. Since forcing x
+ij
+to
+0 is dicult to enforce in the pricing subproblem, x
+ij
+= 0 is satised by creating several
+branches, one for each link of path j. If the links of path j are e
+1
+; e
+2
+; : : : ; e
+k
+, k new
+branches are created. At the `th branch, they delete the column corresponding to x
+ij
+,
+and any other column in which call i uses link e
+`
+. The pricing subproblem is prevented
+from generating any of the deleted paths by removing link e
+`
+from the network.
+Parker and Ryan tested their algorithm on 14 problems ranging in size from 14 to
+30 nodes and 23 to 93 calls. They report running times to nd optimal solutions from 8
+seconds to over 8 hours on a VAX 8800, and conclude that the algorithm is a practical
+procedure for solving a class of real world problem. Further investigations are proposed
+to use cutting planes at selected nodes in the branch and bound tree to reduce the
+computational eort.
+References
+R. Anbil, R. Tanga, and E.L. Johnson (1992). A global approach to crew-pairing
+optimization. IBM Systems Journal 31, 71-78.
+L.H. Appelgren (1969). A column generation algorithm for a ship scheduling problem.
+Transportation Science 3, 53-68.
+C. Barnhart, C.A. Hane, E.L. Johnson, and G. Sigismondi (1991). An Alter-
+native Formulation and Solution Strategy for Multi-Commodity Network Flow Problems.
+Report COC-9102, Georgia Institute of Technology, Atlanta, Georgia.
+E. Balas and M. Padberg (1976). Set Partitioning: A Survey. SIAM Review 18,
+710-760.
+C. Barnhart, E.L. Johnson, R. Anbil, and L. Hatay (1994). A column generation
+technique for the long-haul crew assignment problem. T. Ciriano and R. Leachman
+(eds.). Optimization in Industry, Volume II, John Wiley and Son, to appear.
+R.E. Bixby, J.W. Gregory, I.J. Lustig, R.E. Marsten, and D.F. Shanno
+(1992). Very large-scale linear programming. a case study in combining interior point
+and simplex methods. Operations Research 40, 885-897.
+R. Brooks and A. Geoffrion (1966). Finding Everett's Lagrange multipliers by
+linear programming. Operations Research 14, 1149-1153.
+CPLEX Optimization, Inc. (1990). Using the CPLEX
+TM
+Linear Optimizer.
+G.B. Dantzig and R.M. Van Slyke (1967). Generalized Upper Bounding Tech-
+35
+niques. Journal Computer System Sci. 1, 213-226.
+M. Desrochers, J. Desrosiers, and M. Solomon (1992). A new optimization al-
+gorithm for the vehicle routing problem with time windows. Operations Research 40,
+342-354.
+M. Desrochers and F. Soumis (1989). A column generation approach to the urban
+transit crew scheduling problem. Transportation Science 23, 1-13.
+J. Desrosiers, Y. Dumas, M.M. Solomon, and F. Soumis (1994). Time con-
+strained routing and scheduling. M.E. Ball, T.L Magnanti, C. Monma, and G.L.
+Nemhauser (eds.). Handbooks in Operations Research and Management Science, Vol-
+ume on Networks, to appear.
+J. Desrosiers, F. Soumis, and M. Desrochers (1984). Routing with time windows
+by column generation. Networks 14, 545-565.
+Y. Dumas, J. Desrosiers, and F. Soumis (1991). The pickup and delivery problem
+with time windows. European Journal of Operations Research 54, 7-22.
+A.A. Farley (1990). A note on bounding a class of linear programming problems,
+including cutting stock problems. Operations Research 38, 922-924.
+A.M. Geoffrion (1974). Lagrangean relaxation for integer programming. Mathemat-
+ical Programming Studies 2, 82-114.
+M. Guignard and M. Rosenwein (1989). An improved dual-based algorithm for the
+generalized assignment problem. Operations Research 37, 658-663.
+M. Held and R.M. Karp (1970). The traveling-salesman problem and minimum span-
+ning trees. Operations Research 18, 1138-1162.
+M. Held and R.M. Karp (1971). The traveling-salesman problem and minimum span-
+ning trees: Part II. Mathematical Programming 1, 6-25.
+M. Held, P. Wolfe, and H.P. Crowder (1974). Validation of subgradient opti-
+mization. Mathematical Programming 6, 62-88.
+A.J. Hoffman, A. Kolen, and M. Sakarovitch (1985). Totally balanced and
+greedy matrices. SIAM Journal on Algebraic and Discrete Methods 6, 721-730.
+K. Hoffman and M. Padberg (1985). LP-based combinatorial problem solving. An-
+nals of Operations Research 4, 145-194.
+IBM Corporation (1990). Optimization Subroutine Library, Guide and Reference.
+E.L. Johnson (1989). Modeling and strong linear programs for mixed integer pro-
+gramming. S.W. Wallace (ed.). Algorithms and Model Formulations in Mathematical
+36
+Programming, NATO ASI Series 51, 1-41.
+E.L. Johnson, A. Mehrotra, and G.L. Nemhauser (1993). Min-cut clustering.
+Mathematical Programming 62, 133-152.
+M. Junger, G. Reinelt, and G. Rinaldi (1994). The traveling salesman problem.
+M.E. Ball, T.L Magnanti, C. Monma, and G.L. Nemhauser (eds.). Handbooks
+in Operations Research and Management Science, Volume on Networks, to appear.
+L.S. Lasdon (1970). Optimization Theory for Large Systems. MacMillan, New York.
+O. Marcotte (1985). The cutting stock problem and integer rounding. Mathematical
+Programming 33, 82-92.
+A. Mehrotra (1992). Constrained Graph Partitioning: Decomposition, Polyhedral
+Structure and Algorithms. Ph.D. Thesis, Georgia Institute of Technology, Atlanta, GA.
+A. Mehrotra and M.A. Trick (1993). A Column Generation Approach to Graph
+Coloring. Graduate School of Industrial Administration, Carnegie Mellon University,
+Pittsburgh, PA.
+G.L. Nemhauser and S. Park (1991). A polyhedral approach to edge coloring. Op-
+erations Research Letters 10, 315-322.
+G.L. Nemhauser and L.A. Wolsey (1988). Integer and Combinatorial Optimization.
+Wiley, Chichester.
+G.L. Nemhauser, M.W.P. Savelsbergh, and G.C. Sigismondi (1994). MINTO, a
+Mixed INTeger Optimizer. Operations Research Letters, to appear.
+M. Parker and J. Ryan (1994). A column generation algorithm for bandwidth pack-
+ing. Telecommunications Systems, to appear.
+C. Ribeiro, M. Minoux, and M. Penna (1989). An optimal column generation with
+ranking algorithm for very large set partitioning problems in trac assignment. Euro-
+pean Journal of Operations Research 41, 232-239.
+J.B. Rosen (1964) Primal Partition Programming for Block Diagonal Matrices. Nu-
+merische Mathematik 6, 250-260.
+D.M. Ryan and B.A.Foster (1981). An integer programming approach to scheduling.
+A. Wren (ed.) Computer Scheduling of Public Transport Urban Passenger Vehicle and
+Crew Scheduling, North-Holland, Amsterdam, 269-280.
+M.W.P. Savelsbergh (1993). A Branch-and-Price Algorithm for the Generalized As-
+signment Problem. Report COC-9302, Georgia Institute of Technology, Atlanta, Georgia.
+37
+M.W.P. Savelsbergh and G.L. Nemhauser (1993). Functional description of MINTO,
+a Mixed INTeger Optimizer. Report COC-91-03A, Georgia Institute of Technology.
+M. Sol and M.W.P. Savelsbergh (1994). A Branch-and-Price Algorithm for the
+Pickup and Delivery Problem. In preparation.
+P.H. Vance (1993). Crew Scheduling, Cutting Stock, and Column Generation: Solving
+Huge Integer Programs. PhD dissertation, School of Industrial and Systems Engineering,
+Georgia Institute of Technology, Atlanta, Georgia.
+P.H. Vance, C. Barnhart, E.L. Johnson, and G.L Nemhauser (1994). Solving
+Binary Cutting Stock Problems by Column Generation and Branch-and-Bound. Com-
+putational Optimization and Applications, to appear.
+A. Wren, B.M. Smith, and A.J. Miller (1985). Complementary approaches to
+crew scheduling. J.-M. Rousseau (ed.), Computer Scheduling of Public Transport 2,
+North-Holland, Amsterdam, 263-278.
+38

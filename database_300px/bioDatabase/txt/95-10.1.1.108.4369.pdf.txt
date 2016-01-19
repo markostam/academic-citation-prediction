@@ -1,0 +1,1147 @@
+IMRN International Mathematics Research Notices
+2005,No. 64
+Geometric Approach to Error-Correcting Codes
+and Reconstruction of Signals
+Mark Rudelson and Roman Vershynin
+1 Error-correcting codes and transform coding
+The results of this paper can be stated in three equivalent ways—in terms of the sparse
+recovery problem, the error-correction problem, and the problem of existence of certain
+extremal (neighborly) polytopes.
+Error-correcting codes are used in modern technology to protect information
+from errors. Information is formed by finite words over some alphabet F. The encoder
+transforms an n-letter word x into an m-letter word y with m > n. The decoder must be
+able to recover x correctly when up to r letters of y are corrupted in any way. Such an
+encoder-decoder pair is called an (n,m, r)-error-correcting code.
+Development of algorithmically eﬃcient error correcting codes has attracted at-
+tention of engineers, computer scientists, and applied mathematicians for the past five
+decades. Known constructions involve deep algebraic and combinatorial methods, see
+[34, 35, 36]. This paper develops an approach to error-correcting codes from the view-
+point of geometric functional analysis (asymptotic convex geometry). It thus belongs to
+a common ground of coding theory, signal processing, combinatorial geometry, and geo-
+metric functional analysis. Our argument, outlined in Section 3, may be of independent
+interest in geometric functional analysis.
+Our main focus will be on words over the alphabet F = R or C. In applications,
+these words may be formed of the coeﬃcients of some signal (such as image or audio)
+Received 8 March 2005. Revision received 26 October 2005.
+4020 M. Rudelson and R. Vershynin
+with respect to some basis or overcomplete system (Fourier, wavelet, etc.). Finite alpha-
+bets will be discussed in Section 5.
+The simplest andmost natural way to encode a vector x ∈ Rn into a vector y ∈ Rm
+is a linear transform
+y = Qx, (1.1)
+where Q is given by an m × n matrix. A linear algebra argument gives that if m ≥ n + 2r
+and the range of Q is generic1 then x can be recovered from y even if r coordinates of y
+are corrupted. This gives an (n,m, r)-error-correcting code. However, the decoder for this
+code has a huge computational complexity, as it involves a search through all r-element
+subsets of the components of y. Then the problem is: how to reconstruct a vector y in
+an n-dimensional subspace Y of Rm from a vector y ′ ∈ Rm that diﬀers from y in at
+most r coordinates? An important feature inherent to this error-correction problem over
+the reals or complex numbers is that the errors may be of arbitrary magnitude. This is
+not the case in the more classical error-correction problem over finite alphabets (such
+as F = {0, 1}). This accounts for a need of completely diﬀerent method to deal with such
+errors, as well as for new challenges (such as stability of reconstruction).
+A traditional and simple approach to denoising y ′, used in applications such as
+signal processing, is the mean least square (MLS)minimization. One hopes that y is well
+approximated by a solution to the minimization problem
+min
+u∈Y
+‖u − y ′‖2, (MLS)
+where ‖x‖22 =
+∑
+i |xi|
+2. The solution to (MLS) is simply the orthogonal projection of
+y ′ onto Y. This cannot recover y exactly, and even the approximation is typically poor
+since we have no control of the magnitude of the errors in the corrupted coordinates. A
+promising alternative approach is the basis pursuit (BP). We simply replace the 1-norm
+by the 2-norm and expect y to be the exact and unique solution to theminimization prob-
+lem
+min
+u∈Y
+‖u − y ′‖1, (BP)
+where ‖x‖1 =
+∑
+i |xi|. Thus a solution to (BP) is the metric projection of y
+′ onto Y with
+1That is, in general position with respect to all subspaces RI , |I| = r.
+Geometric Approach to Error-Correcting Codes and Signal Recovery 4021
+Y
+u
+y y′
+(MLS)
+(a)
+Y
+y= u y
+′
+(BP)
+(b)
+Figure 1.1
+respect to the 1-norm. (BP) is cast as a linear programming problem, and can be attacked
+with a variety of methods, such as the classical simplex method or more recent interior
+point methods that yield polynomial time algorithms [9].
+The potential of basis pursuit for exact reconstruction is illustrated by the fol-
+lowing heuristics, essentially due to [15]. The solution u to (MLS) is the contact point
+where the smallest Euclidean ball centered at y ′ meets the subspace Y, see Figure 1.1a.
+That contact point is in general diﬀerent from y. The situation is much better in (BP):
+typically the solution coincides with y. The solution u to (BP) is the contact point where
+the smallest octahedron centered at y ′ (the ball with respect to the 1-norm)meets Y, see
+Figure 1.1b . Because the vector y−y ′ lies in a low-dimensional coordinate subspace, the
+octahedron has a corner at y (or a wedge in high dimension). Thus, many subspaces Y
+through y will miss the octahedron of radius y − y ′ (as opposed to the Euclidean ball).
+This forces the solution u to (BP), which is the contact point of the octahedron, to coin-
+cide with y.
+The idea of using the 1-norm instead of the 2-norm for better data recovery has
+been explored since mid-seventies in various applied areas, in particular geophysics,
+and statistics (early history can be found in [38]). With the subsequent development of
+fast interior point methods in linear programming, (BP) turned into an eﬀectively solv-
+able problem, and was put forward more recently by Donoho and his collaborators, trig-
+gering massive experimental and theoretical work [4, 5, 7, 9, 12, 13, 14, 15, 16, 18, 19, 20,
+21, 27, 37, 38, 39].
+4022 M. Rudelson and R. Vershynin
+The main result of this paper validates the basis pursuit method for most sub-
+spaces Y under an asymptotically sharp condition onm,n, r. We thus prove that the basis
+pursuit yields exact reconstruction for most subspaces Y in the Grassmanian Gm,n of
+n-dimensional subspaces of Rm, equipped with the normalized Haar measure. Positive
+absolute constants will be denoted throughout the paper by C, c, C1, . . ..
+Theorem 1.1. Let m, n, and r < cm be positive integers such that
+m = n + R, where R ≥ Cr log
+(
+m
+r
+)
+. (1.2)
+Then a random n-dimensional subspace Y in Rm in the Grassmanian satisfies the follow-
+ingwith probability at least 1−e−cR. Let y ∈ Y be an unknown vector, and let y ′ ∈ Rm be a
+vector which diﬀers from y on atmost r coordinates. Then y can be exactly reconstructed
+from y ′ as the solution to the minimization problem (BP). 
+In an equivalent form, this theorem is an improvement of recent results of
+Donoho [13] and of Candes and Tao [7], see Theorem 2.1.
+1.1 Error-correcting codes
+Theorem 1.1 implies a natural (n,m, r)-error-correcting code over R. The encoder (1.1) is
+given by an m × n random orthogonal matrix2 Q. Its range Y is a random n-dimensional
+subspace in Rm. The decoder takes a corrupted vector y ′, solves (BP), and outputsQTu =
+Q−1u. Theorem 1.1 states that this encoder-decoder pair is an (n,m, r)-error-correcting
+codewith exponentially good probability≥ 1−e−cR, provided the assumption (1.2)holds.
+Assumption (1.2) meets, up to an absolute constant, the Gilbert-Varshamov
+boundwhich is fundamental in coding theory (see [34]): n/m ≥ 1 − H(Cr/n),where H(x)
+is the entropy function. The encoder runs in quadratic time in the size n of the input, the
+decoder runs in polynomial time.
+1.2 Sharpness
+The suﬃcient condition (1.2) is sharp up to an absolute constant C (see Section 5) and
+is only slightly stronger than the necessary condition m ≥ n + 2r. The ratio ε = r/m in
+2One can view it as the firstncolumns of a randommatrix from the orthogonal groupO(m) equipped with the
+normalized Haar measure.
+Geometric Approach to Error-Correcting Codes and Signal Recovery 4023
+(1.2) is the number of errors per letter in the noisy communication channel that maps y
+to y ′. Thus ε should be considered as a quality of the channel, which is independent of
+the message. Thus (1.2) is equivalent to
+m ≥
+(
+1 + Cε log
+1
+ε
+)
+n. (1.3)
+1.3 Transform coding
+In the signal processing, the linear codes (1.1) are known as transform codes. The gen-
+eral paradigm about transform codes is that the redundancies in the coeﬃcients of y that
+come from the excess of the dimension m > n should guarantee a stability of the signal
+with respect to noise, quantization, erasures, and so forth. This is confirmed by an exten-
+sive experimental and some theoretical work, see, for example, [3, 8, 10, 23, 24, 25, 26, 29]
+and the bibliography contained therein. Theorem 1.1 states that most orthogonal trans-
+form codes are good error-correcting codes.
+2 Reconstruction of signals from linear measurements
+A heuristic idea that motivates the reconstruction problem is that a function f from a
+small class should be determined by few linear measurements. Linear measurements
+are generally given by some linear functionals Xk in the dual space, which are fixed (in
+particular are independent of f). Most commonmeasurements are point evaluation func-
+tionals; the problem there is to interpolate f between known values while keeping f in the
+known (small) class. When the evaluation points are chosen at random, this becomes the
+“proper learning” problem of the statistical learning theory (see [33]).
+We will, however, be interested in general linear measurements. The proposal to
+learn f from general linear measurements (sensing) has been originated recently from
+a criticism of the current methodology of signal compression. Most of real-life signals,
+such as images and sounds, seem to belong to small classes. This is because they carry
+much of unwanted information that can be discarded with almost no perceptual loss,
+which makes such signals easily compressible. Donoho [11] then questions the conven-
+tional scheme of signal processing, where the whole signal must be first acquired (to-
+gether with lots of unwanted information) and only then be compressed (throwing away
+the unwanted part). Instead, can one directly acquire (sense) the essential part of the
+signal, via few linear measurements? Similar issues are raised in [7]. We will operate
+under the assumption that some technology allows us to take linear measurements in
+certain fixed “directions” Xk.
+4024 M. Rudelson and R. Vershynin
+We will assume that our signal f is discrete, so we view it as a vector in Rm. Sup-
+pose we can take linear measurements 〈f, Xk〉 with some fixed vectors X1, X2, . . . , XR in
+R
+m. Assuming that f belongs to a small class, how many measurements R are needed to
+reconstruct f? And even when we prove that R measurements do determine f (uniquely
+or approximately), the algorithmic issue remains unsettled: how can one reconstruct f
+from these measurements?
+The previous section suggests to reconstruct f as a solution to the basis pursuit
+minimization problem
+min ‖g‖1 subject to
+〈
+g, Xk
+〉
+=
+〈
+f, Xk
+〉
+, k = 1, . . . , R. (BP ′)
+For the basis pursuit to work, the vectors Xk must be in a good position with respect
+to all coordinate subspaces RI, |I| ≤ r. A typical choice for such vectors would be the
+independent standard Gaussian vectors3 Xk.
+2.1 Functions with small support
+In the class of functions with small support, one can hope for exact reconstruction. Can-
+des and Tao [7] have indeed proved that every fixed function f with support | supp f| ≤ r
+can indeed be recovered by (BP ′), correctly with the polynomial probability 1 − m− const,
+from the R = Cr logm Gaussian measurements. However, the polynomial probability is
+clearly not suﬃcient to deduce that there is one set vectors Xk that can be used to recon-
+struct all functions f of small support.
+The following equivalent form of Theorem 1.1 does yield a uniform exact recon-
+struction. It provides us with one set of linear measurements from which we can eﬀec-
+tively reconstruct every signal of small support.
+Theorem 2.1 (uniform exact reconstruction). Let m, r < cm and R be positive integers
+satisfying R ≥ Cr log(m/r). The independent standard Gaussian vectors Xk in Rm satisfy
+the following with probability at least 1 − e−cR. Let f ∈ Rm be an unknown function of
+small support, | supp f| ≤ r. Then f can be exactly reconstructed from R measurements
+〈f, Xk〉 as a solution to the basis pursuit problem (BP ′). 
+This theorem gives uniformity in Candes-Tao result [7], improves the polynomial
+probability to an exponential probability, and improves upon the number R of measure-
+ments (which was R ≥ Cr logm in [7]). Donoho [11] proved a weaker form of Theorem 2.1
+with R/r bounded below by some function of m/r.
+3All the components ofXk are independent standard Gaussian random variables.
+Geometric Approach to Error-Correcting Codes and Signal Recovery 4025
+Proof. Write g = f − u for some u ∈ Rm. Then (BP ′) reads as
+min ‖u − f‖1 subject to
+〈
+u,Xk
+〉
+= 0, k = 1, . . . , R. (2.1)
+
+The constraints here define a random (n = m − R)-dimensional subspace Y of Rm. Now
+apply Theorem 1.1 with y = 0 and y ′ = f. It states that the unique solution to (2.1) is
+u = 0. Therefore, the unique solution to (BP ′) is f.
+2.2 Compressible functions
+In a larger class of compressible functions [11], we can only hope for an approximate
+reconstruction. This is a class of functions f that are well compressible by a known or-
+thogonal transform, such as Fourier or wavelet. This means that the coeﬃcients of fwith
+respect to a certain known orthogonal basis have a power decay. By applying an appro-
+priate rotation, we can assume that this basis is the canonical basis of Rm, thus f satis-
+fies
+f∗(s) ≤ s−1/p, s = 1, . . . ,m, (2.2)
+where f∗ denotes a nonincreasing rearrangement of |f|. Many natural signals are com-
+pressible for some 0 < p < 1, such as smooth signals and signals with bounded vari-
+ations (see [7]), in particular most photographic images. Theorem 2.1 implies, by the
+argument of [7], that functions compressible in some basis can be approximately re-
+constructed from few fixed linear measurements. This is an improvement of a result of
+Donoho [11].
+Corollary 2.2 (uniform approximate reconstruction). Let m and r be positive integers.
+The independent standard Gaussian vectors Xk in Rm satisfy the following with prob-
+ability at least 1 − e−cR. Assume that an unknown function f ∈ Rm satisfies either (2.2)
+for some 0 < p < 1 or ‖f‖1 ≤ 1 for p = 1. Then f can be approximately reconstructed from
+R measurements 〈f, Xk〉: a unique solution g to the basis pursuit problem (BP ′) satisfies
+‖f − g‖2 ≤ Cp
+⎛
+⎜⎜⎝
+log
+(
+m
+R
+)
+R
+⎞
+⎟⎟⎠
+(1/p)−(1/2)
+, (2.3)
+where Cp depends on p only. 
+Corollary 2.2 was proved by Donoho [11] under an additional assumption that
+m ∼ CRα for some α > 1. Notice that in this case log(m/R) ∼ logm. Now this assumption
+4026 M. Rudelson and R. Vershynin
+is removed. Candes and Tao [7] proved Corollary 2.2 without the uniformity in f due to a
+weaker (polynomial) probability. Finally, Corollary 2.2 also improves upon the approxi-
+mation error (there is now the ratio m/r instead of m in the logarithm).
+In a recent work independent of ours, Candes and Tao [6] have sharpened their
+previous work [7]. They obtained results similar to those in the present paper, but their
+approach is diﬀerent.
+3 Counting low-dimensional facets of polytopes
+Theorem 1.1 turns out to be equivalent to a problemof counting lower-dimensional facets
+of polytopes. Let Bm1 denote the unit ball with respect to the 1-norm; it is sometimes
+called the unit octahedron. The polar body is the unit cube Bm∞ = [−1, 1]
+m. The conclu-
+sion of Theorem 1.1 is then equivalent to the following statement: the aﬃne subspace
+z + Y is tangent to the unit octahedron at point z, where z = y ′ − y. This should happen
+for all z from the coordinate subspaces RI with |I| = r. By duality, this means that the
+subspace Y⊥ intersects all (m− r)-dimensional facets of the unit cube. The section of the
+cube by the subspace Y⊥ forms an origin-symmetric polytope of dimension R and with
+2m facets.
+Our problem can thus be stated as a problem of counting lower-dimensional
+facets of polytopes. Consider an R-dimensional origin-symmetric polytope with 2m
+facets. How many (R − r)-dimensional facets can it have? Clearly,4 no more than 2r
+(
+m
+r
+)
+.
+Does there exist a polytope with that many facets? Our ability to construct such a poly-
+tope is equivalent to the existence of the eﬃcient error-correcting code. Indeed, looking
+at the canonical realization of such a polytope as a section of the unit cube by a sub-
+space Y⊥, we see that Y⊥ intersects all the (m − r)-dimensional facets of the cube. Thus
+Y satisfies the conclusion of Theorem 1.1. We can thus state Theorem 1.1 in the following
+form.
+Theorem 3.1. There exists an R-dimensional symmetric polytopewithm facets andwith
+the maximal number of (R − r)-dimensional facets (which is 2r
+(
+m
+r
+)
+), provided R ≥
+Cr log(m/r). A random section of the cube forms such a polytopewith probability 1−e−cR.
+
+Note also that Theorem 3.1 provides a construction of the so-called neighborly
+polytopes (see [28, Chapter 7] or [40]). An n-dimensional convex polytope is called
+4Any such facet is the intersection of some r facets of the polytope of full dimensionR− 1; there aremfacets to
+choose from, each coming with its opposite by the symmetry.
+Geometric Approach to Error-Correcting Codes and Signal Recovery 4027
+m-neighborly if any set of m vertices forms an (m − 1)-dimensional face. For symmetric
+polytopes this definition has to be modified, since a face cannot contain a pair of oppo-
+site vertices. A symmetric polytope is called m-neighborly if any set of m of its vertices,
+which does not contain opposite pairs, forms an (m−1)-dimensional face. The neighborly
+polytopes have been extensively studied recently in connection with computer science
+problems (see, e.g., [17]). In this terminology Theorem 3.1 can be reformulated as fol-
+lows.
+Theorem 3.2. Let m, r, R be positive integers satisfying
+R ≥ Cr log
+(
+m
+r
+)
+. (3.1)
+Then a random R-dimensional projection of the m-dimensional octahedron Bm1 is an r-
+neighborly symmetric polytope with 2m vertices with probability greater than 1 − e−cR.
+
+The rest of the paper is organized as follows. In Section 4 we prove Theorem 1.1.
+In Section 5 we discuss some optimality and robustness of the basis pursuit with appli-
+cations to error-correcting codes over finite alphabets.
+4 Proof of Theorem 1.1
+4.1 Outline of the proof
+We will use duality,which gives the following equivalent form of Theorem 1.1: a random
+(m − n)-dimensional subspace E intersects all (m − r)-dimensional facets of a cube in
+R
+m. It will then suﬃce to show that the probability of intersection with a fixed facet is
+suitably suﬃciently large. This will be established by a proper use of the concentration
+of measure technique.
+The main diﬃculty is that the ∞ -norm defined by the unit cube (more precisely,
+by its facet) has a bad Lipschitz constant, which impedes the use of concentration in-
+equalities. To improve the Lipschitzness, we first project the facet onto a random sub-
+space (within its aﬃne span); the kernel of this projection will form a part of the random
+subspace E. This will create a big Euclidean ball inside the projected facet. To prove this,
+we will use the full strength of the estimate of Garnaev and Gluskin [22] on Euclidean
+projections of a cube. The existence of the Euclidean ball inside a body creates the needed
+Lipschitzness, so we can now use the concentration of measure technique.
+4028 M. Rudelson and R. Vershynin
+4.2 Notation
+We will use the following standard notations throughout the proof. The p-norm (1 ≤ p <
+∞) on Rm is defined by ‖x‖pp =
+∑
+i |xi|
+p, and for p = ∞ it is ‖x‖∞ = maxi |xi|. The unit ball
+with respect to the p-norm on Rn is denoted by Bmp . When the p-norm is considered on a
+coordinate subspace RI, I ⊂ {1, . . . ,m}, the corresponding unit ball is denoted by BIp.
+The unit Euclidean sphere in a subspace E is denoted by S(E). The normalized ro-
+tational invariant Lebesgue measure on S(E) is denoted by σE. The orthogonal projection
+onto a subspace E is denoted by PE. The standard Gaussian measure on E (with the iden-
+tity covariance matrix) is denoted by γH. When E = Rd, we write σd−1 for σE and γd for
+γE.
+4.3 Duality
+We begin the proof of Theorem 1.1 with a typical duality argument, leading to the same
+reformulation of the problem as in [7]. We claim that the conclusion of Theorem 1.1 fol-
+lows from (and is actually equivalent to) the following separation condition:
+(z + Y) ∩ interior (Bm1 ) = ∅ ∀z ∈ ⋃
+|I|=r
+BI1. (4.1)
+Indeed, suppose (4.1) holds. We apply it for
+z :=
+y − y ′
+‖y − y ′‖1 (4.2)
+noting that z ∈ ⋃|I|=r BI1 holds, because y and y ′ diﬀer in at most r coordinates. By (4.1),
+(z + v) ∩ interior (Bm1 ) = ∅ ∀v ∈ Y (4.3)
+which implies
+‖z + v‖1 ≥ 1 ∀v ∈ Y. (4.4)
+Let u ∈ Y be arbitrary. Using the inequality above for v := (u − y)/‖u − y‖1, we conclude
+that
+‖u − y‖1 ≥ ‖y − y ′‖1 ∀u ∈ Y. (4.5)
+This proves that y is indeed a solution to (BP). The solution to (BP) is unique with prob-
+ability 1 in the Grassmanian. This follows from a direct dimension argument, see, for
+example, [7].
+Geometric Approach to Error-Correcting Codes and Signal Recovery 4029
+By Hahn-Banach theorem, the separation condition (4.1) is equivalent to the fol-
+lowing: for every r-element set I ⊂ {1, . . . ,m} and for every point z on the boundary of BI1
+there exists w = w(z) ∈ Y⊥ such that
+〈w, z〉 = sup
+x∈Bm1
+〈w, x〉 = ‖w‖∞ . (4.6)
+This holds if and only if the components of w satisfy
+wj = sign
+(
+zj
+)
+for j ∈ I,∣∣wj∣∣ ≤ 1 for j ∈ Ic. (4.7)
+The set of vectors w in Rm that satisfy (4.7) form a (m − r)-dimensional facet of the unit
+cube Bm∞ . Then with E := Y
+⊥,we can say that the conclusion of Theorem 1.1 is equivalent
+to the following. A random R-dimensional subspace E in Rm intersects all the (m − r)-
+dimensional facets of the unit cube with probability at least 1 − e−cR.
+It will be enough to show that E intersects one fixed facet with the probability
+1− e−cR. Indeed, the probability that Emisses some facet would be at mostNe−cR,where
+N = 2r
+(
+m
+r
+)
+≤ exp
+(
+Cr log
+m
+r
+)
+(4.8)
+is the total number of facets. An appropriate choice of the constant C in (1.2) yields
+Ne−cR ≤ e−c ′R.
+4.4 Realizing a random subspace
+We are to show that a random R-dimensional subspace E intersects one fixed (m − r)-
+dimensional facet of the unit cube Bm∞ with high probability. Such a facet F = FI,w is
+determined by a subset I of {1, . . . , n} of cardinality r and by a vector w ∈ {−1, 1}I. Then
+FI,w consists of all points in the cubeBn∞ whose coordinates in I coincidewithw. Without
+loss of generality,we can assume that our facet is
+F =
+{(
+w1, . . . , wm−r, 1, . . . , 1
+)
+, all
+∣∣wj∣∣ ≤ 1}, (4.9)
+4030 M. Rudelson and R. Vershynin
+0 θ
+F
+E
+Z
+E∩ aﬀ(F) ∼ L
+(a)
+θ z
+θ+ L⊥0
+L= θ+ z+ L0
+aﬀ(F)
+(b)
+Figure 4.1
+whose center is
+θ =
+(
+0, . . . , 0︸ ︷︷ ︸
+m−r
+, 1, . . . , 1
+)
+. (4.10)
+The probability we are interested in is
+P := Prob
+{
+E ∩ F = ∅}. (4.11)
+Wewill restrict our attention to the linear span of F,
+lin(F) =
+{(
+w1, . . . , wm−r, t, . . . , t
+)
+, all wj ∈ R, t ∈ R
+}
+, (4.12)
+and even to its aﬃne span,
+aﬀ(F) =
+{(
+w1, . . . , wm−r, 1, . . . , 1
+)
+, all wj ∈ R
+}
+. (4.13)
+Only the random aﬃne subspace E ∩ aﬀ(F) matters for us, because
+P = Prob
+{(
+E ∩ aﬀ(F)) ∩ F = ∅}. (4.14)
+Geometric Approach to Error-Correcting Codes and Signal Recovery 4031
+The dimension of that aﬃne subspace is almost surely
+l := dim
+(
+E ∩ aﬀ(F)) = R − r. (4.15)
+We can realize the randomaﬃne subspace E∩aﬀ(F) (or rather a random subspace
+with the same law) by the following algorithm which is illustrated in Figure 4.1.
+(1) Select a random variable D with the same law as dist(θ, E ∩ aﬀ(F)).
+(2) Select a random subspace L0 in the Grassmanian Gm−r,l. It will realize the
+“direction” of E ∩ aﬀ(F) in aﬀ(F).
+(3) Select a randompoint z on the Euclidean sphereD·S(L⊥0 ) of radiusD, accord-
+ing to the uniform distribution on the sphere. Here L⊥0 is the orthogonal
+complement of L0 in Rm−r. The vector zwill realize the distance from the
+aﬃne subspace E ∩ aﬀ(F) to the center θ of F.
+(4) Set L = θ + z + L0. Thus the random aﬃne subspace L has the same law as
+E ∩ aﬀ(F).
+Hence
+P = Prob
+{
+L ∩ F = ∅} = Prob{(z + L0v) ∩ Bm−r∞ = ∅} = Prob{z ∈ PL⊥0 Bm−r∞
+}
+.
+(4.16)
+H := L⊥0 is a random subspace in Gm−r,m−r−l = Gm−r,m−R. By the rotational invariance
+of z ∈ D · S(H),
+P =
+∫
+R+
+∫
+Gm−r,m−R
+σH
+(
+D−1PHB
+m−r
+∞
+)
+dν(H)dμ(D), (4.17)
+where ν is the normalized Haar measure on Gm−r,m−R and μ is the law of D. We will
+bound P in two steps:
+(1) prove that the distance D is small with high probability;
+(2) prove that a suitable multiple of the random projection PHBm−r∞ has an al-
+most full Gaussian (thus also spherical)measure.
+4.5 The distance D from the center of the facet to a random subspace
+We will first relate D, the distance to the aﬃne subspace E ∩ aﬀ(F), to the distance to
+the linear subspace E∩ lin(F). Equivalently,we compute the length of the projection onto
+E ∩ lin(F).
+4032 M. Rudelson and R. Vershynin
+θ0
+f
+PE∩lin(F)θ
+Figure 4.2
+Lemma 4.1.
+∥∥PE∩lin(F)θ∥∥2 =
+√
+r
+r + D2
+‖θ‖2. (4.18)
+
+Proof. Let f be the orthogonal projection of θ to the aﬃne space L = E ∩ aﬀ(F). Then
+f−θ ⊥ θ andD = ‖f−θ‖2. Note that the vector f is orthogonal to L. Indeed, θ ⊥ aﬀ(F) and
+f − θ ⊥ L. Also, for any x ∈ L,
+〈
+PE∩lin(F)θ, x
+〉
+=
+〈
+θ, PE∩lin(F)x
+〉
+= 〈θ, x〉 = 0, (4.19)
+so PE∩lin(F)θ ⊥ L as well. Therefore, both f and PE∩lin(F)θ belong to the space E∩ lin(F)∩L⊥,
+and since dim(E ∩ lin(F) ∩ L⊥) = 1, f is a multiple of PE∩lin(F)θ.
+By the similarity of the triangles with the vertices (0, θ, PE∩lin(F)θ) and (0, f, θ),we
+conclude that
+∥∥PE∩lin(F)θ∥∥2 = r√r + D2 =
+√
+r
+r + D2
+‖θ‖2 (4.20)
+because ‖θ‖2 =
+√
+r. This completes the proof. 
+The length of the projection of a fixed vector onto a random subspace in Lemma
+4.1 is well known. The asymptotically sharp estimate was computed by Artstein [2],
+but we will be satisfied with a much weaker elementary estimate, see, for example,
+[32, Lemma 15.2.2].
+Lemma 4.2. Let θ ∈ Rd−1 and let G be a random subspace in Gd,k. Then
+Prob
+{
+c
+√
+k
+d
+‖θ‖2 ≤
+∥∥PGθ∥∥2 ≤ C
+√
+k
+d
+‖θ‖2
+}
+≥ 1 − 2e−ck. (4.21)
+
+Geometric Approach to Error-Correcting Codes and Signal Recovery 4033
+We apply this lemma forG = E∩ lin(F),which is a random subspace in the Grass-
+manian of (l + 1)-dimensional subspaces of lin(F). Since dim lin(F) = m − r + 1,we have
+Prob
+{∥∥PE∩lin(F)θ∥∥2 ≥ c
+√
+l + 1
+m − r + 1
+‖θ‖2
+}
+≥ 1 − 2e−cl. (4.22)
+Together with Lemma 4.1 this gives
+Prob
+{
+D ≤ c√m − r
+√
+r
+l
+}
+≥ 1 − 2e−cl. (4.23)
+Note that
+√
+m − r is the radius of the Euclidean ball circumscribed on the facet F. The
+statement D ≤ √m − r would only tell us that the random subspace E intersects the cir-
+cumscribed ball, not yet the facet itself. The ratio r/l in (4.23)will be chosen logarithmi-
+cally small,which will force E intersect also the facet F.
+4.6 Gaussian measure of random projections of the cube
+By (4.17) and (4.23),
+P ≥
+∫
+Gm−r,m−R
+σH
+(
+c√
+m − r
+√
+l
+r
+PHB
+m−r
+∞
+)
+dν(H) − 2e−cl. (4.24)
+We can replace the spherical measure σH by the Gaussian measure γH via a simple and
+known lemma,whose proof we include for reader’s convenience. A set K in a linear vector
+space is called star shaped if x ∈ K implies tx ∈ K for all t ∈ [0, 1].
+Lemma 4.3. Let K be a star-shaped set in Rd. Then
+γd
+(
+c
+√
+d · K) − e−d ≤ σd−1(K) ≤ γd(C√d · K) · (1 + e−d). (4.25)
+
+Proof. Passing to polar coordinates, by the rotational invariance of the Gaussian mea-
+sure we see that there exists a probability measure μ on R+ so that the Gaussian mea-
+sure of every set A can be computed as
+∫
+R+
+σt(A)dμ(t), where σt denotes the normalized
+Lebesguemeasure on the Euclidean sphere of radius t inRd. Since K is star shaped, σt(K)
+is a nonincreasing function of t. Hence
+γd(K) ≥
+∫C
+√
+d
+0
+σt(K)dμ(t) ≥ σC
+√
+d(K) · γd
+(
+C
+√
+dBd2
+)
+,
+γd(K) ≤
+∫c
+√
+d
+0
+dμ(t) + σc
+√
+d(K)
+∫∞
+c
+√
+d
+dμ(t) ≤ γd
+(
+c
+√
+d · Bd2
+)
++ σc
+√
+d(K).
+(4.26)
+4034 M. Rudelson and R. Vershynin
+The classical large deviation inequalities imply γd(c
+√
+d ·Bd2 ) ≤ e−d and γd(C
+√
+dBd2 ) ≥ 1−
+e−d/2. Using the above argument for c
+√
+d ·K,we conclude that γd(c
+√
+d ·K) ≤ e−d+σd−1(K)
+and γd(C
+√
+d · K) ≥ σd−1(K) · (1 − e−d/2). 
+Using Lemma 4.3 in the space H of dimension d = m − R,we obtain
+P ≥
+∫
+Gm−r,m−R
+γH
+(
+c
+√
+m − R
+m − r
+√
+l
+r
+PHB
+m−r
+∞
+)
+dν(H) − 2e−cl − em−R. (4.27)
+By choosing the absolute constant c in the assumption r < cm appropriately small, we
+can assume that 2r < R < m/2. Thus
+P ≥
+∫
+Gm−r,m−R
+γH
+(
+c
+√
+R
+r
+PHB
+m−r
+∞
+)
+dν(H) − 2e−cR. (4.28)
+We now compute the Gaussian measure of random projections of the cube.
+Proposition 4.4. Let H be a random subspace in Gn,n−k, k < n/2. Then the inequality
+γH
+(
+C
+√
+log
+n
+k
+PHB
+n
+∞
+)
+≥ 1 − e−ck (4.29)
+holds with probability at least 1 − e−ck in the Grassmanian. 
+The proof of this estimate will follow from the concentration of Gaussian mea-
+sure, combined with the existence of a big Euclidean ball inside a random projection of
+the cube.
+Lemma 4.5 (concentration of Gaussian measure). Let A be a measurable set in Rn. Then
+for ε > 0,
+γn(A) ≥ e−ε2n implies γn
+(
+A + Cε
+√
+nBn2
+) ≥ 1 − e−ε2n. (4.30)
+
+With the stronger assumption γ(A) ≥ 1/2, this lemma is the classical concentra-
+tion inequality, see [30, inequality (1.4)]. The fact that the concentration holds also for
+exponentially small sets follows formally by a simple extension argument that was first
+noticed by Amir and Milman in [1], see [30, Lemma 1.1].
+The optimal result on random projections of the cube is due to Garnaev and
+Gluskin [22].
+Geometric Approach to Error-Correcting Codes and Signal Recovery 4035
+Theorem 4.6 (Euclidean projections of the cube [22]). Let H be a random subspace in
+Gn,n−k, where k = αn < n/2. Then with probability at least 1 − e−ck in the Grassma-
+nian,
+c(α)PH
+(√
+nBn2
+) ⊆ PH(Bn∞) ⊆ PH(√nBn2 ), (4.31)
+where
+c(α) = c
+√√√√ α
+log
+1
+α
+. (4.32)
+
+Proof of Proposition 4.4. Let g1, g2, . . . be independent standard Gaussian random
+variables. Then for a suitable positive absolute constant c and for every 0 < ε < 1/2,
+γn
+(
+C
+√
+log
+1
+ε
+Bn∞
+)
+= Prob
+{
+max
+1≤j≤n
+∣∣gi∣∣ ≤ C
+√
+log
+1
+ε
+}
+≥
+(
+1 − ε2
+10
+)n
+≥ e−ε2n.
+(4.33)
+Since for every measurable set A and every subspace H one has γH(PHA) ≥ γ(A), we
+conclude that
+γH
+(
+C
+√
+log
+1
+ε
+PHB
+n
+∞
+)
+≥ e−ε2n for 0 < ε < 1
+2
+. (4.34)
+Then by Lemma 4.5,
+γH
+(
+C
+√
+log
+1
+ε
+PHB
+n
+∞ + Cε
+√
+nPHB
+n
+2
+)
+≥ 1 − e−ε2n for 0 < ε < 1
+2
+. (4.35)
+Theorem 4.6 tells us that for a random subspace H if ε = c
+√
+α = c
+√
+k/n, then Euclidean
+ball is absorbed by the projection of the cube in (4.35):
+ε
+√
+nPHB
+n
+2 ⊂ C
+√
+log
+1
+ε
+PHB
+n
+∞ . (4.36)
+Hence for a random subspace H and for ε as above we have
+γH
+(
+C
+√
+log
+1
+ε
+PHB
+n
+∞
+)
+≥ 1 − e−ε2n, (4.37)
+which completes the proof. 
+4036 M. Rudelson and R. Vershynin
+Coming back to (4.28), we will use Proposition 4.4 for a random subspace H in
+the Grassmanian Gm−r,m−R. We conclude that if
+c
+√
+R
+r
+≥ C
+√
+log
+m − r
+R − r
+, (4.38)
+then with probability at least 1 − e−cR in the Grassmanian,
+γH
+(
+c
+√
+R
+r
+PHB
+m−r
+∞
+)
+≥ 1 − e−cR. (4.39)
+Since (m − r)/(R − r) ≤ m/r, the choice of R in (1.2) satisfies condition (4.38). Thus (4.28)
+implies
+P ≥ 1 − 3e−cR. (4.40)
+This completes the proof of Theorem 1.1.
+5 Optimality, robustness, and finite alphabets
+5.1 Optimality
+The logarithmic term in Theorems 1.1 and 2.1 is necessary, at least in the case of small r.
+Indeed, combining formula (4.17) and Lemmas 4.1, 4.2, 4.3,we obtain
+P ≤
+∫
+Gm−r,m−R
+γH
+(
+c
+√
+R
+r
+PHB
+m−r
+∞
+)
+dν(H) + 2e−cR. (5.1)
+To estimate the Gaussian measure we need the following.
+Lemma 5.1. Let x1, . . . ,xs be vectors in Rs. Then
+γs
+(
+s∑
+j=1
+[
+− xj, xj
+]) ≤ γs(M · Bs∞), (5.2)
+where M = maxj=1,...,s ‖xj‖2. 
+Geometric Approach to Error-Correcting Codes and Signal Recovery 4037
+The sum in the lemma is understood as the Minkowski sum of sets of vectors,
+A + B = {a + b | a ∈ A, b ∈ B}.
+Proof. Let F = span(x1, . . . ,xs−1) and let V = F⊥. Let v ∈ V be a unit vector. Set Z =
+∑s−1
+j=1 [−xj, xj]. Then
+γs
+(
+s∑
+j=1
+[
+− xj, xj
+])
+=
+∫
+V
+γF
+((
+s∑
+j=1
+[
+− xj, xj
+]
+− tv
+)
+∩ F
+)
+dγV(t)
+=
+∫
+[−PVxs,PVxs]
+γF
+(
+Z + tPFxs
+)
+dγV(t).
+(5.3)
+By Anderson’s lemma (see [31]), γF(Z + tPFxs) ≤ γF(Z). Thus,
+γs
+(
+s∑
+j=1
+[
+− xj, xj
+]) ≤ γV([ − PVxs, PVxs]) · γF(Z) ≤ γ1([−M,M]) · γF(Z). (5.4)
+The proof of the lemma is completed by induction. 
+The Gaussian measure of a projection of the cube can be estimated as follows.
+Proposition 5.2. Let H be any subspace in Gn,n−k, k < n/2. Then
+γH
+(
+c√
+k
+√
+log
+n
+k
+PHB
+n
+∞
+)
+≤ e−cn/k. (5.5)
+
+Proof. Decompose I into the disjoint union of the sets J1, . . . ,Js+1, so that each of the sets
+J1, . . . ,Js contains k + 1 elements and (k + 1)s < n ≤ (k + 1)(s + 1). Let 1 ≤ j ≤ s. Let
+Uj = H ∩ (PHei, i ∈ {1, . . . ,n} \ Jj)⊥, where e1, . . . ,en is the standard basis of Rn. Then Uj
+is a one-dimensional subspace of H. Set
+xj =
+∑
+i∈Jj
+εiPHei, (5.6)
+where the signs εi ∈ {−1, 1} are chosen to maximize ‖PUjxj‖2. Let E = span(x1, . . . ,xs−1).
+Since PUjB
+n
+∞ = [−xj, xj],we get
+PHB
+n
+∞ ∩ E =
+s∑
+j=1
+[
+− xj, xj
+]
+, (5.7)
+4038 M. Rudelson and R. Vershynin
+where the sum is understood in the sense ofMinkowski addition. Since ‖PUJ‖ = 1, ‖xj‖2 ≤
+C
+√
+k and by Lemma 5.1,
+γE
+(
+c¯
+√
+log s√
+k
+s∑
+j=1
+[
+− xj, xj
+]) ≤ γE(c ′√log s · BE∞) ≤ e−cs (5.8)
+for some appropriately chosen constant c¯. Finally, log-concavity of the Gaussianmeasure
+implies that for any convex symmetric body K ⊂ H,
+γH(K) ≤ γE(K ∩ E). (5.9)
+
+Combining (5.1) and (5.5)we obtain P ≤ 2e−cR,whenever R ≤ c log(m/r).
+5.2 Robustness and codes for finite alphabets
+Robustness is a natural feature of the basis pursuitmethod. The solution to (BP) is stable
+with respect to the 1-norm in the sameway as the solution to (MLS) is stable with respect
+to the 2-norm. Indeed, once Theorem 1.1 holds, the unknown vector y in Theorem 1.1 can
+be approximately recovered from y ′′ = y ′+h,where h ∈ Rm is any additional error vector
+of small 1-norm. Namely, the solution u to the basis pursuit problem
+min
+u∈Y
+‖u − y ′′‖1 (5.10)
+satisfies
+‖u − y‖1 ≤ C ′‖h‖1 (5.11)
+(see, e.g., [7]). This implies a possibility of quantization of the coeﬃcients in the process
+of encoding and yields robust error-correcting codes over alphabets of polynomial size,
+with a Gilbert-Varshamov-type bound, and with quadratic time encoders and polyno-
+mial time decoders.
+The following is the (m,n, r)-error-correcting code under the Gilbert-Varshamov-
+type assumption (1.2), with input words x over the alphabet {1, . . . , p} and the encoded
+words y over the alphabet {1, . . . , Cpn3/2}.
+The construction is the same as in (1.1); we just have to introduce quantization.
+The encoder takes x ∈ {1, . . . , p}n, computes y = Qx, and outputs the ŷ whose coeﬃ-
+cients are the coeﬃcients of y quantized with the uniform quantizer with step 1/4C ′m.
+Geometric Approach to Error-Correcting Codes and Signal Recovery 4039
+Then ŷ ∈ (1/4C ′m)Zm ∩ [−p√n, p√n]m, which by rescaling can be identified with {1, . . . ,
+Cpn3/2}m because we can assume that m ≤ 2n. The decoder takes y ′ ∈ (1/4C ′m)Zm,
+finds solution u to (BP) with Y = range(Q), inverts to x ′ = QTu, and outputs x̂ ′ whose
+coeﬃcients are coeﬃcients of x ′ quantized with the uniform quantizer with step 1.
+This is indeed an (m,n, r)-error-correcting code. If y ′ diﬀers from ŷ on at most r
+coordinates, this and the condition ‖ŷ − y‖1 ≤ 1/4C ′ imply by the robustness that ‖u −
+y‖1 ≤ 1/4. Hence ‖x ′ − x‖2 = ‖QT (u − y)‖2 = ‖u − y‖2 ≤ ‖u − y‖1 ≤ 1/4. Thus x̂ ′ = x, so
+the decoder recovers x from y ′ correctly.
+The robustness also implies a “continuity” of our error-correcting codes. If the
+number of corrupted coordinates in the received message y ′ is bigger than r but is still
+a small fraction, then the (m,n, r)-error-correcting code above can still recover y up to
+some small fraction of the coordinates.
+Acknowledgments
+This work has started when the second author was visiting the University of Missouri-Columbia as
+a Miller Visiting Scholar. He thanks the UMC for the hospitality. The authors are grateful to Dave
+Donoho for his interest in our results and encouragement.We are also grateful to the referee for many
+suggestions that greatly improved the paper. The first author is partially supported by the NSF Grant
+DMS 0245380. The second author is an Alfred P. Sloan Research Fellow. He was also partially sup-
+ported by the NSF Grant DMS 0401032 and by theMiller Scholarship from the University of Missouri-
+Columbia.
+References
+[1] D. Amir and V. D. Milman, Unconditional and symmetric sets in n-dimensional normed
+spaces, Israel J. Math. 37 (1980), no. 1-2, 3–20.
+[2] S. Artstein, Proportional concentration phenomena on the sphere, Israel J. Math. 132 (2002),
+337–358.
+[3] B. Beferull-Lozano and A. Ortega, Eﬃcient quantization for overcomplete expansions in RN ,
+IEEE Trans. Inform. Theory 49 (2003), no. 1, 129–150.
+[4] E. Candes and J. Romberg, Quantitative robust uncertainty principles and optimally sparse
+decompositions, to appear in Found. Comput. Math.
+[5] E. Candes, J. Romberg, and T. Tao, Robust uncertainty principles: exact signal reconstruction
+from highly incomplete frequency information, preprint, 2004.
+[6] E. Candes and T. Tao, Decoding by linear programming, to appear in IEEE Trans. Inform. The-
+ory.
+[7] , Near optimal signal recovery from random projections: universal encoding strate-
+gies?, preprint, 2004.
+4040 M. Rudelson and R. Vershynin
+[8] P. G. Casazza and J. Kovacˇevic´, Equal-norm tight frames with erasures. Frames, Adv. Comput.
+Math. 18 (2003), no. 2–4, 387–430.
+[9] S. S. Chen, D. L. Donoho, and M. A. Saunders, Atomic decomposition by basis pursuit, SIAM J.
+Sci. Comput. 20 (1998), no. 1, 33–61, reprinted in SIAM Rev. 43 (2001), no. 1, 129–159.
+[10] I. Daubechies, Ten Lectures on Wavelets, CBMS-NSF Regional Conference Series in Applied
+Mathematics, vol. 61, SIAM, Pennsylvania, 1992.
+[11] D. L. Donoho, Compressed sensing, preprint, 2004.
+[12] , For most large underdetermined systems of linear equations, the minimal 1-norm
+near-solution approximates the sparsest near-solution, preprint, 2004.
+[13] , For most large underdetermined systems of linear equations, the minimal 1-norm
+solution is also the sparsest solution, preprint, 2004.
+[14] D. L. Donoho andM. Elad, Optimally sparse representation in general (nonorthogonal) dictio-
+naries via 1 minimization, Proc. Nat. Acad. Sci. U.S.A. 100 (2003), no. 5, 2197–2202.
+[15] D. L. Donoho, M. Elad, and V. Temlyakov, Stable recovery of sparse overcomplete representa-
+tions in the presence of noise, to appear in IEEE Trans. Inform. Theory.
+[16] D. L. Donoho and X. Huo,Uncertainty principles and ideal atomic decomposition, IEEE Trans.
+Inform. Theory 47 (2001), no. 7, 2845–2862.
+[17] D. L. Donoho and J. Tanner, Sparse nonnegative solution of underdetermined linear equations
+by linear programming, Proc. Nat. Acad. Sci. U.S.A. 102 (2005), no. 27, 9446–9451.
+[18] D. L. Donoho and Y. Tsaig, Breakdown of equivalence between the minimal 1-norm solution
+and the sparsest solution, to appear in EURASIP Signal Processing Journal.
+[19] , Extensions of compresed sensing, preprint, 2004.
+[20] M. Elad and A. M. Bruckstein, A generalized uncertainty principle and sparse representation
+in pairs of bases, IEEE Trans. Inform. Theory 48 (2002), no. 9, 2558–2567.
+[21] A. Feuer and A. Nemirovski, On sparse representation in pairs of bases, IEEE Trans. Inform.
+Theory 49 (2003), no. 6, 1579–1581.
+[22] A. Yu. Garnaev and E. D. Gluskin, The widths of a Euclidean ball, Dokl. Akad. Nauk SSSR 277
+(1984), no. 5, 1048–1052 (Russian), English translation: Soviet Math. Dokl. 30 (1984), 200–204.
+[23] V. K. Goyal,Multiple description coding: compressionmeets the network, IEEE Signal Process-
+ing Mag. 18 (2001), no. 5, 74–93.
+[24] , Theoretical foundations of transform coding, IEEE Signal Processing Mag. 18 (2001),
+no. 5, 9–21.
+[25] V. K. Goyal, J. Kovacˇevic´, and J. A. Kelner, Quantized frame expansions with erasures, Appl.
+Comput. Harmon. Anal. 10 (2001), no. 3, 203–233.
+[26] V. K. Goyal, M. Vetterli, and N. T. Thao, Quantized overcomplete expansions in RN : analysis,
+synthesis, and algorithms, IEEE Trans. Inform. Theory 44 (1998), no. 1, 16–31.
+[27] R. Gribonval and M. Nielsen, Sparse representations in unions of bases, IEEE Trans. Inform.
+Theory 49 (2003), no. 12, 3320–3325.
+[28] B. Gru¨nbaum, Convex Polytopes, 2nd ed., Graduate Texts in Mathematics, vol. 221, Springer,
+New York, 2003.
+Geometric Approach to Error-Correcting Codes and Signal Recovery 4041
+[29] J. Kovacˇevic´, P. L. Dragotti, and V. K. Goyal, Filter bank frame expansions with erasures, IEEE
+Trans. Inform. Theory 48 (2002), no. 6, 1439–1450, Special issue on Shannon theory: perspec-
+tive, trends, and applications.
+[30] M. Ledoux, The Concentration of Measure Phenomenon, Mathematical Surveys and Mono-
+graphs, vol. 89, American Mathematical Society, Rhode Island, 2001.
+[31] M. A. Lifshits, Gaussian Random Functions, Mathematics and Its Applications, vol. 322,
+Kluwer Academic, Dordrecht, 1995.
+[32] J.Matousˇek, Lectures onDiscrete Geometry,Graduate Texts inMathematics, vol. 212, Springer,
+New York, 2002.
+[33] S. Mendelson, Geometric parameters in learning theory, Geometric Aspects of Functional
+Analysis, Lecture Notes in Math., vol. 1850, Springer, Berlin, 2004, pp. 193–235.
+[34] V. S. Pless,W. C. Huﬀman, and R. A. Brualdi (eds.),Handbook of Coding Theory. Vol. I, II,North-
+Holland, Amsterdam, 1998.
+[35] D. A. Spielman, The complexity of error-correcting codes, Fundamentals of Computation The-
+ory (Krako´w, 1997), Lecture Notes in Comput. Sci., vol. 1279, Springer, Berlin, 1997, pp. 67–84.
+[36] , Constructing error-correcting codes from expander graphs, Emerging Applications of
+Number Theory (Minneapolis,Minn, 1996), IMA Vol. Math. Appl., vol. 109, Springer,New York,
+1999, pp. 591–600.
+[37] J. A. Tropp, Greed is good: algorithmic results for sparse approximation, IEEE Trans. Inform.
+Theory 50 (2004), no. 10, 2231–2242.
+[38] , Just relax: convex programming methods for subset selection and sparse approxima-
+tion, ICES Report 04-04, University of Texas at Austin, Texas, 2004.
+[39] , Recovery of short, complex linear combinations via 1 minimization, IEEE Trans. In-
+form. Theory 51 (2005), no. 4, 1568–1570.
+[40] G. M. Ziegler, Lectures on Polytopes, Graduate Texts in Mathematics, vol. 152, Springer, New
+York, 1995.
+Mark Rudelson: Department of Mathematics, University of Missouri, Columbia,MO 65211, USA
+E-mail address: rudelson@math.missouri.edu
+RomanVershynin: Department ofMathematics,University of California,Davis,CA 95616,USA
+E-mail address: vershynin@math.ucdavis.edu

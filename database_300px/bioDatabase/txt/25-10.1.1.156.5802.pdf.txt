@@ -1,0 +1,759 @@
+Comparative Study of Three Proteomic Quantitative Methods, DIGE,
+cICAT, and iTRAQ, Using 2D Gel- or LC-MALDI TOF/TOF
+Wells W. Wu,† Guanghui Wang,† Seung Joon Baek,‡ and Rong-Fong Shen*,†
+Proteomics Core Facility, National Heart, Lung, and Blood Institute, National Institutes of Health, Bethesda,
+Maryland 20892, and Department of Pathobiology, College of Veterinary Medicine, The University of Tennessee,
+Knoxville, Tennessee 37996
+Received November 15, 2005
+A comparative study on the three quantitative methods frequently used in proteomics, 2D DIGE
+(difference gel electrophoresis), cICAT (cleavable isotope-coded affinity tags) and iTRAQ (isobaric tags
+for relative and absolute quantification), was carried out. DIGE and cICAT are familiar techniques used
+in gel- and LC-based quantitative proteomics, respectively. iTRAQ is a new LC-based technique which
+is gradually gaining in popularity. A systematic comparison among these quantitative methods has
+not been reported. In this study, we conducted well-designed comparisons using a six-protein mixture,
+a reconstituted protein mixture (BSA spiked into human plasma devoid of six abundant proteins), and
+complex HCT-116 cell lysates as the samples. All three techniques yielded quantitative results with
+reasonable accuracy when the six-protein or the reconstituted protein mixture was used. In DIGE,
+accurate quantification was sometimes compromised due to comigration or partial comigration of
+proteins. The iTRAQ method is more susceptible to errors in precursor ion isolation, which could be
+manifested with increasing sample complexity. The quantification sensitivity of each method was
+estimated by the number of peptides detected for each protein. In this regard, the global-tagging iTRAQ
+technique was more sensitive than the cysteine-specific cICAT method, which in turn was as sensitive
+as, if not more sensitive than, the DIGE technique. Protein profiling on HCT-116 and HCT-116 p53 -/-
+cell lysates displayed limited overlapping among proteins identified by the three methods, suggesting
+the complementary nature of these methods.
+Keywords: protein quantification ¥ DIGE ¥ cICAT ¥ iTRAQ ¥ 2D gel ¥ LC-MALDI TOF/TOF
+Introduction
+One main objective of proteomic research is the systematic
+identification and quantification of proteins expressed in a
+biological system. The standard approaches to proteomics have
+been one-/two-dimensional gel electrophoresis or liquid chro-
+matography (LC) followed by mass spectrometry. For the gel-
+based methods, proteins are separated by pI and/or molecular
+weights, detected by staining, and quantified according to
+staining intensities. Proteins are then cut out of the gel,
+digested, and identified by mass spectrometry. For the LC-
+based methods, proteins or peptides are separated by LC
+columns, and then detected, identified, and quantified by mass
+spectrometry. The goal of earlier proteomics research was
+merely the identification and characterization of proteins. The
+goal has now extended to quantitative and comparative studies,
+thanks to recent advances in chromatography, mass spectrom-
+etry, and bioinformatics.
+The gel-based method has been the method of choice for
+decades, and is still widely practiced. A number of gel-based
+methods are commonly employed in quantitative proteomics.
+The first and oldest method is based on statistical analysis via
+one of the powerful software packages that merge and compare
+a number of replicate sets of gels for control and treated
+samples. This approach requires several replicate runs to
+overcome variations in running gels, and therefore is very
+laborious and prone to experimental errors.1 An alternative to
+the above protocol is difference gel electrophoresis (DIGE). In
+the DIGE method, CyDye fluors that are spectrally resolvable
+(e.g., Cy2, Cy3, and Cy5) and matched for mass and charge
+are used to covalently modify the - amino group of lysines in
+proteins via an amide linkage. Consequently, the same protein
+labeled with any of the fluors will migrate to nearly the same
+position on a 2D gel. In a typical protocol, the control and
+treated samples are separately labeled using different dyes (e.g.,
+Cy3 and Cy5, respectively), while a mixture consisting of an
+equal amount of the control and treated samples is labeled with
+Cy2. The labeled samples are combined and run in a single
+2D gel to allow better spot matching and minimize gel-to-gel
+variations. Therefore, in principle, a single gel would suffice
+* To whom correspondence should be addressed. Bldg. 10, Rm. 8C213,
+National Institutes of Health, Bethesda, MD 20892. Tel: (301) 594-1060.
+Fax: (301) 402-2113. E-mail: shenr@nhlbi.nih.gov.
+† National Institutes of Health.
+‡ The University of Tennessee.
+10.1021/pr050405o CCC: $33.50  2006 American Chemical Society Journal of Proteome Research 2006, 5, 651-658 651
+Published on Web 02/07/2006
+for full quantitative analysis. The DIGE method also allows
+multiplexing for up to three separate protein mixtures on the
+same 2D gel if the third protein sample is labeled with Cy2.
+Several papers provide a good review of the DIGE technique.2,3
+Other 2D gel methods for quantitative proteomics employ
+stable isotope tagging of the Cys residues with light- and heavy-
+acrylamide or -vinylpyridine.1 In the past 3 to 4 years, the labor
+intensive gel-based techniques have been challenged and
+complemented by LC-based methods, particularly in the area
+of high-throughput proteomic research. Some of the reasons
+behind this trend include issues related to reproducibility,4 poor
+representation of low abundant proteins,5 highly acidic/basic
+proteins, or proteins with extreme size or hydrophobicity,6 as
+well as difficulties in automation of the gel-based techniques.3
+The LC-based methods offer flexibility of choosing a wide
+range of stationary and mobile phases to resolve complex
+biological samples at the protein or peptide level.7,8 In the
+multidimensional LC approach, proteins are usually digested
+into peptides prior to separation first by cation exchange, and
+then with C18 reversed-phase column chromatography. The
+advantage of such an approach is that the resolved peptides
+from the C18 column can be directly introduced into a mass
+spectrometer. Chemical tagging (usually stable isotope labeling)
+of proteins/peptides also allows relative quantification of
+protein samples by liquid chromatography/mass spectrometry
+(LC-MS) analyses. The prototypical stable-isotope labeling for
+quantitative proteomics was isotope-coded affinity tags (ICAT)
+technology.9 Essentially, proteins from the two states to be
+compared are labeled at cysteine residues with light and heavy,
+respectively, tags carrying a biotin moiety. The labeled proteins
+are then mixed and digested. After a cation exchange chroma-
+tography step to remove excess reagents, the mixed peptides
+are affinity purified using immobilized avidin. Peaks corre-
+sponding to the same peptide are identified as doublets in mass
+spectra due to the mass difference between light and heavy
+isotopes. The peak intensities of the peptides correlate directly
+with the relative abundance of the proteins in the two states.
+A number of limitations to the prototypical ICAT technique has
+been noted in the literature, including missed identification
+of proteins with few or no cysteine residue, lost information
+for post-translational modifications, differential reversed-phase
+elution of identical peptides labeled with the hydrogen/
+deuterium isotope pairs, and complicated interpretation of
+tandem mass spectrometry (MS/MS) spectra due to the addi-
+tion of the biotin group.10,11 Many, but not all of the aforemen-
+tioned problems have been solved by the new cleavable ICAT
+(cICAT) reagent that employs 13C isotopes and an acid-cleavable
+biotin group.12,13 Besides ICAT, other stable isotope coding
+techniques applied in quantitative proteomics have been
+reported and reviewed.11 Recently a new quantitative method,
+isobaric tags for relative and absolute quantitation (iTRAQ), was
+developed. This technology employs a 4-plex set of amine
+reactive isobaric tags to derivatize peptides at the N-terminus
+and the lysine side chains, thereby labeling all peptides in a
+digest mixture.14 In MS, peptides labeled with any of the
+isotopic tags are indistinguishable (isobaric). Upon fragmenta-
+tion in MSMS, signature ions (m/z from 114 to 117) are
+produced, which provide quantitative information upon inte-
+gration of the peak areas.14 In addition to the stable isotope
+labeling approach, several researchers have developed alterna-
+tive LC-based quantification strategies without any labeling.15,16
+Among the different techniques discussed above, DIGE and
+ICAT are the two most commonly practiced techniques in gel-
+based and LC-based quantitative proteomics, respectively.
+iTRAQ is a relatively new technique, but is gaining in popularity
+as an alternative to ICAT. Although several recent publica-
+tions17,18,19 focused on two-method comparison, a head-to-head
+comparison of the three methods has not been reported. Such
+a comparison could provide useful information regarding
+intrinsic merits and constraints of these methods. In this study,
+we conducted carefully designed experiments to compare these
+three quantitative methods, with respect to accuracy and
+sensitivity toward samples of various complexity.
+Materials and Methods
+Preparation of Protein Samples. A six-protein mixture
+consisting of bovine serum albumin (22 íg), â-galactosidase
+(38 íg), R-lactalbumin (10 íg), â-lactoglobulin (24 íg), lysozyme
+(10 íg), and apotransferrin (25 íg) was from Applied Biosys-
+tems. For each technique studied, one tube containing the
+mixture was reconstituted with the solvent appropriate for the
+technique. The content was then split into two equal aliquots
+for subsequent differential labeling. Human plasma was ob-
+tained from a healthy volunteer. A polyclonal antibody affinity
+column (Agilent) was used to remove six major proteins (i.e.,
+albumin, IgG, IgA, antitrypsin, transferrin, haptoglobin) from
+the plasma, according to the manufacturer’s protocol. The flow-
+through portion (the plasma devoid of the 6 major proteins,
+referred hereafter as depleted plasma) was collected and
+analyzed with a Finnigan ProteomeX ion trap mass spectrom-
+eter to confirm the absence of these six abundant proteins. The
+buffer of the depleted plasma was exchanged, using Millipore
+Centricon YM-3 (MW cutoff at 3000 Da), to those appropriate
+for the respective techniques. Total protein concentration was
+determined using the Bradford assay, with bovine serum
+albumin (BSA) as the standard. The depleted plasma was not
+used as a negative control. Rather, various amounts of BSA were
+added into the depleted plasma to obtain two sets of recon-
+stituted plasma samples (1 or 3 pmol BSA in 7 íg plasma
+proteins; 10 or 30 pmol BSA in 7 íg plasma proteins). The same
+levels of BSA were also added to the respective method buffers
+as baseline samples. Two HCT-116 cell lines, HCT-116 and
+HCT-116 p53-/-, were cultured in 150  20 mm dishes to
+around 80% cell confluence. The cells were washed three times
+with PBS and scraped into a 1 protease inhibitor cocktail
+solution (0.1 M tris/pH 8.0 containing 10 íg/mL aprotinin, 10
+íg/mL leupeptin, and 0.2 mM phenyl methyl sulfonyl fluoride).
+The cells were sonicated twice (10 s each) and centrifuged at
+13 000  g for 20 min. The supernatant was saved as the cell
+lysate. The buffer of cell lysates was exchanged to triethylam-
+monium bicarbonate (a volatile buffer) using Millipore Micro-
+con YM-10, and the sample was evaporated in a speedvac to
+near dryness. The proteins were redissolved in buffers ap-
+propriate for respective techniques. For all of the three labeling
+methods, 75 íg of lysate proteins from the wild type (HCT-
+116) or the mutant (HCT-116 p53 -/-) cells were used.
+DIGE and 2D-SDS-PAGE. All chemicals and instruments
+used in DIGE and 2D-SDS-PAGE were purchased from Amer-
+sham (now GE Healthcare). Samples were separately labeled
+with different CyDyes (Cy2, Cy3, and Cy5) unless otherwise
+stated. The ratio of protein to CyDye was maintained at 50 íg/
+400 pmol. The CyDye labeling only labels approximately 1-2%
+of the lysine residues. The labeled mixtures were combined and
+loaded onto pH 3-10 NL 24-cm Immobiline Dry Strips (IPG)
+for first dimension separation by isoelectric focusing (IEF) for
+24 h. The strips were then loaded onto 10-20% gradient or
+research articles Wu et al.
+652 Journal of Proteome Research ¥ Vol. 5, No. 3, 2006
+12.5% polyacrylamide gels. The gels were run overnight and
+then scanned using a Typhoon scanner for the CyDye fluors,
+followed by Sypro Rudy staining overnight. An Ettan Spot
+Handling Workstation was used for automated spot picking,
+in-gel digestion, and spotting onto matrix assisted laser de-
+sorption ionization (MALDI) target plates. Spot image analyses
+and spot selection were carried out using the Progenesis
+Discovery 2005 software (Nonlinear, UK).
+cICAT and iTRAQ. The cICAT and iTRAQ reagent kits were
+obtained from Applied Biosystems (ABI). Samples were treated
+essentially as recommended in the standard manufacturer’s
+protocols, except that, in the iTRAQ protocol the final eluates
+were concentrated 10-fold to enrich the peptide concentration
+and reduce acetonitrile content (originally 25%). To reduce
+sample complexity, a strong cation exchange (SCX) chroma-
+tography, using an off-line SCX cartridge and buffers supplied
+by ABI, was carried out for cell lysate-derived peptides when
+the cICAT (6 fractions) or iTRAQ (10 fractions) method was
+used.
+LC-MALDI-TOF/TOF and Database Search. Peptide sepa-
+ration was performed on a Famos/Switchos/Ultimate chroma-
+tography system (Dionex/LC Packings) equipped with a Probot
+(MALDI-plate spotting device). Individual SCX and/or acid
+cleaved avidin-eluted fractions were injected and captured onto
+a trap column (PepMap C18, 5 ím, 100 A, 300 ím i.d.  5 mm)
+at 10 íL/min. Peptide separation of the BSA-spiked depleted
+human plasma or HCT-116 cell lysates was achieved on an
+analytical nano-column (PepMap C18, 3 ím, 100 A, 75 ím i.d.
+ 15 cm) using a gradient of 5 to 60% solvent B in A over 90
+min (solvent A: 100% water, 0.1% TFA; solvent B: 80% ACN/
+20% water, 0.1% TFA) (TFA: trifluoroacetic acid), 60 to 95%
+solvent B in A for 1 min, and then 95% solvent B for 19 min at
+a flow rate of 0.16 íL/min. The 6-protein mixture was analyzed
+using a shorter gradient (5 to 60% solvent B over 30 min), with
+formic acid, instead of TFA, as the mobile phase modifier. The
+high performance liquid chromatography (HPLC) eluant was
+supplemented with 5 mg/mL R-cyano-4-hydroxycinnamic acid
+(in 50/50 ACN/water containing 0.1% TFA) from a syringe
+pump at a flow rate of 1 íL/min, and spotted directly onto the
+ABI 4700 576-well target plates using the Probot. MALDI-TOF/
+TOF data were acquired in batch mode using an ABI 4700
+Proteomics Analyzer. The number of precursor peaks for MS/
+MS acquisition per spot and S/N filter were set at 5 and 20,
+respectively, for DIGE samples; but 3 and 20, respectively, for
+the six-protein mixture. The maximum number of peaks per
+spot, S/N filter, and spot-to-spot precursor mass tolerance were
+10, 40, 200 ppm and 20, 100, 200 ppm, respectively, for cICAT
+and iTRAQ samples. The database search criterion was based
+on individual ion score (based on MS/MS) g 95% confidence
+interval (p < 0.05) for unknown proteins searched against
+Swiss-Prot. The differential expression ratios for the proteins
+which passed such database search criterion are listed in Table
+1.
+Results and Discussion
+Quantification of a Six-Protein Mixture. All three techniques
+were used to quantify a 6-protein sample equally aliquoted into
+two tubes for labeling. As shown in Table 1a, all three methods
+yielded reasonably good accuracy (between 90% and 112% of
+expected values) with a variation of less than 15%. The accuracy
+is defined as the acquired ratio divided by the theoretical ratio,
+and the relative standard deviation is defined as standard
+deviation divided by the average of the ratios for that protein.
+A semiquantitative approach based on the number of peptides
+detected for each protein has recently been reported.16 The
+approach assumes that the more abundant a protein is in the
+sample, the greater the chance that it can be detected. The
+larger number of peptides detected (Table 1a) by iTRAQ
+suggests that iTRAQ is more sensitive than cICAT. The superior
+sensitivity of iTRAQ over cICAT may be attributed to two
+factors. First, the tagging by iTRAQ reagent is global, while that
+by cICAT is cysteine-specific. It has been reported that the
+avidin affinity purification steps for biotinated peptides used
+in the cICAT protocol recover approximately 10% of the original
+peptides.2 Furthermore, not all cysteine-containing peptides
+with a biotin group could be captured.20 Second, earlier studies
+have shown that peptides that end with an arginine tend to
+give a much stronger signal in MALDI-MS analysis than those
+that end with a lysine.21-23 The basicity of the guanidino
+functionality of the arginine side chain possibly accounted for
+better ionization,21 as the conversion of a lysine to a homoargi-
+nine also improves ionization.22,23 The iTRAQ tags contain a
+moderately strong basic group (N-methylpiperazine), which
+likely promotes ionization of lysine-containing peptides in a
+way similar to the effect due to a guanidino group.
+Table 1a also illustrates a distinctive difference between
+cICAT and iTRAQ in that the number of peptides identified by
+cICAT is cysteine abundance-dependent, while that by iTRAQ
+is not. This is further supported by the correlation coefficients
+between the number of cysteine residues and the peptides
+identified, as shown in Figure 1. This observation is consistent
+with those reported in two previous studies, showing that
+proteins with fewer than 8 cysteines were less likely to be
+detected (quantified) by the cICAT approach12 and that the
+order of abundance among 491 microsomal proteins identified
+could be attributed to their cysteine content.24 In the latter
+study,24 a significant percentage of the identified proteins which
+contain between one and four cysteine residues are abundant
+proteins, while those low abundant proteins identified contain
+an average of 12-17 cysteine residues. Our results suggest that
+global tagging by iTRAQ followed by fractionation, to reduce
+sample complexity prior to quantitative analyses, was superior
+to the cICAT approach for those which are not particularly
+cysteine-rich. Since the total number of peptides in most
+proteins is much higher than that of cysteine-containing
+peptides, the presence of more cysteines did not seem to
+influence the observed superior sensitivity of iTRAQ over cICAT.
+The semiquantitative analysis based on the number of
+peptides detected was not applicable to the DIGE analysis, as
+the number of precursors selected for MS/MS in this gel-based
+method was set at 3, instead of 5 for both cICAT and iTRAQ
+methods. It should also be pointed out that although the same
+amount of protein (129 íg per tube) was labeled, the actual
+amounts of peptides introduced into the mass spectrometer
+were different in the three methods. For the cICAT or iTRAQ
+sample, only a small fraction of the peptides from labeled
+proteins was actually analyzed by the LC-MALDI. The mass
+limitation was primarily due to the capacities of the trap and
+analytical columns used in the LC-MALDI set up. The capaci-
+ties of the trap column (PepMap C18, 5 ím, 100 A, 300 ím i.d.
+ 5 mm) and analytical column (PepMap C18, 3 ím, 100 A, 75
+ím i.d.  15 cm) are about 1-10 íg and 1-10 pmol protein
+digest, respectively (the 1-10 pmol protein digest is equivalent
+to 0.06 to 0.6 íg protein digest for BSA). Therefore, it is
+estimated that less than one-tenth the amount of proteins (10
+íg vs 129 íg) was actually introduced into the mass spec-
+Three Proteomic Quantitative Methods research articles
+Journal of Proteome Research ¥ Vol. 5, No. 3, 2006 653
+Table 1. Quantification Ratios of Six Protein Mixture, Reconstituted Protein Mixture, and HCT-116 Cell Lysates
+(a) six protein mixture
+method BSA â-galactosidase R-lactalbumin â-lactoglobulin lysozyme apotransferrin
+no. of cysteine
+35 16 8 5 8 38
+iTRAQ no. of matched peptides 16 22 3 14 7 24
+accuracy %a 98.0% 97.0% 112.0% 93.0% 96.0% 93.0%
+relative SDb 8.9% 10.9% 13.3% 12.7% 14.5% 8.8%
+cICAT no. of matched peptides 6 2 1 1 1 8
+accuracy %a 93.0% 100.0% 91.0% 94.0% 111.0% 98.0%
+relative SDb 9.7% 1.0% n/a n/a n/a 4.3%
+DIGE no. of matched peptides 3 3 3 3 3 3
+accuracy %a 92.6% 109.0% 95.2% 105.0% 90.1% 99.0%
+(b) Reconstituted protein mixture
+method
+1 or 3 pmol
+BSA in method buffer
+1 or 3 pmol
+BSA in depleted plasma
+10 or 30 pmol
+BSA in method buffer
+10 or 30 pmol
+BSA in depleted plasma
+iTRAQ no. of matched peptides 10 5 33 23
+accuracy %a 92.0% 99.7% 93.7% 85.0%
+relative SDb 19.1% 14.8% 30.0% 27.4%
+cICAT no. of matched peptides 2 1 14 7
+accuracy %a 121.7% 86.3% 92.7% 87.0%
+relative SDb 28.2% n/a 20.9% 14.0%
+DIGE no. of matched peptides 2 2 5 4
+accuracy %a 83.4% 85.8% 92.3% 80.9%
+(c) HCT-116 cell lysatesc
+iTRAQ protein name ratio no. of Cd MW pI
+(O43707) Alpha-actinin 4 1.54 8 113,658 5.3
+(P09972) Fructose-bisphosphate aldolase C 0.44 7 42,792 6.5
+(P07355) Annexin A2 0.67 4 43,388 7.6
+(P21333) Filamin A 1.75 48 305,993 5.7
+(P04406) Glyceraldehyde-3-phosphate dehydrogenase 0.63 3 39,928 8.6
+(Q14697) Neutral alpha-glucosidase AB 0.51 7 111,209 5.7
+(Q14697) Neutral alpha-glucosidase AB 0.60 7 111,209 5.7
+(P62805) Histone H4. 1.63 0 12,959 11.4
+(P52926) High mobility group protein HMGI-C 1.65 0 13,842 10.6
+(P08238) Heat shock protein HSP 90-beta 1.85 6 94,309 5.0
+(P08107) Heat shock 70 kDa protein 1 1.55 5 77,588 5.5
+(P14618) Pyruvate kinase, isozymes M1/M2 0.46 10 63,705 7.9
+(P09382) Galectin-1 1.51 6 16,148 5.3
+(P19338) Nucleolin 0.65 1 89,182 4.6
+(P19338) Nucleolin 0.64 1 89,182 4.6
+(P07237) Protein disulfide-isomerase 1.51 6 64,319 4.8
+(P30101) Protein disulfide-isomerase A3 1.69 7 64,130 6.0
+(Q06830) Peroxiredoxin 1 0.63 4 25,162 8.3
+(Q06830) Peroxiredoxin 1 0.65 4 25,162 8.3
+(P35998) 26S protease regulatory subunit 7 0.37 7 53,549 5.7
+(P35998) 26S protease regulatory subunit 7 0.67 7 53,549 5.7
+(P18621) 60S ribosomal protein L17 1.50 4 25,183 10.2
+(P62081) 40S ribosomal protein S7 1.65 0 25,716 10.1
+(P46781) 40S ribosomal protein S9 1.50 1 25,374 10.7
+(Q9BQE3) Tubulin alpha-6 chain 1.60 12 53,297 5.0
+(P60174) Triosephosphate isomerase 2.14 5 29,778 6.5
+(P60174) Triosephosphate isomerase 1.50 5 29,778 6.5
+(P67809) Nuclease sensitive element binding protein 1 2.48 0 38,352 9.9
+(P67809) Nuclease sensitive element binding protein 1 1.66 0 38,352 9.9
+(P67809) Nuclease sensitive element binding protein 1 1.56 0 38,352 9.9
+cICAT protein name ratio no. of Cd MW pI
+(P02765) Alpha-2-HS-glycoprotein 0.65 11 39,300 5.4
+(P02765) Alpha-2-HS-glycoprotein 0.65 11 39,300 5.4
+(P36551) Coproporphyrinogen III oxidase, mitochondrial 0.38 9 50,143 8.6
+(P09382) Galectin-1 1.60 6 16,148 5.3
+(P09382) Galectin-1 1.58 6 16,148 5.3
+(Q99832) T-complex protein 1, eta subunit 1.52 9 59,329 7.6
+(P20333) Tumor necrosis factor receptor superfamily member 1B 0.08 28 48,260 5.9
+(P11387) DNA topoisomerase I 1.61 8 90,669 9.3
+(P60174) Triosephosphate isomerase 1.68 5 29,778 6.5
+(P08238) Heat shock protein HSP 90-beta 2.02 6 94,309 5.0
+research articles Wu et al.
+654 Journal of Proteome Research ¥ Vol. 5, No. 3, 2006
+trometer in the two LC-MALDI methods (cICAT and iTRAQ).
+The precise estimation is difficult because the extent of mass
+transfer of these two LC-MALDI platforms is largely unknown.
+For gel samples, all proteins were loaded onto the IPG strip.
+The mass transfer of proteins from IPG strip to a 2D gel, and
+from gel spots of variable sizes picked with a fix-sized picker
+head could only be estimated. Similarly, the mass transfer of
+peptides from gel matrix to microtiter plate and from microtiter
+plate to MALDI target plate vary among different experiments.
+For LC-MALDI methods, peptides from any given protein are
+distributed across the plate in multiple spots. The MS/MS
+spectra for the precursor ions are acquired from each spot
+where their MS signals are most intense in the LC elution
+profile. A quantitative evaluation of all the aforementioned
+mass transfer efficiencies (or the extents of sample loss) is
+difficult and beyond the scope of this study.
+Quantification for BSA-Spiked Plasma Protein Mixture. We
+next explored the sensitivity and accuracy of the three different
+methods using a moderately complex sample, i.e., BSA spiked
+into depleted plasma. Various amounts of BSA were added to
+7 íg of plasma proteins to obtain two sets of samplessone
+contains 1 or 3 pmol BSA; and the other contains 10 or 30 pmol
+BSA. The same amounts of BSA were also spiked into buffers
+for the respective methods to form baseline samples. On the
+basis of the aforementioned column capacities of the trap and
+analytical columns (1-10 íg and 1-10 pmol protein digest,
+respectively), comparable amounts of proteins (<10 íg even
+for the plasma sample with 30 pmol added BSA) were used in
+the three different platforms. As demonstrated in Table 1b, all
+three techniques yielded accurate quantitative results (between
+81% and 122% of expected values) with a variation generally
+less than 30%. Under the conditions in this study, iTRAQ
+identified more peptides, and thus exhibited a better sensitivity
+than cICAT or DIGE, which labels peptides on specific amino
+acids. This finding however is contrary to that of a recent report
+stating that cICAT identified a higher proportion of lower-
+abundance proteins, while iTRAQ resulted in a higher percent-
+age of the more abundant proteins.18
+Methodological Constraints Associated with the Three
+Platforms Revealed by Data Analyses. In the gel-based plat-
+form, protein isoforms and comigration of proteins were noted
+to affect quantification sensitivity and accuracy, respectively.
+From recent 2D gel MS studies, it has been demonstrated that
+protein products from one gene may exhibit an average of 10-
+15 different spots. The microheterogeneity is attributable to
+post-translational modifications, proteolytic degradation, and
+other causes.25,26 The current DIGE protocol does not call for
+alkylation during the isoelectric focusing (IEF) step. As a result,
+spurious multimeric spots, due to “scrambled” disulfide bridges,
+could appear in the gels.27 Figure 2a shows the Cy3 spots of
+BSA isoforms (1 pmol and 10 pmol in the DIGE baseline
+samples, i.e., BSA in method buffer). The “+” signs mark the
+Table 1 (Continued)
+DIGE protein name ratio no. of Cd MW pI
+(Q92945) Far upstream element binding protein 2 0.58 7 73,063 8.0
+(P31943) Heterogeneous nuclear ribonucleoprotein H 0.52 5 49,352 5.9
+(P29401) Transketolase 0.70 12 68,519 7.6
+(P13639) Elongation factor 2 1.60 17 96,115 6.4
+(P12429) Annexin A3 4.01 3 36,393 5.6
+(P60174) Triosephosphate isomerase 1.60 5 26,807 6.5
+a Accuracy % is defined as the acquired ratio divided by the theoretical ratio. b Relative standard deviation is defined as standard deviation divided by the
+average of the ratios for that protein. c replicate identifications of the same protein are from different salt steps d no. of C represents the numbers of cysteine.
+Figure 1. Cysteine-abundance bias based on the correlation
+between the number of cysteine and the number of peptides
+detected in the 6 protein mixture in (a) cICAT (filled circles and
+solid line), but not in (b) iTRAQ (open circles and dotted line).
+Figure 2. (a) BSA isoforms in the DIGE baseline samples (BSA
+in method buffer) (spots with + mark the corresponding picking
+spots). (b) BSA comigrated with prothrombin precursor (marked
+by x) as well as BSA (marked by †) partially comigrated with
+â-1B-glycoprotein (marked by ‡) shown in 2D (top of b) and 3D
+(bottom of b) images.
+Three Proteomic Quantitative Methods research articles
+Journal of Proteome Research ¥ Vol. 5, No. 3, 2006 655
+corresponding picking spots, which represent only 30% and
+28%, respectively, of total spot volumes of the BSA isoforms
+for the 1 pmol and 10 pmol BSA baseline samples. The
+formation of protein isoforms affects the quantitative study as
+they reduce effective mass concentration per spot. The reduced
+sensitivity due to microheterogeneity is more problematic in
+gel-based platform than the cICAT or iTRAQ platform where
+quantification is assessed at the peptide level.
+Besides protein isoforms, protein comigration and partial
+comigration in 2D gels impose even a greater challenge in
+quantification. As illustrated in Figure 2b, the comigration (BSA
+and prothrombin precursor, marked by x) and partial comi-
+gration (BSA marked by + and â-1B-glycoprotein marked by
+‡) negatively impact the accuracy of quantification. In one
+study, it has been shown that more than one-third (17 out of
+50) of protein spots in a 2D gel contain 2 or more proteins.5 In
+the extreme case, one spot was found to contain 6 proteins
+with molecular weight and pI ranging from 47.9 KDa to 67.7
+KDa and 5.09 to 5.45, respectively.5 The comigration of multiple
+proteins into a single spot renders comparative quantification
+rather inaccurate. For partially comigrated proteins, com-
+mercially available spot detection software is not robust enough
+to identify unambiguously the boundaries of spots, while
+manual quantification is predisposed to errors caused by
+subjectivity in drawing spot boundaries. In a recent study
+comparing DIGE with metabolic labeling of Saccharomyces
+cerevisiae proteins, all 20 spots selected in the DIGE gel for
+comparative evaluation contain a single protein,17 illustrating
+that accurate quantification by DIGE (and thus its comparative
+evaluation to other technique) works best where one single
+protein is present in one spot.
+In the LC-based platform, the cICAT technique appears to
+be at least as sensitive as the DIGE method, based on the
+number of peptides identified. Similar to the results from the
+six-protein mixture, iTRAQ method displays a higher sensitivity
+than the cICAT technique. Despite this, a potential pitfall
+unique to MALDI-TOF TOF platform that may affect quanti-
+fication accuracy should be mentioned. Since labeling by the
+iTRAQ reagent is global and its quantification relies on daughter
+ions generated during MS/MS, the amounts of the precursor
+ion and others within the set mass window may contribute to
+the quantification ratio. The MALDI-TOF/TOF used in this
+study routinely achieves precursor ion selection using between
+30 -200 mass resolution in the dual gate timed-ion selector
+(TIS). The use of a higher resolution (e.g., 200) reduces the
+intensities of fragmented ions; whereas the use of a lower
+resolution (e.g., 30) compromises the selectivity of the precursor
+ion. Thus, the setting of the resolution is a tradeoff between
+sensitivity and selectivity. In this iTRAQ study, the precursor
+mass window was adjusted to 100 resolution, as suggested in
+ABI’s iTRAQ Chemistry Reference Guide. This provides a good
+combination of sensitivity and selectivity, and translates into
+10 Da full width at half-maximum height (fwhm) mass window
+for an ion of 1000 Da. To illustrate the effect of TIS resolution
+on quantification accuracy, Figure 3 exhibits three mass spectra
+from the BSA-spiked plasma samples. An ideal situation, in
+which quantification ratio is attributed to a single dominant
+peak (1624.1 Da) without major interfering ions in the precursor
+mass window, is shown in Figure 3a. Most of the quantification
+ratios of BSA-spiked plasma samples reported in Table 1b fall
+in this category (24 out of 28). Figure 3b demonstrates an ion
+of interest with sufficiently high signal intensity but interfered
+by another ion peak within 100 resolution. Following manual
+adjustment of the TIS to 200 with concomitant signal loss of
+MS/MS ions, the peptide could still be accurately quantified
+and identified with a high score. Figure 3c depicts a situation
+in which a tighter resolution could not well resolve the ion of
+interest from others. There were also cases that a tighter
+resolution yielded lower ion scores, presumably due to a
+reduced MS/MS ion intensity. The extent of such interference
+depends largely on the sample type and its complexity. It
+should be pointed out that the interference of precursor ion
+selection by neighboring ions is common to commercial mass
+spectrometers, though to different degrees depending on how
+ions are isolated. Emerging newer designs are expected to
+alleviate this problem, as indicated in a recent report that newer
+TOF/TOF optics provides improved resolving power by a factor
+of 3 for precursor selection in MS/MS mode.28 It should be
+noted that iTRAQ labeled samples could also be analyzed on
+Q-TOF or Q-TRAQ types of mass spectrometers, although no
+similar problem associated with the precursor ion selection was
+reported.14,18 In contrast to iTRAQ technique, quantification
+accuracy using cICAT and DIGE methods are not affected by
+the precursor mass window limitation, as the quantification
+of cICAT is at the MS level, whereas DIGE quantification is
+based on fluorescence.
+Quantification for Complex HCT-116 Cell Lysates. To
+evaluate the three methods for quantitative profiling of a highly
+complex protein mixture, cell lysates from HCT-116 and HCT-
+Figure 3. Selected mass spectra for BSA spiked depleted plasma
+samples to illustrate the effect of TIS resolution on quantification
+accuracy (+ sign marks the precursor ion for subsequent MS/
+MS. Solid line and dotted lines represent the TIS resolution of
+100 and 200, respectively). (a) A single dominant peak without
+major interfering ions in the precursor mass window. (b) An ion
+of interest with sufficiently high signal intensity but interfered
+by another ion peak within 100 resolution. But the interference
+could be resolved with 200 resolution. (c) Even 200 resolution
+could not well resolve the ion of interest from interference.
+research articles Wu et al.
+656 Journal of Proteome Research ¥ Vol. 5, No. 3, 2006
+116 p53 -/- were used. As expected, the abundance of the
+majority of proteins did not change significantly between the
+two cell lysate samples. Table 1c summarizes those proteins
+which were found to change (50% or more in abundance. A
+total of 32 proteins were identified by the three methods, based
+on a 95% confidence interval.
+Of the 23 proteins identified using the iTRAQ technique, 10
+contain fewer than 5 cysteine residues and therefore were not
+revealed by the cICAT method. Similarly, 8 of the 23 proteins
+have their pI or MW outside the ranges of the IPG strip and
+polyacrylamide gel used in this study (pH 3-10 or 14-100K,
+respectively), and thus were not detected by the DIGE method.
+Surprisingly, only one protein (triosephosphate isomerase) was
+identified by all three techniques. Three proteins (Heat shock
+protein HSP 90-beta, Galectin-1, and triosephosphate isomerase)
+were identified by both iTRAQ and cICAT methods, while one
+protein (triosephosphate isomerase) was commonly identified
+by iTRAQ and DIGE methods. The finding is similar to that
+reported in a recent publication comparing cICAT and iTRAQ
+showing only one differentially expressed protein was identified
+by both cICAT (6 proteins) and iTRAQ (5 proteins) methods
+using endometrial tissue homogenates.18 It should be empha-
+sized that the focus of this study is on method comparison,
+and no attempts were made to maximize the number of
+differentially expressed proteins.
+The results suggest that the information generated by each
+of the three methods is complementary in nature, which could
+result from different ways of experimental procedures and
+sample preparation. Some proteins or peptides may be better
+resolved and/or represented in one method, but not in another.
+Assuming that protein denaturation fully exposes all sites for
+labeling, the expression ratio should be the similar regardless
+of whether the method is residue-specific or global (N termi-
+nal). However, no denaturant has been proven to be universally
+useful for unbiased labeling. This is further complicated by the
+fact that different denaturants are recommended for the three
+methods, adding another variable for preferential unmasking
+or blocking of reactive sites on different amino acid residues.
+The iTRAQ labeling chemistry, capable of labeling the N termini
+of peptides, offers a greater tolerance to any steric hindrance
+effect associated with labeling. An apparent advantage of the
+iTRAQ method is that it could label peptides whose sites may
+otherwise not be accessible to CyDye or cICAT reagents at the
+protein level. A disadvantage unique to iTRAQ is that samples
+for iTRAQ labeling need to be processed separately up to tryptic
+digestion. This could introduce potential sources of errors such
+as in sample handling or variable degrees of tryptic digestion
+between two samples. Ensuring consistent sample preparation
+in the iTRAQ method is therefore critically important.
+Summary
+We have shown that the three proteomic quantitative
+methods, iTRAQ, 2D DIGE, and cICAT, yielded reasonably good
+results when applied to a relatively simple or moderately
+complex sample. In the 2D-gel DIGE approach, comigration
+and partial comigration of proteins could compromise the
+accuracy of quantification. This problem should not be over-
+looked when quantification is intended for nonabundant
+proteins in complex samples. The cICAT is at least as sensitive
+as the DIGE method, but is cysteine-content biased. The iTRAQ
+method is most sensitive, but occasionally suffers from an
+inherent problem associated with the timed-ion selector reso-
+lution of the MALDI-TOF/TOF instrument. Manual examina-
+tion of MS spectra will improve the quantification accuracy for
+complex samples. There is a limited overlap of differentially
+expressed proteins identified by the three methods from two
+closely related HCT-116 cell lines, suggesting the complemen-
+tary nature of these three methods. Future improvement in
+instrumentation sensitivity, labeling chemistry, and chroma-
+tography is clearly needed to enable routine quantification of
+proteins/peptides by mass spectrometry Nevertheless, the
+complementary information obtained through different meth-
+ods should potentially provide a better portrait of the biological
+system under investigation.
+Acknowledgment. This research was supported by the
+Intramural Research Program of the National Heart, Lung, and
+Blood Institute, National Institutes of Health. We thank Dr.
+Daniel Sussman of the National Cancer Institute, NIH for the
+critical reading of this manuscript.
+References
+(1) Righetti, P. G.; Castagna, A.; Antonucci, F.; Piubelli, C.; Cecconi,
+D.; Campostrini, N.; Antonioli, P.; Astner, H.; Hadman M. Critical
+survey of quantitative proteomics in two-dimensional electro-
+phoretic approaches. J. Chromatogr. A. 2004, 1051, 3-17.
+(2) Patton, W. F. Review: Detection technologies in proteome
+analysis. J. Chromatogr. B. 2002, 771, 3-31.
+(3) Hamdan, M.; Righetti, P. G. Strategies for protein quantification
+in proteome analysis: advantages and limitations. Mass. Spec-
+trom. Rev. 2002, 21, 287-302.
+(4) Lilley, K. S.; Razzaq, A.; Dupree, P. Two-dimensional gel electro-
+phoresis: recent advances in sample preparation, detection and
+quantitation. Curr. Opin. Chem. Biol. 2002, 6 (1), 46-50.
+(5) Gygi, S. P.; Corthals, G. L.; Zhang, Y.; Rochon, Y.; Aebersold, R.
+Evaluation of two-dimensional gel electrophoresis-based pro-
+teome analysis technology. PNAS 2000, 97 (17), 9390-9395.
+(6) Pandey, A.; Ong, S. E. An evaluation of the use of two-dimensional
+gel electrophoresis in proteomics. Biomol. Eng. 2001, 18, 195-
+205.
+(7) Shi, Y.; Xiang, R.; Horvath, C.; Wilkins, J. A. The role of liquid
+chromatography in proteomics. J. Chromatogr. A. 2004, 1053, 27-
+36.
+(8) Issaq, H. J.; Chan, K. C.; Janini, G. M.; Conrads, T. P.; Veenstra,
+T. D. Multidimensional separation of peptides for effective
+proteomic analysis. J. Chromatogr. B. 2005, 817, 35-47.
+(9) Gygi, S. P.; Rist, B.; Gerber, S. A.; Turecek, F.; Gelb, M. H.;
+Aebersold, R. Quantitative analysis of complex protein mixtures
+using isotope-coded affinity tags. Nat. Biotechnol. 1999, 17 (10),
+994-999.
+(10) Goshe, M. B.; Smith, R. D. Stable isotope-coded proteomics mass
+spectrometry. Curr. Opin. Biotechnol. 2003, 14 (1), 101-109.
+(11) Leitner, A.; Lindner W. Current chemical tagging strategies for
+proteome analysis by mass spectrometry. J. Chromatogr. B. 2004,
+813, 1-26.
+(12) Hansen, K. C.; Schmitt-Ulms, G.; Chalkley, R. J.; Hirsch, J.;
+Baldwin, M. A.; Burlingame, A. L. Mass spectrometric analysis of
+protein nixtures at low levels using cleavable 13C-isotope-coded
+affinity tag and multidimensional chromatography. Mol. Cell.
+Proteomics. 2003, 2 (5), 299-314.
+(13) Yu, L. R.; Conrads, T. P.; Uo, T.; Issaq, H. J.; Morrison, R. S.;
+Veenstra, T. D. Evaluation of the acid-cleavable isotope-coded
+affinity tag reagents: application to camptothecin-treated cortical
+neurons. J. Proteome Res. 2004, 3 (3), 469-477.
+(14) Ross, P. L.; Huang, Y. N.; Marchese, J. N.; Williamson, B.; Parker,
+K.; Hattan, S.; Khainovski, N.; Pillai, S.; Dey, S.; Daniels, S.;
+Purkayastha, S.; Juhasz, P.; Martin, S.; Bartlet-Jones, M.; He, F.;
+Jacobson, A.; Pappin, D. J. Multiplexed protein quantitation in
+saccharomyces cerevisiae using amine-reactive isobaric tagging
+reagents. Mol. Cell. Proteomics. 2004, 3 (12), 1154-1169.
+(15) Chelius, D.; Zhang, T.; Wang, G.; Shen, R. F. Global protein
+identification and quantification technology using two-dimen-
+sional liquid chromatography nanospray mass spectrometry.
+Anal. Chem. 2003, 75 (23), 6658-6665.
+(16) Liu, H.; Sadygov, R. G.; Yates, J. R. III A model for random
+sampling and estimation of relative protein abundance in
+shotgun proteomics. Anal. Chem. 2004, 76, 4193-4201.
+Three Proteomic Quantitative Methods research articles
+Journal of Proteome Research ¥ Vol. 5, No. 3, 2006 657
+(17) Kolkman, A.; Dirksen, E. H. C.; Slijper, M.; Heck, A. J. R. Double
+standards in quantitative proteomics: direct comparative assess-
+ment of difference in gel electrophoresis (DiGE) and metabolic
+stable isotope labeling. Mol. Cell Proteomics. 2005, 4 (3), 255-
+266.
+(18) DeSouza, L.; Diehl, G.; Rodrigues, M. J.; Gou, J.; Romaschin, A.
+D.; Colgan, T. J.; Siu, K. W. M. Search for cancer markers from
+endometrial tissues using differentially labeled tags iTRAQ and
+cICAT with multidimensional liquid chromatography and tandem
+mass spectrometry. J. Proteome Res. 2005, 4 (2), 377-386.
+(19) Choe, L. H.; Aggarwal, K.; Franck, Z.; Lee, K. H. A comparison of
+the consistency of proteome quantitation using two-dimensional
+electrophoresis and shotgun isobaric tagging in Escherichia coli
+cells. Electrophoresis 2005, 26, 2437-2449.
+(20) Julka, S.; Regnier, F. Quantification in proteomics through stable
+isotope coding: a review. J. Proteome Res. 2004, 3 (3), 350-363.
+(21) Krause, E.;, Wenschuh, H.; Jungblut, P. R. The Dominance of
+arginine-containing peptides in MALDI-Derived tryptic mass
+fingerprints of proteins. Anal. Chem. 1999, 71 (19), 4160-4165.
+(22) Brancia, F. L.; Oliver, S. G.; Gaskell, S. J. Improved matrix-assisted
+laser desorption/ionization mass spectrometric analysis of tryptic
+hydrolysates of proteins following guanidination of lysine-
+containing peptides. Rapid Commun. Mass Spectrom. 2000, 14
+(21), 2070-2073.
+(23) Beardsley, R. L.; Karty, J. A.; Reilly, J. P. Enhancing the intensities
+of lysine-terminated tryptic peptide ions in matrix-assisted laser
+desorption/ionization mass spectrometry. Rapid Commun. Mass
+Spectrom. 2000, 14 (23), 2147-2153.
+(24) Patton, W. F.; Schulenberg, B.; Steinberg, T. H. Two-dimensional
+gel electrophoresis; better than a poke in the ICAT? Curr. Opin.
+Chem. Biol. 2002, 13 (4), 321-328.
+(25) Fountoulakis M.; Juranville J. F.; Berndt P.; Langen H.; Suter L.
+Two-dimensional database of mouse liver proteins. An update.
+Electrophoresis 2001, 22 (9), 1747-1763.
+(26) Fountoulakis, M.; Berndt, P.; Langen, H.; Suter, L. The rat liver
+mitochondrial proteins. Electrophoresis 2002, 23 (2), 311-328.
+(27) Herbert, B. R.; Pedersen, S. K.; Harry, J. L.; Sebastian, L.; Grinyer,
+J.; Traini, M. D.; McCarthy, J. T.; Wilkins, M. R.; Gooley, A. A.;
+Righetti, G.; Packer, N. H.; Williams, K. L. Mastering proteome
+complexity using two-dimensional gel electrophoresis. Pharma-
+Genomics 2003, 3 (7), 22-36.
+(28) Campbell, J. M.; Hayden, K. M.; Vestal, M. L. New MALDI-TOF/
+TOF optics with improved performance. 2004, 52nd ASMS
+Conference.
+PR050405O
+research articles Wu et al.
+658 Journal of Proteome Research ¥ Vol. 5, No. 3, 2006

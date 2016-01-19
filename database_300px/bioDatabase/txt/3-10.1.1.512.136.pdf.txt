@@ -1,0 +1,1264 @@
+Comparative Urine Analysis by Liquid Chromatography-Mass
+Spectrometry and Multivariate Statistics: Method Development,
+Evaluation, and Application to Proteinuria
+Ramses F. J. Kemperman,†,‡ Peter L. Horvatovich,† Berend Hoekman,† Theo H. Reijmers,§
+Frits A. J. Muskiet,‡ and Rainer Bischoff*,†
+Department of Analytical Biochemistry, University Centre for Pharmacy, University of Groningen,
+A. Deusinglaan 1, 9713 AV Groningen, The Netherlands, Department of Pathology and Laboratory Medicine,
+University Medical Centre Groningen, University of Groningen, P.O. Box 30.001, 9700 RB Groningen,
+The Netherlands, and Analytical Biosciences, LACDR, University of Leiden, Einsteinweg 55,
+2333 CC Leiden, The Netherlands
+Received July 21, 2006
+We describe a platform for the comparative profiling of urine using reversed-phase liquid chromatog-
+raphy-mass spectrometry (LC-MS) and multivariate statistical data analysis. Urinary compounds were
+separated by gradient elution and subsequently detected by electrospray Ion-Trap MS. The lower limit
+of detection (5.7-21 nmol/L), within-day (2.9-19%) and between-day (4.8-19%) analytical variation of
+peak areas, linearity (R2: 0.918-0.999), and standard deviation for retention time (<0.52 min) of the
+method were assessed by means of addition of seven 3-8 amino acid peptides (0-500 nmol/L). Relating
+the amount of injected urine to the area under the curve (AUC) of the chromatographic trace at 214 nm
+better reduced the coefficient of variation (CV) of the AUC of the total ion chromatogram (CV ) 10.1%)
+than relating it to creatinine (CV ) 38.4%). LC-MS data were processed, and the common peak matrix
+was analyzed by principal component analysis (PCA) after supervised classification by the nearest
+shrunken centroid algorithm. The feasibility of the method to discriminate urine samples of differing
+compositions was evaluated by (i) addition of seven peptides at nanomolar concentrations to blank
+urine samples of different origin and (ii) a study of urine from kidney patients with and without
+proteinuria. (i) The added peptides were ranked as highly discriminatory peaks despite significant
+biological variation. (ii) Ninety-two peaks were selected best discriminating proteinuric from non-
+proteinuric samples, of which 6 were more intense in the majority of the proteinuric samples. Two of
+these 6 peaks were identified as albumin-derived peptides, which is in accordance with the early rise
+of albumin during glomerular proteinuria. Interestingly, other albumin-derived peptides were nondis-
+criminatory indicating preferential proteolysis at some cleavage sites.
+Keywords: urine ¥ proteomics ¥ liquid chromatography-mass spectrometry ¥ biomarker ¥ bioinformatics ¥
+multivariate statistical analysis
+1. Introduction
+Biofluids such as serum, plasma, whole blood, and urine are
+routinely used for diagnostic purposes and in comparative
+studies. Urine seems a more suitable biofluid than blood and
+its derivatives (plasma or serum), because it can be obtained
+in large quantities by noninvasive sampling. Analytical advan-
+tages of urine analysis are the less complex sample pretreat-
+ment due to the much lower protein content, the relatively
+small size, and higher thermodynamic stability of urinary
+peptides/proteins,1 and the lower complexity and inter-
+molecular interactions compared to proteins in serum.2,3 The
+majority of pathological changes in human organs may well
+be reflected in urine. In this way, urine analysis can aid in
+disease diagnosis, treatment monitoring, and prognosis.4 Urine,
+on the other hand, is prone to larger biological variations than
+the blood compartment, as it samples the metabolic end
+products from the organism destined for excretion. Factors
+affecting the concentrations of these products in humans, for
+example, age and gender,5 can be controlled by careful match-
+ing, whereas this is much harder to do for the influence of
+factors of cultural and dietary nature.6 One of the major
+challenges in biomarker research using urine is thus the large
+natural variation in the concentration of peptides, proteins, and
+metabolites, which requires careful normalization of the mea-
+surements.7
+* Corresponding author: E-mail, R.P.H.Bischoff@rug.nl; tel., +31-50-363-
+3336; fax, +31-50-363-7582.
+† Department of Analytical Biochemistry, University Centre for Pharmacy,
+University of Groningen.
+‡ Department of Pathology and Laboratory Medicine, University Medical
+Centre Groningen, University of Groningen.
+§ Analytical Biosciences, LACDR, University of Leiden.
+194 Journal of Proteome Research 2007, 6, 194-206 10.1021/pr060362r CCC: $37.00  2007 American Chemical Society
+Published on Web 12/09/2006
+A frequently used analytical technique to profile urinary
+compounds for biomarker research is liquid chromatography-
+mass spectrometry (LC-MS). The advantages of LC-MS are
+high sensitivity and the feasibility of detecting thermolabile,
+water soluble compounds without the need for chemical
+derivatization. Analysis of urine by LC-MS has been applied
+in metabolomics,8,9 proteomics,4,10-15 and peptidomics,16-24 as
+well as in drug metabolism research. LC-MS is sensitive to
+matrix effects due to the interference of matrix components
+with the ionization of analytes (ion suppression).25 The use of
+internal standards and standardization of the injected amount
+are therefore necessary for quantitative analyses. Comparative
+profiling using stable isotope-labeled standards26 or dye-labeled
+proteins as internal standards27 can overcome these limitations
+but have proven to be laborious and expensive, making a well-
+controlled, label-free quantitative method as described here of
+particular interest for clinical studies, where large series of
+samples have to be processed. A quantitative method for
+profiling complex biological samples without the need for
+labeling or spiking with internal standards seems feasible as
+long as there is linearity of signal versus concentration and a
+high degree of reproducibility of sample processing and the
+LC-MS platform.28
+When profiles of urinary compounds are compared, it may
+be insufficient to normalize the data based on a single
+compound like creatinine, as this may not be representative
+of the wide range of molecules with different physicochemical
+properties (e.g., molecular weight, pKa, and hydrophobicity).
+Since the urinary creatinine concentration, which is widely
+employed to correct for concentration differences and to
+express the urinary clearance of blood components, is mainly
+determined by age, gender, muscle mass, kidney function,
+exercise, and diet, it is questionable whether this should be
+the only standard when it comes to accurate data about renal
+clearance.5 To base normalization on a broader molecular basis,
+we have therefore compared normalization of the injected
+volume of urine based on a fixed amount of creatinine with a
+multicompound normalization strategy based on the area
+under the curve of the chromatogram at 214 nm (AUC214).
+Data processing prior to multivariate statistical analysis is
+critical for comparing LC-MS data sets that may reach 107 to
+108 data points per analysis or even more, in case high-
+resolution mass spectrometry is used. Data processing has the
+goal to correct for unwanted variations in data sets by, for
+example, correcting shifts in retention time and by discriminat-
+ing meaningful data points from background, noise, and
+spikes,29-31 thus, generating a peak matrix suited for further
+processing by peak matching, missing peak allocation, and,
+finally, statistical analysis. Even after data processing, there is
+a need for a further reduction in dimensionality, since the
+complexity of biological samples like urine generates a great
+number of significant peaks that generally exceeds the number
+of analyzed samples with the inherent risk of overfitting the
+data. One way of further reducing the number of dimensions
+in the data is by using a regularized linear discriminant classifier
+method like the nearest shrunken centroid (NSC) algorithm.32
+Visual inspection of patterns in the high-dimensional data
+space is possible through the use of further dimension-reducing
+techniques such as principal component analysis (PCA).33 For
+an extensive review and references on data (pre-) processing
+and multivariate statistical methods, we refer to the review of
+Listgarten and Emili.34
+In the present work, we describe the development of a
+simple, rapid, and robust reversed-phase LC electrospray (ESI)
+Ion Trap MS platform to reproducibly profile urinary com-
+pounds. The platform was evaluated using peptides, which are
+frequently present at nanomolar concentrations in urine.
+Dedicated data processing and multivariate statistical ap-
+proaches were developed and applied to the data to obtain
+proof-of-principle on several aspects of the method such as
+the following: (i) the ability to discriminate groups of urine
+samples based on the absence or presence of standard peptides
+at approximately 2-10 times the lower limit of detection (LOD;
+nM range), and (ii) the differentiation between the contribution
+of analytical and biological variation to the final result. Finally,
+the platform was tested in a preliminary study comparing urine
+samples from hospitalized patients with and without pro-
+teinuria. Using multivariate statistical analysis of LC-MS
+profiles of urinary compounds is likely to aid in diagnostics,
+monitoring of disease activity, and therapy. It may also be of
+great value in forming new hypotheses about disease mecha-
+nisms and the effect of therapeutic interventions.
+2. Experimental Procedures
+Further detailed information is available in Supporting
+Information.
+2.1. Chemicals. Acetonitrile (ACN) (HPLC-S gradient grade),
+ultrapure water (18.2 M¿ cm), trifluoroacetic acid (TFA) 99%
+spectrophotometric grade, and formic acid (FA) 98-100% pro
+analysis were used for reagent preparation. A peptide stock
+solution [peptide, concentration in mmol/L; VYV, 0.29; YGGFL
+(leucine enkephalin), 0.20; DRVYIHPF (angiotensin II), 0.10;
+YPFPGPI (â-casomorphin 7), 0.16; YPFPG (â-casomorphin 5),
+0.21; GYPPT (gluten exorphin A5), 0.19; and YGGWL (gluten
+exorphin B5), 0.20] was used for addition experiments and
+internal standardization.
+2.2. Sample Preparation. Urine samples were stored at -20
+°C, thawed, mixed, acidified with 1% TFA, and centrifuged to
+remove precipitate (5 min at 1500g and 4 °C). The supernatant
+was diluted 1:1 with 0.2% FA in 10% ACN and stored at 4 °C
+until analysis. The injection order on the LC-MS was random-
+ized. A pooled urine sample was prepared by mixing equal
+volumes of urine from seven apparently healthy adults (crea-
+tinine: 10.6 mmol/L).
+Urinary creatinine concentration and total protein content
+were assayed on an autoanalyzer (MEGA, Merck, Darmstadt,
+Germany). The study protocol was in agreement with local
+ethical standards and the Helsinki declaration of 1964, as
+revised in 2004.
+2.3. Reversed-Phase HPLC-MS. All LC-MS analyses were
+performed on an 1100 series capillary HPLC system equipped
+with a cooled autosampler (4 °C), a UV detector (ì ) 214 nm)
+and an SL ion trap mass spectrometer (Agilent Technologies).
+Urine samples were desalted on an Atlantis dC18 precolumn
+(2.1  20 mm, 3 ím particles and 10 nm pore diameter) using
+0.1% FA in 5% ACN at a flow rate of 50 íL/min for 16 min.
+Urinary compounds were back-flushed from the precolumn
+onto a thermostated (25 °C) Atlantis dC18 analytical column
+(1.0  150 mm, 3 ím particles, 30 nm pores) and separated in
+90 min at a flow rate of 50 íL/min during which the percentage
+of solvent B (0.1% FA in ACN) in solvent A (0.1% FA in ultrapure
+H2O) was increased from 5.0 to 43.6% (0.43%/min). During
+these 90 min, UV absorption and positive mode MS spectra
+were acquired. Settings for ESI and mass analysis were as
+follows: 16.0 psi N2; drying gas, 6.0 L/min N2; T, 325 °C; cap.
+Comparative Urine Analysis by LC-MS and Multivariate Statistics research articles
+Journal of Proteome Research ¥ Vol. 6, No. 1, 2007 195
+voltage, 3.8 kV; skimmer, 57.5 V; cap. exit, 190.7 V; oct. 1, 4.12
+V; oct. 2, 2.49 V; oct. RF, 190.7 V; lens 1, -4.9 V; lens 2, -37.7
+V; trap drive, 52.5; scan speed, 5500 m/z s-1; 50 ms accumula-
+tion time or 30 000 ions; scan range, 100-1500 m/z; Gaussian
+acquisition filter (width 0.1 m/z) of each scan; rolling average
+of 5 spectra. Spectra were saved in the centroid mode.
+Following the gradient, both columns were washed with 85%
+B for 5 min and equilibrated with 5% B for 10 min prior to the
+next injection.
+Internal standards were injected onto the precolumn prior
+to injection of the urine samples. Between each injection, the
+injection system was cleaned with 70% ACN and filled again
+with 0.1% FA in 5% ACN. The amount of internal standard (IS)
+peptides injected varied per experiment (see Results for more
+details).
+2.4. Tandem Mass Spectrometry and Database Searching.
+NanoLC ESI quadrupole time-of-flight (Q-TOF) MS/MS (API
+QSTAR Pulsar i LC/MS/MS System [Applied Biosystems, MDS
+Sciex, Framingham, MA]) was used in the Auto-MS2 mode
+(precursor ions >100 counts, 1+ to 4+ ions; spray voltage
+2350V; varying collision energies). Using mascot.dll script-
+processing in Analyst QS 1.1, build 9865 (Applied Biosystems,
+MDS Sciex) MS spectra were deconvoluted with respect to
+charge state and isotopes. The resulting spectra were saved in
+mascot (Matrix Science, London, U.K.) generic file format and
+submitted to an in-house version of the MASCOT35 search
+engine (v1.9.05) for UniProt (release 7.7) queries and to a Web-
+based version of the Phenyx36 search engine (v2.1) for
+UniProt_Sprot (r. 48.8 of 10-Jan-2006) queries. Enzyme settings
+were based on chymotrypsin-, trypsin-, and caspase-like pro-
+teolytic activity of the 26S proteasome in renal cells37 allowing
+“half cleavages (Phenyx)” of peptide bonds. Search outcomes
+were evaluated at a significance level of a probability-based
+Mowse score for MASCOT of g61 (P < 0.001) and at an AC-
+score of g5 for Phenyx. The latter is the sum of the best scores
+per valid peptide sequence.
+The identities of discriminatory peaks, as selected by mul-
+tivariate statistics, from Ion-Trap and quadrupole-TOF MS data,
+were confirmed by comparing mass spectra and relative
+retention times using bracketing between added standard
+peptides. MS/MS data from these discriminatory peaks were
+processed using MASCOT scripts to obtain a peak list of
+fragment ions suitable for MS/MS ion search. Prior to subse-
+quent database queries, these peak lists were tagged and added
+to the original MS/MS peak list used for protein identification
+to evaluate whether they originated from one of the previously
+identified proteins. A peak was considered to be identified if
+the Phenyx z-score g 4, P e 0.0001, and retention time of the
+peptide were within 0.05 min and 0.01 amu of the respective
+discriminatory peak. If the peak/peptide did not reach these
+criteria, manual conversion of the monoisotopic multiply
+charged fragment ions to monoisotopic singly charged frag-
+ment ions was performed prior to another round of searches
+using MASCOT and Phenyx.
+Further detailed information is available in Supporting
+Information.
+2.5. Data Processing and Analysis.
+2.5.1. Data Analysis for Method Evaluation. LC-MS chro-
+matographic data were analyzed with Data Analysis software
+for LC/MSD Trap, version (3.2 build 121) (Bruker Daltoniks,
+Bremen, Germany). Peak areas and intensities of the spiked
+peptides described in Table 1 were obtained from the respective
+smoothed and baseline-subtracted extracted ion chromato-
+grams (EIC). One cycle of smoothing with a Gaussian algorithm
+at a width of 1.8 points preceded baseline subtraction with a
+flatness of 1. The AUC214 was calculated between 30 and 80
+min retention time, which corresponds to 14-64 min for mass
+spectrometric data acquisition (MS data acquisition was started
+16 min later than the gradient program) during gradient elution.
+Univariate statistical analyses were performed with the
+Statistical Product and Service Solutions package version 11.5
+(SPSS, Inc., Chicago, IL).
+2.5.2. Data (Pre-)Processing. For processing and multivari-
+ate statistical analysis, the original Bruker Daltoniks LC-MS
+data files were converted into ASCII-format with the Bruker
+Data Analysis software. For further data analysis, Matlab
+(version 7.0.0.19920, Mathworks, Natick, MA) and the PLS
+toolbox (version 3.5.2, Eigenvector Research, Inc., Wenatchee,
+WA) were used.
+Initially, the nominal m/z ratios were rounded to the nearest
+integer to 1 amu bins (instead of the original 0.1 amu in the
+acquired data) according to Radulovic et al.,38 which is adapted
+to the accuracy of the ion trap ((0.3 amu). Binning reduced
+the amount of data by roughly a factor of 10, and it also partially
+corrected for the slight shift in m/z values as a result of trap
+overfilling occurring during peak elution. For signal filtering
+and background reduction, data was first smoothed using a
+moving average filter (3-scan header width, 2 cycles). A
+modified M-N rule was applied for peak detection in which a
+predefined baseline T (30% of trimmed mean) was multiplied
+by M (set at 2) to set the threshold (1000 counts), which should
+be exceeded by the peak intensity for at least N (set at 5)
+consecutive observations in the time dimension.38 If T was
+lower than 1000 counts, M  1000 was used as a threshold for
+that bin. For each bin, we included the m/z bin value, intensity
+of the data point with the highest intensity, and the mean
+retention time of the three data points with the highest intensity
+to generate the peak list.
+We used a similar approach as Radulovic et al.38 to obtain
+optimal settings for M and N. M (1.5-4) and N (4-8) were
+applied to two blank LC-MS runs and two LC-MS runs of the
+pooled urine sample. The settings at which the ratio between
+the number of peaks (between 30 and 80 min and broader than
+0.3 min at baseline  N) in the sample and in the blank was
+the highest and at which a minimal number of peaks was
+extracted from the noise in the blank chromatogram were used.
+Time alignment of the chromatograms was not needed,
+because the median (range) standard deviation of the retention
+time of the standard peptide peaks was only 0.37 (0.23-0.52)
+Table 1. Peak Area and Intensity Variation of Peptides Added
+to Urine after Normalization of the Injected Amount to
+Creatinine or UV-Area
+Creatinine [CVb (%)] AUC214a [CVb (%)]
+no.
+peptide
+sequence area intensity area intensity
+1 VYV 30.1 22.2 23.3 20.7
+2 GYYPT 19.3 16.2 13.2 11.9
+3 YPFPG 19.2 15.1 11.3 11.6
+4 DRVYIHPF 13.7 13.3 25.6 23.3
+5 YGGFL 21.5 16.3 5.9 6.1
+6 YGGWL 11.5 11.1 7.1 9.7
+7 YPFPGPI 20.4 20.1 15.4 17.6
+AUCTICc 38.4 10.1
+a Area under the curve of the UV-chromatogram (ì ) 214 nm) between
+30 and 80 min retention time. b Coefficient of variation. c Area under the
+curve of the total ion chromatogram between 30 and 80 min retention time.
+research articles Kemperman et al.
+196 Journal of Proteome Research ¥ Vol. 6, No. 1, 2007
+min. One-dimensional peak matching and missing peak al-
+location in different samples was realized by using a sliding
+windows technique in which similar m/z bins are evaluated
+for peaks proximate in time (step size, 0.1 min; search window,
+1.0 min; maximal accepted difference of centroided retention
+time within a group of matched peaks, 0.75 min). Missing peak
+allocation was performed by extracting the background in given
+m/z bins at the mean retention time of the other identified
+peaks. The generated final peak matrix, created from the peak
+matrices of the individual samples, consisted of a peak(row)-
+sample(column)-intensity(value) matrix. This final peak matrix
+was used for multivariate statistical analysis.
+All data preprocessing work was done on a personal com-
+puter equipped with a +3600 MHz AMD processor and with 4
+GB of RAM.
+2.5.3. Classification and Multivariate Statistical Methods.
+To select the most discriminating peaks, we applied the NSC
+classification algorithm.32,39 NSC regularizes data whereby class-
+specific centroids are “shrunk” toward the overall (nonclass-
+specific) centroid, which has the effect of eliminating the
+influence of the most weakly correlated peaks, thereby reducing
+the capacity to overfit.34 This algorithm is used to select peaks
+that are relevant for the discrimination of the predefined classes
+in conjunction with permutation tests to validate the classifica-
+tion algorithm40 using leave-one-out cross-validation (LOOCV)
+to avoid overfitting due to one outlier. The optimal shrinkage
+value was the value at which LOOCV showed the lowest
+classification error. In LOOCV, one observation per class is
+iteratively omitted from the data set that is used to construct
+the classification model, which is then used to classify the
+omitted observation as case or control. Variables selected at
+the highest shrinkage value and lowest LOOCV error were
+employed for construction of the final classification model. The
+selected peaks were then analyzed and visualized by plotting
+the first two principal components obtained after PCA.33 As a
+measure for class separation, the Mahalanobis distance (MD)
+was calculated.41 We consider an MD above the cutoff of 6.0,
+corresponding to a difference of 6 sigma between the mean
+centroids of the classes,40 as indicative for significant class
+separation.
+3. Results
+3.1. Method Development and Evaluation.
+3.1.1. Optimization of RP-HPLC. Resolution between the
+spiked peptides (see Experimental Procedures) was optimized
+by varying gradient steepness and flow rate in a central
+composite design. The goal was to achieve optimal resolution
+within a maximal runtime of 90 min and a flow rate of 50 íL/
+min, which is adapted to the ESI-source and the column
+diameter of 1 mm. Optimal resolution was obtained at a
+gradient steepness of 0.43% solvent B/min. Runs of urine
+samples of 6 healthy adults without the added peptides assured
+that there were no detectable peaks in the respective EIC at
+the retention times of the added peptides. A typical chromato-
+gram of 9.6 íL of urine spiked with 0.25-0.73 pmol of standard
+peptides under these conditions is shown in Figure 1A. For two
+peptides (DRVYIHPF and YPFPGPI), the mono- and dipro-
+tonated ions were extracted and combined into one trace,
+whereas for the other peptides, only the monoprotonated ions
+were observed and thus extracted (Figure 1B). Figure 1C shows
+the corresponding chromatographic trace at 214 nm of the in-
+line UV-detector.
+Figure 1. Analysis of a pooled urine sample spiked with nano-
+molar concentrations of internal standard peptides. (A) Smoothed
+and baseline-subtracted base peak chromatogram of a pooled
+urine sample (9.6 íL injected, equivalent to 50 nmol creatinine)
+co-injected with 5 íL of 1:2000 diluted peptide stock solution,
+after optimization of the resolution by varying gradient steepness
+in a central composite design. (B) Smoothed and baseline-
+subtracted extracted ion chromatograms (EIC) of the seven
+peptides used for optimization and internal standardization (same
+sample as shown in panel A). Peptide peaks correspond to
+n-times the lower limit of detection (LOD): peptide (n  LOD) 1,
+VYV (3.9); 2, GYYPT (2.3); 3, YPFPG (4.6); 4, DRVYIHPF (2.2); 5,
+YGGFL (9.5); 6, YGGWL (3.5); and 7, YPFPGPI (7.3); the absolute
+values for the LOD can be found in Table 2. The calculated LOD
+for VYV appears to be lower than the LOD that was derived from
+the signal-to-noise ratio of the peak shown in Figure 1B. Peptide
+m/z values and retention times derived from the analysis of
+diluted stock solutions were used to extract and appoint peaks
+to the standard peptides spiked into urine. (C) Smoothed and
+baseline-subtracted UV chromatogram (ì ) 214 nm) of the same
+urine sample as shown in panel A.
+Comparative Urine Analysis by LC-MS and Multivariate Statistics research articles
+Journal of Proteome Research ¥ Vol. 6, No. 1, 2007 197
+3.1.2. Normalization of Injected Amount of Urine to
+Creatinine or the AUC214. Since ESI is sensitive to matrix effects
+leading to ion-suppression,25 it is important to standardize the
+injected amount of urine in comparative analyses. Assuming
+that matrix effects are proportional to the injected amount, two
+methods of normalization were investigated: (i) to a given
+amount of creatinine (50 nmol) and (ii) to a fixed AUC214 value
+(1.02  105 absorbance units [AU]; see below for the calcula-
+tion). Creatinine was chosen, because of its frequent use in
+clinical chemistry, and the UV-area at 214 nm between 30 and
+80 min (AUC214) was chosen, because it normalizes the injected
+amount based on a large number of compounds, which is likely
+to be more representative of the overall sample composition.
+Moreover, normalizing to the AUC214 rather than to the AUC
+of the total ion chromatogram (AUCTIC) avoids confounding
+effects resulting from ion suppression, since extinction coef-
+ficients are characteristic of each compound as long as the
+linear range of the UV-detector is not exceeded. By starting
+integration at 30 min, we avoided the contribution of very small
+and very hydrophilic compounds, for example, small hydro-
+philic organic acids, to the AUC214.
+To investigate which normalization method of the injected
+amount (injection volume) was preferable, 10 different 24-h
+urine samples of children (male/female 5:5; age range 6.8-13.6
+years) with creatinine levels ranging from 2.0 to 10.6 mmol/L
+were analyzed. The initial sample volume injected onto the
+column was equivalent to 50 nmol creatinine, and the AUC214
+between 30 and 80 min was a measure of the overall amount
+of compounds injected. From this area, a new injection volume
+was calculated keeping the ‘injected AUC214’ constant at 1.02
+ 105 AU, which corresponds to an average amount of 50 nmol
+creatinine for the 10 urine samples. Five microliters of the 1:500
+diluted peptide stock solution (1.0-2.9 pmol per peptide) was
+co-injected to evaluate which method of standardization
+resulted in the most repeatable peak areas for each peptide.
+Overall, peptide MS signals showed less variation when the
+injected volume was normalized to a fixed AUC214 value as
+compared to a constant amount of creatinine (Table 1).
+Similarly, the AUCTIC between 30 and 80 min (dead time
+between UV detector and ion source was approximately 5 s),
+which reflects all of the MS-detected urinary compounds,
+improved with respect to the coefficient of variation (CV) from
+38% when normalized to creatinine to 10% when using the
+AUC214 value (Table 1). Generally, these results indicate that
+adjusting the injected amount of urine based on the AUC214 is
+preferable to minimize variations in peak area and intensity
+due to matrix effects, although this seems component-depend-
+ent. A drawback of using the UV-area is that one compound
+eluting at 35.0 min retention time determined a large portion
+(median [range]; 44% [14-62%]) of the total AUC214.
+3.1.3. Method Evaluation. The linearity and lower limit of
+detection (LOD) of the optimized LC-MS method were deter-
+mined by duplicate analyses of pooled urine samples spiked
+with peptides at concentrations of 0 (n ) 5), 10, 25, 50, 100,
+150, 250, and 500 nmol/L (calculated for YGGFL). Calibration
+curves were based on the respective smoothed and baseline
+subtracted EIC. Least-squares linear regression analysis was
+employed. The LOD is calculated from the intercept of the
+y-axis with the upper limit of the 95% confidence interval of
+the calibration curve.42
+The method exhibited good linearity (all curves P < 0.001)
+with R2 values ranging from 0.918 to 0.999 for peak area and
+intensity over the concentration range (data not shown). The
+LOD ranged from 5.7 to 21 nmol/L, depending on the peptide
+(Table 2). This corresponds to an injected amount of 54-204
+fmol per peptide (Table 2). Figure 1B shows the EIC of the
+respective peptides at the calculated 2-10 times their LOD (i.e.,
+0.25-0.73 pmol injected or 50-145 nmol/L). The calculated
+LOD for VYV appears to be lower than the LOD that was derived
+from the signal-to-noise ratio of the peak shown in Figure 1B.
+The within-day and between-day analytical variation of the
+method were determined by repetitive analyses (n ) 5) of the
+pooled urine sample (equivalent to 50 nmol creatinine) injected
+together with 5 íL of a low (1:2000 diluted peptide stock
+solution, 0.25-0.73 pmol) and a high (1:500 diluted peptide
+stock solution, 1.0-2.9 pmol) amount of added peptides on
+the same day and on five consecutive days, respectively.
+Outliers were removed (R ) 0.05) using the Dixon test43 and
+Cochran’s maximum variance test.44 Overall, the within-day and
+between-day variation ranged between 2.9 and 19% for the
+various peptides (Table 3).
+3.2. Data Processing and Multivariate Statistical Analysis
+of LC-MS Profiles of Urinary Compounds.
+3.2.1. Data Processing and Analysis. Binning from an
+instrumental resolution of 0.1 to 1 amu reduced the size of the
+data set to reach an acceptable data processing and analysis
+time on a normal desktop computer (see Experimental Proce-
+Table 2. Lower Limits of Detection (LOD) of Seven Peptides
+Used as Internal Standards
+no.
+peptide
+(sequence)
+m/z values
+of EICsa
+([M + H]1+,
+[M + 2H]2+)
+LOD
+(concentration)
+(nmol/L)
+LOD
+(amount)
+(fmol injected)
+1 VYV 380.2 19b 186b
+2 GYYPT 600.3 21 204
+3 YPFPG 580.3 12 113
+4 DRVYIHPF 1046.5, 523.8 12 114
+5 YGGFL 556.3 5.7 54
+6 YGGWL 595.3 15 143
+7 YPFPGPI 790.4, 395.7 5.7 55
+a Extracted ion chromatogram. b The reported LOD, calculated from the
+intercept of the y-axis with the upper limit of the 95% confidence interval
+of the calibration curve, appears to be lower than the LOD derived from the
+signal-to-noise ratio of peak VYV depicted in Figure 1B.
+Table 3. Within-Day (n ) 5) and Between-Day (5 days, n ) 5)
+Variation of Internal Standard Peptides Added to a Pooled
+Urine Sample
+within-day between-day
+peptide
+(sequence)
+amount
+injected
+(pmol)
+area
+CVb
+(%)
+intensity
+CV
+(%)
+RTa
+SDc
+(min)
+area
+CV
+(%)
+intensity
+CV
+(%)
+RT
+SD
+(min)
+VYV 0.73 12 11 0.36 18 14 0.482.9 6.0 12 7.2 9.5
+GYYPT 0.48 16 11 0.43 19 17 0.351.9 7.2 9.3 12 14
+YPFPG 0.53 12 7.3 0.25 13 10 0.372.1 3.2 4.4 6.5 8.7
+DRVYIHPF 0.25 19 12 0.23 5.3 6.0 0.431.0 7.4 13 8.1 9.1
+YGGFL 0.50 6.2 5.8 0.26 6.2 8.3 0.442.0 2.9 3.1 7.3 7.8
+YGGWL 0.50 3.0 4.5 0.27 4.8 5.3 0.472.0 3.5 3.6 6.6 6.8
+YPFPGPI 0.40 6.5 8.3 0.29 8.5 6.6 0.521.6 2.9 4.4 5.2 7.0
+a RT, retention time. b CV, coefficient of variation. c SD, standard deviation.
+research articles Kemperman et al.
+198 Journal of Proteome Research ¥ Vol. 6, No. 1, 2007
+dures for specifications). The M-N rule proved to be a simple,
+fast, and robust peak picking algorithm, which generated a peak
+list within 1 h per sample. The input, that is, the number of
+samples, determined the time required for peak matching,
+missing peak allocation, and construction of the final peak
+matrix (see Experimental Procedures for details).
+3.2.2. Multivariate Statistical Comparison of Pooled Urine
+Samples To Assess the Effect of Analytical Variation. LC-MS
+data from repetitive analyses (n ) 6) of 11.1 íL injections of
+blank pooled urine (AUC214 ) 1.02  105 AU) and of the same
+urine spiked at 2-10 times the LOD (n ) 6) were processed as
+described before to obtain a final matrix containing 10 029
+peaks. This peak matrix was used to construct a PC score plot
+of the two first principal components (PC 1 and PC 2) best
+explaining the total variance of the data (Figure 2A). When all
+10 029 peaks were used, the plot showed a strong overlap
+between the blank (purple () and spiked (gray f) group, which
+was confirmed by an MD of 0.43 (nonsignificant).
+Figure 2. Description of the analytical variation in urine profiles
+from a pooled urine sample analyzed six times. (A) The principal
+component (PC) analysis plot using the complete peak matrix of
+10 029 peaks shows overlap between repetitions of the blank
+(purple () and spiked (gray f; 2-10 times lower limit of detection
+of standard peptides) pooled urine sample. Together, PC 1 and
+PC 2 explain only 30.39% of the variation between the samples.
+(B) The biplot depicts the same blank (purple () and spiked (gray
+f) samples as in panel A together with 17 of the 10 029 most
+discriminating peaks (red 1) selected by the nearest shrunken
+centroid classification method at a leave-one-out cross-validation
+error of 0. Arrows indicate peaks that do not belong to the added
+peptides. In contrast to panel A, PC 1 and PC 2 now explain a
+much larger portion (85.65%) of the variation between the
+samples. Ellipses circle groups of samples belonging to the same
+class, i.e., blank and spiked.
+Figure 3. Description of the analytical and biological variation
+in urine profiles from six healthy individuals. (A) The principal
+component (PC) analysis plot using the complete peak matrix of
+14 234 peaks shows overlap between the blank (blue b) and
+spiked (green 9; 2-10 times lower limit of detection of standard
+peptides) urine samples of six apparently healthy adults, and six
+repetitive analysis of a blank (n ) 6; purple () and a spiked (n )
+6; gray f) pooled urine sample. Co-localization (red ellipses) of
+the blank and spiked samples from the same individual (for 5
+out of 6 individuals) and the pool suggests biological variation
+to be the main determinant of the observed variation between
+samples. Unsupervised PC analysis obviously provides insuf-
+ficient discriminatory power to detect the variation caused by
+spiking. Together, PC 1 and PC 2 explain 45.74% of the variation
+between the samples. (B) The biplot depicts the same blank (blue
+b) and spiked (green 9) samples as in panel A together with 16
+of the 14 234 most discriminating peaks (red 1) selected by the
+nearest shrunken centroid classification method at a leave-one-
+out cross-validation error of 0. PC 1 in the biplot explains 78.51%
+of the variation between blank (blue b) and spiked (green 9)
+samples. Two peaks (X and Y) could not be related to the added
+peptides.
+Comparative Urine Analysis by LC-MS and Multivariate Statistics research articles
+Journal of Proteome Research ¥ Vol. 6, No. 1, 2007 199
+Application of the NSC classification method yielded 17
+highly discriminatory peaks (red 1) out of the original peak
+matrix at a shrinkage value of 3.0 with a LOOCV (see Experi-
+mental Procedures) error of 0 (Figure 2B). Fourteen (82%) of
+these 17 peaks could be traced back to the added standard
+peptides based on m/z values and retention times. These 14
+peaks were elevated in the spiked group as expected (data not
+shown). Of the remaining three peaks (arrows), two were
+located in the region of the blank urine sample and one was
+located in the spiked samples area. Univariate comparison
+revealed no significant difference between peak areas (P > 0.5)
+indicating that these peaks were selected by chance. The higher
+number of selected peaks relative to the number of spiked
+peptides is due to the fact that the original data were not
+deconvoluted with respect to charge state or isotopic distribu-
+tion. However, this did not affect the classification of samples.
+The PCA biplot, based on the 17 selected peaks, showed clear
+discrimination between the blank and the spiked samples,
+which was confirmed by an MD of 9.91 (significant). Urine
+samples spiked at nanomolar concentrations with peptides can
+thus be discriminated using the developed LC-MS method
+followed by supervised peak selection with cross-validation and
+visualization of the first two principal components.
+3.2.3. Multivariate Statistical Comparison of Urine Samples
+from Different Individuals To Assess the Effect of Biological
+Variation. LC-MS data obtained from the analysis of blank
+and spiked (2-10 times LOD) urine samples (6.6-19.8 íL
+injected; AUC214 ) 1.02  105 AU) of six healthy individuals
+(male/female 3:3; median age [range] 27 years [25-30]) yielded
+a matrix containing 14 234 peaks. To relate analytical variation
+to biological variation, we generated a common matrix of
+Figure 4. Univariate comparison of peak areas and intensities
+of peptides/peaks discriminating blank from spiked urine samples
+from different individuals. Graphs represent univariate paired
+comparisons (P-values) of peak area (A) and intensity (B) of
+smoothed and baseline-subtracted extracted ion chromatograms
+from raw LC-MS data of the peptides/peaks selected by the
+nearest shrunken centroid classification method. Bars represent
+the mean values (error bars: (1 SD). The median (error bars:
+minimum-maximum) is presented for the area of 356.5 m/z and
+the intensity of peptide VYV. Comparison was performed with
+the Wilcoxon signed ranks test (nonparametric) and the paired
+Student’s t-test (parametric) dependent on the normality of the
+distribution (Shapiro-Wilk’s test).
+Figure 5. Comparison of urine samples from proteinuric and
+nonproteinuric patients with renal disorders. The biplot (A) shows
+the urine samples from 6 patients with proteinuria (green 9; g1
+g/L total protein concentration in a random portion of urine) and
+from 6 patients without proteinuria (blue b; e0.1 g/L) but with a
+medical history of renal morbidity. Ninety-two peaks (red 1) out
+of 11 867 were selected for their discriminatory properties by the
+nearest shrunken centroid classification method at a leave-one-
+out cross-validation error of 0. The arrow indicates an upregu-
+lated peak in the nonproteinuria group. When this model was
+used, classification of 24 samples from apparently healthy
+individuals (purple () resulted in a dense cluster (purple ellipse)
+that was separated from the nonproteinuric patients (B) implying
+large differences in the composition of urine between healthy
+individuals and hospitalized patients with or without proteinuria.
+The enlarged area in panel B shows that some patients without
+overt proteinuria show a trend in PC 1 placing them at various
+levels toward overt proteinuria.
+research articles Kemperman et al.
+200 Journal of Proteome Research ¥ Vol. 6, No. 1, 2007
+14 234 peaks including the samples described under Section
+3.2.2, which reflect analytical variation only.
+Figure 3A shows a PC score plot generated with the entire
+peak matrix. Blank (blue b) and spiked (green 9) samples of
+the same individual colocalized in 5 out of 6 cases. This
+indicates that the analytical variation is much smaller than the
+biological variation between different healthy individuals.
+Colocalization of the data points from the repetitive analyses
+of blank (purple () and spiked (gray f) pooled urine samples
+(analytical variation only) emphasizes the importance of
+biological variation relative to analytical variation further.
+Moreover, pooling the urine of these six healthy individuals
+averaged the explained variation represented by PC 1 and PC
+2 (both around 0) out.
+It was, thus, of importance to assess whether spiking of the
+seven standard peptides at 2-10 times the LOD could still be
+discriminated despite the observed biological variation. The
+NSC algorithm yielded 16 discriminatory peaks (red 1) from
+the original peak matrix at a shrinkage value of 1.85 with an
+LOOCV error of 0. Fourteen (88%) of these 16 peaks could again
+be related to 6 of the 7 added peptides based on m/z values
+and retention times (Figure 3B). Peak areas and intensities,
+derived from the EIC of the first two isotopic peaks of the NSC-
+selected peptide peaks, were compared by univariate statistics
+(Figure 4). P-values were less than 0.001 for area (Figure 4A)
+and intensity (Figure 4B) for 5 out of the 7 spiked peptides,
+whereas no significant difference was found for the two other
+peaks that the NSC algorithm had selected as being discrimina-
+tory. One of these peaks (peak X in Figure 3B; 694.6 m/z)
+coeluted with one of the spiked peptides (YPFPGPI; [M+ H]+
+) 790.4 m/z). The nonsignificant decrease in peak area and
+intensity of this signal after spiking suggests an ion-suppression
+effect. We could not clarify the reason why the peak at 80.85
+min (peak Y in Figure 3B; m/z ) 356.5) was selected as being
+Figure 6. Univariate comparison of peak area and intensity of 6 peaks discriminating proteinuria from nonproteinuria. Represented
+are box and whisker plots and the corresponding P-values for univariate comparisons of peak area (A) and intensity (B) of smoothed
+and baseline-subtracted extracted ion chromatograms (EIC) from raw LC-MS data of 6 discriminating peaks selected by the nearest
+shrunken centroid (NSC) classification method. Comparison was performed with the Mann-Whitney U test (nonparametric) and the
+Student’s t-test (parametric) dependent on the normality of the distribution (Shapiro-Wilk’s test). Panel C shows the EIC of two
+discriminatory peaks selected by the NSC algorithm for the proteinuric (blue) and nonproteinuric (red) samples.
+Comparative Urine Analysis by LC-MS and Multivariate Statistics research articles
+Journal of Proteome Research ¥ Vol. 6, No. 1, 2007 201
+discriminatory by the NSC algorithm. The NSC algorithm
+missed the added peptide GYYPT as being discriminatory
+probably because it eluted early in the gradient and was added
+to the urine at a concentration equivalent to 2.2 times the LOD.
+Despite this fact, it was clearly possible to discriminate the two
+groups of samples based on a PCA score plot, explaining 89.6%
+of the variation between blank and spiked samples, using the
+16 selected peaks (MD of 9.10) in the presence of the observed
+biological variation.
+Classification of the repetitions of the blank and spiked
+pooled urine samples, using the 16 peaks selected by the NSC
+algorithm, resulted also in assignment of the samples to the
+appropriate classes (MD of 8.04; not shown).
+3.2.4. Application of the Developed Methodology to Urine
+from Patients with and without Proteinuria. To evaluate the
+applicability of the described methodology, we studied urine
+of hospitalized patients with established proteinuria (P; male/
+female 5:1; median age, 60 years [60-75]; median (range) total
+protein concentration in a random portion of urine, 7.6 g/L
+[6.5-10]) due to primary or secondary renal morbidity, and we
+studied urine of hospitalized patients with a medical history
+of renal morbidity but without proteinuria at the time of
+sampling (NP; male/female 5:1; median age, 63 years [56-72];
+total protein concentration in portion urine, 0.1 g/L [0.0-0.2]).
+Proteinuria was defined as having a total urinary protein
+concentration above 1 g/L in a random portion. The total peak
+matrix contained 11 867 peaks and did not allow discrimination
+between the proteinuric and nonproteinuric samples (MD )
+1.84) without supervised classification.
+The NSC classifier yielded 92 discriminatory peaks at a
+shrinkage value of 1.88 with a LOOCV error of 0. The urine
+samples with and without proteinuria were discriminated (MD
+) 6.95) in the PC 1 dimension of the biplot (Figure 5A). Ninety-
+one out of 92 discriminatory peaks (red 1) increased in intensity
+in proteinuria (green 9), whereas one peak seemed to be
+increased (arrow) in the samples without proteinuria (blue b).
+Classification of the urine samples from six healthy individuals
+described in Sections 3.2.2 and 3.2.3 (spiked or blank; total of
+24 samples; purple () using the model generated with the
+variables selected from the 12 chromatograms described in this
+section resulted in the formation of a dense cluster close to
+the nonproteinuric samples (Figure 5B), discriminating them
+even more strongly from the proteinuric samples (MD ) 15.40)
+notwithstanding the fact that some of them contained spiked
+peptides. Most remarkable was the difference (MD ) 3.39)
+between the urine samples of apparently healthy individuals
+without known renal morbidity used for spiking experiments
+and the patients with (a history of) renal morbidity but without
+proteinuria. A trend of progressing renal disease may be
+implied, as patients shift to the right along the PC 1-axis.
+3.2.5. Selection of Discriminatory Peaks and Identification
+by Tandem Mass Spectrometry. The 92 discriminatory peaks
+obtained by NSC from the total peak matrix were curated by
+manual de-isotoping and charge deconvolution. From the
+resulting 54 curated peaks, we selected 6 peaks for further
+univariate statistical comparison, based on their elevated levels
+in the majority of the proteinuric samples. Figure 6 shows the
+box and whisker plots and corresponding P-values for univari-
+ate comparison of the peak areas (Figure 6A) and intensities
+(Figure 6B) of these 6 peaks for the two patient groups. The
+overlaid EIC of 2 of the 6 peaks (Figure 6C) showed that both
+of these peaks were increased in 3 out of 6 proteinuric urine
+samples, but not in the nonproteinuric samples. This indicates
+Table 4. Proteins in a Proteinuric Urine Sample Identified by
+LC-MS/MS and Subsequent UniProt Database Search by the
+MASCOT Algorithm
+protein
+accession
+no. scorea
+cov.
+(%)b
+no,
+peptidesc
+R-1-antitrypsin precursord P01009 1090 43 16/35
+serum albumin precursord P02768 445 11 4/19
+haptoglobin precursord P00738 173 14 1/9
+serotransferrin precursord P02787 153 7 2/7
+R-1-acid glycoprotein 1 precursord P02763 117 12 1/7
+apolipoprotein A-I precursord P12270 103 9 1/3
+hemoglobin â-subunitd P68871 102 21 2/3
+R-1-antichymotrypsin precursord P01011 99 10 1/5
+transthyretin precursor (prealbumin)d P02766 96 28 2/5
+collagen R-1 (XIV) chain precursor P02766 73 1 1/5
+a Listed are proteins associated with the 10 highest probability-based
+Mowse scores (remaining identified proteins with a Mowse score g61 (P <
+0.001) are listed in Supporting Information). An in-house version of the
+Mascot search engine (v1.9.05) was used to search the UniProt (release 7.7)
+database. Enzyme ‘none’ was specified for the search. b Percent ratio of all
+amino acids from valid peptide matches to the total number of amino acids
+in the protein. c Number of unique peptide matches (ion score > 34 [P <
+0.05] was considered significant) followed by the total number of peptide
+matches found for the given protein. d Proteins were also identified by
+Phenyx (Table 5). Further detailed information is available in Supporting
+Information.
+Table 5. Proteins in a Proteinuric Urine Sample Identified by LC-MS/MS and Subsequent UniProt/Swiss-Prot Databases Search by
+the Phenyx Algorithm
+protein accession no. scorea cov. (%)b no. peptidesc
+R-1-antitrypsin precursord P01009_WOSIG0 187.8 35 39/57
+serum albumin precursord P02768_WOSIG0 47.43 4 9/21
+haptoglobin-related protein precursord P00739_WOSIG0 40.49 12 8/10
+R-1-acid glycoprotein 1 precursord P02763_WOSIG0 28.28 14 6/10
+hemoglobin â-subunitd P68871 25.33 16 4/6
+serotransferrin precursord P02787_WOSIG0 24 3 4/9
+R-1-acid glycoprotein 2 precursor P19652_WOSIG0 14.95 9 3/3
+apolipoprotein A-I precursord P02647_WOSIG0 13.93 8 2/5
+R-1b-glycoprotein precursor P04217_WOSIG0 9.33 2 1/3
+zinc-R-2-glycoprotein precursor P25311_WOSIG0 8.87 3 3/3
+transthyretin precursor (prealbumin)d P02766_WOSIG0 8.82 8 1/4
+R-1-antichymotrypsin precursord P01011_WOSIG0 8.37 3 2/7
+angiotensinogen precursore P01019_PEPT0 8.29 80 1/1
+a Listed are the proteins with AC-scores g 8 (remaining identified proteins with an AC-score g 5 are listed in Supporting Information). A Web-based version
+of the Phenyx search engine (v2.1) was used to search the UniProt_Sprot (r. 48.8 of 10-Jan-2006) at AC-scores g 5. Enzyme ‘Chymotrypsin (FYL)’ was specified
+for the search. b Percent ratio of all amino acids from valid peptide matches to the total number of amino acids in the protein. c Number of valid peptide
+matches followed by the total number of peptide matches found for the given protein. Further detailed information is available in Supporting Information.
+d Proteins were also identified by MASCOT (Table 4). e Angiotensin II was spiked into the urine sample at a concentration of 0.5 íM (2.5 pmol).
+research articles Kemperman et al.
+202 Journal of Proteome Research ¥ Vol. 6, No. 1, 2007
+a considerable variability in the proteinuric patient group,
+which is also evident from the PCA score plot (see Figure 5),
+relative to patients with kidney disease but no proteinuria.
+Interestingly, there was no correlation (P > 0.05, R2 e 0.0276)
+between total protein content in urine and peak area or
+intensity of these 6 peaks in patients with proteinuria, sug-
+gesting that the selected peaks discriminate patients not simply
+based on the total protein concentration in urine. Remarkably,
+most of the selected peaks did not reach statistical significance
+(P < 0.05) on their own when comparing proteinuric and
+nonproteinuric patient samples due to the large variation in
+the proteinuric patient group. This adds further support to the
+value of a multivariate statistical comparison for discrimination
+between complex samples.
+The proteinuric urine sample containing the highest level
+of these six peaks was analyzed in duplicate by nanoLC ESI-
+Q-TOF MS/MS to identify the parent protein(s) from which the
+discriminating peaks were derived. LC-MS data were processed
+as described under Experimental Procedures. Tables 4 and 5
+list the most significant hits of identified proteins for MASCOT-
+Figure 7. Serum albumin peptides identified by LC-MS/MS. (A) The amino acid sequence of serum albumin precursor (Uniprot_Sprot
+AC no. P02768-CHAIN0) is shown. Peptide matches are listed and highlighted in colored boxes (green for valid peptides, red for invalid
+peptides, and orange for valid half-cleaved peptides). Two of the serum albumin precursor peptides (boxed amino acids in italic and
+bold) were selected by nearest shrunken centroid (NSC) classification to be discriminatory between proteinuria and nonproteinuria,
+whereas two (boxed amino acids in bold) of the other albumin peptides were not selected by NSC. Panel B depicts the extracted ion
+chromatograms of these two nondiscriminatory albumin peptides for the proteinuric (blue) and nonproteinuric (red) samples indicating
+that these peptides are also elevated in some proteinuric patients (see Figure 6C for discriminatory peptides).
+Comparative Urine Analysis by LC-MS and Multivariate Statistics research articles
+Journal of Proteome Research ¥ Vol. 6, No. 1, 2007 203
+and Phenyx-algorithm based Uniprot/Swiss-Prot database
+searches, respectively. Most of the identified proteins are
+derived from blood.
+Two of the peaks selected by the NSC algorithm to be
+elevated in proteinuric urine samples (Ion-Trap 573.0 m/z, 3+
+and 712.3 m/z, 1+; Figure 6C) were identified as possible
+breakdown products of human serum albumin by both algo-
+rithms (Figure 7A: serum albumin precursor protein, P02768-
+CHAIN0 in uniprot_sprot, L.VRYTKKVPQVSTPTL.V, and
+L.IAFAQY.L position 31-36; Table 6), a protein that is known
+to be increased in concentration in glomerular proteinuria.5
+Manual conversion of the monoisotopic multiply charged
+fragment ions to monoisotopic singly charged fragment ions
+confirmed the identity of one peptide with a higher score (Table
+6). To evaluate peak selection by the NSC algorithm, we
+compared the respective EIC of two other albumin-derived
+peptides that were not selected by the NSC algorithm (Table 6
+and Figure 7B). The levels of the two discriminatory peptides
+were elevated in at least 3 out of 6 proteinuric patients (for
+both peptides; P > 0.05), while the other two nondiscriminatory
+peptides showed increased intensities in only 2 out of 6 patients
+(for both peptides; P > 0.05). The fact that the NSC algorithm
+did not select these two peptides indicates that it was not able
+to detect them as discriminatory due to the large biological
+variability in the proteinuric patient group. The observation
+that there are proteolytic fragments of albumin with a higher
+discriminatory value than others points toward the existence
+of ‘disease-specific’ proteolytic degradation of albumin and
+urinary excretion of its fragments. This idea is supported by
+recent data of Osicka and Comper45 and Villanueva et al.46
+4. Discussion and Conclusion
+The aim of this work was to develop a platform for the
+comparative profiling of urine by microbore, reversed-phase
+HPLC coupled on-line with ESI-Ion Trap MS. Dedicated data
+preprocessing followed by statistical classification (with cross-
+validation) and PCA were used to assess the relative contribu-
+tions of analytical and biological variation to the obtained
+results as well as to apply the methodology to a sample set of
+kidney patients with and without proteinuria.
+4.1. Method Development and Evaluation. Urine has been
+the biofluid of choice in many clinical and pharmacological
+studies focusing on diseases of the genitourinary tract.47-50
+Profiling urinary (trypsin-digested) proteins and peptides usu-
+ally starts with prefractionation or (affinity-) enrichment fol-
+lowed by separation based on physicochemical properties (e.g.,
+by HPLC and/or 1D/2D electrophoresis [1DE/2DE]) and detec-
+tion/identification by mass spectrometry.18,51-53 While 1DE/2DE
+are often used in urinary proteomics, their application is limited
+by poor coverage of proteins with extreme properties (e.g., low
+molecular weight; high isoelectric point) or low concentration,
+a relatively low sample throughput, and the difficulty to
+automate handling of large numbers of clinical samples.51
+Profiling by LC-MS provides an alternative with advantages
+in areas where 1DE/2DE is weak, notably, the low-molecular
+weight region of the proteome also termed the peptidome. The
+urinary peptidome can be considered complementary to the
+urinary proteome, since most peptides are derived from higher
+molecular weight proteins through proteolytic cleavage.18 Since
+there is evidence that the “degradome” of high molecular
+weight proteins may give insights into disease mechanisms and
+provide new diagnostic biomarkers,46,54 we have developed a
+simple, rapid, and robust on-line reversed-phase LC ESI Ion
+Trap MS-based profiling method with minimal sample pre-
+treatment directed at low-molecular weight compounds in
+urine.
+Validation parameters such as the LOD, linearity, within- and
+between-day analytical variation, and standard deviation for
+retention time and peak area were used to characterize the
+method. Sensitivity for peptides (3-8 amino acids) is compa-
+rable to what can be routinely attained with a microbore-LC
+ESI-Ion Trap MS configuration, that is, detection of low
+nanomolar (<25 nmol/L) concentrations and femtomole quan-
+tities (<250 fmole) of peptides.55 However, it must be remarked
+that small peptides, such as one of the standard peptides VYV,
+that elute at the beginning of the gradient are prone to higher
+analytical variation in terms of peak area and retention time,
+especially at low concentrations. This is likely due to some
+chromatographic migration under the isocratic sample loading
+conditions affecting retention time and possibly small losses
+during loading of the trap column. Very small peptides,
+however, tend to be less disease-specific, as they may be
+derived from a wide range of precursor proteins. Since our
+method does not rely on stable isotope-labeled internal stan-
+dards, it was critical to evaluate its linearity, which was larger
+than R2 ) 0.9 for each of the 7 added peptides tested over a
+concentration range from 10 to 500 nM, supporting the
+presumed linear relationship between peptide concentration
+and MS response.28 A linear correlation between peptide
+concentration and detected signal allows compositional analy-
+ses not only from a qualitative but also from a quantitative
+point of view enabling us to address changes in concentrations
+of the detected compounds.56 Randomization of the order of
+analysis was used to level out systematic errors due to
+unavoidable between-day and within-day analytical variation,
+which might otherwise confound the ensuing statistical analy-
+sis. Together, these performance characteristics can be used
+for power calculations when setting up biomarker discovery
+projects.18 Guidelines for power calculations in LC-MS-driven
+biomarker research are lacking. However, experimental data
+Table 6. Peaks Identified by LC-MS/MS as Serum Albumin-Derived Peptides
+sequence
+cleavage
+specificity modifications
+precursor mass
+(Da) charge
+mass error
+(Da) score position
+Selected by NSCa
+L.VRYTKKVPQVSTPTL.Vb 1 MCc none 1715.99 3+ 0.02 40d 415-429
+L.IAFAQY.Le 1 MC none 711.359 1+ 0.036 4.99f 31-36
+Not Selected by NSC
+L.GEENFKALVL.Ie 2 MC none 1118.597 2+ 0.014 5.1f 21-30
+L.PSLAADF.Ve half none 719.349 1+ 0.03 4.73f 303-309
+a Peptides selected by nearest shrunken centroid (NSC) classifier. b Peptide identified using MASCOT. c MC, missed cleavage. d Individual ion score > 33
+indicates identity or extensive homology (p < 0.05). e Peptides identified using Phenyx. f Peptides with z-scores g 4 and p < 0.0001 were considered significant.
+Further detailed information is available in Supporting Information.
+research articles Kemperman et al.
+204 Journal of Proteome Research ¥ Vol. 6, No. 1, 2007
+from microarray studies provide some guidelines with respect
+to power calculations, that is, sample size, variability of the
+population, desired detectable differences, acceptable error
+rate, experimental design, technical variability, and data pre-
+processing.57,58
+In contrast to most published studies, we opted for pre-
+analytical normalization of the amount of injected sample as
+compared to postanalytical data normalization, since post-
+analysis normalization cannot account for nonlinear effects
+such as ion suppression. There are still many issues to address
+in postanalysis data normalization, such as global versus local
+normalization, replicate filtering, and averaging.34,38,59 The
+urinary creatinine concentration is generally used as normal-
+ization factor in comparative studies.17,18 Normalization based
+on creatinine was compared with a multicompound normal-
+ization strategy based on the AUC214 of the chromatographic
+region of interest (excluding amino acids, small hydrophilic
+peptides, and other early eluting UV-absorbing compounds).
+The latter approach seems better adapted to normalizing the
+amount of urine over a wide range of compounds, as was
+supported by the lower CV of the AUCTIC and the peak areas
+of the added peptides. The drawback of this approach is that
+duplicate analyses are required and that the relatively large
+contribution of one peak/compound to the total UV-area
+suggests, in essence, normalization to only a few highly
+abundant UV-absorbing compounds. Development and evalu-
+ation of other preanalytical multicompound normalization
+strategies for the comparative profiling of urine remains,
+therefore, an issue.
+4.2. Data (Pre-)Processing and Multivariate Statistical
+Comparison of LC-MS Profiles of Urinary Compounds in
+Different Experimental Settings. The performance of the
+developed analytical platform was evaluated (i) by assessing
+the effect of analytical and biological variation on the com-
+parison of urine samples spiked with exogenous peptides and
+(ii) by a preliminary study comparing urine samples of hospi-
+talized patients with and without proteinuria due to various
+causes.
+Unsupervised multivariate statistical analysis by PCA using
+the complete peak matrix of about 14 000 peaks was unable to
+discriminate blank from spiked pooled urine samples. The
+observed variation between the samples is, in this case,
+composed of analytical variation and variation introduced by
+the added peptides (low nanomolar concentrations). Our
+results suggest that spiking affects the linear combination of
+all elements composing the data vectors in an unsupervised
+setting only minimally. It is therefore necessary to apply a
+supervised classification algorithm (the NSC with permutation-
+based cross-validation in our case) to select discriminating
+elements prior to PCA, which resulted in clear separation
+between spiked and blank samples in the PC 1 dimension. We
+employed the NSC classifier, because of its simplicity and the
+fact that Tibshirani et al.39 found it to perform as well or even
+better than several other classifiers. The validity of the described
+approach was shown by the fact that the NSC algorithm was
+capable of extracting the added peptides as discriminatory
+peaks out of the 14 000 feature-containing peak matrix. How-
+ever, 3 peaks selected by the classifier could not be related to
+the added peptides through possible ion-suppression or in-
+source fragmentation products of the added peptides. Analyti-
+cal artifacts and suboptimal data processing issues, for example,
+binning,56 might have played a role. These issues are presently
+being addressed.
+Comparing blank and spiked urine samples of different
+healthy individuals by unsupervised PCA proved that variation
+in urinary peptide profiles between-subjects (i.e., biological
+variation) was much larger than within-subjects (i.e., analytical
+variation), irrespective of spiking. However, the correct clas-
+sification of blank versus spiked urine samples from different
+individuals using the NSC-selected peaks (14 out of 16 were
+related to the spiked peptides) emphasizes the applicability of
+the platform also in the presence of considerable biological
+variation. Nevertheless, some issues, for example, the selection
+of false-positive discriminatory peaks, remain to be addressed.
+Our preliminary study comparing urine samples from hos-
+pitalized patients with a normal and high protein content
+resembled a study of Jurgens et al. 18 Using LC combined with
+off-line MALDI-TOF MS detection and differential peptide
+display to compare pathological with healthy urines, they
+observed a substantial number of peptides in post-renal
+disease, which are absent in normal urine. Ninety-two peaks
+were selected from the LC-MS data to obtain a zero classifica-
+tion error. The larger portion (75%) of these peaks eluted late
+in the gradient, which suggests that they are rather hydro-
+phobic. Clustering of the nonproteinuric samples from healthy
+individuals apart from the nonproteinuric samples from hos-
+pitalized patients, indicates that there is a trend of increased
+renal dysfunction in these patients as visualized by a right-
+shift in PC 1. Our current platform appears to be suitable for
+the study of early stage renal disease, but larger sets of samples
+need to be analyzed to substantiate these findings. The
+identified precursor proteins in the proteinuric urine samples
+are in good agreement with other studies profiling the urinary
+proteome3,10,16,51 and peptidome.18 The identification of two
+discriminatory peaks as serum albumin-derived peptides is in
+accordance with the expected rise of albumin during glom-
+erular proteinuria. Albumin is the first protein to rise in
+proteinuria and is degraded intracellularly in the lysosomes
+after which the fragments are exocytosed to the apical and
+basolateral sides of the renal tubular cells.60 Recently, it has
+also been suggested that significant amounts of albumin
+fragments are excreted in urine, possibly resulting from tubular
+degradation of filtered albumin, followed by luminal secretion
+of its fragments.61,62 Disease-specific proteolytic degradation
+products of tissue or biofluid proteins are possible biomarker
+candidates.46 However, most discriminatory peaks, including
+the albumin-derived peptide peak, were not significantly
+elevated in proteinuria when analyzed by univariate statistics
+due to a very large biological variation among the proteinuric
+patient group. The use of higher-order interactions between
+features in multivariate statistical analysis, thus, provides more
+discriminative power than univariate statistics. Manual univari-
+ate comparison of selected peaks remains, however, imperative
+for biomarker selection and further identification.
+In summary, we have developed an analytical platform for
+the comparative analysis of urine samples by LC-MS followed
+by dedicated data preprocessing and multivariate statistical
+analysis of the obtained profiles. The analytical and biological
+variation did not adversely affect the performance of the
+method with respect to the classification of blank and spiked
+samples of different origin. The preliminary study of pathologi-
+cal and healthy urine samples emphasizes the potential of the
+platform not only for patient classification but also for detecting
+trends. However, some issues remain to be addressed and
+improved to enhance the performance of the platform. Cur-
+rently, we are implementing more advanced data processing
+Comparative Urine Analysis by LC-MS and Multivariate Statistics research articles
+Journal of Proteome Research ¥ Vol. 6, No. 1, 2007 205
+and multivariate statistical analysis approaches such as data
+meshing instead of binning, optimized M-N rule filtering for
+peak detection, and improved peak matching methods together
+with de-isotoping and charge-deconvolution. Advanced reten-
+tion time alignment and possibly m/z alignment algorithms
+are also being considered, as well as other classifying algorithms
+and methods. Combined with larger and better defined urine
+sample sets, this will allow us to do advanced proof-of-principle
+studies toward the goal of defining reliable biomarkers suitable
+for clinical validation.
+Acknowledgment. We thank Marcel de Vries for skillful
+technical assistance during LC-MS/MS experiments. The
+patients and volunteers are also greatly acknowledged for their
+participation in this study. The Department of Analytical
+Biochemistry is member of The Netherlands Proteomics Center
+(NPC).
+Supporting Information Available: Detailed experi-
+mental description of the urine analysis method and MS/MS
+database queries for protein and peptide identification. This
+material is available free of charge via the Internet at http://
+pubs.acs.org.
+References
+(1) Kumar, S.; Tsai, C. J.; Nussinov, R. Biochemistry 2003, 42, 4864-
+4873.
+(2) Marshall, T.; Williams, K. Electrophoresis 1996, 17, 1265-1272.
+(3) Pieper, R.; Gatlin, C. L.; McGrath, A. M.; Makusky, A. J.; Mondal,
+M.; Seonarain, M.; Field, E.; Schatz, C. R.; Estock, M. A.; Ahmed,
+N.; Anderson, N. G.; Steiner, S. Proteomics. 2004, 4, 1159-1174.
+(4) Ye, B.; Skates, S.; Mok, S. C.; Horick, N. K.; Rosenberg, H. F.;
+Vitonis, A.; Edwards, D.; Sluss, P.; Han, W. K.; Berkowitz, R. S.;
+Cramer, D. W. Clin. Cancer Res. 2006, 12, 432-441.
+(5) Tietz Textbook of Clinical Chemistry; Burtis, C. A., Ashwood, E.
+R., Tietz, N. W., Eds; Saunders: Philadelphia, PA, 2005.
+(6) Lenz, E. M.; Bright, J.; Wilson, I. D.; Hughes, A.; Morrisson, J.;
+Lindberg, H.; Lockton, A. J. Pharm. Biomed. Anal. 2004, 36, 841-
+849.
+(7) Bischoff, R.; Luider, T. M. J. Chromatogr., B: Anal. Technol.
+Biomed. Life Sci. 2004, 803, 27-40.
+(8) Goodacre, R.; Vaidyanathan, S.; Dunn, W. B.; Harrigan, G. G.; Kell,
+D. B. Trends Biotechnol. 2004, 22, 245-252.
+(9) van der Greef, J.; Davidov, E.; Verheij, E.; Vogels, J.; van der
+Heijden, R.; Adourian, A. S. In Metabolic Profiling: Its Role in
+Biomarker Discovery and Gene Function Analysis; Harrigan, G.
+G., Goodacre, R., Eds.; Kluwer Academic Publishers: Boston, MA,
+2003.
+(10) Thongboonkerd, V.; McLeish, K. R.; Arthur, J. M.; Klein, J. B.
+Kidney Int. 2002, 62, 1461-1469.
+(11) Aebersold, R.; Mann, M. Nature 2003, 422, 198-207.
+(12) Pang, J. X.; Ginanni, N.; Dongre, A. R.; Hefta, S. A.; Opitek, G. J.
+J. Proteome Res. 2002, 1, 161-169.
+(13) Kennedy, S. Toxicol. Lett. 2001, 120, 379-384.
+(14) Hampel, D. J.; Sansome, C.; Sha, M.; Brodsky, S.; Lawson, W. E.;
+Goligorsky, M. S. J. Am. Soc. Nephrol. 2001, 12, 1026-1035.
+(15) Celis, J. E.; Wolf, H.; Ostergaard, M. Electrophoresis 2000, 21,
+2115-2121.
+(16) Spahr, C. S.; Davis, M. T.; McGinley, M. D.; Robinson, J. H.; Bures,
+E. J.; Beierle, J.; Mort, J.; Courchesne, P. L.; Chen, K.; Wahl, R. C.;
+Yu, W.; Luethy, R.; Patterson, S. D. Proteomics. 2001, 1, 93-107.
+(17) Cutillas, P. R.; Norden, A. G.; Cramer, R.; Burlingame, A. L.; Unwin,
+R. J. Clin. Sci. 2003, 104, 483-490.
+(18) Jurgens, M.; Appel, A.; Heine, G.; Neitz, S.; Menzel, C.; Tammen,
+H.; Zucht, H. D. Comb. Chem. High Throughput Screening 2005,
+8, 757-765.
+(19) Remme, J. F.; Koetzner, S.; Haugland, K.; Reichelt, K. L.; Bronstadt,
+G. O. Presented at the 49th ASMS Conference on Mass Spec-
+trometry and Allied Topics, Chicago, IL, 2001; Poster.
+(20) Bergquist, J.; Palmblad, M.; Wetterhall, M.; Hakansson, P.;
+Markides, K. E. Mass Spectrom. Rev. 2002, 21, 2-15.
+(21) Schulz-Knappe, P.; Zucht, H. D.; Heine, G.; Jurgens, M.; Hess,
+R.; Schrader, M. Comb. Chem. High Throughput. Screening 2001,
+4, 207-217.
+(22) Schulz-Knappe, P.; Schrader, M. Curr. Drug Discovery 2003, NOV,
+21-24.
+(23) Schrader, M.; Schulz-Knappe, P. Trends Biotechnol. 2001, 19, S55-
+S60.
+(24) Raida, M.; Schulz-Knappe, P.; Heine, G.; Forssmann, W. G. J. Am.
+Soc. Mass Spectrom. 1999, 10, 45-54.
+(25) Delatour, T. Anal. Bioanal. Chem. 2004, 380, 515-523.
+(26) Yi, E. C.; Li, X. J.; Cooke, K.; Lee, H.; Raught, B.; Page, A.; Aneliunas,
+V.; Hieter, P.; Goodlett, D. R.; Aebersold, R. Proteomics. 2005, 5,
+380-387.
+(27) Wang, H.; Clouthier, S. G.; Galchev, V.; Misek, D. E.; Duffner, U.;
+Min, C. K.; Zhao, R.; Tra, J.; Omenn, G. S.; Ferrara, J. L.; Hanash,
+S. M. Mol. Cell. Proteomics 2005, 4, 618-625.
+(28) Wang, W. X.; Zhou, H. H.; Lin, H.; Roy, S.; Shaler, T. A.; Hill, L.
+R.; Norton, S.; Kumar, P.; Anderle, M.; Becker, C. H. Anal. Chem.
+2003, 75, 4818-4826.
+(29) Windig, W.; Phalp, J. M.; Payne, A. W. Anal. Chem. 1996, 68, 3602-
+3606.
+(30) Windig, W.; Smith, W. F.; Nichols, W. F. Anal. Chim. Acta 2001,
+446, 467-476.
+(31) Gaspari, M.; Vogels, J.; Wuelfert, F.; Tas, A.; Venema, S.; Bijlsma,
+S. Adv. Mass Spectrom. 2004, 283-296.
+(32) Tibshirani, R.; Hastie, T.; Narasimhan, B.; Chu, G. Proc. Natl. Acad.
+Sci. U.S.A. 2002, 99, 6567-6572.
+(33) Hilario, M.; Kalousis, A.; Muller, M.; Pellegrini, C. Proteomics 2003,
+3, 1716-1719.
+(34) Listgarten, J.; Emili, A. Mol. Cell. Proteomics 2005, 4, 419-434.
+(35) www.matrixscience.com; Matrix Science Ltd. [v1.9.05]; London,
+U.K., 2006.
+(36) www.phenyx-ms.com; Geneva Bioinformatics (GeneBio) SA. [2.1];
+Geneva, Switzerland, 2006.
+(37) Debigare, R.; Price, S. R. Am. J. Physiol.: Renal Physiol. 2003, 285,
+F1-F8.
+(38) Radulovic, D.; Jelveh, S.; Ryu, S.; Hamilton, T. G.; Foss, E.; Mao,
+Y. Y.; Emili, A. Mol. Cell. Proteomics 2004, 3, 984-997.
+(39) Tibshirani, R.; Hastie, T.; Narasimhan, B.; Soltys, S.; Shi, G.; Koong,
+A.; Le, Q. T. Bioinformatics 2004, 20, 3034-3044.
+(40) Wagner, M.; Naik, D.; Pothen, A. Proteomics 2003, 3, 1692-1698.
+(41) Mahalanobis, P. C. Proc. Natl. Inst. Sci. India 1936, 49-55.
+(42) IUPAC. In Compendium of Analytical Nomenclature; The Orange
+Book; Inczedy, J., Lengyel, T., Ure, A. M., Eds.; Blackwell Sci-
+ence: Oxford, U.K., 1998; Chapter 2.4.
+(43) Rorabacher, D. B. Anal. Chem. 1991, 63, 139-146.
+(44) Snedecor, G. W.; Cochran, W. G. Statistical Methods; Iowa State
+University Press: Ames, IA, 1980.
+(45) Osicka, T. M.; Comper, W. D. Clin. Chem. 2004, 50, 2286-2291.
+(46) Villanueva, J.; Shaffer, D. R.; Philip, J.; Chaparro, C. A.; Erdjument-
+Bromage, H.; Olshen, A. B.; Fleisher, M.; Lilja, H.; Brogi, E.; Boyd,
+J.; Sanchez-Carbayo, M.; Holland, E. C.; Cordon-Cardo, C.; Scher,
+H. I.; Tempst, P. J. Clin. Invest. 2006, 116, 271-284.
+(47) Grossman, H. B.; Soloway, M.; Messing, E.; Katz, G.; Stein, B.;
+Kassabian, V.; Shen, Y. JAMA, J. Am. Med. Assoc. 2006, 295, 299-
+305.
+(48) Liu, B. C.; Ehrlich, J. R. Expert Rev. Proteomics 2006, 3, 283-296.
+(49) Theodorescu, D.; Wittke, S.; Ross, M. M.; Walden, M.; Conaway,
+M.; Just, I.; Mischak, H.; Frierson, H. F. Lancet Oncol. 2006, 7,
+230-240.
+(50) Valmu, L.; Paju, A.; Lempinen, M.; Kemppainen, E.; Stenman, U.
+H. Clin. Chem. 2006, 52, 73-81.
+(51) Sun, W.; Li, F.; Wu, S.; Wang, X.; Zheng, D.; Wang, J.; Gao, Y.
+Proteomics 2005, 5, 4994-5001.
+(52) Moon, M. H.; Myung, S.; Plasencia, M.; Hilderbrand, A. E.;
+Clemmer, D. E. J. Proteome Res. 2003, 2, 589-597.
+(53) Castagna, A.; Cecconi, D.; Sennels, L.; Rappsilber, J.; Guerrier,
+L.; Fortis, F.; Boschetti, E.; Lomas, L.; Righetti, P. G. J. Proteome
+Res. 2005, 4, 1917-1930.
+(54) Pisitkun, T.; Johnstone, R.; Knepper, M. A. Mol. Cell. Proteomics
+2006.
+(55) Kislinger, T.; Emili, A. Curr. Opin. Mol. Ther. 2003, 5, 285-293.
+(56) Gaspari, M.; Verhoeckx, K. C.; Verheij, E. R.; van der Greef, G. J.
+Anal. Chem. 2006, 78, 2286-2296.
+(57) Wei, C.; Li, J.; Bumgarner, R. E. BMC Genomics 2004, 5, 87.
+(58) Dobbin, K.; Simon, R. Biostatistics. 2005, 6, 27-38.
+(59) Quackenbush, J. Nat. Genet. 2002, 32 (Suppl.), 496-501.
+(60) Birn, H.; Christensen, E. I. Kidney Int. 2006, 69, 440-449.
+(61) Gudehithlu, K. P.; Pegoraro, A. A.; Dunea, G.; Arruda, J. A.; Singh,
+A. K. Kidney Int. 2004, 65, 2113-2122.
+(62) Osicka, T. M.; Panagiotopoulos, S.; Jerums, G.; Comper, W. D.
+Clin. Sci. 1997, 93, 557-564.
+PR060362R
+research articles Kemperman et al.
+206 Journal of Proteome Research ¥ Vol. 6, No. 1, 2007

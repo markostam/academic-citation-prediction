@@ -1,0 +1,1508 @@
+Published online 11 March 2008 Nucleic Acids Research, 2008, Vol. 36, No. 8 2581–2593
+doi:10.1093/nar/gkn097
+Real-time kinetics of restriction–modification gene
+expression after entry into a new host cell
+Iwona Mruk1,2 and Robert M. Blumenthal1,3,*
+1Department of Medical Microbiology and Immunology, University of Toledo Health Sciences Campus, Toledo,
+OH 43614-2598, USA, 2Department of Microbiology, University of Gdansk, Gdansk, 80-822, Poland and
+3Program in Bioinformatics and Proteomics/Genomics, University of Toledo Health Sciences Campus, Toledo,
+OH 43614-2598, USA
+Received December 10, 2007; Revised February 15, 2008; Accepted February 20, 2008
+ABSTRACT
+Most type II restriction–modification (R–M) systems
+produce separate restriction endonuclease (REase)
+and methyltransferase (MTase) proteins. After R–M
+system genes enter a new cell, protective MTase
+must appear before REase to avoid host chromo-
+some cleavage. The basis for this apparent temporal
+regulation is not well understood. PvuII and some
+other R–M systems appear to achieve this delay by
+cotranscribing the REase gene with the gene for an
+autogenous transcription activator/repressor (the
+‘C’ protein C.PvuII). To test this model, bacterio-
+phage M13 was used to introduce the PvuII genes
+into a bacterial population in a relatively synchronous
+manner. REase mRNA and activity appeared »10min
+after those of the MTase, but never rose if there was
+an inactivating pvuIIC mutation. Infection with
+recombinant M13pvuII phage had little effect on cell
+growth, relative to infection with parental M13.
+However, infection of cells pre-expressing C.PvuII
+led to cessation of growth. This study presents the
+first direct demonstration of delayed REase expres-
+sion, relative toMTase, when type II R–M genes enter
+a new host cell. Surprisingly, though the C and REase
+genes are cotranscribed, the pvuIIC portion of the
+mRNA was more abundant than the pvuIIR portion
+after stable establishment of the R–M system.
+INTRODUCTION
+Most bacteria and archaea possess restriction–modiﬁca-
+tion (R–M) systems (1), in part for defense against DNA
+bacteriophages. PvuII, like most type II R–M systems,
+includes two independently active enzymes: a restriction
+endonuclease (REase) that cleaves DNA at a target
+sequence, and a methyltransferase (MTase) that modiﬁes
+the same sequence to protect it from the REase (2). These
+two activities must be carefully balanced to ensure
+protection of the host chromosome. Moreover, this
+balance must achieve both appropriate steady-state
+levels and have suitable kinetics of expression following
+horizontal transfer of the R–M genes (3). The protective
+MTase must be expressed in advance of the REase, so as
+to protect the new host before REase appears. Where this
+does not occur, there is strong selection for mutation of
+the REase gene [e.g. in R+M– subclones (4)].
+The mechanisms of R–M gene expression and regula-
+tion are still unclear. R–M systems consisting of just the
+REase and MTase genes do not rely on passive regulation,
+determined by ﬁxing the relative strengths of promoters
+for the two genes (5–8), suggesting that the appropriate
+expression ratios change with conditions. Several R–M
+systems contain a third gene (C, for ‘controlling’),
+including PvuII (9), BamHI (10), BclI (11), BglII (12),
+Esp1396I (13), EcoO109I (14), EcoRV (15), Eco72I (16),
+HgiAI (17), BstLVI (18), Kpn2I (19), SmaI (20), BclI (11)
+and AhdI (21). The C proteins are small, dimeric proteins
+that bind DNA via a helix–turn–helix domain (11,21–23),
+and have an activation patch resembling that on CI
+protein from bacteriophage lambda (22–25). These C
+genes are well conserved, and even interchangeable in
+some cases, despite the diﬀerent DNA speciﬁcities of their
+associated R–M genes and the genetic distances between
+their host bacteria (10,26). They fall into several com-
+plementation groups (26).
+In all C-dependent R–M systems studied to date, the
+REase gene is tightly linked to (and often overlaps) the
+upstream C gene, and in all examined cases but one (27)
+the REase gene is completely dependent on transcription
+from the C promoter. Autogenous activation of the
+pvuIICR promoter occurs via the C protein binding
+to upstream operators called ‘C-boxes’ (24,28,29)
+(Figure 1A). Recently, the C protein from the PvuII
+R–M system was shown to act not only as an autogenous
+*To whom correspondence should be addressed. Tel: +1 419 383 5422; Fax: +1 419 383 3002; Email: robert.blumenthal@utoledo.edu
+Correspondence may also be addressed to Iwona Mruk. Tel: +1 419 383 4014; Fax: +1 419 383 3002; Email: Iwona.Mruk@utoledo.edu
+ 2008 The Author(s)
+This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License (http://creativecommons.org/licenses/
+by-nc/2.0/uk/) which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.
+transcriptional activator, but also as an eﬃcient repressor
+(29), as predicted on theoretical grounds for C.AhdI (21).
+Subsequent experimental and modeling studies suggest
+that, for C.AhdI, the repression results from binding
+competition between the regulator and RNA polymerase
+(30). In the studied systems, C protein has either little or
+negative eﬀect on MTase expression; for example, in the
+Eco72I system the C protein reduces MTase expression
+10-fold (16).
+As no C protein is present when the R–M genes ﬁrst
+enter a new host cell, REase gene transcription is very
+limited, but is believed to increase rapidly due to the
+positive feedback loop. This view is consistent with
+observations that, ﬁrst, pre-expressing C protein in a cell
+prevents transformation by the intact R–M system,
+presumably due to premature expression of the REase;
+and second, the absence of active C protein is associated
+with very low or nonexpression of the REase (24,26,28).
+However, the expected delay in REase versus MTase
+expression has to date been inferred from steady-state
+behavior of various mutants or clones, and never directly
+demonstrated or measured.
+We present here the ﬁrst direct evidence for a C protein
+role in temporal regulation of the REase gene, following
+the entry of a C-dependent R–M system into a new host
+cell. Our approach was to use bacteriophage M13 to
+introduce the PvuII genes into a bacterial population. This
+allowed the gene transfer to be carried out over a short
+period of time and with minimal physiological disturbance
+of bacterial culture (compared to transformation, for
+example). PvuII gene expression was measured via quanti-
+tative real-time RT–PCR and enzyme activity assays. Our
+results indicate a signiﬁcant lag between MTase and
+REase expression, and show that—despite their cotrans-
+cription—REase transcript levels roughly follow those of
+the C gene but at a lower level.
+MATERIALS AND METHODS
+Bacterial strains, phages and plasmids
+The Escherichia coli K-12 strains used in this study are
+described below, and plasmids and phages used are listed
+in Table 1. All strains into which pvuIIM is introduced
+1
+10
+100
+0 2 4 6 8 10 12 14 16
+y = 65.12 * e^(−0.1607x)   R= 0.97336 
+y = 63.421 * e^(−0.14714x)   R= 0.96722 
+y = 44.614 * e^(−0.1793x)   R= 0.99568 
+R
+em
+ai
+ni
+ng
+ m
+RN
+A 
+(%
+)
+Time after rifampicin addition (min)
+M
+C
+R
+C
+0
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+re
+la
+tiv
+e 
+m
+RN
+A 
+le
+ve
+l (a
+rb
+itr
+ar
+y u
+nit
+s)
+B
+wt Esp19
+pvuIIC allele in host
+M R C M R C
+A PpvuIICR
+PpvuIIM
+−26 +1
+M
++32 +66
+−933–736
+C
++1C-boxes 14–192 +232 336–555
+pvuIIM pvuIIC pvuIIR
+R
++253 702−1027 −18
+Figure 1. The PvuII R–M system and its transcripts. (A) Genetic structure of PvuII R–M system. Numbering is relative to the initiation codon of
+pvuIIC, which is also the start of a leaderless transcript for this gene. Promoters are indicated by bent arrows, and the monocistronic mRNA for
+pvuIIM (MTase, 18 to 1027) and polycistronic mRNA for pvuIICR (C=regulator, +1 to +253; R=REase, +232 to +702) are indicated by
+wavy lines. Two alternative transcription initiation sites for pvuIICR are located at positions +1 (for the C.PvuII-dependent promoter; thick arrow)
+and 27 (for the C.PvuII-independent promoter; thin arrow). The positions of PvuII mRNA segments ampliﬁed by QRT–PCR are indicated by the
+dumbbell shapes. (B) Relative steady-state levels of PvuII mRNAs. The accumulation of pvuIIM (white bar), and of the pvuIIC (gray bars) or pvuIIR
+(black bars) segments of pvuIICR mRNA, were measured via QRT–PCR. These levels used recA mRNA as the internal standard, as described in
+‘Materials and methods’ section. All results were normalized to the wt level of pvuIIM mRNA and standard error bars from three determinations
+are shown. (C) PvuII transcript stability. At time=0, rifampicin was added to an exponential culture of E. coli TOP10F’ growing in LB medium.
+The mRNA levels were determined via QRT–PCR, using stable 5 S rRNA as the internal standard as described in ‘Materials and methods’ section.
+The circles represent pvuIIM (white), pvuIIC (gray) and pvuIIR (black). All three mRNA levels are normalized to 100% at time=0 (the three points
+overlap). The data were ﬁtted to an exponential decay, after a short initial phase of more rapid decay (see text). Standard error bars from three
+determinations are shown.
+2582 Nucleic Acids Research, 2008, Vol. 36, No. 8
+must lack the mcrBC restriction system (4,31–33).
+Escherichia coli TOP10F0 [F’{lacIq, Tn10(TetR)} mcrA
+(mrr-hsdRMS-mcrBC) 80lacZM15 lacX74 recA1 araD139
+(ara-leu)7697 galU galK rpsL (StrR) endA1 nupG’]
+(Invitrogen) was used as the host strain for M13 phage
+infections. Escherichia coli TOP10 (without the F’
+plasmid; Invitrogen) was used for all other purposes
+including cloning steps. The recombinant M13 bacterio-
+phages M13pvuIIwt (C+ phenotype) and M13pvuIIEsp19
+(C– phenotype; contains an in-frame insertion of one Leu
+codon into the upstream helix of the C.PvuII helix–turn–
+helix motif) were generated by cloning the entire
+PCR-ampliﬁed 2.04-kb PvuII R–M system into BamHI-
+and EcoRI-linearized M13mp19 replicative form (RF)
+DNA, using ‘PV’ primers (Table 2). Plasmids pPvuRM3.4
+(4) and pPvuRM3.4–Esp19 (22) were used as template.
+M13cat was generated by cloning a SacI- and BamHI-
+cleaved, PCR-ampliﬁed cat gene (‘cat’ primers, Table 2),
+using pACYC184 as the template and M13mp18 RF as
+vector (linearized with the same enzymes). All phage
+lysates were made following transfection of E. coli
+TOP10F’ cells in accordance with standard methods
+(34). Infectious phage titers were determined by plaque
+formation on the same strain by the top agar overlay
+technique (34). Due to instability of M13 clones (35), the
+phage stocks were prepared from nonpassaged (original
+preparation) M13 RF DNA via transfection.
+M13 infection experiments
+Cells were grown overnight in LB medium supplemented
+with tetracycline (15 mg/ml) to maintain the F0 episome,
+Table 2. Oligonucleotides used in this study
+Pair of oligonucleotides Sequence (50 ! 30) Used for
+PV AGTGGATCCGTCATTAC GGC Cloning PvuII R-M system into M13mp19
+GATGAATTCTGATGGTGACTG
+cat TGGGATCCCTGTTGATACCGGG Cloning cat gene into M13mp18
+GCGGAGCTCCAGGCGTTTAAGGGC
+H1 AAGTCTGCCATTTGCCGATAACGC MTase activity assay
+AAGTTTGACGATTGGTGCAGGCAG
+H3 CGCCATTCTGTTGGCTCGGTTATT MTase activity assay
+TTGCCATTGTGGCGATGCTTCTTG
+pvuIIM AAACGCCGATGCCGCAACATATTC QRT–PCR
+TTGATGGGTATTAAAGCGCATCCCG
+pvuIIR TGGTGGAAAGTTGCTTCAAGTCCT QRT–PCR
+TGCGATACCACGGTATATGGCAAA
+pvuIIC CAAATCCTTTATCAGCCCGATTAACCC QRT–PCR
+AGGCATTTGCTATTCGCTCAATGT
+M13gII ATAGCTACCCTCTCCGGCATGAAT QRT–PCR
+CGGGAGAAGCCTTTATTTCAA CGCA
+M13gVIII AAAGCCTCTGTAGCCGTTGCT QRT–PCR
+TGATACCGATAGTTGCGCCGACA
+recA TAACCTGAAGCAGTCCAACACGCT QRT–PCR
+TTGTTCTTCACCACTTTCACGCGG
+5SrRNA TAGCGCGGTGGTCCCA QRT–PCR
+CACTACCATCGGCGCTACG
+Table 1. Plasmids and phages used in this study
+Name Relevant feature(s) Reference
+Phages
+M13mp19/18 E. coli bacteriophage DNA vector (82)
+M13cat cat (chloramphenicol acethyltransferase) gene cloned into M13mp18 This study
+M13pvuIIwt wt PvuII R-M system from pPvuRM3.4 cloned into M13mp19 This study
+M13pvuIIEsp19 PvuII R-M system from pPvuRM3.4-Esp19 (inactive C) This study
+Plasmids
+pACYC177 Cloning vector (AmpR, KanR) (83)
+p200 wt pvuIIC gene with its own promoter, ipvuIIM, ipvuIIR, KanR, p15A ori This study
+p201 As p200, but pvuIIC-Esp19 mutation (see below) This study
+pDK435 Transcriptional fusion of pvuIIC promoter including wt C boxes
+(positions 93 to +88) in front of promotorless lacZ reporter gene
+in pKK232-8, TetR, p15A ori
+D. Knowle, unpublished data
+pKK232-8 Promotorless cat reporter gene (AmpR) (84)
+pPvuRM3.4 wt PvuII R-M system in pBR322 backbone (4)
+pPvuRM3.4–Esp19 As pPvuRM3.4, but C protein mutant (insertion mutation – Leu codon
+in HTH motif of C gene, unable to bind DNA)
+(22)
+Nucleic Acids Research, 2008, Vol. 36, No. 8 2583
+as M13 infection can lead to loss of F factors (36). After
+dilution, the culture was grown to OD600nm=0.23, then
+split into four equal portions. Of these, one was infected
+with M13pvuIIwt, one with M13pvuIIEsp19, one with
+M13mp19 (vector control) and the fourth was an
+uninfected control (Figure S1). The multiplicity of
+infection (MOI) was 5 PFU/CFU if not otherwise indi-
+cated. Triplicate samples were collected over a period of
+70min. The ﬁrst replicate sample in each case was used for
+total RNA isolation, the second was used for genomic
+DNA isolation and the third was sonicated for use in
+endonuclease activity assays. Eﬃciencies of plaquing
+(EOPs) were calculated by dividing the phage titers on
+the tested strain [E. coli TOP10F’ (p200; pvuIIC wt) or
+(p201; pvuIIC-Esp19) by the titers on reference strain
+[E. coli TOP10F’ (pACYC177)].
+RNA extraction and cDNA synthesis
+Culture sample volumes were corrected for OD to
+maintain similar cell numbers per sample. Samples were
+immediately mixed with 3ml of RNA Protect reagent
+(Qiagen) and total RNA was isolated using the RNeasy
+Mini kit (Qiagen). cDNAs were obtained, after RQ1
+RNase-free DNase (Promega) treatment, by using random
+hexamers (Invitrogen) and ImProm-II Reverse Transcrip-
+tase (Promega). For the mRNA stability experiment,
+culture samples were taken starting 30 s prior to addition
+of rifampicin (500 mg/ml), and total RNA was extracted
+and cDNAs prepared as above. The half-lives of trans-
+cripts were determined by ﬁtting the percentage of mRNA
+remaining versus time to an exponential decay function.
+QRT–PCR
+Primers were designed with PrimerQuest software
+(Integrated DNA Technologies) to ensure the same Tm
+and similar PCR product size. The following primers were
+used to amplify the segments of the following genes:
+pvuIIM, pvuIIR, pvuIIC, M13gII, M13gVIII, recA,
+5SrRNA (Figure 1A; Table 2). A LightCycler (Roche)
+was used with LightCycler software. Real-time PCR was
+performed in triplicate, and ﬁnal products were conﬁrmed
+by agarose gel electrophoresis. Each reaction contained
+2 ml of diluted cDNA template (1:10) and 8 ml of mixture:
+dNTPs (0.2mM), PCR buﬀer (1), primers (1mM),
+SYBR Green I dye (1:20 000) and Platinum Taq DNA
+polymerase (0.5U) (Invitrogen). The PCR employed the
+following cycling parameters: 958C for 2min, followed by
+40 cycles of 948C for 5 s, 598C for 5 s, 728C for 15 s each;
+and ﬁnally the melting curve (59–948C) program for
+quality control, and cooling to 408C.
+The mRNA levels for the target genes were quantiﬁed
+from the Ct value, which is the PCR cycle number
+at which the ﬂuorescence crosses a predeﬁned threshold.
+The threshold value is selected on the basis of being well
+above the background noise level, but less than half of
+the level at which ﬂuorescences eventually plateaus. The
+levels of gene expression for each gene were normalized to
+the level of the reference housekeeping gene recA in all
+studies except the mRNA stability assay, where 5 S rRNA
+was used as the internal, stable marker. RecA expression
+is not aﬀected by M13 infection (37,38). Furthermore,
+the strains used to carry the recA1 allele, preventing
+induction of an SOS response (in which recA itself would
+be induced) (39). Data were averaged for each set of
+replicates. For M13 infection experiments, the relative
+fold-change mRNAs ratios were obtained by normalizing
+each time point data in reference to the earliest measure-
+ments. The calculations also included PCR eﬃciency,
+where each cDNA was serially diluted and its Ct was
+plotted to calculate the slope corresponding to PCR
+eﬃciency (40,41). Investigated transcripts showed optimal
+PCR eﬃciencies: 2.019 for pvuIIR, 2.053 for pvuIIM, 2.18
+for pvuIIC, 1.99 for M13gII, 2.12 for M13gVIII and 2.09
+for recA (internal reference gene) with high linearity
+(R2> 0.98).
+MTase protection activity assay
+The MTase protection test analyzed the methylation
+status of selected PvuII sites on the E. coli K-12 chromo-
+some, following the M13 phage infection. Genomic DNA
+from each sample, isolated from culture samples at
+various times after infection, was puriﬁed using a
+Wizard Genomic DNA Puriﬁcation Kit (Promega).
+Portions of genomic DNA (20 mg) were digested overnight
+with HindIII and PvuII, separated by electrophoresis on
+0.8% agarose gels, and transferred onto nylon membranes
+(Millipore) in 20 SSC buﬀer. The DNA was then ﬁxed to
+the membrane by UV irradiation. The two speciﬁc probes
+H1 (733 bp; primers H1) and H3 (857 bp; primers H3)
+(Table 2) were prepared by PCR, and labeled with biotin
+using a Biotin High Prime Kit (Roche). Membranes were
+hybridized with the H1 and H3 probes at the same time,
+at 558C for 12 h in hybridization buﬀer (each probe at
+30 ng/ml of buﬀer). Membranes were developed using a
+North2South Chemiluminescent Hybridization and
+Detection Kit (Pierce) as recommended.
+REase activity assay
+Samples were harvested by centrifugation, and the pellets
+were rinsed with PBS. After centrifugation, the cells were
+resuspended in 100 ml of buﬀer A (10mM K/PO4 pH 7.0,
+30mM KCl, 1mM Na2EDTA, 10mM 2-mercaptoethanol
+and 5% glycerol v/v) and disrupted by sonication
+(10 bursts of 5 s) at 48C in a cup horn probe. Cellular
+debris was removed by centrifugation (3000g, 10min).
+PvuII REase activity was assayed in a 20-ml reaction
+mixture containing: 0.5 mg of bacteriophage  DNA,
+10mM Tris–HCl pH 7.9, 50mM NaCl, 10mM MgCl2,
+1mM dithiothreitol (DTT) and 5 ml of the clariﬁed cell
+lysate. Reactions were incubated for 10min at 378C, and
+the DNA was resolved on 0.8% agarose gels.
+Chloramphenicol acetyltransferase (CAT) assay
+The CAT ELISA kit (Roche) was used to colorimetrically
+quantitate CAT reporter levels based on a sandwich
+ELISA method. The recommended protocol was followed
+with some modiﬁcations. The culture was grown in LB
+medium, infected with M13cat phage and time-point
+samples were collected until 70min of postinfection.
+Samples (1ml each) were removed, pelletted and
+2584 Nucleic Acids Research, 2008, Vol. 36, No. 8
+resuspended in 0.5ml of lysis buﬀer (100mM K/PO4
+pH 7.8, 1% Triton X-100, 5mg/ml BSA, 1mM DTT,
+5mg/ml lysozyme) and kept for 20min at RT. The
+centrifugally cleared cell extracts were diluted 1:25 and
+loaded onto microplate modules with anti-CAT antibo-
+dies prebound to the surface. CAT concentration was
+calculated as nanograms per milliliter of culture at
+OD600nm.
+RESULTS
+Steady-state level of PvuII transcripts
+Before studying the kinetics of PvuII gene expression,
+following introduction into new host cells, we ﬁrst
+analyzed the steady-state behavior of these genes. We
+grew two E. coli K-12 (TOP10F’) strains in parallel, each
+of them bearing a pBR322-derived plasmid. One plasmid
+carried the intact PvuII R–M system [pPvuRM3.4, active
+C.PvuII protein, ‘C+’ phenotype (4)], and the second
+plasmid diﬀered only in having an in-frame insertion in
+pvuIIC (pPvuRM3.4-Esp19). This mutation adds a Leu
+codon into the helix–turn–helix motif, reducing PvuII
+restriction to background levels (22), and eliminating
+detectable DNA binding by C.PvuII (28) (‘C–’phenotype).
+The strain pair was grown to mid-exponential phase in LB
+medium, total RNA was isolated and gene expression was
+monitored by quantitative real-time reverse transcriptase
+PCR. We used probe sets that measured pvuIIM and
+polycistronic pvuIICR transcripts (dumbbell shapes in
+Figure 1A). Previous studies have shown that there are
+two alternative promoters for pvuIICR transcription
+(Figure 1A). One promoter leads to initiation within the
+C-boxes, is independent of C.PvuII but very weak, and is
+believed to provide necessary initial amounts of pvuIIC
+transcription to prime the positive feedback loop; while
+the second promoter yields a leaderless message that is
+only produced in the presence of C.PvuII (24).
+Transcription of pvuIIM occurs from a pair of promoters
+within pvuIIC, both of which appear to be minimally
+aﬀected by C.PvuII (22).
+The quantitative analysis conﬁrms earlier observations
+(22,28) that C.PvuII has little or no eﬀect on pvuIIM
+expression (Figure 1B, white bars). In the presence of
+active C.PvuII, pvuIIM transcript levels are 5-fold
+(4.9 0.7) more abundant than those of pvuIIR. Despite
+being cotranscribed (28), pvuIIC mRNA is twice (1.8 
+0.4) as abundant as pvuIIR mRNA (Figure 1B). In
+C.PvuII– cells, where the mutation consists of a one-
+codon (sense) insertion, pvuIICR mRNA is about 10-fold
+less abundant than in C.PvuII+ cells when measured
+within the C segment, and about 50-fold less abundant
+when measured in the R segment (Figure 1B). This low-
+level transcription presumably relies on the weak
+C-independent pvuIICR promoter (24). These measure-
+ments are consistent with earlier assays of pvuIIC-cat
+transcriptional fusions (28).
+To test whether the diﬀerences in mRNA abundance are
+due to diﬀerential stability, we measured the rate of
+disappearance of each mRNA species following culture
+treatment with the transcription initiation inhibitor
+rifampicin (Figure 1C). Both pvuIIM and pvuIICR
+transcripts have similar decay patterns. The PvuII
+mRNAs appear to undergo rapid initial decay, within
+2min decaying to 55% for pvuIIM, 41% and 33% for
+pvuIICR probed separately in the R and C segments,
+respectively. A possible explanation for this rapid initial
+phase of decay is discussed below. The initial rapid
+turnover is followed by slower exponential decay that was
+used to calculate the half-lives. MTase mRNA was slightly
+more stable, with a half-life of 4.7min. The bicistronic
+pvuIICRmRNA, probed independently within pvuIIC and
+pvuIIR, yielded half-lives of 3.8min for the C segment,
+and 4.3min for the R segment (Figure 1C). These half-
+lives are in the average range of transcript stability, with
+the half-life of bulk E. coli mRNA being 2.4min at 378C
+(32,42). Combining these results, neither the rapid decay
+of 60% of pvuIIR versus 70% of pvuIIC, nor the
+longer-term half-life ratio of 1.1 (R/C) can explain the
+presence of about twice as much pvuIIC as pvuIIR mRNA
+during steady-state growth (Figure 1B).
+M13 bacteriophage infection model
+To study the timing role of the C.PvuII feedback circuit,
+and to test its inferred delaying eﬀect on REase gene
+expression, we developed a system for relatively synchro-
+nous introduction of the PvuII R–M genes into the
+bacterial population via infection with recombinant
+bacteriophage M13. We ﬁrst performed pilot M13
+infection studies, in which actively growing E. coli F’
+cells were infected with M13mp19 or M13cat (carrying a
+cat gene for chloramphenicol acetyltransferase) at a
+multiplicity of infection (MOI) of 5. Samples were taken
+every 5min, through 70min postinfection (Figure 2).
+When cells were infected with M13cat phage, CAT
+protein was detectable by ELISA about 20min postinfec-
+tion (Figure 2C), which agrees with measurements of the
+M13 infection-to-release time of 15–20min (43,44)
+(Supplementary Data; Figure S2). As cat expression
+does not rely on accumulation of an activator, this result
+suggested an appropriate time range for subsequent
+experiments. At the same time, we monitored culture
+growth, conﬁrming the expected slowdown for the M13-
+infected culture (Figure 2A).
+M13 phage transcript levels were determined for the
+growing culture infected with M13mp19 phage
+(Figure 2B). Total RNA from the culture samples was
+isolated and prepared for quantitative analysis via QRT–
+PCR (Materials and methods section). We probed for
+M13 mRNA from genes II and VIII. M13 gII is one of the
+earliest transcripts, the product of which is involved in
+DNA replication (45), while gVIII is the most abundant
+mRNA and speciﬁes the major capsid protein (46). We
+measured the relative mRNA fold change with respect to
+the very initial level (1min after infection) and normalized
+to E. coli recA. Previous microarray analysis indicated
+that M13 infection does not signiﬁcantly alter recA
+expression (37). Phage transcripts (gII and gVIII) rose
+detectably about 20min after infection, as was found for
+cat expression, and the levels of phage transcripts kept
+Nucleic Acids Research, 2008, Vol. 36, No. 8 2585
+increasing over the monitored time course of 70min
+(Figure 2B).
+We found it necessary to carry out these experiments in
+the presence of tetracycline, which selects for maintenance
+of the F’ plasmid that makes the cells infectable by
+ﬁlamentous phage such as M13 (47,48). M13-infected cells
+have a tendency to eliminate F plasmids (36). Whatever
+the mechanism may be, in the absence of tetracycline the
+levels of M13 gene expression (phage-speciﬁc or cloned),
+M13 DNA, and M13 plaque-forming units all show
+a pronounced cycling behavior (Figure S2) that made
+relative temporal measurements more diﬃcult.
+‘Short-circuiting’ effect of C.PvuII pre-expression
+One of the forms of evidence suggesting a key role for the
+C.PvuII feedback circuit in controlling the delayed
+expression of REase relative to MTase is that pre-
+expression of C.PvuII in cells prevents their transforma-
+tion by the intact R–M system (26,28). Since C.PvuII
+activates transcription of pvuIIR, this observation was
+interpreted as indicating that pre-expression of C.PvuII
+led to immediate expression of pvuIIR, and lethally
+premature appearance of REase activity. To test the
+physiological relevance of the M13 model, we determined
+whether the M13-mediated transfer of PvuII genes was
+sensitive to pre-expression of C.PvuII. We used host cells
+carrying plasmids with no pvuIIC (pACYC177 vector
+control), wt pvuIIC (pIM200) or pvuIIC-Esp19 (pIM201)
+(neither pvuIIM nor pvuIIR was present in any of these
+plasmids). We then measured the EOP (Materials and
+methods section) in all possible host–phage pairings of
+the three E. coli strains with three M13 phage stocks
+carrying the intact PvuII R–M system (M13pvuIIwt),
+the PvuII system with a defective pvuIICEsp19 allele
+(M13pvuIIEsp19), or with no PvuII genes (M13mp19;
+phage vector control). Each set of EOPs was normalized
+to the titer obtained for the vector control E. coli host with
+that phage stock.
+The results obtained for host cells with pre-expressed
+wt C.PvuII indicate that, as expected, the EOP of M13
+carrying the intact PvuII R–M system is reduced (about
+3-fold relative to cells having no pre-expressed C.PvuII;
+Figure 3A). Surprisingly, pre-expression of the defective
+mutant pvuIIC allele (that has an in-frame one-codon
+insertion) also reduced the EOP of M13pvuIIwt, by about
+3-fold. One possible explanation of this result is that
+C.PvuIIEsp19 can form heterodimers with wt C.PvuII,
+and that these heterodimers can activate transcription of
+PpvuIICR thus leading to premature REase expression.
+This interpretation is consistent with the result of the
+reciprocal experiment (Figure 3A) that M13 bearing the
+pvuIIC-Esp19 allele shows reduced EOP on cells that have
+pre-expressed wt C.PvuII from the plasmid, but not on
+cells that have produced C.PvuIIEsp19 and have no source
+of wt C.PvuII subunits.
+The reductions in EOP due to ‘short circuiting’ were
+correlated with much smaller plaque size than were seen in
+control infections. The smaller plaques also appeared to
+be less turbid than control M13 plaques (Supplementary
+Data; Figure S3). Recombinant M13 coding for EcoRI
+REase infects and kills the host cells, forming clear
+plaques in comparison to the turbid growth zones
+produced by plain M13 (49). These observations suggest
+that more-severe growth restriction (and possibly cell
+death) occurs after infection of cells with pre-expressed
+pvuIIC, limiting the production of progeny phage. To test
+this possibility, we determined the eﬀect of pvuIIC pre-
+expression on the growth of E. coli TOP10F’ cells follow-
+ing M13pvuIIwt infection (Figure 3B). We monitored
+growth in LB medium to mid-log phase (OD600nm=0.25)
+Fo
+ld
+ c
+ha
+ng
+e 
+in
+ M
+13
+gV
+III
+ m
+RN
+A
+0.2
+0.3
+0.4
+0.5
+0.6
+0
+1000
+2000
+3000
+4000
+5000
+6000
+7000
+0
+2000
+4000
+6000
+8000
+1.2×104
+1×104
+0
+500
+1000
+1500
+2000
+2500
+3000
+0 10 20 30 40 50 60 70 80
+A
+B
+C
+CA
+T 
+pr
+od
+uc
+tio
+n 
+(n
+g/O
+D 6
+00
+n
+m
+)
+Fo
+ld
+ c
+ha
+ng
+e 
+in
+ M
+13
+gI
+I m
+RN
+A
+O
+D 6
+00
+n
+m
+post-infection time (min)
+Figure 2. M13mp19 and M13cat infection of E. coli TOP10F’. Cultures
+were infected at an MOI of 5 PFU/CFU in LB medium, supplemented
+with tetracycline to maintain the F’ episome. (A) Growth was moni-
+tored at OD600nm. Open symbols are not-infected cells, and closed
+symbols represent cells infected with M13cat phage. (B) The relative
+levels of M13 phage transcripts for gII (circles) and gVIII (diamonds)
+for the infection with phage M13mp19. The RNA isolation and
+QRT–PCR were performed as described in ‘Materials and methods’
+section. (C) Chloramphenicol acetyltransferase (CAT) production after
+infection with M13cat phage (ﬁlled diamonds), at MOI=5, versus
+uninfected cells (open diamonds). CAT levels, determined via immu-
+noassay as described in ‘Materials and methods’ section, are expressed
+as nanograms of protein per OD600nm of culture.
+2586 Nucleic Acids Research, 2008, Vol. 36, No. 8
+and then infected at an MOI of 5 or 50 PFU/CFU. Two
+cultures were tested: with pvuIIC present on a plasmid
+(pIM200) or absent (pACYC177 vector control). We saw
+signiﬁcantly lower culture densities for the infected cells,
+and this eﬀect was enhanced where wt C.PvuII was pre-
+expressed (Figure 3B). These observations support the
+interpretation that pre-expression of C.PvuII prevents
+transformation by the intact PvuII R–M system by killing
+the host cell (26,28), and are consistent with the physio-
+logical relevance of the M13-based model for R–M system
+gene expression.
+Introduction of PvuII R–M genes into the new host cells via
+recombinantM13 bacteriophage infection: kinetics of
+mRNA appearance
+To study PvuII gene establishment in a new host, we
+used the two M13 recombinant stocks carrying the PvuII
+genes: M13pvuIIwt (C+ phenotype) and M13pvuIIEsp19
+(C– phenotype due to an insertion of one sense codon)
+(Table 1). The host cells for infection (which contained
+no PvuII genes) were grown to exponential phase, and
+split into four equal portions. Of these, one was infected
+with M13pvuIIwt, one with M13pvuIIEsp19, one with
+M13mp19 (vector control), each with an MOI of 5 PFU/
+CFU and the fourth was an uninfected control (Supple-
+mentary Data; Figure S1). All three infected cultures grew
+more slowly than the uninfected culture, but the restricting
+phage did not cause worse growth than the others
+(Figure S1).
+Using RNA prepared from these culture samples, the
+accumulation of PvuII mRNAs was measured as
+described in ‘Materials and methods’ section. In addition
+to pvuIIM, pvuIICR was probed separately for the pvuIIC
+and pvuIIR segments (see Figure 1B). As might be
+expected for the infection with M13pvuIIwt (C+ pheno-
+type), pvuIIM mRNA levels rose above background about
+20min postinfection, similar to what had been seen for
+cat and M13 phage genes in pilot experiments (Figure 2).
+In contrast, the appearance of pvuIIR mRNA was delayed
+to about 30min postinfection (Figure 4A). The levels
+of pvuIIM and pvuIIR transcripts eventually reached
+about the same 5:1 ratio seen in steady-state cultures
+(Figure 1B), by about 45min postinfection. Although
+pvuIIC and pvuIIR share the same transcript (28), the level
+of mRNA probed for C or R separately (Figure 1A) was
+not the same through the time course of the experiment.
+By about 40min postinfection, the C/R ratio reached
+the value of 2 that was observed for transcripts from
+the plasmid-borne PvuII genes (Figure 1B, and see
+‘Discussion’ section).
+When cells were infected by phage carrying a defective
+in-frame (sense) mutation in pvuIIC (M13pvuII-Esp19),
+the REase transcript level never rose above the back-
+ground level (Figure 4B). The small rise in the low pvuIIC
+transcript level, about 40min after infection, is presum-
+ably due to the weak C-independent promoter (24).
+Surprisingly, while C.PvuII had no eﬀect on the
+steady-state ‘level’ of pvuIIM mRNA (Figure 1B), it did
+have eﬀects on the ‘kinetics’ of pvuIIM expression
+A B
+0
+0.2
+0.4
+0.6
+0.8
+1
+N
+or
+m
+al
+iz
+ed
+ E
+O
+P 
+(ar
+bit
+ra
+ry
+ un
+its
+)
+pre-expressed C protein
+pvuIIC wt pvuIIC-Esp19
+V W C− C−V W
+0.1
+1
+0 50 100 150 200 250 300
+O
+D6
+00 C−,0C+,0
+C−,5
+C−,50
+C+,5
+C+,50
+infection
+post-infection time (min)
+Figure 3. Eﬀect of pre-expression of wt pvuIIC on PvuII R–M establishment. (A) Three E. coli TOP10F’ host strains were used that carried no
+pvuIIC gene (pACYC177 vector control), carried wt pvuIIC (pIM200), or carried the defective pvuIIC-Esp19 (pIM201). The eﬃciency of plaquing
+(EOP) was measured after infecting each strain with each of three M13 phage stocks: one with the wt PvuII R–M system (M13pvuIIwt; black bars,
+marked ‘W’ for ‘wt’), one with pvuIIC-Esp19 in the PvuII R–M system (M13pvuIIEsp19; gray bars, marked ‘C–‘) and one with no PvuII genes
+(M13mp19; white bars, marked ‘V’ for ‘vector’). Each dataset was normalized to the titration result obtained for that phage stock on the vector
+control host E. coli TOP10F’ (pACYC177). These normalization values would yield three bars at height 1.0 and are not shown (the actual values
+were very close: M13mp19=1.6 1011, M13pvuIIwt=1.4 1011 and M13pvuIIEsp19=1.4 1011 PFU/ml). The error bars represent the standard
+deviations from triplicate measurements. (B) Two cultures of E. coli TOP10F’ were used, that harbored either no pvuIIC (pACYC177; circles) or wt
+pvuIIC (pIM200; squares). When their growth in LB medium reach mid-log phase (OD600nm=0.25), the cultures were divided into three portions.
+One portion was infected with M13pvuIIwt at an MOI of 50 (black symbols), one at an MOI of 5 (gray) and the third portion remained uninfected
+(white). The growth of the culture was monitored as OD600nm. The bars represent standard deviations from two experiments.
+Nucleic Acids Research, 2008, Vol. 36, No. 8 2587
+(compare Figure 4A and B). After infection with the
+C.PvuII– M13, MTase mRNA started to accumulate
+about 30min postinfection, rising more rapidly after
+40min; in both cases this is 10min later than following
+infection with M13pvuIIwt.
+As a control, the accumulation of M13 DNA was also
+measured for the infection with M13pvuIIwt (data not
+shown). At all times tested, the ratio between the two
+identically oriented genes pvuIIC and M13gII was close to
+1 (averaging 1.46, and ranging from 0.96 to 2.01) consis-
+tent with stability of the DNA insert in M13 genome. This
+had been a concern because many longer M13 inserts are
+subject to accumulation of spontaneous deletions during
+replication (50).
+Introduction of PvuII R–M genes into the new host cells
+via recombinantM13 bacteriophage infection: kinetics
+of activity appearance
+The 10-min delay between appearance of pvuIIM and
+pvuIIR transcripts is important to our understanding of
+R–M system mobility. However, this delay does not
+provide information about the actual rate of protection of
+the host chromosome. In other words, it is not clear
+(except by inference) whether a 10-min delay is suﬃcient.
+The average E. coli cell growing exponentially in rich
+medium has about two full-chromosome equivalents (51),
+or about 9 Mbp of DNA, that would have to be protected
+during the delay before REase appearance.
+A B
+C D
+E F
+R
+Ea
+se
+ a
+ss
+ay
+M
+Ta
+se
+ a
+ss
+ay
+Fo
+ld
+ c
+ha
+ng
+e 
+in
+ M
+13
+pv
+uI
+Iw
+t m
+RN
+A
+Fo
+ld
+ c
+ha
+ng
+e 
+in
+ M
+13
+pv
+uI
+IE
+sp
+19
+ m
+RN
+A
+0
+500
+1000
+1500
+2000
+0 10 20 30 40 50 60 70 80
+post-infection time (min)
+0 10 20 30 40 50 60 70 80
+post-infection time (min)
+0
+500
+1000
+1500
+2000
+wt pvuIIC pvuIIC-Esp19
+10 15 20 25 30 35 40 45 50 55 60 K310 15 20 25 30 35 40 45 50 55 60 K3
+post-infection time (min) post-infection time (min)
+2.02
+1.43
+0.97
+3.04
+2.46
+5 10 15 20 25 30 35 40 45 50 55 60 70 K1 K2 5 10 15 20 25 30 35 40 45 50 55 60 70 K1 K2
+Figure 4. In vivo kinetics of PvuII restriction-modiﬁcation gene expression after entering a new host cell. The experiment was performed as described
+in Figure 2 and in ‘Materials and methods’ section. (A, B) Relative levels of PvuII transcripts determined by QRT–PCR (Materials and methods
+section). TOP10F’ cells were infected with M13 carrying wt pvuIIC (A) or the null pvuIIC-Esp19 allele (B) in the context of the full PvuII R–M
+system. The various mRNAs are shown as pvuIIM (blue), pvuIIC (orange), pvuIIR (red). (C, D) In vivo kinetics of E. coli chromosomal DNA
+methylation. Chromosomal DNA was isolated at various times following entry of the wt PvuII R–M system (C) or that system with the pvuIIC-
+Esp19 allele (D), digested with HindIII, and then with PvuII REase as described in ‘Materials and methods’ section. Protection from in vitro
+digestion with PvuII REase was detected by probing Southern blots with speciﬁc biotinylated PCR products. The control lanes contained DNA from
+uninfected cells (K1; gives the pattern expected for unprotected DNA), or digested with only HindIII (K2; gives the pattern expected for fully
+methylated DNA). (E, F) In vivo kinetics of REase activity following entry of the PvuII R–M system. The M13pvuII phages carried either wt pvuIIC
+(E) or its inactive pvuIIC-Esp19 variant (F). Crude cell extracts were isolated as described in ‘Materials and methods’ section, and incubated with
+DNA from bacteriophage . Lane K3 shows the same DNA digested by commercial PvuII REase (NEB).
+2588 Nucleic Acids Research, 2008, Vol. 36, No. 8
+To address this question, we determined the rate of host
+chromosome protection from restriction, and the rate of
+appearance of active REase, following infection with
+M13pvuII. The MTase protection test analyzed the
+methylation status of selected PvuII sites from among
+the 1430 (52) on the E. coliK-12 chromosome [GenBank
+U00096 (53)]. Genomic DNA, isolated from culture
+samples at various times after infection, was digested
+with HindIII (to generate deﬁned methylation-
+independent fragments) and PvuII REase, and resolved
+on an agarose gel. Southern blots were probed with biotin-
+labeled DNA speciﬁc to regions adjacent to selected PvuII
+sites (Materials and methods section). If the tested PvuII
+sites were being methylated, then longer (uncut) DNA
+fragments would appear over time (Figure 4C and D, as in
+control lanes K1 versus K2).
+In vivo PvuII methylation activity was observed and, as
+with the pvuIIM transcription data, the rate of appearance
+was slightly diﬀerent between the C.PvuII cultures
+(Figure 4C and D). DNA from samples taken 5–20min
+postinfection was unmethylated (Figure 4C and D, lanes
+5–20), as expected since pvuIIM transcripts were not
+expressed at that time (Figure 4A and B). About 25min
+after infection, the methylated pattern started to appear,
+and was pronounced by 40min for C.PvuII+ infections
+(Figure 4C; lanes 40–70). The same was observed, but on a
+delayed basis, for C.PvuII infections, where methylation
+started to appear about 40min postinfection and was
+pronounced 10min later (Figure 4D). Late in the
+infection, samples showed the partial methylation
+expected for a mixed population of infected and unin-
+fected cells (Supplementary Data).
+One possible contributing factor to these results derives
+from the fact that we are measuring population averages,
+and not methylation in individual cells. It is possible in
+theory that a subset of cells does not suﬃciently protect
+its chromosomal DNA before REase appears, and is killed
+as a result. Even if these cells did not lyze, their cleaved
+DNA might be rapidly degraded (54,55), selectively
+removing unmethylated DNA from our assessment.
+Consistent with this possibility, the relative amount of
+protected DNA appears to be lower in the absence of
+restriction (Figure 4C versus 4D). This would not,
+however, aﬀect determination of the time of onset of
+methylation.
+The REase activity assay was based on crude extract
+digestions of DNA from bacteriophage . For
+M13pvuIIwt (C+ phenotype), REase activity became
+evident about 35min postinfection (Figure 4E), corre-
+sponding to its mRNA proﬁle (Figure 4A). In contrast,
+for M13pvuIIEsp19 (C phenotype), REase activity was
+not detected over the 70-min course of the experiment
+(Figure 4F).
+DISCUSSION
+BacteriophageM13 model system
+To study PvuII gene establishment in a new host, we chose
+to use a nonlytic phage model. This presents substantial
+advantages over transformation- or conjugation-based
+approaches. For transformation (including electropora-
+tion), the cells are profoundly disturbed physiologically by
+the preparatory washing procedures, heat or electrical
+shock, and shift into a rich medium (56,57). Gene expres-
+sion studies in such cells would thus be very diﬃcult to
+interpret (58). Transfer into a population of new hosts via
+conjugation occurs over a longer time period, so that gene
+entry would be relatively asynchronous, and there would
+also be complications due to PvuII gene expression in the
+already established donor cells. With the M13-based
+system, we could sensitively monitor the real-time the
+kinetics of PvuII gene expression following fairly syn-
+chronous introduction into new cells, and with much less
+physiological disturbance of the recipients than with
+transformation.
+The choice of phage was also important. As opposed to
+lyzing the host cell, M13 phage is continually released from
+infected cells following assembly and extrusion through
+the cell wall (43,59). M13 has been used successfully to
+deliver antimicrobial agents in phage therapy trials (60,61).
+Microarray analysis of M13-infected versus uninfected
+E. coli (37) indicates a minimally disturbed transcriptional
+response, even though growth rates of infected cells are
+reduced (62) and such reduction itself can have substantial
+eﬀects on gene expression (63,64). In addition, M13 DNA
+enters the cell in single-stranded form (43). The PvuII genes
+naturally reside on a mobilizable plasmid (4), and would
+presumably enter new cells via conjugation in the form
+of ssDNA (43). We therefore believe that the PvuII gene
+expression patterns observed, following M13-mediated
+entrance, reﬂect the responses of a relatively normal entry
+into a physiologically relevant environment.
+Several of our results with the M13-PvuII model system
+are also consistent with its physiological relevance. First,
+as with transformation-based systems, pre-expression of
+the C protein leads to reduced plaquing eﬃciency by M13
+phage that carries the PvuII R–M system (Figure 3A).
+This result supports earlier inferences that pre-expressing
+C proteins leads to lethally premature expression of the
+linked REase gene (26,28), including the observation
+that such ‘short circuiting’ was associated with DNA
+damage (55,65,66). The second result supporting the
+physiological relevance of this model system is the similar
+expression kinetics of the MTase (pvuIIM) gene to that of
+other constitutive genes (such as cat) introduced via M13
+(compare Figures 2C and 4A). The third such observation
+is that, at longer times after infection, the ratio of PvuII-
+speciﬁc transcripts reaches the same value as in established
+plasmid-borne PvuII genes (Figure 5B shows this for
+pvuIIM and pvuIIR).
+C.PvuII feedback-dependent delay of pvuIIR expression
+R–M systems appear to undergo horizontal gene transfer
+at a substantial rate (3,67). It has been proposed,
+by inference from steady-state results, that (where present)
+C proteins are responsible for temporal control of R–M
+systems. This control was suggested to allow MTase
+production and protection of host DNA before potentially
+lethal REase activity appears (22,26,28). However, the
+Nucleic Acids Research, 2008, Vol. 36, No. 8 2589
+proposed temporal control was never directly demon-
+strated or measured.
+Using bacteriophage M13 to introduce the PvuII genes
+into a bacterial population, we showed here that a delay in
+expression of PvuII REase (relative to that of the MTase)
+actually occurs and is just <10min in length (under the
+growth conditions used) (Figure 5A inset). This delay is
+reﬂected in both quantitation of mRNAs and of enzyme
+activity data (Figure 4). This implies, and our in vivo
+methylation assays conﬁrm (Figure 4C and D), that
+10min is enough time to protect the roughly 3000 PvuII
+sites per average growing cell (51,52). Modiﬁcation would
+have to be at least on one strand per site, though PvuII
+REase can still cut hemimethylated sites (in vitro) at a low
+rate (68). Presumably, selection for PvuII regulatory
+mechanisms would not require complete protection, but
+only a delay suﬃcient to limit the amount of damage to
+the extent that it can be repaired (55,66,69) in a reasonably
+high fraction of the new host cells.
+To our knowledge, there has been no previous study of
+expression kinetics in a type II R–M system. The type I
+EcoK R–M system was studied kinetically (70,71), using
+conjugation as the route of transfer. In that study,
+restriction activity (from hsdR) appeared about 15 genera-
+tions after transfer, while modiﬁcation activity (from hsdM,
+hsdS) was detected almost immediately (70). The kinetics of
+promoter activity for restriction (Pres) and modiﬁcation
+(Pmod) subunits were also tested, and indicated simulta-
+neous expression. This result indicates a major role for
+posttranscriptional regulation for the EcoK R–M system
+(71), now known to include controlled assembly/disassem-
+bly, together with HsdR subunits that are degraded if
+free (72), and phosphorylated only if complexed with
+HsdMS (73). This regulatory approach may be less feasible
+for type II systems, where unlike type I enzymes the REase
+is active independently of the MTase (74).
+The C.Pvu-dependent regulatory switch
+The C-protein-dependent control systems of type II R–M
+systems mediate regulatory decisions that mean life or
+death to the host cell. In this respect, the type II R–M
+systems resemble proteic toxin–antitoxin addiction sys-
+tems (26), and the latter are often controlled by an
+autogenous regulator (75). C.PvuII both activates and
+represses transcription of its own gene, and both activities
+are required for mobility and stability of a functional
+(restricting) system (29). On the one hand, selectively
+impairing the repression portion of C.PvuII action
+signiﬁcantly reduces the eﬃciency of R–M system transfer
+(by transformation) into new host cells (76). On the other
+hand, no restriction activity appears in the absence of
+functional C.PvuII (9,22,28), and this would presumably
+also reduce the maintenance stability of the plasmid (26).
+The roles of the C protein do not rule out additional
+posttranscriptional regulatory mechanisms. We have
+previously shown that the C and REase genes are on a
+polycistronic mRNA (pvuIICR), with no evidence whatso-
+ever for an independent pvuIIR promoter (24,28).
+However, in this study we found that there is about
+twice as much C segment as R segment mRNA
+(Figure 1B). In nonpolar defective mutants of pvuIIC,
+there is still signiﬁcantly (8) more pvuIIC than pvuIIR
+mRNA (from the weak C-independent promoter).
+This indicates that whatever is causing the apparent
+attenuation of pvuIICR transcription does not depend on
+the presence of active C protein.
+The diﬀerence between pvuIIC and pvuIIR mRNA
+levels does not appear to be due to diﬀerential stability.
+0
+1
+2
+3
+4
+5
+6
+7
+8
+0 10 20 30 40 50 60 70 80
+m
+R
+N
+A
+ le
+ve
+l r
+at
+io
+ (M
+Ta
+se
+/E
+Na
+se
+)
+post-infection time (min)
+B
+REa
+se
+M
+Ta
+se
+C.P
+vuI
+I
+0
+200
+400
+600
+800
+1000
+15 20 25 30 35
+Fo
+ld
+ c
+ha
+ng
+e 
+in
+ m
+RN
+A
+Time after infection (min)
+A
+0
+2
+4
+6
+8
+10
+0 50 100 150 200 250M
+Ta
+se
+–R
+Ea
+se
+ d
+el
+ay
+ (m
+in)
+fo
+r g
+iv
+en
+ fo
+ld
+ c
+ha
+ng
+e
+mRNA fold change
+Figure 5. Delayed expression of REase versus MTase. (A) The mRNAs for REase (red), MTase (blue) and C.PvuII (orange) were measured
+following infection with M13 carrying wt pvuIIC as in ‘Materials and methods’ section. The data are from an experiment identical to that shown in
+Figure 4A, but focusing on the initial time period. The inset shows the time between when pvuIIM and pvuIIR mRNA reach given fold increases; the
+dotted double arrow in the main panel illustrates this delay at the 200-fold increased level. (B) Ratios of PvuII transcript levels (MTase/REase) over
+time after infection. The dotted horizontal line indicates the ratio seen in the steady-state plasmid-borne wt PvuII R–M system (from Figure 1B). The
+ave SE is 0.8 0.4 for points within 10min of infection, and 4.3 1.3 for the later points. The curve is not ﬁtted to the data, but shows the pattern
+expected for an initial period of no diﬀerential expression (ratio=1.0) followed by a hyperbolic approach to the steady-state ratio.
+2590 Nucleic Acids Research, 2008, Vol. 36, No. 8
+Post-rifampicin decay kinetics show two phases
+(Figure 1C), but in both phases the pvuIIC-speciﬁc portion
+of the pvuIICR transcripts is less stable than the pvuIIR
+portion. This pattern, where the 50 portion of the
+transcript is degraded more quickly than the 30 portion,
+appears to be common in E. coli (77). Thus, the actual
+drop in transcription rate between pvuIIC and pvuIIR
+must be >2-fold (at least for an established system in
+rapidly growing exponential cells). One possible explana-
+tion for the rapid initial drop in post-rifampicin mRNA
+levels might derive from the fact that the pvuIICR and
+pvuIIM mRNAs are perfectly complementary to one
+another at their 50 ends (for 32 or 66 nt, depending on
+which pvuIIM promoter was used; see Figure 1A).
+Hybridization would mutually and diﬀerentially aﬀect a
+subset of the mRNAs in either of two ways. The duplexed
+mRNAs might be more stable, due to protection of the 50
+ends responsible for initiating decay (78), or less stable, as
+is the case in many sRNA–mRNA interactions or when
+translation initiation is blocked (79,80).
+This study also revealed one interesting feature of
+the C protein itself. An inactive variant of C.PvuII
+(pvuIIC-Esp19), when pre-expressed prior entry of M13
+carrying the wt PvuII genes, was able to reduce the EOP as
+eﬃciently as wt C.PvuII (Figure 3A). The in-frame
+insertion for that mutant adds a Leu codon to the
+upstream helix of the helix–turn–helix motif (22), and
+homodimers of this protein are defective for DNA binding
+(28). The results shown in Figure 3A suggest that the
+mixed heterodimers (of wt and Esp19) both bind DNA
+and activate transcription. Activation by mutant/wt
+heterodimeric regulatory proteins has been observed
+previously (81), and the Esp19 mutation in pvuIIC is
+well away from the subunit interface [based on alignment
+to C.AhdI; see Figure 5 in (21)].
+This model system should allow exploration of the
+eﬀects of promoter, operator and activator/repressor
+mutations on the temporal behavior of type II R–M
+system, to better understand the process of their establish-
+ment, and of toxin–antitoxin addiction modules in
+general.
+SUPPLEMENTARY DATA
+Supplementary Data are available at NAR Online.
+ACKNOWLEDGEMENTS
+We thank Dr Robert Lintner for helpful comments
+about the real-time QRT–PCR, Aaron Short and Eric
+Przybylski for their excellent technical assistance, and Drs
+Isabel Novella and Tadeusz Kaczorowski for critically
+reviewing the manuscript. This material is based upon
+work supported by the National Science Foundation
+under Grant No 0516692. Funding to pay the Open
+Access publication charges for this article was provided
+by the National Science Foundation under Grant no
+0516692.
+Conﬂict of interest statement. None declared.
+REFERENCES
+1. Roberts,R.J., Vincze,T., Posfai,J. and Macelis,D. (2007) REBASE–
+enzymes and genes for DNA restriction and modiﬁcation.
+Nucleic Acids Res., 35, D269–D270.
+2. Murray,N.E. (2002) 2001 Fred Griﬃth review lecture. Immigration
+control of DNA in bacteria: self versus non-self. Microbiology,
+148, 3–20.
+3. Jeltsch,A. and Pingoud,A. (1996) Horizontal gene transfer
+contributes to the wide distribution and evolution of type II
+restriction-modiﬁcation systems. J. Mol. Evol., 42, 91–96.
+4. Blumenthal,R.M., Gregory,S.A. and Cooperider,J.S. (1985)
+Cloning of a restriction-modiﬁcation system from Proteus
+vulgaris and its use in analyzing a methylase-sensitive phenotype
+in Escherichia coli. J. Bacteriol., 164, 501–509.
+5. Liu,Y. and Kobayashi,I. (2007) Negative regulation of EcoRI
+restriction enzyme gene associated with intragenic reverse
+promoters. J. Bacteriol., 189, 6928–6935.
+6. Liu,Y., Ichige,A. and Kobayashi,I. (2007) Regulation of the
+EcoRI restriction-modiﬁcation system: identiﬁcation of ecoRIM
+gene promoters and their upstream negative regulators in the
+ecoRIR gene. Gene., 400, 140–149.
+7. Som,S. and Friedman,S. (1994) Regulation of EcoRII
+methyltransferase: eﬀect of mutations on gene expression and
+in vitro binding to the promoter region. Nucleic Acids Res.,
+22, 5347–5353.
+8. Alvarez,M.A., Chater,K.F. and Rodicio,M.R. (1993)
+Complex transcription of an operon encoding the SalI
+restriction-modiﬁcation system of Streptomyces albus G. Mol.
+Microbiol., 8, 243–252.
+9. Tao,T. and Blumenthal,R.M. (1992) Sequence and characterization
+of pvuIIR, the PvuII endonuclease gene, and of pvuIIC, its
+regulatory gene. J. Bacteriol., 174, 3395–3398.
+10. Ives,C.L., Sohail,A. and Brooks,J.E. (1995) The regulatory C
+proteins from diﬀerent restriction-modiﬁcation systems can
+cross-complement. J. Bacteriol., 177, 6313–6315.
+11. Sawaya,M.R., Zhu,Z., Mersha,F., Chan,S.H., Dabur,R., Xu,S.Y.
+and Balendiran,G.K. (2005) Crystal structure of the restriction-
+modiﬁcation system control element C.BclI and mapping of its
+binding site. Structure, 13, 1837–1847.
+12. Anton,B.P., Heiter,D.F., Benner,J.S., Hess,E.J., Greenough,L.,
+Moran,L.S., Slatko,B.E. and Brooks,J.E. (1997) Cloning and
+characterization of the BglII restriction-modiﬁcation system
+reveals a possible evolutionary footprint. Gene, 187, 19–27.
+13. Cesnaviciene,E., Mitkaite,G., Stankevicius,K., Janulaitis,A. and
+Lubys,A. (2003) Esp1396I restriction-modiﬁcation system:
+structural organization and mode of regulation. Nucleic Acids Res.,
+31, 743–749.
+14. Kita,K., Tsuda,J. and Nakai,S.Y. (2002) C.EcoO109I, a regulatory
+protein for production of EcoO109I restriction endonuclease,
+speciﬁcally binds to and bends DNA upstream of its translational
+start site. Nucleic Acids Res., 30, 3558–3565.
+15. Semenova,E., Minakhin,L., Bogdanova,E., Nagornykh,M.,
+Vasilov,A., Heyduk,T., Solonin,A., Zakharova,M. and Severinov,K.
+(2005) Transcription regulation of the EcoRV
+restriction-modiﬁcation system. Nucleic Acids Res., 33, 6942–6951.
+16. Rimseliene,R., Vaisvila,R. and Janulaitis,A. (1995) The eco72IC
+gene speciﬁes a trans-acting factor which inﬂuences expression of
+both DNA methyltransferase and endonuclease from the Eco72I
+restriction-modiﬁcation system. Gene, 157, 217–219.
+17. Kroger,M., Blum,E., Deppe,E., Dusterhoft,A., Erdmann,D.,
+Kilz,S., Meyer-Rogge,S. and Mostl,D. (1995) Organization and
+gene expression within restriction-modiﬁcation systems of
+Herpetosiphon giganteus. Gene, 157, 43–47.
+18. Vasquez,C.C., Saavedra,C.P. and Pichuantes,S.E. (2000) Nucleotide
+sequence of the gene encoding the BstLVI DNA methyltransferase:
+comparison with other amino-DNA methyltransferases.
+Curr. Microbiol., 40, 114–118.
+19. Lubys,A., Jurenaite,S. and Janulaitis,A. (1999) Structural
+organization and regulation of the plasmid-borne type II
+restriction-modiﬁcation system Kpn2I from Klebsiella pneumoniae
+RFL2. Nucleic Acids Res., 27, 4228–4234.
+20. Heidmann,S., Seifert,W., Kessler,C. and Domdey,H. (1989)
+Cloning, characterization and heterologous expression of the
+Nucleic Acids Research, 2008, Vol. 36, No. 8 2591
+SmaI restriction-modiﬁcation system. Nucleic Acids Res.,
+17, 9783–9796.
+21. McGeehan,J.E., Papapanagiotou,I., Streeter,S.D. and Kneale,G.G.
+(2006) Cooperative binding of the C.AhdI controller protein to
+the C/R promoter and its role in endonuclease gene expression.
+J. Mol. Biol., 358, 523–531.
+22. Tao,T., Bourne,J.C. and Blumenthal,R.M. (1991) A family of
+regulatory genes associated with type II restriction-modiﬁcation
+systems. J. Bacteriol., 173, 1367–1375.
+23. McGeehan,J.E., Streeter,S.D., Papapanagiotou,I., Fox,G.C. and
+Kneale,G.G. (2005) High-resolution crystal structure of the
+restriction-modiﬁcation controller protein C.AhdI from Aeromonas
+hydrophila. J. Mol. Biol., 346, 689–701.
+24. Knowle,D., Lintner,R.E., Touma,Y.M. and Blumenthal,R.M.
+(2005) Nature of the promoter activated by C.PvuII, an unusual
+regulatory protein conserved among restriction-modiﬁcation sys-
+tems. J. Bacteriol., 187, 488–497.
+25. Kolkhof,P. and Muller-Hill,B. (1994) Lambda cI repressor mutants
+altered in transcriptional activation. J. Mol. Biol., 242, 23–36.
+26. Nakayama,Y. and Kobayashi,I. (1998) Restriction-modiﬁcation
+gene complexes as selﬁsh gene entities: roles of a regulatory
+system in their establishment, maintenance, and apoptotic mutual
+exclusion. Proc. Natl Acad. Sci. USA, 95, 6442–6447.
+27. O’Sullivan,D.J. and Klaenhammer,T.R. (1998) Control of
+expression of LlaI restriction in Lactococcus lactis. Mol. Microbiol.,
+27, 1009–1020.
+28. Vijesurier,R.M., Carlock,L., Blumenthal,R.M. and Dunbar,J.C.
+(2000) Role and mechanism of action of C. PvuII, a regulatory
+protein conserved among restriction-modiﬁcation systems.
+J. Bacteriol., 182, 477–487.
+29. Mruk,I., Rajesh,P. and Blumenthal,R.M. (2007) Regulatory
+circuit based on autogenous activation-repression: roles of C-boxes
+and spacer sequences in control of the PvuII restriction-
+modiﬁcation system. Nucleic Acids Res., 35, 6935–6952.
+30. Bogdanova,E., Djordjevic,M., Papapanagiotou,I., Heyduk,T.,
+Kneale,G. and Severinov,K. (2008) Transcription regulation
+of the type II restriction-modiﬁcation system AhdI. Nucleic
+Acids Res., Jan. 18 [Epub ahead of print].
+31. Raleigh,E.A., Murray,N.E., Revel,H., Blumenthal,R.M.,
+Westaway,D., Reith,A.D., Rigby,P.W., Elhai,J. and Hanahan,D.
+(1988) McrA and McrB restriction phenotypes of some E. coli
+strains and implications for gene cloning. Nucleic Acids Res.,
+16, 1563–1575.
+32. Regnier,P. and Arraiano,C.M. (2000) Degradation of mRNA
+in bacteria: emergence of ubiquitous features. Bioessays,
+22, 235–244.
+33. Raleigh,E.A. (1992) Organization and function of the mcrBC
+genes of Escherichia coli K-12. Mol. Microbiol., 6, 1079–1086.
+34. Sambrook,J., Fritsch,E.F. and Maniatis,T. (1986) Molecular
+Cloning: A Laboratory Manual. 2nd edn. Cold Spring Harbor
+Laboratory Press, Cold Spring Harbor, New York.
+35. Merriam,V. (1977) Stability of the carrier state in bacteriophage
+M13-infected cells. J. Virol., 21, 880–888.
+36. Palchoudhury,S.R. and Iyer,V.N. (1969) Loss of an episomal
+fertility factor following the multiplication of coliphage M13.
+Mol. Gen. Genet., 105, 131–139.
+37. Karlsson,F., Malmborg-Hager,A.C., Albrekt,A.S. and
+Borrebaeck,C.A. (2005) Genome-wide comparison of phage
+M13-infected vs. uninfected Escherichia coli. Can. J. Microbiol.,
+51, 29–35.
+38. Higashitani,N., Higashitani,A., Roth,A. and Horiuchi,K. (1992)
+SOS induction in Escherichia coli by infection with mutant
+ﬁlamentous phage that are defective in initiation of complementary-
+strand DNA synthesis. J. Bacteriol., 174, 1612–1618.
+39. Kowalczykowski,S.C. (1991) Biochemical and biological function
+of Escherichia coli RecA protein: behavior of mutant RecA
+proteins. Biochimie, 73, 289–304.
+40. Pfaﬄ,M.W. (2001) A new mathematical model for relative
+quantiﬁcation in real-time RT–PCR. Nucleic Acids Res., 29, e45.
+41. Huggett,J., Dheda,K., Bustin,S. and Zumla,A. (2005) Real-time
+RT-PCR normalisation; strategies and considerations. Genes
+Immun., 6, 279–284.
+42. Bernstein,J.A., Khodursky,A.B., Lin,P.H., Lin-Chao,S. and
+Cohen,S.N. (2002) Global analysis of mRNA decay and
+abundance in Escherichia coli at single-gene resolution using
+two-color ﬂuorescent DNA microarrays. Proc. Natl Acad. Sci.
+USA, 99, 9697–9702.
+43. Denhardt,D.T., Dressler,D. and Ray,D.S. (1978) The single-stranded
+DNA phages Cold Spring Harbor Laboratory Press, Cold Spring
+Harbor, New York.
+44. Brown,L.R. and Dowell,C.E. (1968) Replication of coliphage M-13.
+I. Eﬀects on host cells after synchronized infection. J. Virol.,
+2, 1290–1295.
+45. Cashman,J.S., Webster,R.E. and Steege,D.A. (1980) Transcription
+of bacteriophage ﬂ. The major in vivo RNAs. J. Biol. Chem.,
+255, 2554–2562.
+46. Marvin,D.A., Pigram,W.J., Wiseman,R.L., Wachtel,E.J. and
+Marvin,F.J. (1974) Filamentous bacterial viruses. XIL. Molecular
+architecture of the class I (fd, If1, IKe) virion. J. Mol. Biol.,
+88, 581–598.
+47. Deng,L.W. and Perham,R.N. (2002) Delineating the site of
+interaction on the pIII protein of ﬁlamentous bacteriophage fd
+with the F-pilus of Escherichia coli. J. Mol. Biol., 319, 603–614.
+48. Manchak,J., Anthony,K.G. and Frost,L.S. (2002) Mutational
+analysis of F-pilin reveals domains for pilus assembly, phage
+infection and DNA transfer. Mol. Microbiol., 43, 195–205.
+49. Heitman,J., Fulford,W. and Model,P. (1989) Phage Trojan
+horses: a conditional expression system for lethal genes. Gene,
+85, 193–197.
+50. Vilette,D., Ehrlich,S.D. and Michel,B. (1996) Transcription-induced
+deletions in plasmid vectors: M13 DNA replication as a source of
+instability. Mol. Gen. Genet., 252, 398–403.
+51. Akerlund,T., Nordstrom,K. and Bernander,R. (1995) Analysis of
+cell size and DNA content in exponentially growing and stationary-
+phase batch cultures of Escherichia coli. J. Bacteriol.,
+177, 6791–6797.
+52. Churchill,G.A., Daniels,D.L. and Waterman,M.S. (1990) The
+distribution of restriction enzyme sites in Escherichia coli. Nucleic
+Acids Res., 18, 589–597.
+53. Blattner,F.R., Plunkett,G.,III, Bloch,C.A., Perna,N.T., Burland,V.,
+Riley,M., Collado-Vides,J., Glasner,J.D., Rode,C.K., Mayhew,G.F.
+et al. (1997) The complete genome sequence of Escherichia coli
+K-12. Science, 277, 1453–1474.
+54. Chow,K.H. and Courcelle,J. (2007) RecBCD and RecJ/RecQ
+initiate DNA degradation on distinct substrates in UV-irradiated
+Escherichia coli. Radiat. Res., 168, 499–506.
+55. Handa,N., Ichige,A., Kusano,K. and Kobayashi,I. (2000) Cellular
+responses to postsegregational killing by restriction-modiﬁcation
+genes. J. Bacteriol., 182, 2218–2229.
+56. Antonov,P.A., Maximova,V.A. and Pancheva,R.P. (1993) Heat
+shock and osmotically dependent steps by DNA uptake after
+Escherichia coli electroporation. Biochim. Biophys. Acta,
+1216, 286–288.
+57. Hanahan,D., Jessee,J. and Bloom,F.R. (1991) Plasmid
+transformation of Escherichia coli and other bacteria.
+Methods Enzymol., 204, 63–113.
+58. Neidhardt,F.C. (1999) Bacterial growth: constant obsession
+with dN/dt. J. Bacteriol., 181, 7405–7408.
+59. Russel,M. (1991) Filamentous phage assembly. Mol. Microbiol.,
+5, 1607–1613.
+60. Westwater,C., Kasman,L.M., Schoﬁeld,D.A., Werner,P.A.,
+Dolan,J.W., Schmidt,M.G. and Norris,J.S. (2003) Use of genetically
+engineered phage to deliver antimicrobial agents to bacteria: an
+alternative therapy for treatment of bacterial infections. Antimicrob.
+Agents Chemother., 47, 1301–1307.
+61. Hagens,S. and Blasi,U. (2003) Genetically modiﬁed ﬁlamentous
+phage as bactericidal agents: a pilot study. Lett. Appl. Microbiol.,
+37, 318–323.
+62. Roy,A. and Mitra,S. (1970) Increased fragility of
+Escherichia coli after infection with bacteriophage M13. J. Virol.,
+6, 333–339.
+63. Barker,M.M., Gaal,T. and Gourse,R.L. (2001) Mechanism of
+regulation of transcription initiation by ppGpp. II. Models for
+positive control based on properties of RNAP mutants and
+competition for RNAP. J. Mol. Biol., 305, 689–702.
+64. Liang,S., Bipatnath,M., Xu,Y., Chen,S., Dennis,P., Ehrenberg,M.
+and Bremer,H. (1999) Activities of constitutive promoters in
+Escherichia coli. J. Mol. Biol., 292, 19–37.
+2592 Nucleic Acids Research, 2008, Vol. 36, No. 8
+65. Kobayashi,I. (1999) Homologous recombination and sex as a
+strategy against selﬁsh genes attacking the genome. Ann NY Acad.
+Sci., 870, 354–356.
+66. Handa,N. and Kobayashi,I. (1999) Post-segregational killing by
+restriction modiﬁcation gene complexes: observations of individual
+cell deaths. Biochimie, 81, 931–938.
+67. Naderer,M., Brust,J.R., Knowle,D. and Blumenthal,R.M. (2002)
+Mobility of a restriction-modiﬁcation system revealed by its
+genetic contexts in three hosts. J. Bacteriol., 184, 2411–2419.
+68. Rice,M.R. and Blumenthal,R.M. (2000) Recognition of native
+DNA methylation by the PvuII restriction endonuclease. Nucleic
+Acids Res., 28, 3143–3150.
+69. Heitman,J., Ivanenko,T. and Kiss,A. (1999) DNA nicks inﬂicted
+by restriction endonucleases are repaired by a RecA- and
+RecB-dependent pathway in Escherichia coli. Mol. Microbiol.,
+33, 1141–1151.
+70. Prakash-Cheng,A. and Ryu,J. (1993) Delayed expression of in vivo
+restriction activity following conjugal transfer of Escherichia coli
+hsdK (restriction-modiﬁcation) genes. J. Bacteriol., 175, 4905–4906.
+71. Prakash-Cheng,A., Chung,S.S. and Ryu,J. (1993) The expression
+and regulation of hsdK genes after conjugative transfer. Mol. Gen.
+Genet., 241, 491–496.
+72. Makovets,S., Powell,L.M., Titheradge,A.J., Blakely,G.W. and
+Murray,N.E. (2004) Is modiﬁcation suﬃcient to protect a
+bacterial chromosome from a resident restriction endonuclease?
+Mol. Microbiol., 51, 135–147.
+73. Cajthamlova,K., Sisakova,E., Weiser,J. and Weiserova,M. (2007)
+Phosphorylation of Type IA restriction-modiﬁcation complex
+enzyme EcoKI on the HsdR subunit. FEMS Microbiol. Lett.,
+270, 171–177.
+74. Roberts,R.J., Belfort,M., Bestor,T., Bhagwat,A.S., Bickle,T.A.,
+Bitinaite,J., Blumenthal,R.M., Degtyarev,S., Dryden,D.T.,
+Dybvig,K. et al. (2003) A nomenclature for restriction enzymes,
+DNA methyltransferases, homing endonucleases and their genes.
+Nucleic Acids Res., 31, 1805–1812.
+75. Zielenkiewicz,U. and Ceglowski,P. (2005) The toxin-antitoxin
+system of the streptococcal plasmid pSM19035. J. Bacteriol.,
+187, 6094–6105.
+76. Mruk,I., Rajesh,P. and Blumenthal,R.M. (2007) Regulatory
+circuit based on autogenous activation-repression: roles of
+C-boxes and spacer sequences in control of the PvuII restriction-
+modiﬁcation system. Nucleic Acids Res., 35, 6935–6952.
+77. Selinger,D.W., Saxena,R.M., Cheung,K.J., Church,G.M. and
+Rosenow,C. (2003) Global RNA half-life analysis in Escherichia coli
+reveals positional patterns of transcript degradation. Genome Res.,
+13, 216–223.
+78. Celesnik,H., Deana,A. and Belasco,J.G. (2007) Initiation of RNA
+decay in Escherichia coli by 5’ pyrophosphate removal. Mol. Cell,
+27, 79–90.
+79. Majdalani,N., Vanderpool,C.K. and Gottesman,S. (2005)
+Bacterial small RNA regulators. Crit. Rev. Biochem. Mol. Biol.,
+40, 93–113.
+80. Aiba,H. (2007) Mechanism of RNA silencing by Hfq-binding small
+RNAs. Curr. Opin. Microbiol., 10, 134–139.
+81. Kim,Y.I. and Hu,J.C. (1997) Oriented DNA binding by
+one-armed lambda repressor heterodimers and contacts between
+repressor and RNA polymerase at P(RM). Mol. Microbiol.,
+25, 311–318.
+82. Yanisch-Perron,C., Vieira,J. and Messing,J. (1985) Improved M13
+phage cloning vectors and host strains: nucleotide sequences of the
+M13mp18 and pUC19 vectors. Gene, 33, 103–119.
+83. Chang,A.C. and Cohen,S.N. (1978) Construction and character-
+ization of ampliﬁable multicopy DNA cloning vehicles derived from
+the P15A cryptic miniplasmid. J. Bacteriol., 134, 1141–1156.
+84. Brosius,J. (1984) Plasmid vectors for the selection of promoters.
+Gene, 27, 151–160.
+Nucleic Acids Research, 2008, Vol. 36, No. 8 2593

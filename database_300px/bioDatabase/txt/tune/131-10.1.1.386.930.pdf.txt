@@ -1,0 +1,1316 @@
+JOURNAL OF GEOPHYSICAL RESEARCH, VOL. 102, NO. B5, PAGES 10,039-10,054, MAY 10, 1997 
+Marine gravity anomaly from Geosat and ERS 1 satellite altimetry 
+David T. Sandwell 
+Institute of Geophysics and Planetary Physics, Scripps Institution of Oceanography, University of California, La Jolla 
+Walter H. F. Smith 
+Geosciences Laboratory, NOAA, Silver Spring, Maryland 
+Abstract. Closely spaced satellite altimeter profiles collected during the Geosat Geodetic Mission (-6 
+km) and the ERS 1 Geodetic Phase (8 km) are easily converted to grids of vertical gravity gradient and 
+gravity anomaly. The long-wavelength radial orbit error is suppressed below the noise level of the 
+altimeter by taking the along-track derivative of each profile. Ascending and descending slope profiles 
+are then interpolated onto separate uniform grids. These four grids are combined to form comparable 
+grids of east and north vertical deflection using an iteration scheme that interpolates data gaps with 
+minimum curvature. The vertical gravity gradient is calculated directly from the derivatives of the 
+vertical deflection grids, while Fourier analysis is required to construct gravity anomalies from the two 
+vertical deflection grids. These techniques are applied to a combination of high-density data from the 
+dense mapping phases of Geosat and ERS 1 along with lower-density but higher-accuracy profiles from 
+their repeat orbit phases. A comparison with shipboard gravity data shows the accuracy of the satellite- 
+derived gravity anomaly is about 4-7 mGal for random ship tracks. The accuracy improves to 3 mGal 
+when the ship track follows a Geosat Exact Repeat Mission track line. These data provide the first view 
+of the ocean floor structures in many remote areas of the Earth. Some applications include inertial 
+navigation, prediction of seafloor depth, planning shipboard surveys, plate tectonics, isostasy of 
+volcanoes and spreading ridges, and petroleum exploration. 
+Introduction 
+Radar altimeter measurements of the marine geoid collected 
+during the Seasat altimeter mission gave marine geodesists and 
+geophysicists a hope of uncovering the details in the gravity field 
+over all the ocean basins [Haxby et al., 1983]. However, because 
+of insufficient track density, it has taken 16 years for the full 
+potential of the satellite altimeter method to be realized. The 
+high-density coverage obtained by ERS 1 during its geodetic 
+mapping phase (April 1994 to March 1995) prompted the U.S. 
+Navy to declassify all of the Geosat altimeter data on June 22, 
+1995. We are grateful to the European Space Agency for 
+extending the ERS 1 mapping phase so that an equatorial ground 
+track spacing of 8 km could be completed. The combination of 
+these two high-density data sets provided the first detailed view 
+of all the ocean basins at a 10-km resolution. Considering the 
+sparse shipboard coverage of many ocean areas [Smith, 1993], 
+these new altimeter data are arguably the most important marine 
+geology and geophysics data set collected over the past decade. 
+The focus of this paper is on the efficient recovery of marine 
+gravity anomalies and other derivatives of the potential using data 
+from satellite altimeters having different orbital inclinations and 
+different noise characteristics; no attempt is made to recover sea 
+surface topography (i.e., geoid height plus ocean dynamic 
+topography). After an introduction to radar altimetry and its 
+inherent limitations, we discuss data availability and our recipe 
+for constructing gridded gravity anomalies from altimeter 
+profiles. The method (recipe) presented here is based largely on 
+Copyfight 1997 by the American Geophysical Union. 
+Paper number 96JB03223. 
+0148-0227/97/96JB-03223 $09.00 
+previous work [Heiskanen and Moritz, 1967; Briggs, 1974; 
+Haxby et al., 1983; Sandwell, 1984; Freedman and Parsons, 
+1986; Haxby and Weissel, 1986; Roest, 1987; Smith and Wessel, 
+1990; Rumreel and Haagmans, 1990; Haxby and Hayes, 1991; 
+Sandwell, 1992; Laxon and McAdoo, 1994; Hwang and Parsons, 
+1996]. We then assess the quality of the gridded data and suggest 
+possible ways to improve the resolution of the gravity field along 
+stacked profiles. Finally, we provide a tour of the gravity field of 
+the oceans and point out a few of the new and interesting features. 
+We do not attempt to review other methods for recovery of short- 
+wavelength gravity information from satellite altimetry [e.g., 
+Wakker et al., 1993; Cazenave et al., 1995; Andersen et al., 1995; 
+Hwang and Parsons, 1995] but instead focus on our recipe, 
+discuss how it was developed, and explain why certain processes 
+are used. Over the next months and years our recipe may 
+undergo revisions, and perhaps others will devise better recipes. 
+This research has two main components. The first component, 
+presented in this manuscript, is a traditional journal article with 
+appendices. Appendix A covers the relationship between geoid 
+height, vertical deflection, gravity gradient, and gravity anomaly. 
+Appendix B covers the statistical method to estimate north and 
+east vertical deflections from along-track slopes. Appendix C has 
+the derivation of analytic formulae to calculate the approximate 
+satellite position and velocity as a function of time since equator 
+crossing and latitude. The second part of our research is more 
+suitable for electronic media and will be submitted for publication 
+to Earth Interactions. It contains many color images of the 
+marine gravity field (http://topex.ucsd.edu); the images are 
+layered so the reader can zoom in on features of interest. In 
+addition, the companion electronic article contains all of the 
+computer code used to construct he results shown in both papers 
+as well as links to files of gridded gravity anomaly, vertical 
+gravity gradient, and high-quality postscript plots of gravity 
+10,039 
+10,040 SANDWELL AND SMITH: MARINE GRAVITY 
+Geosat 
+ORBIT 
+Figure 1. A pulse-limited radar altimeter orbits at an altitude of 
+about 800 km and measures the distance to the closest ocean 
+surface by recording the travel time of a pulse. A global tracking 
+network along with precise orbit calculations based on the JGM-3 
+gravity model [Nerem et al., 1994] is used to establish the height 
+of the satellite above the reference ellipsoid (dashed curve). We 
+assume the sea surface height above the ellipsoid is equal to the 
+geoid height so permanent sea surface slopes associated with 
+currents will appear as false anomalies in our gravity solution. 
+anomaly at the General Bathymetric Chart of the Oceans map 
+scale. The companion electronic paper also contains links to 
+scripts illustrating the use of the gravity anomaly grids with GMT 
+software [Wessel and Smith, 1995]. 
+Satellite Altimetry 
+A satellite altimeter uses a pulse-limited radar to measure the 
+altitude of the satellite above the closest sea surface point to a 
+very high precision (Figure 1). Global precise tracking coupled 
+with orbit dynamic calculations provide an independent 
+measurement of the height of the satellite above the ellipsoid. 
+The difference between these two measurements is equal to the 
+instantaneous sea surface height minus any delays in the 
+propagation of the radar echo due to the ionosphere and 
+troposphere. There are many errors in these measurements that 
+are discussed and evaluated in a number of excellent papers 
+[Nerem et al., 1994; Tapley et al., 1994; Ma et al., 1994; Visser et 
+al., 1993]. Most of these errors occur over length scales of 
+greater than a few hundred kilometers. They are important for 
+precise oceanographic studies or studies where the geoid height is 
+needed. However, because we are only interested in the gradient 
+of the sea surface, the short-wavelength altimeter noise dominates 
+the error budget. 
+There are at least two factors that impose limits on the 
+accuracy and resolution of gravity field recovery from satellite 
+altimetry. First the ocean depth (-4 km) attenuates the short- 
+wavelength gravity signals (equation (A9)). Consider an anomaly 
+on the ocean floor with a 16-km wavelength and a 15-mGal 
+amplitude (i.e., a typical value for oceans). On the ocean surface 
+this anomaly will be reduced to 3.1 mGal by upward 
+continuation. The second limitation is due to the short- 
+wavelength noise from ocean surface waves (typically > 1 m). 
+The radar pulse reflects from an area of ocean surface (footprint) 
+that grows with increasing sea state [Stewart, 1985]. The 
+superposition of the reflections from this area stabilizes the shape 
+of the echo, but it also smooths the echo so that the timing of its 
+leading edge is more uncertain. By averaging many echoes (1000 
+Hz) over multiple repeat cycles, one can achieve a 10 to 20-mm 
+range precision [Noreus 1995; Yale et al., 1995]. Over a distance 
+of 4 km (i.e., 1/4 wavelength) this corresponds to a sea surface 
+slope error of 4 grad and a gravity error of about 4 mGal 
+(Appendix A). The combination of these two limitations makes it 
+difficult to improve the resolution. Consider trying to improve 
+the resolution by a factor of 2, upward continuation will attenuate 
+the signal by an additional factor of e 2 = 7.4, so assuming a 
+Gaussian error distribution, the number of measurements must be 
+increased bya factor of e 4 = 55. At longer wavelengths or in 
+shallower water the situation is not as bad, but nevertheless the 
+roughness of the ocean surface limits the accuracy of the short- 
+wavelength slope estimate. We show that ocean tides, which can 
+also have a short-wavelength component especially on the 
+continental shelves, are a third limiting factor in the recovery of 
+the gravity field. It is surprising that other factors such as basin- 
+scale dynamic ocean topography are not important; in this case 
+the slope of this error is usually low (e.g., 1 m over say 3000 km 
+which translates into 0.33 mGal). Sharper oceanographic steps 
+associated with western boundary currents can be a significant 
+error source [Gille, 1994]. 
+The repeat period of the satellite orbit governs the spacing of 
+the altimeter tracks on the ocean surface (Figure 2). Very long 
+repeat cycles such as 168-day ERS 1 geodetic phase or the non- 
+repeat (drifting) orbit of the Geosat/Geodetic Mission 
+(Geosat/GM) provide the high-density coverage needed for 
+complete resolution of the gravity field. The shorter repeat 
+periods of 10 days for TOPEX, 17 days for Geosat, and 35 days 
+for ERS 1 do not provide dense track coverage. However, the 
+repeated profiles can be averaged to improve the signal-to-noise 
+ratio as well as to assess the noise properties of the altimeter 
+measurements. Here we do not use the TOPEX or POSEIDON 
+altimeter measurements because the wide track spacing provides 
+little new information. 
+Along-Track Preprocessing 
+The starting point for the Geosat data are geophysical data 
+records (GDR) from National Oceanographic Data Center 
+[Cheney et al., 1991] where the orbital information for the 
+Geodetic Mission data was upgraded to the Joint Gravity Model 3 
+(JGM-3) orbits [Nerem et al., 1994]. The ERS 1 ocean product 
+(OPR) data [Dumont et al., 1995] were used with their original 
+orbits as were the Geosat Exact Repeat Mission (Geosat/ERM) 
+data. The along-track processing of the raw geophysical data 
+records consists of a number of steps: edit, apply corrections, 
+divide into passes, low-pass filter, resample at 5 Hz, and 
+differentiate. The editing criteria were established by examining 
+raw altimeter data from a variety of satellites and under a variety 
+of conditions. Care is taken to remove outliers in areas of ice or 
+land prior to any filtering. In the open ocean we try to retain all 
+points except when the shape of the return pulse suggests that the 
+SANDWELL AND SMITH: MARINE GRAVITY 10,041 
+250N 
+(a) 
+20'N 
+15'N 
+1650W 160'W 155'W 150'W 
+Figure 2. (a) Tracks of stacked Geosat/ERM (17-day repeat cycle) (22.5o-25 ø N), Geosat/GM (20o-22.5 ' N), ERS 1 
+Geodetic Phase (168-day repeat cycle) (17.5ø-20 øN), and stacked ERS 1 (35-day repeat cycle) (15ø-17.5N). These tracks 
+show data remaining after editing and filtering. (b) Vertical gravity gradient (i.e., curvature of ocean surface) around 
+Hawaii derived from all four data sets. Contours at 50 and 100 Eotvos units are shown to highlight seamount/island 
+signatures. 
+significant wave height (SWH) is high; these data are usually 
+noisy [Yale et al., 1995]. Unfortunately, much of our 
+documentation on the choice of edit thresholds is located in a 
+variety of old notebooks and tapes and thus cannot be completely 
+justified. 
+Our editing approach examines the individual 10-Hz samples 
+in relation to the best fit straight line through the 10 points as 
+described by Cheney et al. [1991]. If the rms about the line is 
+greater than 0.15 m for Geosat (0.25 m for ERS 1) or the SWH 
+exceeds 8 m for Geosat (6 m for ERS 1), then all 10 points are 
+edited. In addition, a new 2-min gridded land/water mask was 
+developed using the Generic Mapping Tools (GMT) software 
+package [Wessel and Smith, 1995] to eliminate frames near land 
+where stray echos can contaminate the ocean data, especially 
+when low-pass filters are applied. Finally, each 10-Hz point was 
+compared with the best fit line. If its deviation from the line was 
+more than 5 times the rms about the line, then the point was 
+eliminated, a new best fit line was computed, and the points were 
+tested again until they all passed or until only six points remained. 
+Our primary focus is on the recovery of the short-wavelength 
+gravity field information, and thus not all corrections are relevant 
+or even useful. For example, corrections based on global models 
+(i.e., wet troposphere, dry troposphere, ionosphere, and inverted 
+barometer) typically do not have wavelength components horter 
+than 1000 km, and if their amplitude variations are less than 1 m 
+they do not contribute more than 1 grad to the noise. Some 
+corrections such as the electromagnetic bias can actually add 
+noise [Gille, 1994]. We have found that the most important 
+correction to the sea surface slope is the ocean tide and have 
+determined that the Center for Space Research (CSR) composite 
+10,042 SANDWELL AND SMITH: MARINE GRAVITY 
+Figure 3. Absolute value of tide model slope [Eanes and Bettadpur, 1995]. Contours are at 0.5, 1, 2, 3, 4, and 5 grad. 
+One grad of tidal slope error will map into -1 mGal of gravity anomaly error. Tide models are most important on some 
+shallow continental margins. 
+ocean tide model V3.0 [Bettadpur and Eanes, 1994; Eanes and 
+Bettadpur, 1995] is superior to the tides supplied with either the 
+Geosat GDRs or the ERS 10PR. Figure 3 shows the rms of the 
+slope of the CSR V3.0 tide correction for a 35-day repeat cycle of 
+ERS 1. Tidal slope corrections are usually small over the deep 
+ocean but can be up to 6 grad over some of the shallow 
+continental margins. Previous versions of the global gravity grid 
+did not incorporate this tide model correction and suffered from 
+track line noise on the shallow areas surrounding Great Britain as 
+well as on the Falkland Plateau; the CSR V3.0 tide model vastly 
+improves the gravity field recovery in these and other areas. 
+I ,' gl ', 
+i i i i i 
+-30 -20 - 10 0 10 20 30 
+Lag (km) 
+............... ....... ...... ..... ............ 
+i • i '• i .4 ...... .i / :", ...... 
+0 / i ß L "',,•:-' _ i _ i , " 
+0 0.05 O. 1 O. 15 0.2 0.25 
+Wavenumber (1/kin) 
+Figure 4. Prestack filters used on ERS 1 and Geosat altimeter 
+data (solid). The poststack filter (dashed) is applied to all stacked 
+and nonstacked profiles prior to gridding and has a 0.5 gain at a 
+wavelength of 18 km. The 1-Hz boxcar filter (dashed-dot) is not 
+suitable for resolving wavelengths shorter than about 30 km 
+because of the large-amplitude sidelobes and slow roll-off. 
+Filters were designed using the Remez routine in Matlab TM 
+software. The routine is based on the Parks-McClellan finite 
+impulse response filter design. 
+After editing and application of corrections, the data are 
+broken into passes whenever a time gap exceeds 2 s (-14 km) or 
+there is a change in pass orientation (e.g., from ascending to 
+descending). The passes are low-pass filtered to suppress 
+altimeter noise having wavelengths shorter than 5 km for Geosat 
+and 10 km for ERS 1 as shown in Figure 4 (solid curves) and the 
+filtered heights are subsampled at 5 Hz. Note that the 1-Hz 
+boxcar filter (dashed-dot curves) followed by a 1-Hz decimation 
+(i.e., the normal 1-Hz data supplied on both the GDR and OPR) 
+will cause the sinc function sidelobes to fold from wavenumbers 
+greater that 0.075 (13.4 km wavelength) to much longer 
+wavelengths so that there is more than 20% aliasing at 20 km 
+wavelength; thus a boxcar filter should not be used and the 
+sampling rate should be greater than 2 Hz and preferably 5 Hz to 
+retain all signals with wavelengths greater than 20 km. 
+The final and perhaps most important step in the preprocessing 
+is to differentiate continuous profiles along track with respect to 
+time. As shown in previous studies [e.g., Sandwell and Zhang, 
+1989], this suppresses long-wavelength errors and reference 
+frame shifts so data adjustments are unnecessary. For simplicity, 
+and to retain the ability to integrate the profiles, a first difference 
+is used for the slope estimates. For example, the difference in 
+height between points 1 and 2 is divided by their time difference 
+and the slope is stored in location 1. This introduces a 1/2 phase 
+shift (670 m) that is removed later with a second along-track 
+filter. 
+Stacking 
+A study of the along-track resolution capabilities of stacked 
+Geosat, ERS 1, and TOPEX altimeters was recently published by 
+Yale et al. [1995] using the coherence method developed by 
+Brammer [ 1979] and Marks and Sailor [1986]. Example profiles 
+are shown in Figure 5 and an overview of the results is given in 
+Table 1. All available data were loaded into three-dimensional 
+files where repeat profiles were aligned along track. Outliers 
+were detected by a comparison with the median of available 
+cycles, and then the stack was computed as the average of the 
+survivors. To determine the resolution improvement gained by 
+stacking, the first half of available repeat profiles was averaged 
+SANDWELL AND SMITH' MARINE GRAVITY 10,043 
+1600 
+1400 
+1200 
+.•1000 
+800 
+600 
+400 
+200 
+i i i 
+-8 0 8 
+Latitude (degrees) 
+stac (8 cl s)• .... . - 
+I i i i ! i 
+-8 0 8 -8 0 8 
+Latitude (degrees) Latitude (degrees) 
+Figure 5. Individual nd stacked vertical deflection profiles for a track crossing the Mid-Atlantic Ridge: (left) Geosat, 
+(middle) ERS 1, (right) TOPEX. Only eight of the available cycles are shown for each satellite [from Yale t al., 1995]. 
+independently from the second half prior to the coherence 
+analysis. Two areas were initially selected for coherence 
+analysis: the equatorial Atlantic (Area 1 in Table 1), a region with 
+high tectonic signal and low oceanographic noise; and the South 
+Pacific (Area 2 in Table 1), a region with low tectonic signal and 
+high oceanographic variability. In all cases, along-track 
+resolution is better in the equatorial Atlantic than in the South 
+Pacific; Geosat and TOPEX data resolve shorter wavelengths 
+than ERS 1. Global maps of along-track resolution show 
+considerable geographic variation. On average globally, the 
+along-track resolution (0.5 coherence) of Geosat and TOPEX 
+stacks are approximately the same (24 km), while the resolution 
+of ERS 1 stacks are slightly worse (30 km). However, when 
+equal numbers of repeat cycles are stacked, all three altimeters 
+have about the same resolution limit of 28-30 km. The resolution 
+estimates show that the shortest wavelength recoverable in the 
+gravity field from satellite altimetry is about 20 km. Later, we 
+apply an along-track filter to all of the profile data with a 0.5 gain 
+at a wavelength of 18 km (Figure 4, dashed curves). Then after 
+the north and east vertical deflection grids are created, they are 
+low-pass filtered in two-dimensions with a filter having a0.5 gain 
+at 19 km. 
+Gridding: Accumulation, Interpolation, 
+and Gravity Conversion 
+Our recipe for construction ofgridded gravity anomalies from 
+altimeter profiles works best when the track spacing is less than 
+the along-track resolution of the altimeter data. The method was 
+designed to accommodate large radial orbit error, long- 
+wavelength tide model error, and shifts in reference associated 
+with different tracking networks. In addition, it can 
+accomrnodate data with differing accuracy, resolution, and pass 
+orientation (Appendix B and Figure 6). Finally, the algorithm is 
+fast enough so the entire word can be gridded on a workstation i
+a reasonable time (-2 days) (206 million observations and 68 
+million grid cells). We start with along-track slope estimates that 
+were preprocessed and stacked as described above. The goal is to 
+produce north and east vertical deflection grids that are consistent 
+with the original observations to within their assigned noise level 
+and where unconstrained cells reflect nearby values. The basic 
+steps are (Figure 7) the following. 
+1. Edit nonstacked ata by comparing the height value (i.e., 
+integrated slope) with a Gaussian-filtered prediction from the 
+surrounding points (0.5 gain at 36 km). If the suspect height 
+Table 1. Summary of Along-Track Resolution Estimates 
+Area 1 
+Geosat 
+ERS 1 
+TOPEX 
+Cycle Stack 8 Stack 31 Cycle 
+33 26 20 52 
+38 26 - 50 
+34 24 19 43 
+Area 2 
+Stack 8 
+38 
+33 
+31 
+Stack 31 
+27 
+_ 
+23 
+Cycle 
+38 
+43 
+37 
+Global Average 
+Stack 8 
+29 
+30 
+28 
+Stack 31 
+24 
+_ 
+22 
+Units in kilometers 
+10,044 SANDIVELL AND SMITH: MARINE GRAVITY 
+3.5 
+2.5 
+1.5 
+0.5 
+i I i i I i i 
+_ east slope 
+- 
+- 
+0 I I I I I I I I I 
+-80 -60 -40 -20 0 20 40 60 80 
+Latitude (deg) 
+0 ¸ 0 
+ERS 1 71 ERS 1 
+Geosat '*•i:•p Geosat 
+73 ¸ 81 ¸ 
+.,* ERS 1 
+X ,•ERS 1 
+Figure 6. Propagation of along-track vertical deflection errors from dense Geosat nd ERS 1 profiles into north and east 
+components of vertical deflection. At the equator, satellite tracks run mainly N-S so the E-W component ofvertical 
+deflection is more poorly determined than the N-S component. This covariance information s used in both the blending 
+during the iteration (Figure 7) and the filtering following the iteration (Figure 8). 
+estimate differed by more than 0.3 m from the prediction then that 
+point was edited and the slope profile was recomputed. 
+2. Filter all of the along-track data with the same filter (0.5 
+gain at 18 km wavelength, Figure 4, dashed curves) to ensure a 
+common bandwidth. The cutoff wavelength is based on the 
+coherence analysis of Yale et al. [1995] which shows that the 
+shortest possible wavelength resolvable is about 20 km. These 
+two editing/filtering steps were not executed in the version 6.2 
+gravity field which resulted in a very noisy gravity model. 
+3. Remove from the profiles a reference geoid model based on 
+JGM-3 [Nerem et al., 1994] to degree 70 where coefficients are 
+cosine tapered between degrees 50 and 70. This same field is 
+restored later on; the reference field is removed so the vertical 
+deflection to gravity anomaly conversion can be accurately 
+performed with a flat-Earth approximation. 
+4. Bin data on an equidimensional Mercator grid with cell 
+dimensions of 2 min in longitude and cos(O) x 2 min in latitude. 
+The world is divided into 54 overlapping areas that are 1440 cells 
+SANDWELL AND SMITH' MARINE GRAVITY 10,045 
+I Ascending I I Descending I I Ascending I 
+Geosat I I Geøsat I I ERS'I I (hit) I I(hit) I I (hit) I 
+I Reset• 
+I Ascending I I Descending I I Ascending I 
+I Descending I 
+ERS 1 I 
+(hit) I 
+I Descending I 
+ERS 1 I 
+/ 
+Figure 7. Flow diagram for constructing north and east grids of 
+vertical deflection from ascending and descending along-track 
+slope profiles. Iteration provides a communication among the 
+diverse data sets [Menke, 1991 ]. 
+wide (48 ø) and 1296 cells tall, so there is about 400 km of overlap 
+on the perimeters. The areas are large enough so that the longest 
+wavelength signal remaining in the residual profiles (-800 km) is 
+less than the area dimension (> 2000 km). Data with common 
+pass orientation are binned into these grid cells; unconstrained 
+cells are left with an empty flag. Binning is done using the 
+median value within the bin, and stacked profiles are counted 5 
+times so they will dominate the median. 
+5. Fill empty cells with reasonable values for the first iteration 
+using a weighted average of surrounding data based on an 
+(a + r) -3 weight function where a sets the width of the kernel and 
+r is distance. 
+6. Blend pass-oriented grids using equation (B8) to form grids 
+of north and east vertical deflection. Note that each data type is 
+assigned a different weight according to expected noise level 
+(ERS 1 noise = 1.41 x Geosat noise). Also note that the blending 
+operation accounts for the pass orientation as illustrated in Figure 
+6. 
+7. Decompose the north and east grids into the original pass- 
+oriented grids using equations (B 1) and (B2). 
+8. Reset bins constrained by along-track slope observations to 
+their original values unless they deviate from prediction by more 
+than a threshold (15 grad, Geosat; 21 grad, ERS 1) in which case, 
+edit the bin. Use biharmonic operator [Briggs, 1974; Smith and 
+Wessel, 1990] to interpolate mpty cells and go to step 6: 
+2 (z],0 + z0,] + z-i,0 + z0,-] )ZO,O = •- 
+1 (Zl,1 -t- Zl,-1 -t- Z-l,1 -t- Z-l,-1 ) 
+10 
+1 (z0,2 +z2,0 +z-2,0 + z-0,-2 ) 
+20 
+(1) 
+where z0,0 is the interpolated value based on the surrounding 
+values zi,j. Steps (6) through (8) are repeated (Figure 7) until the 
+values of unconstrained grid cells converge and the interpolated 
+grids vary smoothly to zero in continental areas. Exit from the 
+iteration after step (6). 
+9. The final step is to apply an isotropic, low-pass, convolution 
+filter [kei(x/2r/a)] to the north and east grids of vertical 
+deflection. The filter width a is proportional to the fourth root of 
+the relative error shown in Figure 6 in an attempt to equalize the 
+noise level between the north and east slope grids. The 
+exponential upward continuation model predicts that halving the 
+error increases the resolution by x/2. An additional x/2 resolution 
+is gained by averaging twice the amount of data. This is an arm- 
+waving argument for using the fourth root of the relative error as 
+the filter radius. In practice, the fourth-root model was found to 
+work best. The wavelength at which the isotropic filter attenuates 
+the signal by 0.5 is shown in Figure 8. For example, at the 
+equator the ERS 1 and Geosat tracks provide relatively poor 
+control on the east component so the 0.5-gain wavelength is 26 
+km while the 0.5 gain for the north component is 20 km. 
+After generating grids of north and east vertical deflection, 
+various other derivatives of the gravitational potential can be 
+computed. In all cases one should restore the appropriate 
+derivatives of the spherical harmonic reference model that was 
+removed in step 3. For example, the vertical gravity gradient is 
+the sum of the x derivative of the east vertical deflection 
+component and the y derivative of the north component- 
+(equation (A6)) (Figure 2). The gravity anomaly is computed 
+using (A10). The accuracy of this flat-Earth approximation is 
+related to the cutoff wavelength of the spherical harmonic model 
+removed (800 km for complete removal at degree 50). This 
+requires Fourier transformation of each vertical deflection grid, 
+combination in the wavenumber domain, and inverse Fourier 
+transformation of the sum. If the grid pixels are equidimensional, 
+then the transformation from vertical deflection to gravity largely 
+avoids latitude-dependent length-scale problems [Haxby and 
+Hayes, 1991 ]. For example, the operator on the Fourier transform 
+of the east component of vertical deflection is kx/Ikl, so the length 
+scale largely cancels. Maximum error introduced by this 
+approximation will correspond to the change in length scale that 
+28 
+26 
+•24 
+v 
+._c 
+• 22 
+;2o 
+•18 
+•16 
+•14 
+12 
+10 
+east slope 
+Latitude (deg) 
+Figure 8. Cutoff wavelength (0.5 gain) of isotropic kei filter used 
+to equalize the noise level in the north and east vertical deflection 
+grids. 
+10,046 SANDWELL AND SMITH: MARINE GRAVITY 
+occurs over a latitude range corresponding to about 400 km of 
+distance. At the equator this change is less than 0.2%, while at 
+70øN this change is 6%. We expect that the actual errors are 
+smaller than this because most of the contribution to the gravity 
+anomaly will be nearby. The error due to this "flat Earth" 
+approximation is reduced as the spherical harmonic degree of the 
+reference model is increased as long as there are no errors in the 
+reference model [Haxby and Hayes, 1991]. Also note that to 
+safely avoid edge effects the dimensions of the vertical deflection 
+grids must be several times larger than the longest wavelength 
+remaining in the residual data. The final step in the gravity 
+computation is to restore the gravity anomaly corresponding to 
+the spherical harmonic model removed in step 3. 
+Accuracy and Resolution 
+The accuracy and resolution of gravity grids constructed using 
+a similar approach were recently established through a 
+comparison with accurate shipboard gravity measurements 
+[Neumann et al., 1993]. For a small region along the southern 
+Mid-Atlantic Ridge where there is a dense shipboard survey and 
+large gravity anomalies (140 mGal total variation), the rms 
+difference is 7-8 mGal when only Geosat/GM data are used. 
+Marks [1996] has recently compared seven well-navigated 
+shipboard profiles with this latest version of our grid as well as a 
+Geosat-only grid [Marks et al., 1993] to assess the resolution of 
+the satellite-derived gravity and improvement gained by adding 
+ERS 1 altimeter data. She found agreement (0.5 coherence) to 
+wavelengths of 23-30 km for this Geosat/ERS 1 grid and 26-30 
+km for the Geosat-only grid; rms differences ranged from 3 to 9 
+mGal. This resolution analysis compares well with estimates 
+derived from repeat track analysis [Yale et al., 1995] and further 
+justifies the use of along-track and two-dimensional filters to cut 
+(0.5 gain) wavelengths horter than 20 km. 
+We also compare shipboard gravity profiles with the satellite- 
+derived gravity grid and find that individual ship profiles show 
+rms differences of 3-6 mGal depending on proximity to a stacked 
+altimeter profile. The first two examples are from ship profiles 
+that follow the track line of two Geosat/ERM profiles in the 
+South Atlantic [Jung and Vogt, 1992]. Along the Conrad 2802 
+profile, the ship track deviates from the Geosat track line at-20.5 ø 
+latitude to avoid a small island. The mean difference between the 
+Geosat-derived gravity and the shipboard gravity is -0.57 mGal, 
+and the rms difference is 2.76 mGal when the island/seamount 
+data are omitted (Figure 9a). The difference at the crest of the 
+seamount is about 50 mGal, which is probably due to lack of 
+short-wavelength components in the satellite-derived gravity 
+field. The second example (eastern South Atlantic) crosses the 
+Walvis ridge and has a similar rms misfit (3.03 mGal) but a large 
+mean difference (16.82 mGal) (Figure 9b). This large mean 
+difference probably reflects an error in the ship gravity 
+measurement at the tie point, or perhaps no tie point correction 
+was made. It should be noted that a 3-mGal error corresponds to
+a relative height accuracy of only 15 mm over a distance of 5 km 
+(i.e., 1/4 of the resolution wavelength). Considering that typical 
+surface wave heights are a meter or more tall, this is a remarkable 
+achievement. When repeating profiles are stacked, the vertical 
+deflection error decreases as the square root of the number of 
+profiles used in the stack [ Yale et al., 1995]. 
+To establish the accuracy of the satellite-derived grid in areas 
+away from repeat altimeter profiles, we selected data from two 
+well-navigated Conrad cruises on the western flank of the 
+northern Mid-Atlantic Ridge (Figure 10a). Note this is the same 
+ship, gravimeter, and navigation system that was used for the 
+South Atlantic comparison (Figure 9); thus differences will reflect 
+proximity to a stacked Geosat/ERM profile. All three cruises 
+stop in the Azores where we assume the tie point correction was 
+established. Three segments were tested, c2912 outbound from 
+Spain to the Mid-Atlantic Ridge (Figure 10b, mean 13.01 mGal, 
+rms 5.80 mGal), c2912 from Mid-Atlantic Ridge to the Azores 
+(Figure 9c, mean 13.92 mGal, rms 5.84 mGal), and c3001 from 
+the Azores to the Mid-Atlantic Ridge (Figure 9c, mean 12.43 
+150 
+50 
+0 
+-5O 
+i i i i 
+I 
+-25 -20 -15 -10 
+• lO 
+E 
+c• 0 
+I 
+ß • -lO 
+' mean=-0.5'7mGal ! rms=2.•6mGal ,t ' 
+, 
+. , 
+' ' ' -25 - -1 -10 
+Latitude (deg) 
+Figure 9a. Comparison between a shipboard gravity profile Conrad 2802 in the western South Atlantic (solid [see Jung 
+and Vogt, 1992]) with gravity profile along a track corresponding to a 62-fold stack of Geosat altimeter profiles (dashed). 
+The difference was not computed at -21.5øS latitude where the ship track deviates from the satellite track to avoid an island. 
+SANDWELL AND SMITH: MARINE GRAVITY 10,047 
+100 ' ' 
+•5 
+\1 
+i 
+\X,..I I \ "'1 \// 
+-16 -14 -22 
+lO 
+o 
+-lO 
+-32 -22 
+i ! i 
+mean = '16.82 mGal rms =3.03 mGal 
+ß •.-. •..'•, •.,• ,.'. ß ,.• t•. .•q,•s..,: '" ,,. ' ,', 
+, .. 
+. • 
+-14 
+Latitude (deg) 
+Figure 9b. Similar comparison for Conrad 2711 along Geosat/ERM suborbital track in the eastern South Atlantic. 
+mGal, rms 6.70 mGal). Note that for a short distance the ship 
+tracks are nearly coincident and there is a good match among all 
+six profiles (Figure 10c). From these comparisons we conclude 
+the following: (1) Away from a stacked Geosat/ERM profile the 
+accuracy of the satellite-derived gravity field degrades to 4-7 
+mGal. Given a typical combined Geosat/ERS 1 track spacing of 
+about 2.5 km and a 1/2 wavelength resolution of 10 km there is a 
+redundancy of about four tracks over most of the grid. This can 
+be compared to a typical redundancy of 40 along the stacked 
+Geosat/ERM profile [Yale et al., 1995]. Thus a 3.2 times 
+improvement in accuracy near the stacked profile is to be 
+expected but only a 2 times improvement is observed; of course 
+ocean depth and typical sea state are other major considerations. 
+(2) The good match between the satellite-derived gravity and the 
+shipboard gravity over the sharp 350-mGal anomaly at a 
+longitude of 344 ø (Figure 10b) demonstrates there are no major 
+problems with either the dynamic range of the altimeter or the 
+data processing. (3) The systematic disagreement in mean level 
+of 13 mGal between the cruises c2912 and c3001 suggests that 
+there is a 13-mGal error in a common tie point. The implication 
+is that one could correct the DC level of all shipboard gravity 
+profiles through comparison with the gravity grid [Wessel and 
+Watts, 1988; Smith and Sandwell, 1995]. Moreover, instrument 
+drift and other more subtle errors such as navigation-induced 
+error could be corrected. 
+Based on these ground truth analyses, one could expect 
+perhaps a factor of 2 improvement in the accuracy of the satellite- 
+derived gravity field by collecting at least 4 times more data. The 
+Geosat/GM and ERS 1/GM missions reflect 2.5 years of data, so 
+a 10-year dedicated mapping mission would be needed. In the 
+deep oceans the upward continuation causes the amplitudes of the 
+anomalies to decrease xponentially with decreasing wavelength, 
+so a factor of 2 improvement in accuracy would only yield a 1.4 
+increase in resolution to about 18 km. Such a resolution increase 
+would be geophysically significant, especially for hydrocarbon 
+exploration where the current satellite-derived gravity fields are 
+35øN 
+30øN 
+40øW 35øW 30øW 25øW 20øW 15øW 10øW 5øW 
+Figure 10a. Comparison between satellite-derived gravity and gravity along random ship tracks. (a) Location of Conrad 
+2912 Spain to Azores to Mid-Atlantic Ridge and repeating track back to Azores. Location of Conrad 3001 from Azores to 
+Mid-Atlantic Ridge along same track line. 
+10,048 SANDWELL AND SMITH: MARINE GRAVITY 
+4OO 
+300 
+•E200 
+100 
+0 
+320 325 330 335 340 345 
+i 
+35O 355 
+• 20 
+-20 
+i i i i i i I i 
+ß 
+mean = 13.01 mGal rms = 5.84 mGal 1 ! = 
+• II . ß •' 
+ß 
+-i 
+:! 
+I I I i I I I I 
+320 325 330 335 340 345 350 
+Longitude (deg) 
+Figure 10b. Comparison along outbound track of C2912, outbound. 
+355 
+marginally useful. Perhaps anew technology such as a scanning 
+laser altimeter or a multibeam radar altimeter could provide this 
+enhanced gravity field in a shorter time period. 
+Applications 
+Navigation 
+The Geosat data were collected by the U.S. Navy to fulfill their 
+navigational and mapping requirements. Consider measuring 
+accelerations in a moving submarine or aircraft in order to 
+determine your position as a function of time. (Of course, your 
+starting position and velocity must also be known.) If the 
+windows of your vehicle are closed, a true acceleration cannot be 
+distinguished from a variation in the pull of gravity. Thus the 
+gravity data are needed for correction of inertial navi- 
+gation/guidance systems. The military applications are obvious 
+and provided the rationale for the $80 million cost of the Geosat 
+mission as well as the classification f these data, especially 
+during the cold war when nuclear submarines were more active 
+than they are today. On the commercial side, Honeywell Inc. is 
+using these data to update their inertial navigation systems aboard 
+•200 
+150 
+50 
+0 
+318 
+i i i i i i i 
+ß 
+I I I I I I I I 
+320 322 324 326 328 330 332 334 
+20 
+0 
+-20 
+i ! i i i 
+mean = 13.92 mGal I rms = 4.20 mGal 
+i i i i i i i i 
+318 320 322 324 326 328 330 332 334 
+Longitude (deg) 
+Figure 10c. Comparison where three ship tracks are nearly coincident (top, c3001' middle, c2912 outbound; bottom, c2912 
+inbound). 
+SANDWELL AND SMITH: MARINE GRAVITY 10,049 
+aircraft. In particular, when this correction is not applied, they 
+have found large navigational errors along Pacific Ocean flight 
+paths which follow the major ocean trenches (K. Vanderwerf, 
+Honeywell Inc., Coon Rapids, Minnesota, personal 
+communication, 1995). 
+Prediction of Seafloor Depth 
+We are using these dense satellite altimeter measurements in
+combination with sparse measurements of seafloor depth to 
+construct a uniform resolution map of the seafloor topography 
+[Smith and Sandwell, 1994]. These maps do not have sufficient 
+accuracy and resolution to be used to assess navigational hazards, 
+but they are useful for such diverse applications as locating the 
+obstructions/constrictions to the major ocean currents and locating 
+shallow seamounts where fish and lobster may be abundant. An 
+intermediate step in the depth prediction process determines the 
+correlation between gravity and depth and a number inversely 
+proportional to the seafloor density contrast; these parameters 
+may be used as proxies for sediment thickness. 
+On a broad scale the topography of the ocean floor reflects the 
+cooling and subsidence of the plates as they move away from the 
+spreading center. While this process is fairly well understood, 
+there are interruptions in this normal subsidence aused by mantle 
+plumes and other types of solid-state convection i  the mantle of 
+the Earth. 
+Planning Shipboard Surveys 
+The satellite-derived gravity grids reveal all of the major 
+structures of the ocean floor having widths greater than 10-15 km. 
+This resolution matches the total swath width of the much higher 
+resolution (100 m) multibeam mapping system on a ship so the 
+gravity maps are the perfect reconnaissance tool for planning the 
+more detailed shipboard surveys. Scientists aboard research 
+vessels use the gravity grids along with other measurements o 
+optimize their survey strategy; in many cases this is done in real 
+time. The cost to operate a research vessel is typically $20,000 
+per day, so these gravity data have become an essential item. 
+Plate Tectonics 
+These satellite altimeter data provide an important and 
+definitive confirmation of the theory of plate tectonics. Indeed, 
+almost everything apparent in the marine gravity field was 
+created by the formation and motion of the plates. Spreading 
+ridges are characterized by an orthogonal pattern of ridges and 
+transform faults. The scar produced in the active transform valley 
+is carried by seafloor spreading out onto older seafloor, leaving 
+evidence of the past plate motions. The Indian Ocean triple 
+junction (27øS latitude, 70øE longitude) is a textbook example of 
+seafloor spreading. The satellite-derived gravity field shows the 
+intersection of the three spreading ridges as described by plate 
+tectonic theory. The theory predicts that the ridges would 
+intersect at 120 ø angles if the three ridges were spreading at 
+exactly the same rate. In this case, one can measure the 
+intersection angles and infer the relative spreading rates of each 
+ridge. 
+Plates are created at spreading ridges and destroyed 
+(subducted) at the deep ocean trenches. All of the major ocean 
+trenches are evident in the gravity map as linear troughs. The 
+deep ocean basins away from the trenches are characterized by 
+fracture zone gravity signatures inherited at the spreading ridge 
+axis. This pattern is sometimes overprinted by linear volcanic 
+chains which are believed to be formed as the plate moves over a 
+stationary mantle plume. The hot plume head melts the mantle 
+rocks which erupt on the surface as a hot spot. Because all of 
+these major features are evident in the gravity maps, the geologic 
+history of the ocean basins can now be established in greater 
+detail. 
+Undersea Volcanoes 
+The global gravity grids reveal all volcanoes on the seafloor 
+greater than about 1000 m tall. Approximately 30-50% of these 
+volcanoes were not charted previously. One of the more 
+important aspects of these new data will be to locate all of these 
+volcanoes and identify spatial patterns that may help determine 
+how they formed. Many volcanoes appear in chains, perhaps 
+associated with mantle plumes, but there are many more that do 
+not fit this simple model. Moreover, numerous undersea 
+volcanoes are long linear ridges with aspect ratios of 20 or more. 
+These features suggest that the plates are not exactly rigid as 
+predicted by the simple plate tectonic theory. Using these data, 
+we are exploring the internal deformations of the plates, 
+especially outboard of trenches where the forces generated by the 
+slab-pull force of the subducted plates are greatest. 
+Petroleum Exploration 
+All of the major petroleum exploration companies use satellite 
+altimeter gravity data from Geosat and ERS 1 to locate offshore 
+sedimentary basins in remote areas. This information is 
+combined with other reconnaissance survey information to 
+determine where to collect or purchase multichannel seismic 
+survey data. Currently, the regions of most intense exploration 
+interest are the continental shelves of Australia and the former 
+Soviet Union; recently, companies have expressed interest in the 
+Caspian Sea. Developments in offshore drilling technology now 
+make it economical to recover oil from continental slope areas in 
+water once thought prohibitively deep. 
+While we are not directly involved in this activity, we fill data 
+requests from many large exploration companies including 
+Unocal, Amoco, Exxon, Arco, Mobil, Texaco, Shell, Conoco, and 
+British Petroleum, as well as many smaller exploration 
+companies. 
+Lithospheric Structure 
+There are numerous other scientific applications that cannot be 
+described in a short report. One of the traditional uses of marine 
+gravity measurements i  to estimate the thickness of the elastic 
+portion of the tectonic plates [Watts, 1979]. When a volcano 
+forms on the ocean floor it imparts a large downward load on the 
+plate causing it to deform. This deformation appears in the 
+gravity field as a donut-shaped gravity low surrounding the 
+gravity high associated with the volcano itself. By measuring the 
+amplitude and width of the gravity low and relating this to the 
+size of the volcano as measured by a ship with an echo sounder, 
+one can establish the thickness and strength of the elastic plate. 
+The new satellite-derived gravity data enable researchers to 
+perform this type of analysis everywhere in the oceans. Thus 
+scientists can now probe the outermost part of the Earth using 
+these and other methods. 
+A gridded file of gravity anomalies (version 7.2) is available 
+by anonymous ftp (baltica.ucsd.edu). A large-format, laminated 
+poster is available from the Scripps Institution of Oceanography 
+Geological Data Center. Also visit our web site 
+http://tøpex'ucsd'edu/mar-grav'html' 
+10,050 SANDWELL AND SMITH: MARINE GRAVITY 
+Appendix A' Geoid Height, Vertical Deflection, 
+Gravity Gradient, and Gravity Anomaly 
+The geoid height N(x) and other measurable quantities uch as 
+gravity anomaly zig(x) are related to the gravitational potential 
+V(x,z) [Heiskanen and Moritz, 1967]. We assume that all of these 
+quantities are deviations from a spherical harmonic reference 
+Earth model so a flat-Earth approximation can be used for the 
+gravity computation (A10). In the following equations the bold x 
+denotes the coordinate (x,y); similarly k denotes (kx, ky) where kx 
+= 1/&,where •,x is wavelength. To a first approximation, the 
+geoid height is related to the gravitational potential by Brun's 
+formula, 
+N(x) _= 3-V(x,0) (A•) 
+go 
+where goiS the average acceleration of gravity (9.81 m s-2). The 
+gravity anomaly is the vertical derivative of the potential 
+aV(x,0) 
+zig(x) = - (A2) 
+the east component of vertical deflection is the slope of the geoid 
+in the x direction 
+computation which does not involve spherical harmonics or 
+Fourier transforms. Indeed, given two orthogonal satellite 
+altimeter profiles, the vertical gravity gradient at their intersection 
+point is the sum of the curvatures of each profile times the 
+average acceleration of gravity. The simplicity of this calculation 
+is particularly desirable for computing the gravity gradient near 
+coastlines where the altimeter profiles terminate; the calculation 
+of the vertical gravity gradient from (A6) has no edge effect, 
+while the Fourier computation of the gravity field can have a 
+significant edge effect. 
+In contrast to the simple formulation of the gravity gradient, 
+computation of the gravity anomaly is much more difficult and 
+error prone. Following Haxby et al. [1983], the differential 
+equation (A5) is reduced to an algebraic equation by Fourier 
+transformation. The forward and inverse Fourier transforms are 
+defined as 
+7oo 
+F(k) = l_ool_•f(x)e-i2•k'x)d2x (A7) 
+The Fourier transform of (A6) is 
+•zig(k,z) 
+•z 
+= -i2•rgo [kxr/(k)+ ky•(k) 1. (A8) 
+r/(x) -- •N _ -1 •V (A3) 
+3x go 3x 
+From the solution to Laplace's equation in the wavenumber 
+domain the upward continuation formula relates the gravity 
+anomaly at the surface of the Earth to the gravity anomaly at 
+some elevation z. 
+and the north component of vertical deflection is the slope of the 
+geoid in the y direction. Ag(k,z) = Ag(k,0) exp (-2•{klz) (A9) 
+•(x) -- 3N _ -1 3V (A4) _ . 
+3y go •y 
+These quantities are related to one another through Laplace's 
+equation 
++ + 
+•x 2 •y 2 3z 2 
+= 0. (AS) 
+Substitution of (A2), (A3), and (A4) into Laplace's equation (A5) 
+yields a relationship between the vertical gravity gradient and the 
+sum of the x and y derivatives of the east and north vertical 
+deflection 
+- go + ß (A6) 
+This expression is used to compute vertical gravity gradient 
+(Figure 2) from grids of east and north vertical deflection 
+[Rummel and Haagmans, 1990]. Note that this is a local 
+where Ikl = 1/•x 2 + •y2. Taking the derivative of (A9) with respect 
+to z and evaluating the result at z = 0, one arrives at an algebraic 
+formula relating the Fourier transform of the gravity anomaly to 
+the sum of the Fourier transforms of the two components of 
+vertical deflection: 
+Ag(k,0) = igo [kxr/(k) + y•(k) 1. (AlO) 
+To compute gravity anomalies from a dense network of 
+satellite altimeter profiles of geoid height, one constructs a grid of 
+east r/and north • vertical deflection (Appendix B). The grids 
+are then Fourier transformed using a discrete approximation to 
+(A7). Finally, one performs the multiplications given in (A10) 
+and inverse Fourier transforms the result to obtain gravity 
+anomaly. At this point one could also add the spherical harmonic 
+gravity model back to the gridded gravity values in order to 
+recover the long wavelength gravity field. 
+Appendix B: Vertical Deflections From 
+Along-Track Slopes 
+To avoid any adjustment of the data, ascending and descending 
+satellite altimeter profiles are first differentiated in the along-track 
+SANDWELL AND SMITH: MARINE GRAVITY 10,051 
+direction resulting in geoid slopes or along-track vertical 
+deflections. These along-track vertical deflections are then 
+combined to produce ast r/and north • components of vertical 
+deflection [Sandwell, 1984]. Finally, the east and north vertical 
+deflections are used to compute both gravity anomaly and vertical 
+gravity gradient (Appendix A). The algorithm used for gridding 
+the altimeter profiles is an iteration scheme that relies on rapid 
+transformation from ascending/descending geoid slopes to 
+north/east vertical deflection and vice versa. Consider for the 
+moment the intersection point of an ascending and a descending 
+satellite altimeter profile. The derivative of the geoid height N 
+with respect o time t along the ascending profile is 
+nearly perpendicular so that the east and north components of 
+geoid slope have the same signal-to-noise ratio. 
+When two or more satellites with different orbital inclinations 
+are available, the situation is slightly more complex but also more 
+stable. Consider the intersection of four passes as shown in 
+below. 
+2 4 
+_ ß aN ;a (B 1) 3•a= aNa aN Oa + • 
+at 30 3q) 
+and along the descending profile is 
+• aN ;d (B2) 
+where is 0 geodetic latitude and • is longitude. The functions • 
+and ½ are the latitudinal nd longitudinal components of the 
+satellite ground track velocity (Appendix C). It is assumed that 
+the satellite altimeter has a nearly circular orbit so that its velocity 
+depends mainly on latitude; at the crossover point the following 
+relationships are accurate to better than 0.1%. 
+Oa =-Od q)a = q)d. (B3) 
+(Analytic expressions for satellite velocities are given in 
+Appendix C using orbit parameters in Table C1.) The geoid 
+gradient is obtained by solving (B 1) and (B2) using (B3). 
+3N I (/•a + 
+ß 
+(B4) 
+_ 1 (/•a-/•d). (BS) 
+ao 
+1 3 
+The along-track derivative of each pass can be computed from the 
+geoid gradient at the crossover point 
+P•I . 3N 
+= ' 
+P•4 
+(B6) 
+or in matrix notation 
+lq = © VN. (B7) 
+Since this is an overdetermined system, the four along-track slope 
+measurements cannot be matched exactly unless the 
+measurements are error free. In addition, an a priori estimate of 
+the error in the along-track slope ty i measurements can be used to 
+weight each equation in (B6) (i.eo, divide each of the four 
+equations by tYi ). The least squares solution to (B7) is 
+)-lot vm = ((•t (• 1• (U8) 
+It is evident from this formulation that there are latitudes where 
+either the east or north component of geoid slope may be poorly 
+determined. For example, at +72 ø latitude the Seasat and Geosat 
+altimeters reach their turning points where the latitudinal velocity 
+• goes to zero and thus (B5) becomes singular. In the absence of
+noise this is not a problem because the ascending and descending 
+profiles are nearly parallel so that their difference goes to zero at 
+the same rate that the latitudinal velocity goes to zero. Of course, 
+in practice, altimeter profiles contain noise, so that the north 
+component of geoid slope will have a signal-to-noise ratio that 
+decreases near +72 ø latitude. Similarly, for an altimeter in a near 
+polar orbit the ascending and descending profiles are nearly 
+antiparallel at the low latitudes; the east component of geoid 
+slope is poorly determined and the north component is well 
+determined. The optimal situation occurs when the tracks are 
+where t and -1 are the transpose and inverse operations, 
+respectively. In this case a 2 by 4 system must be solved at each 
+crossover point, although the method is easily extended to three 
+or more satellites. Later we will assume that every grid cell 
+corresponds to a crossover point of all the satellites considered, so 
+this small system must be solved many times. 
+In addition to the estimates of geoid gradient, the covariances 
+of these estimates are also obtained: 
+(B9) 
+We use the covariance estimates to low-pass filter the north 
+component of geoid slope differently from the east component 
+10,052 SANDWELL AND SMITH: MARINE GRAVITY 
+depending on latitude. An example of covariance stimates for a 
+combination of Geosat and ERS 1 is shown in Figure 6 where the 
+standard deviation of ERS 1 was set to 1.4 times the standard 
+deviation of Geosat. Since Geosat and ERS 1 are high-inclination 
+satellites, the estimated uncertainty of the east component isabout 
+3 times greater than the estimated uncertainty of the north 
+component at the equator. At higher latitudes of 600-700 where 
+the tracks are nearly perpendicular, the north and east components 
+are equally well determined. At 72øN where the Geosat tracks 
+run in a westerly direction, the uncertainty of the east component 
+is low and the higher-inclination ERS 1 tracks prevent the 
+estimate of the north component from becoming singular at 720 .
+Finally, the east r/ and north • components of vertical 
+deflection are related to the two geoid slopes [Heiskanen and 
+Moritz, 1967] by 
+r/ - 1 aN (B10) 
+a cos 0 a•p 
+• = 1 aN (Bll) 
+a 30 
+where a is the mean radius of the Earth. 
+Appendix C: Approximate Satellite Position 
+and Velocity 
+The exact satellite ground track velocity could be calculated 
+directly from the ground track profiles supplied with the satellite 
+altimeter data records. However, later on we will need to 
+evaluate (B1), (B2), and (B6) at grid cells that were not 
+necessarily intersected by a satellite profile. Thus it is desirable 
+to have accurate formulae for computing 0 and • versus latitude. 
+In addition, the accumulation of the along-track repeat profiles 
+into the stack files require an approximate trajectory for the 
+satellite. Thus we derive expressions for both the approximate 
+position and velocity of a satellite in a circular orbit about an 
+ellipsoidal Earth. The important parameters are the orbit 
+frequency co s, the Earth rotation rate ro e , the precession rate of the 
+orbit plane about the Earth's spin axis con, the inclination of the 
+satellite orbit/, the flattening of the Earth f, the starting longitude 
+of the satellite C)o, the geocentric latitude 0 c, and the geodetic 
+latitude 0. Numerical values of the constant parameters are given 
+in Table C1. 
+To attain the desired level of approximation, it is necessary to 
+account for the flattening of the Earth when computing latitude 
+and latitudinal velocity. Assuming the Earth is an oblate llipse 
+with flattening f, the conversion from geocentric 0 c to geodetic 
+latitude 0 is 
+tan 0 = (l-f)-2 tan Oc. (C1) 
+At the equator and at the poles, the two latitudes are equal, but at 
+intermediate latitudes (e.g., 450 ) they differ by up to 0.20 . The 
+derivative of (C1) with respect to time provides the correction to 
+the latitudinal velocity when converting from the geocentric 
+system to the geodetic system. 
+0 = (1 _f)-2 cos20 
+Oc cøs20c 
+(C2) 
+Equations for the relative position of the satellite versus time 
+were derived following Kaula [1966]. The basic problem is to 
+map the position of a satellite in a circular orbit about the Earth 
+into an Earth-fixed coordinate system. Let t = 0 be the time when 
+the satellite orbit crosses the Earth's equatorial plane on an 
+ascending pass at a longitude of •Po. To develop formulas, one 
+first represents the position of the satellite in a Cartesian 
+coordinate system q where the qx axis is the line connecting the 
+center of the Earth and the ascending equator c ossing. The qz 
+axis is perpendicular to the orbit plane and the qy axis is 
+orthogonal to the qx and qz axes. In this frame the qx, qy and qz 
+positions are cos(cost ), sin(cost), and 0, respectively. Next the 
+satellite frame is rotated about he qx axis by the inclination of the 
+orbit plane relative to the Earth's equatorial plane I. A third 
+rotation about the Earth's pin axis maps the satellite plane into an 
+Earth-fixed system. This final rotation involves the rotation rate 
+of the Earth relative to the precessing orbit plane roe'= ro e - con. 
+After performing the three rotations and transforming the results 
+from Cartesian coordinates into spherical coordinates, one obtains 
+expressions for the latitude and longitude versus time. The 
+geocentric latitude is 
+Oc(t) = sift 1 [sin cost sin I ]. (C3) 
+This geocentric latitude is converted togeodetic latitude using 
+equation (C1). In addition, (C3) can be inverted to yield the time 
+since the equator crossing 
+t(Oc)= o•l sin-1 [sin0c ]. L sin I (C4) 
+Table C1. Orbit Geometric Parameters 
+r 
+Description GEOS 3 
+ms orbit frequency, s -1 1.0420 x 10 -3 
+On precess frequency, s -1 -4.143 x 10 -7 
+I inclination 114.980 ø 
+roe Earth rotation frequency, s -1 7.29212 x 10 -5 
+f flattening 1/298.25 
+a earth radius, rn 6371000 
+go acceleration of gravity, rn s -2 9.81 
+Seasat Geosat TOPEX 
+1.0407 x 10-3 
+-6.743 x 10 -5 
+108.0584 ø 
+1.0407 x 10 -3 
+(ro e - co s) 17/244 
+108.0584 ø 
+9.3143 x 10 -4 
+(ro e - co s) 10/127 
+66.010 ø 
+ERS 1 
+1.0379 x 10 -3 
+(roe- Cøs) 35/501 
+98.5557 ø 
+SANDWELL AND SMITH: MARINE GRAVITY 10,053 
+The cosine and sine of the longitude (relative to •Po) at some later 
+time are given by 
+and 
+cosq(t) = [ cosco•t cos COst +sinCOe't sin COst cosIco  Oc(t) (C5) 
+sin•t) = -sin CO•t cos COst + cos COe't sin COst cos I 
+cos Oc(t) 
+ß (C6) 
+By combining these two expressions, the longitude at a later time 
+is 
+q(t) =tan-l[-sin co•t co  cost+cos e't sin cost cosl I +•po(C7 ) cos CO•t os CO t sinCOe't sinCOst cosI
+Given these equations for position versus time, one can derive 
+expressions for the latitudinal and longitudinal components of the 
+satellite velocity versus latitude. The latitudinal velocity is 
+obtained by differentiating (C3) with respect to time and using 
+(C4) to relate velocity to latitude instead of time. The result is 
+Oc(Oc)=COs 1 cos2i 1/2. (C8) 
+cos20c 
+Of course, the sign of the velocity will depend on whether the 
+satellite profile is ascending (+) or descending (-). To convert 
+from geocentric velocity to geodetic velocity, (C2) is used. The 
+longitudinal velocity of the satellite is most easily determined by 
+using the fact that the total angular velocity of the satellite (in the 
+satellite frame) is constant (COs). Then the longitudinal velocity of 
+the satellite relative to the Earth is 
+COs cos I o•. (C9) 
+cos20c 
+To establish the accuracy of these approximate satellite 
+velocities, (C8) and (C9) were compared with the trajectory of a 
+Geosat Exact Repeat Mission profile [Cheney et al., 1991]. The 
+model velocities lie within 1 grad/s of the actual velocites 
+[Sandwell, 1992]. The greatest error in total velocity occurs at 
+72 ø latitude where the difference is 7 rn/s or 0.1%. Other 
+numerical tests show that the position estimates from (C3) and 
+(C7) are accurate to better than 1 km as long as the predicted 
+position is less that 1/4 an orbit from the known equator crossing 
+position. 
+Acknowledgments. We thank Bruce Douglas, Bob Cheney, Laury 
+Miller, and Russ Agreen for their safe storage and distribution of the 
+Geosat GM GDRs; no bytes were lost. ERS 1 data were provided by ESA 
+through the French Processing and Archive Facility. Mara Yale supplied 
+stacked profiles of Geosat ERM and ERS 1 data. Richard Eanes and C. 
+K. Shum provided the software needed to compute the tide corrections. 
+Steve Nerem provided the JGM-3 gravity field coefficients that were used 
+as a reference model. Dick Rapp supplied software to construct the 
+reference gravity model. Countless engineers and scientists worked to 
+make both the (3eosat and ERS 1 missions great successes. This paper 
+benefited from the reviews of Steve Nerem and Anny Cazenave. This 
+research was supported by the NASA (31obal (3eophysics Program 
+NA(3W-3035 and UNOCAL Co. 
+References 
+Andersen, O. B., P. Knudsen, and C. C. Tscherning, Investigation of 
+methods for global gravity field recovery from the dense ERS-1 
+Geodetic Mission altimetry, paper presented at IUGG XXI General 
+Assembly, Int. Union of Geol. and (3eophys., Boulder, Colo., July, 
+1995. 
+Bettadpur, S. V., and R. J. Eanes, Geographical representation of radial 
+orbit perturbations due to ocean tides: Implications for satelliye 
+altimetry, J. Geophys. Res., 99, 24883-24898, 1994. 
+Brainmet, R. F., Estimation of the ocean geoid near the Blake Escarpment 
+using (3eos-3 satellite altimetry data, J. Geophys. Res., 84, 3843-3860, 
+1979. 
+Briggs, I. C., Machine contouring using minimum curvature, Geophysics, 
+39, 39-48, 1974. 
+Cazenave, A., B. Parsons, and P. Calcagno, Geoid lineations of 1000 km 
+wavelength over the Central Pacific, Geophys. Res. Lett., 22, 97-100, 
+1995. 
+Cheney, R. E., N. S. Doyle, B.C. Douglas, R. W. Agreen, L. L. Miller, E. 
+L. Timmerman, and D.C. McAdoo, The Complete Geosat Altimeter 
+GDR Handbook, Natl. (3eod. Surv./Natl. Oceanic and Atmos. Admin., 
+Silver Spring, Md., 1991. 
+Dumont, J.P., F. Ogor, and J. Stum, Quality Assessment of Cersat 
+Altimeter OPR Products: 168-Day Repeat Period, French Processing 
+and Archive Facility, Toulouse, France, 1995. 
+Eanes, R. and S. Bettadpur, The CSR 3.0 global ocean tide model, Center 
+for Space Research, Technical Memorandum, CSR-TM-95-06, 1995. 
+Freedman, A. P., and B. Parsons, Seasat-derived gravity over the 
+Musician seamounts, J. Geophys. Res., 91, 8325-8340,1986. 
+Gille, S. T., Mean sea surface height of the Antarctic ircumpolar current 
+from (3eosat data: Method and application, J. Geophys. Res., 99, 
+18255-18273, 1994. 
+Haxby, W. F., and D. E. Hayes, Free-air gravity of the Southern Ocean 
+derived from Seasat and Geosat altimeter data: Circum-Antarctic to 
+30øS. Antarct. Res. Ser., volo 54, Marine Geological nd Geophysical 
+Atlas of the Circum-Antarctic o 30øS, edited by D. E. Haynes, pp. 11- 
+19 A(3U, Washington, D.C., 1991. 
+Haxby, W. F., (3. D. Karner, J. L. LaBrecque, and J. K. Weissel, Digital 
+images of combined oceanic and continental data sets and their use in 
+tectonic studies, Eos Trans. AGU, 64 (52), 995-1004, 1983. 
+Haxby, W. F., and J. K. Weissel, Evidence for small-scale convection 
+from Seasat altimeter data, J. Geophys. Res., 91, 3507-3520, 1986. 
+Heiskanen, W. A., and H. Moritz, Physical Geodesy, W. H. Freeman, 
+New York, 1967. 
+Hwang, C., and B. Parsons, An optimal procedure for deriving marine 
+gravity from multi-satellite altimetry, J. Geophys. Int., 125, 705-718, 
+1996. 
+Hwang, C. W., and B. Parsons, Gravity anomalies derived from Seasat, 
+Geosat, ERS-1 and Topex/Poseidon altimetry and ship gravity: A case 
+study over the Reykjanes ridge, Geophys. J. Int., 122,551-568, 1995. 
+Jung, W. Y., and P. R. Vogt, Predicting bathymetry from (3eosat-ERM 
+and shipborne profiles in the South Atlantic Ocean, Tectonophysics, 
+210, 235-253, 1992. 
+Kaula, W. K., Theory of Satellite Geodesy, Blaidsel, Waltham, Mass., 
+1966. 
+Laxon, S., and D. McAdoo, Arctic Ocean gravity field derived from ERS- 
+1 satellite altimetry, Science, 265, 621-624, 1994. 
+Ma, X. C., C. K. Shum, R. J. Eanes, and B. D. Tapley, Determination of 
+ocean tides from the first year of TOPEX/POSEIDON altimeter 
+measurements, J. Geophys. Res., 99, 24809-24820, 1994. 
+Marks, K. M., Resolution of the Scripps/NOAA marine gravity field from 
+satellite altimetry, Geophys. Res. Lett., 23, 2069-2072, 1996. 
+Marks, K. M., and R. V. Sailor, Comparison of (3eos-3 and Seasat 
+altimeter resolution capabilities, Geophys. Res. Lett., 13, 697-700, 
+1986. 
+Marks, K. M., D.C. McAdoo, and W. H. F. Smith, Marine Gravity 
+Derived from Geosat, Natl. (3eophys. Data Cent., Boulder, Colo., 
+1993. 
+Menke, W., Applications ofthe POCS inversion method to interpolating 
+10,054 SANDWELL AND SMITH: MARINE GRAVITY 
+topography and other geophysical fields, Geophys. Res. Lett., 18, 435- 
+438, 1991. 
+Nerem, R. S., et al., Gravity model development for the 
+TOPEX/POSEIDON: Joint gravity models 1 and 2, J. Geophys. Res., 
+99, 24421-24447, 1994. 
+Neumann, G. A., D. W. Forsyth, and D. Sandwell, Comparison of marine 
+gravity from shipboard and high-density satellite altimetry along the 
+Mid-Atlantic Ridge, 30.5ø-35.5øS, Geophys. Res. Lett., 20, 1639-1642, 
+1993. 
+Noreus, J.P., Improved resolution of Geosat altimetry using dense 
+sampling and polynomial adjusted averaging, Int. J. Remote Sens., 16, 
+2843-2862, 1995. 
+Roest, W. R., Seafloor spreading pattern of the Noah Atlantic between 
+10 ø and 40øN, Geol. Ultraiectina, 48, 1-121, 1987. 
+Rummel, R., and R. H. N. Haagmans, Gravity gradients from satellite 
+altimetry, Mar. Geod. 14, 1-12, 1990. 
+Sandwell, D. T., A detailed view of the South Pacific from satellite 
+altimetry, J. Geophys. Res., 89, 1089-1104, 1984. 
+Sandwell, D. T., Ant_arctic marine gravity field from high-density satellite 
+altimetry, Geophys. J. Int., 109, 437-448, 1992. 
+Sandwell, D. T., and B. Zhang, Global mesoscale variability from the 
+Geosat exact repeat mission: Correlation with ocean depth, J. Geophys. 
+Res., 94, 17971-17984, 1989. 
+Smith, W. H. F., On the accuracy of digital bathymetric data, J. Geophys. 
+Res., 98, 9591-9603, 1993. 
+Smith, W. H. F., and D. T. Sandwell, Bathymetric prediction fron dense 
+satellite altimetry and sparse shipboard bathymetry, J. Geophys. Res., 
+99, 21803-21824, 1994. 
+Smith, W. H. F., and D. T. Sandwell, Global comparison of gravity 
+anomalies measured by ships and derived from dense satellite 
+altimetry (abstract), Eos Trans. A GU, 76(16), Spring Meet. Suppl., 
+S89, 1995. 
+Smith, W. H. F., and P. Wessel, Gridding with continuous curvature 
+splines in tension, Geophysics, 55, 293-305, 1990. 
+Stewart, R. H., Methods of Satellite Oceanography, Univ. of Calif. Press, 
+Berkeley, 1985. 
+Tapley, B. D., D. P. Chambers, C. K. Shum, R. J. Eanes, J. C. Ries, and 
+R. H. Stewart, Accuracy assessment of large-scale dynamic ocean 
+topography from TOPEX/POSEIDON altimetry, J. Geophys. Res., 99, 
+24605-24617, 1994. 
+¾isser, P. N. A.M., K. F. Wakker, and B. A. C. Ambrosius, Dynamic sea 
+surface topography from Geosat altimetry, Mar. Geod. 16, 215-239, 
+1993. 
+Wakker, K. F., M. C. Naeije, E. Wisse, R. Scharroo, P. Visser, and B. 
+Ambrosius, Geosat and ERS-1 radar altimetry over the North Atlantic, 
+Adv. Space Res., 13, 305-314, 1993. 
+Watts, A. B., On geoid heights derived from Geos 3 altimeter data along 
+the Hawaiian-Emperor seamount chain, J. Geophys. Res., 84, 3817- 
+3826, 1979. 
+Wessel, P., and W. H. F. Smith, New version of generic mapping tools, 
+Eos Trans. AGU Electron. Suppl., Aug. 15, 1995. (Available as 
+http ://www.agu.org/eos_elec/95154e.html) 
+Wessel, P., and A. B. Watts, On the accuracy of marine gravity 
+measurements, J. Geophys. Res., 93, 393-413, 1988. 
+Yale, M. M., D. T. Sandwell, and W. H. F. Smith, Comparison of along- 
+track resolution of stacked Geosat, ERS-1, and TOPEX satellite 
+altimeters, J. Geophys. Res., 100, 15117-15127, 1995. 
+D. T. Sandwell, Scripps Institution of Oceanography, IGPP-0225, 
+University of California, 9500 Gilman Drive, La Jolla, CA 92093-0225. 
+(e-mail: sandwell@radar.ucsd.edu) 
+W. H. F. Smith, Geosciences Laboratory, NOAA, NOES-12, Silver 
+Spring, MD 20910-3281. (e-mail: walter@amos.grdl.noaa. gov) 
+(Received June 3, 1996; revised October 11, 1996; 
+accepted October 15, 1996.) 

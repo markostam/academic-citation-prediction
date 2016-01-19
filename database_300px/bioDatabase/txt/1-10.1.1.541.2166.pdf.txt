@@ -1,0 +1,1139 @@
+Natural Linewidth Chemical Shift Imaging (NL-CSI)
+Adil Bashir* and Dmitriy A. Yablonskiy
+The discrete Fourier transform (FT) is a conventional method for
+spatial reconstruction of chemical shifting imaging (CSI) data.
+Due to point spread function (PSF) effects, FT reconstruction
+leads to intervoxel signal leakage (Gibbs ringing). Spectral lo-
+calization by imaging (SLIM) reconstruction was previously pro-
+posed to overcome this intervoxel signal contamination. How-
+ever, the existence of magnetic ﬁeld inhomogeneities creates
+an additional source of intervoxel signal leakage. It is demon-
+strated herein that even small ﬁeld inhomogeneities substan-
+tially amplify intervoxel signal leakage in both FT and SLIM
+reconstruction approaches. A new CSI data acquisition strat-
+egy and reconstruction algorithm (natural linewidth (NL) CSI) is
+presented that eliminates effects of magnetic ﬁeld inhomoge-
+neity-induced intervoxel signal leakage and intravoxel phase
+dispersion on acquired data. The approach is based on ac-
+quired CSI data, high-resolution images, and magnetic ﬁeld
+maps. The data are reconstructed based on the imaged object
+structure (as in the SLIM approach) and a reconstruction matrix
+that takes into account the inhomogeneous ﬁeld distribution
+inside anatomically homogeneous compartments. Phantom
+and in vivo results show that the new method allows ﬁeld
+inhomogeneity effects from the acquired MR signal to be re-
+moved so that the signal decay is determined only by the “nat-
+ural” R2 relaxation rate constant (hence the term “natural line-
+width” CSI). Magn Reson Med 56:7–18, 2006. © 2006 Wiley-
+Liss, Inc.
+Key words: CSI; image reconstruction; magnetic ﬁeld inhomo-
+geneities; Gibbs ringing; NL-CSI
+Magnetic resonance spectroscopy (MRS) has proved to be
+of considerable value in the detection and management of
+several diseases, including cancer, multiple sclerosis, and
+psychiatric disorders (1–5). The direct biochemical infor-
+mation that is provided by MRS augments our understand-
+ing of the underlying disease mechanisms. There are two
+major factors that limit the usefulness of in vivo spectros-
+copy: 1) the signal-to-noise ratio (SNR) and 2) the quality
+and reliability of spectral localization. In the chemical
+shift imaging (CSI) method, a set of free induction decay
+(FID) signals is acquired and phase encoding is performed
+in the relevant spatial dimensions (6). Two issues limit the
+spatial resolution in CSI experiments: First, the clinically
+relevant metabolites occur in low concentrations in vivo
+and cannot be discriminated from noise when a conven-
+tional MR image resolution is used. Second, the need to
+phase encode in two dimensions makes the data acquisi-
+tion time excessively long if data are obtained at high
+spatial resolution (7). Therefore, to improve SNR and keep
+experimental time within reasonable limits, MR spectro-
+scopic images are often collected and reconstructed from a
+small set of low spatial frequencies, e.g., a typical 2D (two
+spatial dimensions and one spectral dimension) CSI ex-
+periment can have a spatial matrix of 16  16 or 32  32.
+The most common approach to spatially reconstruct
+phase-encoded CSI data is the discrete Fourier transform
+(FT); however, it is well known that the FT is inadequate
+for truncated data (8). FT reconstruction of spectroscopic
+imaging data leads to a sinc-like point spread function
+(PSF) that causes the signal to “ring” away from the main
+central lobe and contaminate pixels quite distant from the
+actual source. One way to reduce the ringing caused by
+truncation is to apodize the k-space data prior to FT. This
+approach causes blurring, degrades the spatial resolution,
+and reduces the SNR (per unit time) from optimally
+achievable levels. Another strategy is to employ a FT series
+windowing approach whereby a varying number of exci-
+tations are acquired based on a ﬁlter function, usually
+Hanning or Blackman functions, and the resulting PSF is
+free of side lobes (9–12). These windowing functions also
+change the effective spatial resolution and blur the image,
+i.e., the spectrum assigned to each voxel is a weighted
+average of the spectra from neighboring voxels.
+Several alternatives to ﬁltering have been reported to
+cope with cross-voxel contamination in MR spectroscopic
+imaging (MRSI). One such technique, spectral localization
+by imaging (SLIM), proposed by Hu et al. (13), is used to
+improve scanning efﬁciency and eliminate intervoxel sig-
+nal leakage. This technique uses model-based reconstruc-
+tion whereby the spatial coordinates of the boundaries of
+several compartments of interest with arbitrary shape are
+determined based on a high-resolution MR image. This
+information is used to reconstruct the compartmental
+spectra from the spectroscopic signals obtained with a
+phase-encoding pulse sequence. A modiﬁed version,
+called generalized SLIM (GSLIM), was introduced to re-
+duce the spectral leakage arising from compartmental in-
+homogeneity errors in SLIM (14). In a similar vein, Von
+Kienlin and Mejia (15) developed a spatial localization
+method, termed spectral localization with optimal point
+spread function (SLOOP), which like SLIM reconstruction
+also uses prior information available on high-resolution
+anatomical MR images to reduce spectral leakage. Simi-
+larly, Plevritis and Macovski (16,17) showed that by using
+the Papoulis-Gerchberg algorithm and anatomic informa-
+tion derived from a proton image, one can produce a
+Mallinckrodt Institute of Radiology, Washington University, St. Louis, Mis-
+souri, USA.
+Grant sponsor: NIH; Grant numbers: R01-NS41519; P30 NS48056.
+*Correspondence to: Adil Bashir, Ph.D., Washington University, Mallinckrodt
+Institute of Radiology, Campus Box 8227, 4525 Scott Ave., East Building, St.
+Louis, MO 63110.
+Received 3 November 2005; revised 6 March 2006; accepted 7 March 2006.
+DOI 10.1002/mrm.20917
+Published online 23 May 2006 in Wiley InterScience (www.interscience.
+wiley.com).
+7© 2006 Wiley-Liss, Inc.
+Magnetic Resonance in Medicine 56:7–18 (2006)
+FULL PAPERS
+spectroscopic image that is better resolved than a zero-
+ﬁlled FT image.
+Various other groups have also tried to address the prob-
+lem of spectral leakage. For example, Hu et al. (18,19)
+developed a method in which phase-encoded data are
+acquired with various resolutions and degrees of signal
+averaging, i.e., a standard MRS data set is acquired with
+low spatial resolution and high SNR (many averages), and
+high-spatial-resolution data are acquired with low SNR
+(few averages). They developed algorithms to combine
+these two data sets to improve spectral localization and
+preserve the SNR in the MRS data sets. Using these ap-
+proaches, Hu et al. (18,19) showed that they could elimi-
+nate the leakage of extracranial lipid signal into brain
+voxels. However, since the ﬁnal spectroscopic image is
+generated by FT, this method and other similar approaches
+do not address the issue of signal leakage between more
+closely adjacent brain voxels. Non-Fourier encoding meth-
+ods, such as wavelet encoding (20), have also been sug-
+gested to reduce the ringing artifact associated with Fou-
+rier encoding, but their application and use have been
+limited to date.
+While the above-mentioned techniques have signiﬁ-
+cantly contributed to improving the quality of CSI results,
+they do not address another source of spectral leakage and
+spectral distortion in CSI experiments that, as we will
+show later, is associated with the magnetic ﬁeld inhomo-
+geneities present in any MRI or MRS experiment. If a
+subject is placed in the scanner, magnetic susceptibility
+variations within tissues and at air/tissue interfaces cause
+distortions in the magnetic ﬁeld and introduce inhomoge-
+neities. Some of these inhomogeneities can be removed by
+shimming the magnetic ﬁeld, which involves applying
+small corrective ﬁeld gradients using a set of specially
+designed coils for that purpose (21,22). While these coils
+can partially correct for relatively coarse, low-spatial-fre-
+quency ﬁeld inhomogeneities, they cannot completely
+eliminate magnetic ﬁeld inhomogeneities at the interfaces
+of air, tissue, and bone, where the susceptibility changes
+rapidly over short distances. MRS studies are increasingly
+being performed on high-ﬁeld magnets to improve the
+amount, quality, and/or speciﬁcity of the information con-
+tent resulting from the increased SNR and chemical shift
+dispersion of the signals. However, if the increased static
+magnetic ﬁeld inhomogeneities experienced at higher
+ﬁelds are not taken into account, they can offset or cancel
+the SNR and chemical shift dispersion advantages.
+Given the inherent low resolution (large voxel size) of
+spectroscopic imaging, it should be recognized that even
+after careful shimming these magnetic ﬁeld variations may
+be substantial over the extent of the voxel dimensions. In
+this paper we show that the presence of magnetic ﬁeld
+inhomogeneities can cause severe spectral leakage and
+distortion in a CSI experiment. We also demonstrate a new
+method that eliminates both these artifacts. First, we out-
+line the theory and demonstrate by simulations the spec-
+tral leakage effect due to the ﬁeld inhomogeneities in a CSI
+experiment. Importantly, we demonstrate that such spec-
+tral leakage is present in both FT reconstruction and non-
+Fourier-based SLIM reconstruction. We then introduce a
+new method to eliminate the effect of magnetic ﬁeld inho-
+mogeneity-induced spectral leakage on spectra from all
+selected voxels. We show through simulations using this
+new approach that ideal (noncontaminated) spectra can be
+reconstructed in all selected voxels. Phantom and in vivo
+human experiments are also described that demonstrate
+the effect of spectral leakage and distortion of spectra due
+to magnetic ﬁeld inhomogeneities, and conﬁrm the feasi-
+bility of this newly proposed method to reduce this effect.
+To simplify the presentation and analysis, all simulations
+and results are presented for 1D CSI (one spatial dimen-
+sion); however, the technique can be easily extended to
+higher dimensions.
+THEORY
+MR signal acquired in a uniform external magnetic ﬁeld
+from a 1D phase-encoded spectroscopic experiment is
+given by
+S(kn,t)
+
+
+
+ℜ
+(ℜ,f)ei2(knxft)dℜdf [1]
+where ℜ, f  is the spin density function representing the
+spatial distribution of the spectral information of the ex-
+cited region ℜ, and kn is the reciprocal spatial term corre-
+sponding to the applied gradients. In MRS experiments
+only N discrete pieces of information for Skn, t are avail-
+able at kn  n/FOV for n  N/2, · · ·, N/2  1. In a
+conventional CSI experiment, truncated Fourier series re-
+construction is used to reconstruct the approximate solu-
+tion to ℜ, f  from Skn, t. Since only a small number of
+central k-space points are acquired (typically 16–32 in
+spectroscopic imaging), a Fourier series reconstruction
+leads to severe Gibbs ringing artifact. This ringing causes
+intervoxel signal leakage and contaminates the signals
+from individual voxels.
+As noted above, Hu et al. (13) developed the SLIM
+reconstruction technique to reduce scanning time and
+avoid spectral leakage caused by truncated Fourier series
+reconstruction. The technique is based on the principle
+that if the desired object is ﬁrst segmented into a set of
+generalized homogeneous compartments, one can then de-
+rive the signal from each compartment by ﬁtting the com-
+partment model to the measured phase-encoded data. It is
+assumed that these homogeneous compartments can be
+identiﬁed on a high-resolution proton image obtained from
+the same spatial coordinates as the spectroscopic imaging
+data. Hu et al. (13) showed that, in principle, a set of only
+M (or more) phase-encoding data is sufﬁcient to obtain
+spectra from M compartments of arbitrary shape. In an
+experiment with N phase-encoding steps and MM  N
+homogeneous compartments in the object, they showed
+that mathematically this problem can be stated as a set of
+linear equations:
+sn(t)
+m
+gnmm(t), m1,. . .,M;n1,. . .,N, [2]
+where snt is the nth phase-encoded spectroscopic signal,
+mt  
+
+ ℜ, f ei2 ftdf is an FID signal from the m-th
+8 Bashir and Yablonskiy
+compartment in the absence of phase-encoding gradients,
+and gnm is the geometric encoding matrix
+gnm
+ℜm
+ei2knxdℜ, [3]
+where the integral is taken over the m-th compartment
+volume ℜm. After calculating the geometric encoding ma-
+trix, one can obtain the FID signal from each homogeneous
+region by solving the set of linear equations given by Eq.
+[2] in a least-squares sense.
+Both discrete FT reconstruction and SLIM reconstruc-
+tion assume that Eq. [1] represents the acquired phase-
+encoded spectroscopic imaging data, and ignore the fact
+that there are always static susceptibility-induced mag-
+netic ﬁeld inhomogeneities present in an MR experiment.
+The MR signal in the presence of ﬁeld inhomogeneities is
+given by
+S(kn,t)
+
+
+
+ℜ
+(ℜ,f)ei2(knxft)ei	(ℜ,t)dℜdf, [4]
+where
+	ℜ,t)	o(ℜ)
+B(ℜ)t [5]
+is the additional phase due to the background magnetic
+ﬁeld inhomogeneities, where 	oℜ is due to B1 (RF) inho-
+mogeneities, and Bℜ is the main ﬁeld inhomogeneity.
+These magnetic ﬁeld inhomogeneities lead to well known
+artifacts in routine clinical imaging; however they are not
+as severe as in CSI, for two major reasons. First, imaging is
+usually done at higher resolution and therefore the phase
+dispersion induced by the magnetic ﬁeld inhomogeneities
+over dimensions of a voxel is smaller compared to that
+encountered in low-resolution CSI. Second, many imaging
+applications employ either a spin echo, which refocuses
+the magnetic ﬁeld gradients at the echo time (TE) when the
+data are acquired, or short-TE gradient-echo imaging in
+which this effect is minimized. However, the FID in spec-
+troscopic imaging is usually obtained over a data acquisi-
+tion time of 0.5–1 s. As phase dispersion across the voxel
+linearly increases with time, the signal leakage increases
+as acquisition time increases. As we demonstrate in this
+paper, even small magnetic ﬁeld inhomogeneities can lead
+to severe contamination of the spectral signal in a CSI
+sequence if they are not accounted for.
+Herein we propose a new method, termed natural line-
+width (NL) CSI, which takes these magnetic ﬁeld inhomo-
+geneities into account and provides for elimination of their
+deleterious effects on voxel spectra. This method is a gen-
+eralization of the SLIM compartmental modeling method,
+in which we explicitly acknowledge 1) the presence of
+susceptibility-induced ﬁeld inhomogeneities in the spatial
+encoding matrix in addition to the magnitude and direc-
+tion of the phase-encoding gradients, and 2) the size,
+shape, and location of the compartments. The new spatial
+encoding matrix is now given by
+gnm(t)
+ℜm
+ei2knxei	(ℜ,t)dℜ, [6]
+where 	ℜ,t given by Eq. [5] is the phase introduced by
+magnetic ﬁeld inhomogeneities. Instead of Eq. [2], a new
+equation describing CSI signal can be written in matrix
+notation as
+St)G(t)(t), [7]
+where the encoding matrix G(t) is given by Eq. [6]. The FID
+signal can now be obtained for each deﬁned compartment
+by solving the set of linear equations given in Eq. [7]. The
+important aspect is that the encoding matrix gnmt is now
+a function of time and takes into account the presence of
+magnetic ﬁeld inhomogeneities. This method allows com-
+plete removal of ﬁeld inhomogeneity effects from the ac-
+quired MR signal so that the signal decay is determined
+only by the R2 relaxation rate constant (hence the term
+“natural linewidth” CSI).
+MATERIALS AND METHODS
+Simulations
+To demonstrate the effect of magnetic ﬁeld inhomogene-
+ities on data obtained by means of CSI, we conducted
+several 1D simulations. The purpose of these simulations
+is to demonstrate that even small magnetic ﬁeld inhomo-
+geneities can lead to severe spectral leakage of voxel sig-
+nals in both FT and SLIM reconstruction, and can be
+removed by the proposed NL-CSI method.
+We used 1D simulations with the following parameters:
+ﬁeld of view (FOV)  256 mm, number of phase-encoding
+steps  16, vector size  1024 (in the time domain), and
+spectral bandwidth  2000 Hz, resulting in an FID dura-
+tion of 0.512 s. We assumed that the phase-encoding gra-
+dient duration was 750 s, which would give a maximum
+phase-encoding gradient strength of 0.979 mT/m. The
+choice of these parameters is within the practical ranges
+that are generally used for clinical spectroscopic imaging.
+We also introduced a background magnetic ﬁeld gradient
+that was 1% of the maximum phase-encoding gradient
+strength, i.e., 9.78  10–3 mT/m. This is a very small
+gradient, and stronger susceptibility-induced magnetic
+ﬁeld inhomogeneities are expected in vivo, especially at
+the interfaces of air, tissue, and bone. The direction of the
+background magnetic ﬁeld gradient was chosen to be the
+same as the phase-encoding gradient. This is to include
+both effects of intervoxel signal leakage and intravoxel
+signal dispersion. A choice of gradient perpendicular to
+the phase-encoding gradient direction would cause only
+intravoxel signal dephasing. We considered two kinds of
+simulated objects, as shown in Fig. 1a and 2a. In the ﬁrst
+case the object perfectly occupies a single voxel (16 mm) in
+the FOV (an ideal case when discrete FT reconstruction
+results in minimal leakage). In the second case the object
+Natural Linewidth Chemical Shift Imaging 9
+occupies six voxels (96 mm, approximately on the order of
+the size of human brain) in the FOV. Simulated data were
+generated by numerical integration over the object, and for
+SLIM and NL-CSI reconstruction the object was consid-
+ered as discrete with a pixel resolution of 0.5 mm.
+In the ﬁrst set of simulations T2 was chosen to be inﬁ-
+nite. This was done to emphasize the role of magnetic ﬁeld
+inhomogeneities in signal leakage and dispersion. In the
+second set of simulations we assumed T2  50ms, which
+is typical for in vivo brain spectroscopy at 1.5–3T. The
+simulated data were spatially reconstructed using discrete
+FT, SLIM reconstruction, and the proposed NL-CSI
+method.
+Phantom Study
+A spherical phantom (10 cm diameter) containing
+100 mM NAA, 50 mM KH2PO4, and 56 mM NaOH in
+deionized water was prepared and 1% agarose was added
+to the mixture to make it gelatinous. All experiments were
+done on Siemens 3T Magnetom Allegra system (Siemens
+Medical Systems, Erlangen, Germany) and the data were
+collected using a circularly polarized head coil. A 1D
+spin-echo CSI sequence was developed with an adiabatic
+refocusing pulse (23) to improve the slice proﬁle of the
+excited region. A 16 mm 16 mm wide region was excited
+and spectroscopic imaging experiments were performed
+using FOV  256 mm, TR/TE  1000/40 ms. Non-water-
+suppressed spectra were acquired with 16 and 32 phase-
+encoding steps and eight and four averages, respectively,
+giving a Fourier voxel resolution of 16 16 16 mm3 and
+16  16  8 mm3. A vector size of 1024 with 2000 Hz
+bandwidth was acquired with a data collection time of
+0.512 s. To demonstrate the effect of magnetic ﬁeld inho-
+mogeneities on CSI, only magnet default values were used
+for shimming.
+3D high-resolution images from the same spatial coordi-
+nates used for the CSI data were also collected using a
+multi-gradient-echo pulse sequence with isotropic 1 mm3
+resolution at two different TEs of 3 and 20 ms. The mod-
+iﬁed sequence acquired k-space data at both TEs with
+positive readout gradients to reduce the effect of image
+distortions and eddy currents on the phase images. Shim
+settings were kept the same as the 1D CSI experiments to
+evaluate ﬁeld inhomogeneities needed for NL-CSI recon-
+struction of CSI data. Other imaging parameters were as
+follows: TR  25 ms, FOV  256  256  40 mm3, and
+matrix size  256  256  40, for a total data acquisition
+time of 4.5 min. Using phase images, background magnetic
+ﬁeld inhomogeneities were calculated as described in the
+Data Processing section below.
+A localized time domain MR FID signal was also col-
+lected using a point-resolved spectroscopy sequence
+(PRESS) and used as a standard for comparison with the
+reconstructed data. The size of the voxel was 10  10 
+10 mm3 and it was placed in the center of the phantom to
+reduce magnetic ﬁeld inhomogeneities originating from
+the air/phantom interface. The magnet was shimmed man-
+ually to achieve a linewidth of 10 Hz. Other parameters
+for the single-voxel experiment were TR  1500 ms, TE 
+40 ms, BW  2000, vector size  1024, and number of
+averages  64.
+In Vivo Study
+1D CSI was performed on healthy volunteers after they
+gave informed consent and the experimental protocol was
+approved by the Washington University Medical School
+IRB. Non-water-suppressed 1D CSI data were acquired
+with an excited region of 16 mm  16 mm, FOV 
+256 mm, TR/TE  1500/40 ms, vector size  1024, band-
+width  2000 Hz, and data collection time  0.512 s.
+Sixteen phase-encoding steps were acquired with 16 aver-
+ages giving a Fourier voxel resolution of 16  16 
+16 mm3. Shimming was performed over the excited vol-
+ume. 3D high-resolution images for ﬁeld mapping were
+FIG. 1. a: Location and size of the object (shown in gray) used in the
+simulations. The vertical lines represent the CSI voxel locations.
+Only voxels 9 and 10 were used as regions for SLIM and NL-CSI
+reconstruction. b: FID signal from voxel 9. c: FID signal from voxel
+10 using three different spatial reconstruction algorithms. Discrete
+FT reconstruction leads to an approximately 10% signal loss at time
+zero and a sinc-like signal decay of the FID in voxel 9. The signal in
+the voxel 10 exists solely due to the leakage effect and initially
+grows with time. SLIM reconstruction recovers the FID signal at time
+zero in voxel 9 but resembles FT reconstructed signal for times
+greater than zero. NL-CSI reconstruction fully recovers the “inho-
+mogeneity-free” FID signal and there is no leakage in neighboring
+voxels.
+10 Bashir and Yablonskiy
+also acquired from the same location with parameters as
+described above for the phantom study.
+Data Processing
+All data were processed by software developed in MAT-
+LAB (The Mathworks, Natick, MA, USA). 3D magnitude
+and phase images were generated from the raw data set of
+the 3D imaging experiment and phase images were un-
+wrapped using custom-developed 3D unwrapping algo-
+rithms based on mask cut and quality-guided maps (24).
+Magnitude images were used as references to segment the
+object into homogeneous compartments of approximately
+16  16  16 mm3 regions. In order to compare the results
+of SLIM and NL-CSI reconstruction with discrete FT re-
+construction, we chose the size and location of the regions
+to closely match with the voxels deﬁned when the discrete
+FT was used to spatially reconstruct the CSI data. 3D phase
+maps of each voxel were ﬁtted to second-order polynomi-
+als to generate noise-ﬁltered phase maps in order to im-
+prove the SNR. These ﬁltered phase maps were then used
+to generate the 	o and B (Eq. [5]) distributions in the
+voxels to be used in calculating the spatial encoding ma-
+trix as given in Eq. [6]. This encoding matrix could then be
+used with the phase-encoded 1D CSI data to calculate the
+natural linewidth FID signal from each voxel using Eq. [2]
+in a least-squares sense by evaluating
+min
+
+G(t)(t)S(t)2 [8]
+We note that the encoding matrix Gt may become ill-
+conditioned such that its true rank cannot be determined
+and a least-squares solution may not be an option (25).
+Several regularization methods have been developed to
+overcome such ill-conditioned problems (26–28). Of these
+methods, Tikhonov regularization is the most widely ac-
+cepted (26,29). Tikhonov regularization replaces the in-
+verse least-squares problem with a constrained least-
+squares problem, and the idea is to ﬁnd a regularized
+solution that minimizes the weighted combination of the
+residual norm and the constraint as follows:
+min
+
+Gt)(t)S(t)2
+L(t)2 [9]
+where L approximates the ﬁrst derivative operator (Tik-
+honov ﬁrst-order regularization) and the regularization pa-
+rameter  controls the weight given to minimization of
+constraint relative to minimization of the residual norm.
+The optimal regularization parameter  is usually calcu-
+lated by using the L-curve method (30). For this study we
+explored two approaches of choosing the regularization
+parameter: ﬁrst  was calculated using the L-curve
+method, and second the regularization parameter was
+made a function of time: (t)    logspace(–1,1, vector
+size), i.e., spanning a range from 0.1 to 10. The advan-
+tage of this approach is that for the initial parts of the FID
+signal where the signal dominates the noise,  is small
+(much less than that determined by L-curve) and least-
+squares part dominate in Eq. [9]. Conversely, for the later
+parts of the FID where noise dominates the signal and little
+useful information is present, the side constraint domi-
+nates the solution. This regularization approach not only
+helps ensure the stability of the solution, it also helps
+prevent magniﬁcation of the noise.
+Noise Comparison
+In previous sections we compared the signal achieved
+with the three different reconstruction approaches. The
+FIG. 2. a: Location and size of the object
+used in the simulations. The size of the ob-
+ject is 96 mm and the FOV is 256 mm. The
+vertical lines show the location of voxels
+when the discrete FT is used for spatial
+reconstruction. For SLIM and NL-CSI re-
+construction voxels 6–12 were chosen as
+regions (total  7). Only half regions of vox-
+els 6 and 12 were selected (i.e., where the
+object is present). b and c: Reconstructed
+signals from voxels 6 and 9 with T2  . FT
+and SLIM reconstructions show substan-
+tially nonlinear behavior. In voxel 6 the sig-
+nal peaks around 70 ms and then decays
+rapidly. NL-CSI reconstruction shows con-
+stant linear signal with time, as expected. d
+and e: Reconstructed signals from voxels 6
+and 9 with T2  50 ms. The plots show that
+FT and SLIM reconstruction lead to severely
+distorted FID signal, whereas NL-CSI re-
+construction shows true exponential decay
+of the signal.
+Natural Linewidth Chemical Shift Imaging 11
+effect of these reconstruction approaches on the noise was
+also compared for both simulation and in vivo studies. For
+simulation studies multivoxel data were generated by add-
+ing random noise to the simulated signal. The standard
+deviation (SD) of the noise was calculated for the recon-
+structed time domain FID signals in each voxel. For sim-
+ulation studies the noise was calculated separately for the
+ﬁrst and last 25 ms of the reconstructed signal. For in vivo
+experiments the noise was calculated only for the last
+25 ms of the FID signals, since the lipid and metabolite
+signal oscillations have a higher amplitude than the noise
+during the ﬁrst 25 ms.
+RESULTS
+Simulation Results
+Figures 1a and 2a show the location of objects and voxels
+for 1D simulation experiments. The gray area deﬁnes the
+extent of the objects, and the white lines represent the
+boundaries of voxels as deﬁned when the discrete FT is
+used to spatially reconstruct the spectroscopic imaging
+data. Figure 1b shows the reconstructed FID of voxel 9
+from the simulated data when the object occupies only one
+voxel in the FOV and T2  . With the discrete FT and
+SLIM reconstructions, the resulting FID signal intensity
+shows a sinc-like decay with time and passes through a
+null at approximately 160 ms. At each time point the FT
+reconstruction also shows decreased signal compared to
+SLIM reconstruction; for example, at time point zero the
+relative FT-reconstructed FID signal is 0.9 as compared
+to 1.0 for SLIM reconstruction. This difference is due to
+Gibbs ringing, which is inherent to FT reconstruction and
+is present at every time point of the FID signal. This Gibbs
+ringing is removed by SLIM reconstruction at time point
+zero; however, background magnetic ﬁeld (inhomogene-
+ity) gradients lead to signal decay with increasing time in
+SLIM reconstruction. This signal decay is usually inter-
+preted as T*2 decay due to intravoxel signal phase disper-
+sion in the presence of ﬁeld inhomogeneities. In fact, this
+interpretation is not quite correct, because signal spread-
+out to the surrounding voxels substantially contributes to
+the signal formation if FT or SLIM reconstruction is em-
+ployed (see Discussion). Using NL-CSI reconstruction,
+which takes into account the background magnetic ﬁeld
+inhomogeneities, the ideal FID, which is unity for all time,
+is recovered. Figure 1c shows a reconstructed signal in
+voxel 10 of Fig. 1a where no object is present. This plot
+demonstrates the spectral leakage of signal from voxel 9
+when FT or SLIM reconstructions are used. When NL-CSI
+reconstruction is used there is no leakage signal in neigh-
+boring voxels. SLIM reconstruction has this property only
+at t  0, when the contribution of ﬁeld inhomogeneity is
+not present.
+When the object occupies several voxels of the FOV, the
+background magnetic ﬁeld inhomogeneities can lead to
+erratic signal leakage (“contamination”) with both SLIM
+and FT reconstruction. Figure 2b and c show representa-
+tive FID signals from two voxels (6 and 9 in Fig. 2a), with
+T2  . Contrary to the expected T*2-like decay, both SLIM
+and FT reconstruction show “unusual” oscillatory inten-
+sity behavior for short times and rapidly decaying inten-
+sity at longer times. For example, in voxel 6 the signal
+actually demonstrates a twofold intensity increase over the
+ideal signal at 70 ms, followed by an almost exponential
+intensity decrease with time. NL-CSI reconstruction repro-
+duces the ideal signal, is not affected by ﬁeld inhomoge-
+neities, and is constant with time, having an intensity of
+0.5 in voxel 6 and 1.0 in voxel 9.
+The results obtained with the same simulated object but
+with T2  50 ms are shown for voxels 6 and 9 in Fig. 2d
+and e. In both voxels the signal shows substantial devia-
+tions from true exponential decay when discrete FT or
+SLIM reconstruction is used for spatial reconstruction.
+When NL-CSI reconstruction is used with the same simu-
+lated data, the results produce true exponential decay.
+Phased absorption mode spectrum of the simulated signal
+from voxel 9 reconstructed with all three methods is
+shown in Fig. 3. With FT and SLIM reconstruction the
+spectrum is distorted, and these distortions are removed
+when NL-CSI reconstruction is used.
+Experimental Results
+Figure 4 shows on a semi-log scale the magnitude of the
+FID signal vs. acquisition time. When 16 phase-encoding
+steps are used for data acquisition, both FT (Fig. 4a) and
+FIG. 3. Absorption mode spectra from voxel 9 in Fig. 2a of the multivoxel simulation experiment using (a) FT, (b) SLIM, and (c) NL-CSI
+reconstruction.
+12 Bashir and Yablonskiy
+SLIM (Fig. 4b) reconstruction show that the magnitude of
+the FID signal decays in a non-monoexponential fashion
+(i.e, it is distorted) even though the voxel (voxel 1, Fig. 4a
+inset) is near the center of the phantom. The FID signal
+after NL-CSI reconstruction (Fig. 4c) shows that most of
+the distortions are removed and the signal compares favor-
+ably with the reference spectrum (Fig. 4d) obtained using
+a PRESS sequence. This conﬁrms that the distortions seen
+in the FID signal with the FT and SLIM reconstructions are
+due to the background magnetic ﬁeld inhomogeneities and
+can be mostly eliminated using the NL-CSI approach.
+When 32 phase-encoding steps are used for a CSI exper-
+iment, the resultant voxel dimension is reduced by half,
+and hence the magnetic ﬁeld variation across the voxel is
+also reduced. Even in this case the FT (Fig. 4e) and SLIM
+(Fig. 4f) reconstructions show distortions of the FID signal
+from a selected voxel (voxel 2, Fig. 4e inset). However, this
+distortion is signiﬁcantly reduced compared to the exper-
+iment with 16 phase-encoding steps. NL-CSI (Fig. 4g) re-
+construction in this case leads to almost perfect recon-
+struction of the signal, and the results exactly match the
+reference single-voxel spectroscopy data (Fig. 4h).
+Figure 5 (left column) shows the phased absorption
+mode water spectrum of voxel 1 indicated in Fig. 4a.
+Spectral distortions are visible with the FT (Fig. 5a) and
+SLIM (Fig. 5b) methods of spatial reconstruction, whereas
+NL-CSI (Fig. 5c) almost completely removes these distor-
+tions and agrees with the reference spectrum from the
+PRESS sequence (Fig. 5d). Figure 5e (FT), f (SLIM), g
+(NL-CSI), and h (PRESS) show the spectrum after water
+peak was removed using the SVD ﬁlter in the JMRUI (31)
+package, and the scale is expanded to show the spectrum
+from the metabolite resonances. NL-CSI reconstruction
+demonstrates marked improvement in the lineshape of the
+metabolite spectra and improved discrimination of the two
+peaks at 2.7 ppm.
+In Vivo Results
+Figure 6a shows a gradient-echo scout image overlaid with
+the location of the 16 mm  16 mm 1D interrogated CSI
+region and resultant FT voxels. For SLIM and NL-CSI
+reconstruction, the skull and scalp were chosen as two
+compartments and the brain was segmented into compart-
+ments to closely match the FT voxels. Figure 6b–d show
+the magnitude of FIDs plotted on a semi-log scale from
+voxels marked in Fig. 6a. FT- and SLIM-reconstructed
+signals from three representative voxels clearly show sig-
+nal distortions as compared to the NL-CSI-reconstructed
+signal. In all three voxels the NL-CSI approach effectively
+removes the distorting effects of ﬁeld inhomogeneities,
+leading to almost pure monoexponential signal decay,
+which is seen as linear decay on the semi-log scale. High-
+frequency oscillations are visible on the FT-reconstructed
+signal at short times due to the extracranial lipid signal
+that leaks into the signal from brain voxels when FT re-
+construction is used. This extracranial lipid signal leakage
+is also eliminated with NL-CSI reconstruction, resulting in
+uncontaminated FID signal from the voxels.
+Figure 7 shows the representative spectrum from the
+voxel marked as “c” in Fig. 6a. The water peak was re-
+moved and the scale was expanded to show the spectrum
+from the metabolite resonances. No line-broadening was
+applied to the signal. FT reconstruction (Fig. 7a) shows
+that even halfway into the brain there is extracranial lipid
+leakage. It can be seen that both SLIM (Fig. 7b) and NL-CSI
+FIG. 4. Images of the spherical phantom showing the 1D CSI grid and FT voxel locations with 16 and 32 phase encodes are shown as
+insets. For SLIM and NL-CSI reconstruction, multiple regions were selected only in the phantom, and the regions closely matched the FT
+voxel locations and size. The magnitude of the FID signal from voxels 1 and 2 plotted on a semi-log scale is shown: (a and e) FT
+reconstruction, (b and f) SLIM reconstruction, (c and g) NL-CSI reconstruction, and (d and h) PRESS FID signal from a well-shimmed
+single-voxel spectroscopy experiment. FT and SLIM reconstructions show nonlinear behavior of the FID signal. NL-CSI-reconstructed
+signal shows linear behavior, which agrees very well with the reference single-voxel spectroscopy signal.
+Natural Linewidth Chemical Shift Imaging 13
+(Fig. 7c) are very effective in removing this extracranial
+lipid spectral leakage, but the lineshape is improved with
+NL-CSI.
+Noise Comparison
+Table 1 shows the noise calculated for all three reconstruc-
+tion approaches. Simulation studies show that both SLIM
+and NL-CSI have similar noise for the ﬁrst 25 ms of the
+FID, which is slightly higher than the noise in the FT-
+reconstructed data. For the last 25 ms of the FID (when the
+signal has decayed to zero and only the noise remains), the
+NL-CSI shows signiﬁcantly increased noise levels over FT
+and SLIM reconstruction, but regularization appreciably
+reduces this noise. The in vivo data also show similar
+noise performance, and NL-CSI reconstruction with regu-
+larization has noise values comparable to those of the
+discrete FT and SLIM reconstructions.
+DISCUSSION
+The presence of a person or an object in the MR scanner
+causes magnetic ﬁeld inhomogeneities even in an ideal
+magnet. Careful shimming can reduce these ﬁeld inhomo-
+geneities but cannot fully eliminate them. These ﬁeld in-
+homogeneities are signiﬁcant at the interfaces of air, tissue,
+blood, and bone, where the susceptibility changes rapidly
+over short distances. In this paper we have shown both
+theoretically and experimentally that even very small
+background magnetic ﬁeld inhomogeneities can lead to
+severe spectral leakage between voxels and contaminate
+the quantitative results when FT is used for spatial recon-
+struction of CSI data. As in vivo MRS moves to higher-
+ﬁeld-strength magnets to take advantage of greater SNR
+and chemical shift dispersion, these higher ﬁeld strengths
+are also accompanied by increased magnetic ﬁeld inhomo-
+geneities. Our results show that if these background ﬁeld
+inhomogeneities are not taken into account, the advan-
+tages of moving to higher ﬁeld may be compromised. We
+have introduced a non-FT-based reconstruction method
+(NL-CSI) that eliminates or reduces signal distortions re-
+sulting from these magnetic ﬁeld inhomogeneities, and
+thus produces near ideal (by content and lineshape) spec-
+tra from each voxel.
+In a CSI experiment, phase encoding is performed for
+spatial localization and the FID signal is recorded in the
+absence of any externally applied ﬁeld gradients. In a
+spin-echo CSI sequence (the most commonly used CSI
+sequence), the data acquisition usually starts at the middle
+of the spin echo and continues for typically 0.5–1 s after
+the echo. At the spin echo, the phase accumulated due to
+background static ﬁeld inhomogeneities is refocused and
+the contribution of Bℜt term in Eq. [5] to the measured
+signal is nulled. However, this contribution increases lin-
+early with time. The effect of this term is twofold: First, it
+produces phase dispersion inside each voxel, leading to a
+well-known effect of signal decay in each voxel (T*2-type
+phenomena). Second, if the magnetic ﬁeld gradient has a
+component along a phase-encoding direction, it intro-
+duces an additional time-dependent phase. When FT is
+performed to spatially localize the phase-encoded data,
+this additional phase dispersion can lead to a situation in
+which spins in a particular voxel are mapped to neighbor-
+ing voxels, resulting in contamination of their signal and
+vice versa. This contamination effect increases as signal
+acquisition progresses and is in addition to the previously
+well-documented sinc-like PSF behavior inherent to dis-
+crete FT.
+Simulations show that even when a small linear back-
+ground ﬁeld gradient is present, FT reconstruction leads to
+a sinc-like signal decay with time. When the object occu-
+pies only one voxel in the FOV, the effect is easily predict-
+FIG. 5. The left column shows the absorption mode spectra (water
+peak only) from voxel 1 shown in Fig. 4. (a) FT and (b) SLIM spatial
+reconstructions of the phase-encoded data show distortions of the
+spectrum. (c) NL-CSI reconstruction leads to removal of this distor-
+tion, as shown by improvement of the lineshape, and agrees with
+the (d) PRESS-acquired spectrum. In the right column the scale is
+expanded to show the metabolite peaks in the spectrum: (e) FT, (f)
+SLIM, (g) NL-CSI, and (h) PRESS. NL-CSI reconstruction show
+signiﬁcantly improved lineshape over FT and SLIM reconstructions.
+14 Bashir and Yablonskiy
+able from Eq. [1]. However, objects that occupy a single
+voxel in the FOV are not generally encountered in real-life
+experiments. For an object occupying multiple voxels,
+even the presence of a small linear background ﬁeld gra-
+dient leads to a complicated signal behavior. When FT
+reconstruction is used (Fig. 3), signals from different vox-
+els severely contaminate each other. The background ﬁeld
+inhomogeneities in this case can cause additional signal
+leakage, leading to near doubling of the actual signal from
+a given voxel at a speciﬁc time. This result is rather unex-
+pected because it is usually assumed that magnetic ﬁeld
+inhomogeneities lead to increased signal decay, not am-
+pliﬁcation.
+In real experiments, heterogeneous objects cause back-
+ground ﬁeld inhomogeneities that are nonlinear and the
+strength of these inhomogeneities can be much larger than
+what we chose for our simulations, especially near tissue,
+air, and bone interfaces. In this scenario there can be
+severe signal contamination in spectroscopic imaging ex-
+periments if these ﬁeld inhomogeneities are not taken into
+account while the phase-encoded data are reconstructed,
+and the resulting quantitative estimates of the metabolite
+signals may be erroneous. We have already discussed and
+demonstrated how this effect manifests itself in phantom
+studies. Our in vivo results also clearly demonstrate this
+point. The signal decay obtained with FT reconstruction is
+highly nonlinear on a semi-log scale, demonstrating that it
+is contaminated and distorted due to ﬁeld inhomogene-
+ities. For example, the signal can decrease more rapidly
+(Fig. 6c and d) or increase above (Fig. 6b) the true brain
+FIG. 6. (a) Gradient-echo reference image
+of a head, showing the location of 16 mm 
+16 mm 1D excited region and FT voxel lo-
+cations. Parts b–d show on a semi-log
+scale the magnitude of the FID signals from
+voxels marked in a. The FT-reconstructed
+signals from three representative voxels
+show nonlinear signal decay due to ﬁeld
+inhomogeneities. The NL-CSI recon-
+structed signal in all three voxels demon-
+strates the effectiveness of the technique in
+removing the ﬁeld inhomogeneity. High-fre-
+quency oscillations are clearly visible on the
+FT-reconstructed signal due to the ex-
+tracranial lipid signal that leaks into the sig-
+nal of brain voxels when FT reconstruction
+is used.
+FIG. 7. Absorption mode spectra after (a)
+FT, (b) SLIM, and (c) NL-CSI spatial recon-
+struction of CSI data from voxel “c” shown
+in Fig. 6a. No line-broadening was applied.
+FT reconstruction leads to signiﬁcant ex-
+tracranial lipid signal leakage even into a
+voxel near the center of the brain. SLIM and
+NL-CSI are very effective in removing the
+lipid leakage (see Discussion), and NL-CSI
+provides better lineshape than SLIM recon-
+struction.
+Natural Linewidth Chemical Shift Imaging 15
+signal. The signal in a given voxel can only increase if the
+signals from neighboring voxels bleed into this given
+voxel, an effect that can be seen from the simulation stud-
+ies. When FT reconstruction is used, static ﬁeld inhomo-
+geneities often lead to increased rates of signal decay. The
+signal from voxel “c,” for example, is decaying very rap-
+idly due to the presence of a large blood vessel, seen in the
+scout image (Fig. 6a), which causes marked ﬁeld inhomo-
+geneities. The NL-CSI method is very effective in removing
+effects of such ﬁeld inhomogeneities and recovers the
+“natural” signal from the voxel. When the JMRUI software
+package (31) was used to quantify the spectroscopy data
+using the Hankel Lanczos singular values decomposition
+ﬁlter (HLSVD) signal quantitation algorithm (32), water
+and NAA decay rates showed a decrease of 23% and 52%,
+respectively, compared to the FT-reconstructed data.
+Another advantage of the proposed technique is the
+removal of extracranial lipid signal that leaks into brain
+voxels when FT reconstruction is used, as shown in Fig.
+7a. There are two sources of intervoxel signal leakage in FT
+reconstruction: a sinc-like PSF and ﬁeld inhomogeneities.
+Even for a voxel in the center of the brain, there are
+signiﬁcant amounts of lipid spectral leakage, which can
+dominate the signals from metabolites. The most common
+approach to reduce lipid leakage is to use outer volume
+suppression pulses to saturate the lipid magnetization.
+Although this approach may eliminate the lipid spectral
+leakage, it cannot prevent intervoxel signal contamination
+from water and metabolite signals, which will compromise
+quantitative results. Both SLIM and NL-CSI are very effec-
+tive in removing the lipid spectral leakage. SLIM is effec-
+tive in removing the lipid leakage because T*2 of lipids is
+signiﬁcantly shorter than that of water and metabolites.
+The source of spectral leakage in SLIM reconstruction
+arises only from ﬁeld inhomogeneities, since most of the
+lipid signal decays before the signal distortion due to ﬁeld
+inhomogeneities starts to dominate. However, SLIM still
+allows spectral leakage of water and metabolite signals due
+to ﬁeld inhomogeneities, as can be seen by the nonlinear
+FID signal decay on semi-log plots (Fig. 6). The NL-CSI
+approach is very effective in removing both these sources
+of signal leakage.
+It is important to note that spectral distortions are not
+only present in voxels near the phantom or tissue/air in-
+terfaces, where ﬁeld inhomogeneities are greatest; signiﬁ-
+cant signal distortions also occur in voxels in the center of
+a spherical phantom or the brain. With NL-CSI reconstruc-
+tion the ideal signal is nearly restored as compared to a
+single-voxel spectroscopy experiment, which is used as a
+benchmark in this study. Following application of NL-CSI,
+only very small signal deviations from the reference FID
+signal are visible on plots (Fig. 4c and g). This may be due
+to errors in the phase maps or incorrect localization of the
+region of interests (ROIs) on the phase maps. With better
+phase-mapping sequences and localization techniques,
+these small distortions can be further reduced.
+For any technique involving spectroscopic imaging, the
+SNR is always of great concern. Our data show that direct
+NL-CSI reconstruction can lead to higher noise at the end
+of the reconstructed FID signal (i.e., where the signal has
+decayed to the noise level). The reason for this increased
+noise is a decrease of the matrix coefﬁcients of the NL-CSI
+encoding matrix (Eq. [6]) with time. Thus a least-squares
+solution to (Eq. [7]) leads to a higher noise in the recon-
+structed FID signal. It is also demonstrated that using
+regularization the noise is appreciable reduced and a more
+stable solution to Eq. [7] is obtained. It is important to note
+that this increased noise is observed when the signal has
+decayed to the level of noise and there is not much useful
+information present in the FID signal. For the initial part of
+the FID signal (where the SNR is high), the noise in NL-CSI
+reconstruction is similar to that in SLIM reconstruction
+and comparable to that in FT reconstruction.
+Also, it should be noted that in this study we used a
+simple regularization approach. A variety of different reg-
+ularization approaches are available to solve such systems
+of linear equations, and they need to be evaluated to de-
+termine the best possible approach that will maximize the
+SNR and reduce errors introduced by reconstruction. We
+propose to use the Twomey regularization method that
+minimizes the difference between the solution and some
+estimate of the solution (33). A simple Lorentzian model
+can be used for this estimated signal in Twomey regular-
+ization. Using this approach and a good choice for the
+modeled signal, high SNR can be achieved without sacri-
+ﬁcing the accuracy of the results. Another elegant ap-
+proach was proposed by Webb et al. (34), who used phase
+information over a voxel to estimate the R*2 signal decay
+rate, and a model-based approach to estimate the ampli-
+tudes of the peaks. There are two main advantages of this
+approach: First, they were able to estimate the decay rate
+and used this information to account for the phase disper-
+sion in the voxel. Second, since all of the data are used to
+evaluate a small number of model parameters, the method
+is highly effective in cases with low SNR. An extension of
+this approach coupled with NL-CSI can be used to directly
+Table 1
+Noise Comparison*
+Fourier SLIM
+NL-CSI
+a b c
+Simulation
+First 25 ms 0.49  0.06 0.62  0.09 0.62  0.05 0.33  0.03 0.60  0.04
+Last 25 ms 0.45  0.04 0.57  0.05 15.9  6.8 2.4  0.35 2.5  0.01
+In vivo
+Last 25 ms 0.5  0.35 0.51  0.34 4.5  3.7 0.6  0.12 0.45  0.12
+*Noise is shown as mean  SD for all voxels and all the noise values are scaled by 104. a  NL-CSI solution with no regularization, b 
+NL-CSI with regularization coefﬁcient , c  NL-CSI with regularization parameter (t) as described in Methods.
+16 Bashir and Yablonskiy
+evaluate the resonances in a spectroscopic imaging se-
+quence. With this approach, complete phase-encoded data
+and a time-dependent geometric encoding matrix (Eq. [6])
+can be used to evaluate the model parameters. This could
+present a robust and efﬁcient means of analyzing the data.
+One approach to further improve these results is to use
+higher-spatial-resolution acquisition strategies previously
+used with FT reconstruction (35). A smaller voxel size
+results in reduced ﬁeld inhomogeneity-induced phase dis-
+persion across the voxel, and therefore improved spectral
+quality for MRSI. Increased resolution also leads to re-
+duced leakage and contamination of the FID signal as
+compared to low-spatial-resolution spectroscopic images.
+However, signiﬁcant leakage/contamination can still be
+present in a high-resolution CSI experiment, as can clearly
+be seen as nonlinear signal behavior on the semi-log plots
+in Fig. 4e (FT) and 4f (SLIM). For absolute quantiﬁcation of
+resulting metabolite signals, this high-resolution approach
+coupled with discrete FT reconstruction of phase-encoded
+spectroscopic imaging data may still lead to unacceptable
+signal contamination. However, this high-spatial-resolu-
+tion strategy coupled with NL-CSI reconstruction elimi-
+nates intervoxel signal contamination, resulting in near-
+idealized voxel spectra (Fig. 4g). A potential disadvantage
+of using this high-spatial-resolution acquisition strategy is
+a reduced SNR ratio per unit time, but the accuracy of the
+results and improved spectral lines can more than com-
+pensate for this. As demonstrated by Li et al. (36), reducing
+the voxel dimensions may increase T*2 and partially com-
+pensate for signal loss with decreased voxel volume. How-
+ever, this high-resolution approach cannot be extended
+indeﬁnitely, as eventually the reduced SNR will make
+identiﬁcation and quantiﬁcation of metabolite resonances
+impractical.
+Hu et al. (13) proposed SLIM reconstruction as an alter-
+native to FT reconstruction to overcome the limitations of
+the FT approach and to speed up imaging time by reducing
+the number of phase-encoding steps. The SLIM approach
+exploits the structural information available from a high-
+resolution MR image to reconstruct the spectroscopic im-
+aging data. As shown in Figs. 2 and 3, at time zero (when
+ﬁeld inhomogeneities are refocused in a spin-echo exper-
+iment), SLIM reconstruction results in the true signal from
+each voxel. Thus, at time zero, SLIM reconstruction is
+effective in eliminating the Gibbs ringing artifact inherent
+to the FT approach. However, in the presence of back-
+ground ﬁeld inhomogeneities, SLIM reconstruction also
+leads to severe signal contamination due to the intervoxel
+signal leakage. This contamination can be even more se-
+vere than that encountered with the FT reconstruction, as
+shown in Fig. 2. This effect is due to violation of the
+primary assumption in the SLIM approach, speciﬁcally
+that the voxel is homogeneous. Even if the original voxel
+has a homogeneous spin density, the presence of magnetic
+ﬁeld inhomogeneities compromises this homogeneity in a
+time-dependent manner. NL-CSI uses a modiﬁed spatial
+encoding matrix that incorporates information on back-
+ground ﬁeld inhomogeneities to signiﬁcantly reduce or
+even eliminate signal contamination, and thus produces
+near-ideal signal from selected voxels or ROIs.
+Although we have shown that NL-CSI technique is very
+effective in producing noncontaminated voxel spectra, it
+should be noted that it is based on certain assumptions
+and can produce erroneous results if the assumptions are
+violated. One important constraint for the NL-CSI ap-
+proach to be effective is the requirement that segmented
+compartments should be homogeneous. Liang and Lauter-
+bur (37) previously showed that compartmental inhomo-
+geneity can lead to intervoxel signal leakage when SLIM
+reconstruction is used. To reduce the effects of intervoxel
+signal contamination due to compartmental inhomogene-
+ities in SLIM reconstruction, Liang and Lauterbur (14)
+introduced GSLIM reconstruction approach for spectro-
+scopic imaging data. They showed that with the use of
+GSLIM, intervoxel signal leakage due to compartmental
+inhomogeneities can be signiﬁcantly reduced. In this
+study we did not address the issue of compartmental in-
+homogeneity, since our focus was to demonstrate the effect
+of ﬁeld inhomogeneity on intervoxel signal leakage. Com-
+partmental inhomogeneity was not an issue for the simu-
+lation and phantom studies because the compartments
+were truly homogeneous. For the in vivo study, the com-
+partments were chosen to be aligned with FT voxels to
+facilitate direct comparison. Although this violates the
+condition that the compartments should be homogeneous,
+the results demonstrate that even with this selection of
+compartments, NL-CSI resulted in signiﬁcantly improved
+lineshapes and an almost complete removal of extracranial
+lipid leakage as compared to FT reconstruction. Further
+improvements can be achieved by careful automatic seg-
+mentation of the high-resolution images. Also, the NL-CSI
+technique can be incorporated with GSLIM reconstruction
+to improve the results presented herein and reduce the
+effect of compartmental inhomogeneity.
+Obviously, this approach can be used in addition to, but
+not as a substitute for a good shimming of the magnetic
+ﬁeld. Strong magnetic ﬁeld inhomogeneities can cause
+geometric distortions of the gradient-echo images used to
+obtain the high-resolution base images and to determine
+the ﬁeld maps used for data reconstruction. This may lead
+to inaccurate spatial and phase information in the encod-
+ing matrix, leading to erroneous results. In addition, a
+highly inhomogeneous ﬁeld will cause the FID signal to
+decay below the noise level very quickly, and no recon-
+struction approach will be able to recover it. It should also
+be noted that ﬁeld mapping adds additional time to the
+study; in this study approximately ﬁve additional minutes
+were needed to acquire complete data sets for NL-CSI.
+However, we believe that this additional time is certainly
+not prohibitive in clinical settings and can easily be incor-
+porated into the protocol.
+CONCLUSIONS
+Even the small magnetic ﬁeld inhomogeneities that are
+present during any spectroscopic imaging experiment can
+lead to severe contamination of spectroscopic data if the
+discrete FT is used for spatial reconstruction. A new
+method, NL-CSI, takes into account magnetic ﬁeld inho-
+mogeneities and produces spectral maps that are nearly
+free of intra- and intervoxel contamination, and have sig-
+niﬁcantly improved lineshape.
+Natural Linewidth Chemical Shift Imaging 17
+ACKNOWLEDGMENTS
+We thank Dr. Joseph Ackerman and Dr. Xiang He (Wash-
+ington University, St. Louis) for helpful discussions and
+constructive suggestions during the course of this work.
+REFERENCES
+1. De Stefano N, Bartolozzi ML, Guidi L, Stromillo ML, Federico A.
+Magnetic resonance spectroscopy as a measure of brain damage in
+multiple sclerosis. J Neurol Sci 2005;233:203–208.
+2. Gillies RJ, Morse DL. In vivo magnetic resonance spectroscopy in
+cancer. Annu Rev Biomed Eng 2005;7:287–326.
+3. Law M. MR spectroscopy of brain tumors. Top Magn Reson Imaging
+2004;15:291–313.
+4. Lyoo IK, Renshaw PF. Magnetic resonance spectroscopy: current and
+future applications in psychiatric research. Biol Psychiatry 2002;51:
+195–207.
+5. Narayana PA, Wolinsky JS, Rao SB, He R, Mehta M. Multicentre proton
+magnetic resonance spectroscopy imaging of primary progressive mul-
+tiple sclerosis. Mult Scler 2004;10(Suppl 1):S73–S78.
+6. Brown TR, Kincaid BM, Ugurbil K. NMR chemical shift imaging in
+three dimensions. Proc Natl Acad Sci USA 1982;79:3523–3526.
+7. de Graff RA. In vivo NMR spectroscopy: principles and techniques.
+Chichester/New York: Wiley; 1998.
+8. Oppenheim AV, Schaffer RW. Discrete-time signal processing. Engle-
+wood Cliffs, NJ: Prentice Hall; 1989.
+9. Garwood M, Schleich T, Bendall MR, Pegg DT. Improved Fourier series
+windows for localization in in vivo NMR spectroscopy. J Magn Reson
+1985;65:510–515.
+10. Garwood M, Schleich T, Ugurbil K. The Fourier-series window method
+for spatially localized NMR-spectroscopy—implementation with com-
+posite pulses and multiple coils. Ann NY Acad Sci 1987;508:512–515.
+11. Brooker HR, Mareci TH, Mao JT. Selective Fourier transform localiza-
+tion. Magn Reson Med 1987;5:417–433.
+12. Mareci TH, Brooker HR. High resolution magnetic resonance spectra
+from a sensitive region deﬁned with pulsed ﬁeld gradients. J Magn
+Reson 1983;57:157–163.
+13. Hu X, Levin DN, Lauterbur PC, Spraggins T. SLIM: spectral localization
+by imaging. Magn Reson Med 1988;8:314–322.
+14. Liang ZP, Lauterbur PC. A generalized series approach to MR spectro-
+scopic imaging. IEEE Trans Med Imaging 1991;10:132–137.
+15. Kienlin MV, Mejia R. Spectral localization with optimal pointspread
+function. J Magn Reson 1991;94:268–287.
+16. Plevritis SK, Macovski A. MRS imaging using anatomically based k-
+space sampling and extrapolation. Magn Reson Med 1995;34:686–693.
+17. Plevritis SK, Macovski A. Spectral extrapolation of spatially bound
+images. IEEE Trans Med Imaging 1995;14:487–497.
+18. Hu X, Patel M, Ugurbil K. A new strategy for spectroscopic imaging. J
+Magn Reson B 1994;103:30–38.
+19. Hu X, Patel M, Chen W, Ugurbil K. Reduction of truncation artifacts in
+chemical-shift imaging by extended sampling using variable repetition
+time. J Magn Reson B 1995;106:292–296.
+20. Weaver JB, Xu Y, Healy DM, Driscoll JR. Wavelet-encoded MR imaging.
+Magn Reson Med 1992;24:275–287.
+21. Webb P, Macovski A. Rapid, fully automatic, arbitrary-volume in vivo
+shimming. Magn Reson Med 1991;20:113–122.
+22. Wen H, Jaffer FA. An in vivo automated shimming method taking into
+account shim current constraints. Magn Reson Med 1995;34:898–904.
+23. Garwood M, DelaBarre L. The return of the frequency sweep: designing
+adiabatic pulses for contemporary NMR. J Magn Reson 2001;153:155–
+177.
+24. Ghiglia DC. Two-dimensional phase unwrapping: theory, algorithms,
+and software. New York: Wiley; 1998.
+25. Bojorck A. Constrained least squares problems. In: Ciarlet PG, Lions JL,
+editors. Handbook of numerical analysis, Vol I: Finite difference
+methods: solutions of equations in Rn. New York: Elsevier; 1990. p
+589–615.
+26. Morozov VA. Regularization methods for ill-posed problems. Boca
+Raton, FL: CRC Press; 1993.
+27. Skilling J, Gull SF. Algorithms and applications. In: Smith CR, Grandy
+Jr WT, editors. Maximum-entropy and Bayesian methods in inverse
+problems. Boston: D. Reidel; 1985. p 83–132.
+28. Hansen PC. Rank-deﬁcient and discrete ill-posed problems.
+Philadelphia: SIAM; 1998.
+29. Tikhonov AN, Arsenin VY. Solutions of ill-posed problems. Washing-
+ton, DC: Winston and Sons; 1977.
+30. Hansen PC, O’Leary DP. The use of L-curve in the regularization of
+discrete ill-posed problems. SIAM J Scientiﬁc Comput 1993;14:1487–
+1503.
+31. Naressi A, Couturier C, Devos JM, Janssen M, Mangeat C, de Beer R,
+Graveron-Demilly D. Java-based graphical user interface for the MRUI
+quantitation package. MAGMA 2001;12:141–152.
+32. Laudadio T, Mastronardi N, Vanhamme L, Van Hecke P, Van Huffel S.
+Improved Lanczos algorithms for blackbox MRS data quantitation. J
+Magn Reson 2002;157:292–297.
+33. Twomey S. On the numerical solution of Fredholm integral equations
+of the ﬁrst kind by inversion of the linear system produced by quadra-
+ture. J Assoc Comput Mach 1963;10:97–101.
+34. Webb P, Spielman D, Macovski A. Inhomogeneity correction for in vivo
+spectroscopy by high-resolution water referencing. Magn Reson Med
+1992;23:1–11.
+35. Ebel A, Maudsley AA. Improved spectral quality for 3D MR spectro-
+scopic imaging using a high spatial resolution acquisition strategy.
+Magn Reson Imaging 2003;21:113–120.
+36. Li BS, Regal J, Gonen O. SNR versus resolution in 3D 1H MRS of the
+human brain at high magnetic ﬁelds. Magn Reson Med 2001;46:1049–
+1053.
+37. Liang ZP, Lauterbur PC. A theoretical analysis of the SLIM technique.
+J Magn Reson Ser B 1993;102:54–60.
+18 Bashir and Yablonskiy

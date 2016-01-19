@@ -1,0 +1,1532 @@
+J. Great Lakes Res. 33:62–82
+Internat. Assoc. Great Lakes Res., 2007
+62
+Modeling Dissolved Oxygen in a Dredged Lake Erie Tributary
+Jagjit Kaur1,†, Gopi Jaligama2, Joseph F. Atkinson3, Joseph V. DePinto4,*,
+and Adrienne D. Nemura4
+1CH2M HILL
+1000 Wilshire Boulevard, 21st Floor
+Los Angeles, California 90017
+2TRC Omni Environmental Corporation
+Research Park, 321 Wall Street
+Princeton, New Jersey 08536
+3University at Buffalo
+Buffalo, New York 14260
+4Limno-Tech, Inc.
+501 Avis Drive
+Ann Arbor, Michigan 48108
+ABSTRACT. A two-dimensional numerical model was developed to study dissolved oxygen (DO) kinet-
+ics in a dredged Lake Erie tributary. The model design was aimed to specifically address the fact that
+many tributaries to the Great Lakes are dredged periodically for navigation, and that resultant changes
+in morphology and hydraulics can have significant impacts on DO. Due to the greater depths caused by
+dredging, river velocities slow considerably and vertical mixing is not as effective, leading to thermal
+stratification and potential short-circuiting of warmer upstream flow. The model solves the two-dimen-
+sional (laterally averaged) hydrodynamic and mass balance equations to simulate transport and transfor-
+mation relevant to dissolved oxygen using an alternating direction, implicit finite difference method.
+Effects of oxygen-demanding pollutants from municipal and industrial discharges and also from nonpoint
+sources are included. A model application was developed for the Black River (Ohio), a tributary of Lake
+Erie. The river is dredged periodically, becomes stratified during the low flow summer months, and is
+affected by changing lake levels associated with seiching in Lake Erie. After calibration and confirma-
+tion, the model was used as a diagnostic tool to understand the impact of various loading sources on low
+DO levels observed along the bottom of the river. It is shown that sediment oxygen demand (SOD), com-
+bined with the river hydraulics, is the primary cause for low DO levels in the Black River. 
+INDEX WORDS: Dissolved oxygen, Great Lakes tributaries, sediment oxygen demand, modeling.
+*Corresponding author. E-mail: jdepinto@limno.com
+† formerly with Limno-Tech, Inc.
+INTRODUCTION
+Many tributaries in the Great Lakes are dredged
+for navigational purposes. Dredging usually involves
+the periodic removal of accumulated bottom sedi-
+ments from waterways to enlarge or deepen a navi-
+gation channel. The resultant changes in morphology
+and hydraulics can have significant impacts on water
+quality. Dissolved oxygen (DO) is one of the most
+important variables in water quality analysis, and
+many of these tributaries suffer from low DO con-
+centrations, particularly in the summer months. Low
+DO concentrations directly affect fish and alter a
+healthy ecological balance. Because DO is affected
+by many other water quality parameters, it is a sensi-
+tive indicator of the health of an aquatic system. To
+protect warm water fish and plant life, many water
+quality standards require that DO be greater than 4
+milligrams per liter (mg L–1), with a daily minimum
+average of 5 mg L–1, and temperatures must be less
+than maximum criteria, which vary depending on the
+time of the year (U.S. EPA 1986).
+When coupled with large swings in surface ele-
+Dissolved Oxygen in a Lake Erie Tributary 63
+vation of the lake into which it discharges, dredged
+tributaries can behave like estuaries, with frequent
+and significant flow reversals and rapid changes in
+water levels. The dredged portions have depths that
+may be four to six times the normal depth of the
+river and are characterized by low velocities and
+decreased vertical mixing. The differences in tem-
+peratures and densities between the river and lake
+waters in the warmer summer months lead to verti-
+cal stratification and potential short-circuiting of
+upstream flow, where the warmer river flow re-
+mains at the surface. Stratification reduces vertical
+mixing, which reduces the downward transfer of
+surface oxygen, and sediments exert oxygen de-
+mand, resulting in low DO concentrations in the
+bottom waters. A conceptual sketch of conditions
+affecting DO concentrations in a dredged tributary
+is depicted in Figure 1. Discharges from point
+sources, such as industries, wastewater treatment
+plants, sanitary sewer overflows (SSOs) and com-
+bined sewer overflows (CSOs), and nonpoint
+sources (surface runoff) also contribute to low DO
+concentrations in the receiving waters. To under-
+stand the DO problems occurring in these tribu-
+taries, the spatial resolution needed for any
+hydrodynamic/water quality model must incorpo-
+rate at least a two-dimensional (laterally averaged)
+structure. On the other hand, data availability is
+usually such that a fully three-dimensional ap-
+proach is not warranted. The present model adopts
+a two-dimensional framework.
+A number of existing water quality models, such
+as WASP (Wool et al. 2003), QUAL2E (Brown and
+Barnwell 1987), and CE-QUAL-W2 (Cole and
+Buchak 1995) simulate DO transport in rivers, but
+those models are not directly applicable for evaluat-
+ing DO kinetics in the dredged portions of rivers. For
+example, the WASP (which uses DYNHYD, a one-
+dimensional hydrodynamic model) and QUAL2E
+models simulate only longitudinal velocity profiles,
+whereas CE-QUAL-W2, a two-dimensional, longitu-
+dinal/vertical, hydrodynamic and water quality
+model, was found to require a large number of inputs
+and modifications to the source code in order to ade-
+quately represent conditions for dredged tributaries
+of the Great Lakes. Moreover, CE-QUAL-W2 uses a
+z-grid computational approach. Terrain following
+models tend to be more stable than the z-grid models
+and have distinct advantages in terms of specifying
+the bottom boundary conditions. It is important to
+build a modeling framework capable of describing
+the longitudinal gradients as well as vertical stratifi-
+FIG. 1. Conceptualization of conditions in the dredged Great Lakes tributaries (see
+text for details).
+64 Kaur et al.
+cation, which is essential for simulating conditions in
+dredged channels and to evaluate the impacts of oxy-
+gen-demanding pollutants on DO. In addition, other
+requirements of the model include the ability to han-
+dle multiple point and nonpoint sources to account
+for time-varying discharges, withdrawals from vari-
+ous sources, watershed runoff, impacts of the lake
+seiche, and time-dependent boundary conditions. 
+The specific goal of this study was to develop a
+coupled two-dimensional, laterally averaged, hy-
+drodynamic and water quality model that could be
+used to evaluate the impacts of oxygen demanding
+sources and assess the factors contributing to low
+DO in the dredged portions of Great Lakes tribu-
+taries. The model was built upon a previously de-
+veloped framework (Blair 1992, Wight 1995, Hall
+1997), which was originally designed to evaluate
+sources of oxygen demand in the Buffalo River,
+Buffalo, New York. In the present study the model
+is applied to the Black River, which enters Lake
+Erie at Lorain, Ohio.
+The model application was conducted to deter-
+mine the feasibility of meeting warm water DO
+standards. Specifically, the model was designed to
+understand the impact of various point and non-
+point sources of pollutants along with changes in
+morphology and hydraulics caused by navigational
+dredging on DO dynamics. Numerical experiments
+were conducted to test the hypothesis that SOD,
+coupled with the altered system hydraulics, is the
+primary cause of low DO levels in the bottom wa-
+ters of the dredged tributary. Diagnostic and sensi-
+tivity analyses were conducted to understand the
+mechanisms affecting the low DO concentrations.
+MODEL DEVELOPMENT
+Conceptual Model Approach
+The overall modeling approach used in this study
+involved coupling of a two-dimensional, laterally
+averaged, hydrodynamic model and a water quality
+model. The hydrodynamic model is based on conti-
+nuity and momentum balances. Hydrodynamic con-
+stituents include water depth and vertical and
+horizontal velocities. The water quality model cal-
+culates values for water quality constituents using
+basic mass balances, as expressed through the ad-
+vection-diffusion equation, while incorporating ap-
+propriate sources and sinks. Water quality
+constituents include temperature, carbonaceous bio-
+chemical oxygen demand (CBOD), ammonia
+(NH3), nitrate (modeled as nitrate plus nitrite,
+NO3+NO2), total organic nitrogen (TON), and dis-
+solved oxygen (DO). The water quality model con-
+tains an SOD formulation that allows spatially
+variable SOD rates to change with temperature and
+water column DO.
+The numerical discretization is a terrain-following
+coordinate system, with an equal number of layers
+(referred to as “sigma layers”) everywhere in the
+model domain. In other words, the layer thickness
+expands in deeper portions of the river and becomes
+thinner in shallower regions. This type of formula-
+tion simplifies the finite difference representation for
+the system, but may produce errors when flows are
+very high or when there are rapid changes in depth.
+To avoid these problems, care must be taken to
+choose a combination of longitudinal grid length,
+number of layers, and time step. In addition to sigma
+layers, a staggered grid approach is adopted in which
+velocities are defined at the edges of the grid, while
+the concentrations of nutrients, temperature, density
+and viscosity of water are defined at the center of the
+grid as shown in Figure 2. This method is numeri-
+cally stable and effective in limiting excessive com-
+putational time associated with solving the
+non-linear momentum equation (Kantha and Clayson
+1994). The model is formulated to handle up to 20
+layers in the vertical direction and up to 200 grids (or
+segments) longitudinally.
+The alternating direction implicit (ADI) method
+(Zhao 2002) was used to solve the governing equa-
+tion in two steps. In the first half time step, consec-
+utive layers of elements are solved implicitly by
+holding adjacent elements, above and below, as
+constant at their values from the previous time step.
+In the second half time step, a similar procedure is
+followed, solving consecutive columns along the
+model reach. All concentration values are updated
+only after one full sweep is completed. A derivation
+of the general finite difference expressions for the
+two-dimensional advection diffusion equation is
+presented by Jaligama (2004).
+Hydrodynamic Model
+The hydrodynamic model uses the momentum
+equation to solve for longitudinal velocities (Clark
+1996),
+∂
+∂ +
+∂
+∂ +
+∂
+∂ = −
+∇
++
+∂
+∂
+∂
+∂
+  +
+UW
+t
+U UW
+x
+V UW
+z
+W P
+x
+UW
+x
+x
+ρ
+ν
+∂
+∂
+∂
+∂
+ z
+UW
+zz
+ν
+(1)
+Dissolved Oxygen in a Lake Erie Tributary 65
+where U = longitudinal velocity; V = vertical veloc-
+ity; P = pressure; ρ = water density; W = river
+width, νx = viscosity in the longitudinal direction
+and νz = viscosity in vertical direction. Assuming
+hydrostatic pressure, eqn. (1) is solved for U. Conti-
+nuity is then used to find vertical velocities,
+computational time that would have been needed to
+solve a full free surface formulation. In addition,
+the main goal of the study did not require detailed
+hydrodynamic calculations, nor were data available
+to verify the model, so this simplification was ap-
+propriate.
+Initial horizontal (longitudinal) velocities are cal-
+culated by assuming a logarithmic velocity profile
+(Jaligama 2004),
+FIG. 2. Sigma layer coordinate system with staggered grids.
+∂
+∂ +
+∂
+∂ =
+U
+x
+V
+z
+qin (2)
+U Q
+W z
+D
+z
+D
+z
+R
+= +
+
+
+
+
+−
+
+
+
+
+
+
+−
+0 0 0
+1 1ln
+1
+0
+ln D z
+z
+−
+
+
+
+ (3)
+where qin = net lateral inflow per unit volume of
+each grid cell. It should be noted in the derivation
+of eqn. (2) that terms involving gradients of width
+have been neglected.
+The surface elevation of the river at the down-
+stream boundary is assumed to be sinusoidal and
+depends on the amplitude and period of the lake
+seiche. The water elevation in the entire section of
+the river is assumed to vary linearly from the down-
+stream boundary (water depth is fixed at the up-
+stream boundary). Thus, the model has a semi-rigid
+lid and is not able to simulate surface waves, for in-
+stance. However, this approach was found to pro-
+vide stability and to reduce the required
+where D = depth of the river section; z = depth of
+the grid element from the surface; and z0 = height
+from the bottom of the river where the velocity is
+zero (i.e., the virtual origin of the profile). The ini-
+tial vertical velocities in the bottom layer are as-
+sumed to be zero and the initial vertical velocities
+in the other layers are obtained by using the initial
+horizontal velocities and solving the continuity eqn.
+(2). (Note that all vertical velocities would be zero
+initially for a river of constant depth.)
+66 Kaur et al.
+Thermal Stratification (Temperature Balance)
+Temperatures in different sections of the river are
+calculated using a heat balance equation,
+where T = temperature (°C); c = specific heat; ΦS =
+solar radiation; and kx and kz are thermal diffusivi-
+ties in the longitudinal and vertical directions, re-
+spectively. The solar source term is calculated using
+a simple exponential decay, 
+where ΦS0 = solar radiation at the surface; β = frac-
+tion of radiation absorbed at the surface; and η =
+absorption or extinction coefficient.
+The density of water depends on its temperature
+and salinity. Since the model is developed for fresh
+water systems, salinity is neglected and density is
+obtained by solving the equation of state (e.g.,
+Rubin and Atkinson 2001),
+where ρ0 is the density of water at 4°C (= 999.97 kg
+m–3).
+Water Quality Model
+The water quality model uses mass conservation
+in the form of an advection-diffusion equation for
+evaluating the concentrations of CBOD, NH3, NO3,
+TON, and DO,
+processes affecting the other chemical constituents
+simulated with the model as shown in Figure 3. All
+the constituents are affected by temperature, exter-
+nal loads, and meteorological conditions, and are
+transported by advection and diffusion processes.
+The transformation rates (SK terms) for the various
+constituents are described in the following para-
+graphs.
+CBOD 
+CBOD in the water column is present in both
+particulate and dissolved forms. The rate of CBOD
+lost through decay is calculated as a first-order re-
+action (Wool et al. 2003),
+∂
+∂ +
+∂
+∂ +
+∂
+∂ =
+∂
+∂
+∂
+∂
+  +
+∂
+∂
+∂
+∂
+
+T
+t
+U T
+x
+V T
+z x
+k T
+x
+z
+k T
+z
+x
+z  −
+1
+ρc
+d
+d z
+sΦ
+(4)
+S K C f CKTON mon TON T TON STON TON TON= − −
+−
+−[ ] ( )θ ν20 1
+D
+(10)
+∂
+∂ +
+∂
+∂ +
+∂
+∂ =
+∂
+∂
+∂
+∂
+  +
+∂
+∂
+∂
+∂
+
+C
+t
+U C
+x
+V C
+z
+x
+D C
+x z
+D C
+zx z
+ + +S SK
+(7)
+S K C
+K C
+C
+f
+KCBOD b
+DO
+BOD DO
+CBOD
+SBOD C
+= −
++
+
+
+
+ −
+−ν (1 BOD CBODC
+D
+)
+(8)
+Φ ΦS S z= − −0 1( ) exp( )β η (5)
+K Kb CBOD
+T
+=
+−
+20
+20[ ]( )θ (9)
+ρ ρ= − −0 20 00663 4. ( )T (6)
+where C = concentration; Dx, and Dz are the longi-
+tudinal and vertical diffusivities, respectively; SK =
+total kinetic transformation rate; and S = source or
+sink, where a positive value indicates a source and
+a negative value indicates a sink. Assuming the dif-
+fusivities are driven by turbulent mixing, all diffu-
+sivities and viscosities are assumed to take the same
+values, i.e., νx = kx = Dx and νz = kz = Dz.
+The mass balance for DO is dependent not only
+on the processes affecting it directly, but also on the
+where Kb = deoxygenation rate coefficient that varies
+with temperature; K20 = rate at 20°C; νSBOD =
+CBOD settling rate; (1 – fCBOD) = fraction of CBOD
+associated with settling solids; and θCBOD = tempera-
+ture coefficient for CBOD reaction term. The first
+term in parentheses in eqn. (8) describes the decline
+in aerobic decomposition of CBOD when the dis-
+solved oxygen concentration in the system is very
+low and the second term represents a sink for CBOD
+due to settling. Equation (9) shows the variation in
+the decay rate as a function of temperature.
+Total Organic Nitrogen (TON)
+Conversion of TON to ammonia follows a first
+order reaction (Wool et al. 2003),
+where Kmon = organic nitrogen mineralization rate
+at 20°C; θTON = temperature coefficient for organic
+nitrogen mineralization reaction; fTON = dissolved
+fraction of TON; νSTON = TON settling rate; and
+CTON = concentration of total organic nitrogen.
+Similar to CBOD, the first term in eqn. (10) repre-
+sents the loss of TON due to mineralization and the
+second term represents loss due to settling.
+Dissolved Oxygen in a Lake Erie Tributary 67
+Ammonia (NH3)
+The mineralization of TON (eqn. 10) serves as a
+source of ammonia, which is also lost from the sys-
+tem through the process of nitrification, in which
+ammonia is converted to nitrate. The mathematical
+expression of these processes is given by Wool et
+al. (2003),
+where K2D = denitrification rate at 20°C; θNO3 =
+temperature coefficient for denitrification reaction;
+and KNO3 = half-saturation constant for denitrifica-
+tion.
+Dissolved Oxygen (DO)
+The decomposition (i.e., decay of CBOD) and ni-
+trification losses of DO are calculated as (Wool et
+al. 2003),
+S K C
+K
+C
+K
+KHN mon TON
+T
+TON
+n NH
+T DO
+NI
+3
+20
+3
+20
+= −
+−
+−
+[ ]
+[ ]
+θ
+θ
+T DO
+NHC
+C
++
+
+
+
+ 3
+(11)
+S K C K C
+K CKDO b DO n NH
+T DO
+NIT D
+= −
+  +−
+64
+14 3
+20[ ]θ
+O
+NHC
+
+
+
+ 3 (13)
+S K C
+K C
+C
+K
+KNO n NH
+T DO
+NIT DO
+NH
+D
+3 3 3
+20
+2
+=
++
+
+
+
+ −
+−[ ]θ
+[ ]θNO T NO
+NO DO
+NO
+K
+K C
+C
+3
+3
+3
+3
+20−
++
+
+
+
+
+(12)
+FIG. 3. Processes affecting DO concentration in the water column.
+where Kn = nitrification rate at 20°C; KNIT = half
+saturation constant for oxygen limitation of nitrifi-
+cation; θNH3 = temperature coefficient for nitrifica-
+tion reaction; and CNH3 = ammonia concentration.
+Nitrate (NO3)
+Nitrate is produced by the nitrification of ammo-
+nia and is lost from the system through denitrifica-
+tion, by which nitrate is reduced to nitrogen gas
+under anaerobic conditions. Both of these reactions
+follow Monod kinetics (Wool et al. 2003),
+The factor (64/14) in the second term is a stoi-
+chiometric ratio, which represents the mass of oxy-
+gen consumed per mass of ammonia nitrogen oxi-
+dized.
+68 Kaur et al.
+Photosynthesis and Respiration 
+Phytoplankton concentrations (represented by
+chlorophyll a) were used to estimate the gain and
+loss of oxygen due to the growth and death, respec-
+tively, of phytoplankton (Thomann and Mueller
+1987). The gain and loss of DO by photosynthesis
+and respiration, respectively, can be calculated as
+(Chapra 1997), 
+where Pa = average gross production; aop = DO/
+chlorophyll a (mg ⋅µg–1); Gmax = maximum growth
+rate of phytoplankton; P = chlorophyll a concentra-
+tion; F(Ia) = light attenuation factor; and R = respi-
+ration rate. In the model, photosynthesis and
+respiration rates were computed for optimum or
+“saturated” light conditions.
+Other processes such as SOD and reaeration can
+be considered as boundary conditions in the model,
+where SOD is evaluated at the bottom of the water
+column and reaeration is evaluated at the water sur-
+face.
+Sediment Oxygen Demand (SOD)
+Although SOD serves as a boundary condition, it
+was convenient to incorporate it as an internal sink
+in the model, applied to the bottom layer. It is a
+function of temperature and is calculated as
+(Thomann and Mueller 1987) 
+where SODb is the base SOD, for which it is as-
+sumed that an adequate supply of oxygen is avail-
+able in the water column and the temperature is
+20°C, θSOD is the temperature correction coefficient
+for SOD, and Dzbl is the thickness of the bottom
+water column segment, which is determined inter-
+nally in the model based on the number of sigma
+layers and the total depth (this thickness ranges be-
+tween about 0.15 and 1 m). The variation of SOD
+due to variations in DO levels is given by Thomann
+and Mueller (1987) as,
+where KSO = half saturation constant representing
+the dependence of SOD on DO concentration. Ex-
+pressing SOD in this way prevents calculations of
+negative CDO values, which can occur when SOD is
+specified as a zero-order, or constant sink term.
+Reaeration
+Atmospheric reaeration is the primary source of
+oxygen to surface water. The rate of mass transfer
+of oxygen at the air water interface is directly pro-
+portional to the oxygen deficit within the water
+body,
+Pa a G P F Iop
+T
+a=
+ −max ( . ) ( )1 066 20 (14)
+R a Pop
+T
+=
+−( . )( . )0 1 1 08 20 (15)
+S a C CRDO k s DO= −( ) (18)
+a Dk =
+−12 9 0 5 1 5. . .ν (19)
+S SOD
+DBDO
+b
+zbl
+SOD
+T
+= −
+−[ ]( )θ 20 (16)
+C
+T Ts a a
+= − +
+×
+−
+×
++exp . . .139 3441 1 5755 10 6 6423 10
+5 7
+2
+
+
+×
+−
+× 
+
+1 2438 10 8 62195 1010
+3
+11
+4
+. .
+T Ta a
+(20)
+SOD SOD C
+K Cb
+DO
+SO DO
+=
++
+
+
+
+ (17)
+where CDO = dissolved oxygen concentration; ak =
+reaeration coefficient; and Cs = saturation concen-
+tration of dissolved oxygen in the water column. In
+eqn. (18), the gradient in oxygen concentration is
+evaluated at the surface, and the reaeration coeffi-
+cient is calculated as a function of velocity and
+depth using the O’Connor Dobbins formula
+(Chapra 1997): 
+where v = average velocity. Although the use of this
+formula has been questioned for stratified condi-
+tions (Atkinson et al. 1995), suitable alternatives
+for such conditions have not been formulated and it
+was assumed that eqn. (19) would provide reason-
+able values here.
+The saturation concentration of dissolved oxygen
+is dependent on temperature and is calculated using
+(APHA 1992)
+where Ta is absolute temperature (K) of the water at
+the surface.
+Point Sources
+Point sources (industrial discharges and dis-
+charges from wastewater treatment plants) are in-
+corporated into the mass balance of each
+constituent (S in eqn. 7). Point sources are modeled
+Dissolved Oxygen in a Lake Erie Tributary 69
+by performing a mass balance for a specified dis-
+charge rate on the element closest to the point
+source location, 
+MODEL APPLICATION
+The model was developed for the Black River,
+which is a tributary of Lake Erie located near Lo-
+rain, Ohio (Fig. 4). It suffers from low DO concen-
+trations, even though significant investments have
+been made for advanced treatment of waste dis-
+charges into the river (Ohio EPA 1999). The river is
+periodically dredged by the United States Army
+Corps of Engineers (USACE) for navigational pur-
+poses. The dredged section of the river extends
+from the mouth of the river upstream about 2.8
+miles.
+The study area extends from the mouth of the
+river to 4.94 miles upstream (downstream of the
+confluence of French Creek), as shown in Figure 4.
+This section of the river receives discharges from
+outfalls of Republic Technologies International
+(RTI), the wastewater treatment plant (WWTP) for
+the City of Lorain (located near the mouth of the
+river), surface runoff from the sub-watersheds (1
+and 2) that drain to this section of the river, and
+sanitary sewer overflows (SSOs). RTI withdraws
+water for non-contact cooling and returns the water
+to the river. The river also receives flows and loads
+from the Elyria Wastewater Pollution Control Plant
+(WPCP), the French Creek WWTP (operated by the
+City of North Ridgeville, OH), French Creek, and
+significant agricultural loads from the East and
+West Branches (not shown in Fig. 4) of the Black
+River.
+Bathymetric data for the Black River were ob-
+tained from the HEC-2 model input file prepared
+for the Federal Emergency Management Agency’s
+Flood Insurance Studies (FEMA 1992). Figure 5
+shows a depth profile of the model application do-
+main. The depth varies between 1.5 m and 9.8 m
+and width ranges from 29 m to 220 m. 
+For this application, the model used 500 seg-
+ments – 50 segments in the longitudinal direction,
+and 10 vertical layers with depth of each layer vary-
+ing between about 0.15 m and 1.0 m. Monitoring of
+the water quality parameters in the river was con-
+ducted in the summer of 2001 on a long-term (bi-
+weekly for 5 months from May to September) and a
+short-term (two 5-day intensive survey periods
+from 25 to 29 June and from 6 to 10 August) basis
+at various locations (refer to Fig. 5 for station loca-
+tions). Data were collected by Ohio EPA and con-
+tractors for the Black River Cooperative Parties,
+who funded the study. This monitoring provided
+large datasets for developing and evaluating the
+model performance (LTI 2001). 
+C C C C Q tn n= + − ∆
+∀0
+0( ) (21)
+where C = concentration of constituent (i.e., state
+variable) being modeled; C0 = concentration of
+constituent in the river; Qn = discharge rate from
+the point source; Cn = discharge concentration; and
+∀ = volume of the element. It is assumed that the
+mass flux is instantly mixed within the volume of
+the element into which the discharge occurs. Possi-
+ble increases in vertical mixing due to the dis-
+charges are neglected. 
+Boundary and Initial Conditions
+Boundary conditions for the hydrodynamic
+model are specified in terms of water depth and
+flow rate upstream, and water depth downstream.
+For the vertical and horizontal velocities at the
+downstream boundary, zero-gradient conditions are
+assumed. Vertical velocities are zero along the bot-
+tom and are equal to the rate of water level changes
+at the surface. For longitudinal velocities, zero-gra-
+dient in the vertical direction is used at the surface
+and a no – slip condition is imposed at the bottom.
+The boundary conditions for the water quality
+model are specified as concentration (or tempera-
+ture) values both at the upstream and downstream
+locations. For DO calculations, the surface bound-
+ary condition is specified as flux, according to
+reaeration, and the bottom boundary condition is set
+to zero flux (SOD is incorporated as an internal
+sink in the bottom layer—see equations 16 and 17).
+The upper boundary condition for temperature is
+determined by surface heat flux, which depends on
+meteorological conditions and surface tempera-
+tures, and zero vertical gradient is set at the bottom.
+Zero vertical gradients at both upper and lower
+boundaries are assumed for other water quality con-
+stituents.
+Initial conditions for all state variables are speci-
+fied at a number of locations, depending on avail-
+able measurements, and the model interpolates (or
+extrapolates) to define values for all numerical grid
+points. The exception to this is with the initial lon-
+gitudinal velocities, which are determined by as-
+suming a logarithmic velocity profile (eqn. 3).
+70 Kaur et al.
+FIG. 4. Model application domain of the lower portion of the Black River with its sub-watersheds, and
+locations of RTI outfalls, intakes, and the Lorain WWTP.
+Dissolved Oxygen in a Lake Erie Tributary 71
+Hourly average gross flows (without seiche ef-
+fect) were specified at the upstream boundary at
+River Mile (RM) 4.94 (7,950 m). The gross up-
+stream flow is the sum of flow recorded at the
+USGS gage at Cascade Park near Elyria (~RM
+15.6—not shown in Fig. 6), flows from the Elyria
+WPCP, French Creek (including the French Creek
+WWTP and nonpoint source runoff), surface runoff
+from nonpoint sources located upstream of the
+model boundary, and RTI #001. The upstream flow
+time series, showing the contribution of the differ-
+ent sources from the upper river, is shown in Figure
+6. The total flow at this location ranged from 0.5 m3
+s–1 to 43 m3 s–1 during the 1 May through 5 Sep-
+tember 2001 monitoring period. The significance of
+the nonpoint sources and the point sources on total
+river flows when the upstream flows are low can be
+seen in Figure 6.
+A WASP model (LTI 2003) was used to develop
+upstream (at RM 4.94) boundary concentrations for
+CBOD, DO, NH3, NO3 and TON. Table 1 provides
+a summary of loadings from May through Septem-
+ber from various sources.
+Based on data from Cleveland Port, a seiche with
+a period of 14.6 hours and amplitude of 0.15 m was
+determined to represent typical changes in water el-
+evation at the downstream boundary. Data collected
+at multiple depths from a station located at RM
+0.01 were used to establish the downstream bound-
+ary concentrations. For the model layers with no
+measured data, concentrations were estimated based
+on the measured concentrations above and below
+the layer. Data were linearly interpolated to esti-
+mate concentrations for days with no sampling data.
+Table 2 provides a summary of the range of flows
+of point and nonpoint sources to the model com-
+pared to the gross upstream flow. Data were used to
+develop time series of flow and concentrations for
+RTI and Lorain WWTP effluents (LTI 2001). The
+concentration of the oxygen-demanding con-
+stituents from the RTI effluents is negligible com-
+pared to the upstream load and the load from other
+sources in the model. However, the temperature of
+RTI’s effluents is generally higher than the in-
+stream temperature and thus, potentially affects the
+temperature balance and thermal stratification sim-
+ulated by the model. A summary of temperatures of
+the RTI outfalls is provided in Table 2. 
+The Lorain WWTP is the principal point source
+discharging CBOD and nutrients directly to the
+lower river. Daily flows from the Lorain WWTP
+were used in the model. For all constituents, the
+monthly average values were used on days when no
+data were available. 
+Previous investigations by the City of Lorain
+showed a rainfall event with total precipitation of at
+least one inch is required to trigger an SSO event.
+SSO flows were estimated using an empirical rela-
+tionship (LTI 2003). There were only two events in
+the 1 May to 5 September 2001 simulation period
+that had sufficient rainfall to cause an SSO event.
+Even then, the flows from SSOs were insignificant
+relative to the other sources discharging to the
+model domain. 
+Nonpoint source flows from sub-watersheds 1
+FIG. 5. Depth profile of the model application domain. Vertical lines represent
+location of 2001 monitoring stations of the Black River (BR).
+72 Kaur et al.
+and 2 (Fig. 4) that drain to the modeled section of
+the river were not added to any specific location,
+but rather were uniformly distributed to the whole
+channel to reflect the diffuse loading pattern of this
+source type. A land-use weighted impervious area
+was multiplied by the precipitation volume of each
+rainfall event to determine the storm water volume
+in each sub-watershed. The volume estimated for
+each sub-watershed was distributed over the dura-
+tion of the rainfall to develop a flow time series.
+Event mean concentrations (EMCs) were assigned
+based on a weighted average pollutant concentra-
+tion for different land uses within the sub-water-
+shed. Several sources were used to develop the
+EMCs, including CERS (2000), Loehr (1974),
+Novotny (1992, 1991), Jordan et al. (2000), and the
+City of Austin, Texas (1990). The runoff volumes
+and composite, land use-weighted concentrations
+from each sub-watershed were then used to calcu-
+late the loading time series (LTI 2003). 
+The pollutant loads from Elyria CSOs were in-
+cluded in the nonpoint source load estimates, and
+the suitability of representing CSOs in this manner
+was investigated. Initial values for the SOD base
+FIG. 6. Time series of upstream river flow, showing contributions from various
+upstream sources.
+TABLE 1. Loading summary for the model (from 1 May to 5 September 2001). 
+Source Volume CBOD5 NH3 NO3 TON
+Type (MG) Total (kg) Total (kg) Total (kg) Total (kg)
+Upstream (WASP model 
+output at RM 4.94) 9,915 107,675 5,686 222,654 65,256
+NPS (sub-watershed 1) 526 14,621 524 2,643 2,698
+NPS (sub-watershed 2) 2 54 2 7 5
+Lorain WWTP 1,413 52,440 42,326 12,407 7,233
+SSOs 1 47 5 13 10
+Total 11,857 174,836 48,543 237,725 75,201
+Dissolved Oxygen in a Lake Erie Tributary 73
+rates for each model cross-section were estimated
+from the sediment concentrations of chemical oxi-
+dation demand (LTI 2003). The initial estimates of
+base SOD rates varied between 0.1 and 3.8 g m–2
+day–1 over the model domain. Monthly concentra-
+tions for chlorophyll-a were used as model input. 
+MODEL CALIBRATION AND
+CONFIRMATION
+In the calibration process, the site-specific inputs
+were fixed while the coefficients describing trans-
+port kinetics and transformation processes were
+varied within ranges of values described in the liter-
+ature (e.g., U.S. EPA 1985). Site-specific inputs in-
+clude the flows and loads from upstream and
+various sources within the model domain, cross-
+sectional areas, boundary concentrations and envi-
+ronmental conditions, such as water temperature.
+Calibration parameters include the CBOD deoxy-
+genation and settling rates, the nitrification and
+denitrification rates, the organic nitrogen mineral-
+ization and settling rates, and the SOD rates. In
+general, the calibration proceeded sequentially
+through the following model constituents: 
+Temperature → CBOD → Nitrogen species → DO
+Following this calibration procedure, the diffu-
+sivities were calibrated first using the temperature
+profiles. As noted above, all diffusivities (for each
+direction) for each state variable were assumed to
+TABLE 2. Range of flows for point and non-
+point sources to the model (from 1 May to 5 Sep-
+tember 2001). Values in parenthesis are the tem-
+peratures.
+Flow in m3 s–1
+(Temperature in °C for RTIs)
+Minimum Average Maximum
+Gross US Flow 0.54 3.40 33.40
+Sub-watershed 1 0.14 2.17 6.78
+Sub-watershed 2 0.001 0.01 0.02
+RTI 005 0.30 (18.2) 0.35 (26.8) 0.41 (32)
+Intake 902 –0.78 –0.70 -0.64
+RTI 002 0.53 (19.9) 0.64 (27.4) 0.74 (34.2)
+Intake 901 –3.07 –2.29 –1.40
+RTI 004 0.30 (22.6) 0.75 (29.2) 1.81 (34.9)
+RTI 003 0.23 (21.8) 1.22 (28.4) 1.90 (34.4)
+Lorain WWTP 0.43 0.48 0.83
+TABLE 3. Kinetic coefficients and transformation rates after calibration. 
+Description Symbol Value Units Range Source
+CBOD deoxygenation rate at 20°C Kb 0.2 day–1 0.1–0.4 1
+1⁄2 saturation constant for O2 limitation of CBOD KBOD 0.5 mgO2 L–1 2
+Temperature coefficient for CBOD reaction term θCBOD 1.056
+Organic nitrogen mineralization rate at 20°C Kmon 0.06 day–1 0.001–0.4 1
+Ammonia nitrification rate at 20°C Kn 0.2 day–1 0.009–0.2 1
+half-saturation constant for O2 limitation of nitrification KNIT 2.0 mgO2 L–1 0.5–2.0 1
+Temperature coefficient for conversion of TON to NH3 θTON 1.07
+Denitrification rate at 20°C K2D 0.2 day–1 1
+Temperature coefficient for nitrification reaction θNH3 1.07
+Temperature coefficient for SOD reaction θSOD 1.07
+half-saturation constant for O2 limitation for denitrification KNO3 0.1 mgO2 L–1 2
+half-saturation constant for O2 limitation on SOD KSO 2.0 mgO2 L–1 1
+TON settling rate nSTON 1.0 m day–1
+CBOD settling rate nSBOD 1.0 m day–1
+Longitudinal diffusivity kx, Dx 105 cm2 s–1 105–107 3
+Vertical diffusivity for surface layer* kz, Dz 10 cm2 s–1 10–1–104 3
+Vertical diffusivity for deep layers* kz, Dz 0.8 cm2 s–1 10–2 – 1 3
+Absorption or extinction coefficient η 1.0 m–1
+Faction of radiation absorbed at the surface β 0.4
+*The vertical diffusivity was reduced by 50 percent whenever there is more than 1 deg C difference in temperature be-
+tween adjacent vertical layers. This is to account for vertical temperature gradients that can reduce vertical mixing.
+Source: 
+1: U.S. EPA 1985
+2: Ambrose et al. 1993
+3: Chapra, S.C. 1997
+74 Kaur et al.
+take the same value. Also, once calibrated values
+were determined they were fixed, i.e., they were not
+calculated as a function of flow, wind, or other con-
+ditions. The available data set was not sufficient to
+develop a detailed model for diffusivities, and the
+values found here may be considered as average
+values applicable for the calibration period. Given
+the model’s ability to simulate conditions different
+from those for which it was calibrated (the confir-
+mation step, see below), it was concluded that the
+mixing coefficients determined in this process were
+adequate for the present study. Once diffusivities
+were determined, the reaction rates for CBOD and
+nitrogenous nutrients were calibrated for corre-
+sponding concentrations of CBOD, TON, ammonia,
+and nitrates and nitrites. Once all the rates were es-
+FIG. 7. Model calibration results: depth profiles of temperature showing comparison of model out-
+put (line) and measured values (filled circles) at different monitoring locations for 25 June 2001.
+Dissolved Oxygen in a Lake Erie Tributary 75
+tablished, the SOD rates were calibrated for DO
+profiles at the bottom and photosynthesis and respi-
+ration rates were adjusted for DO concentrations at
+the surface.
+Following the procedure described above, the
+model was calibrated for June 2001, with particular
+emphasis on the 5-day survey (25 to 29 June) for
+the Black River. Table 3 summarizes the kinetic co-
+efficients and transformation rates obtained after
+the calibration process, along with the respective
+ranges described in the literature. 
+A comparison of model output and measured val-
+ues for temperature at different monitoring loca-
+tions for the Black River for 25 June 2001 is shown
+in Figure 7. The calibration of temperature is de-
+pendent primarily on physical processes such as
+longitudinal and vertical mixing rates. These rates
+produced the surface water temperatures as well as
+FIG. 8. Model calibration results: depth profiles of dissolved oxygen showing comparison of model
+output (line) and measured values (filled circles) at different monitoring locations for 25 June 2001.
+76 Kaur et al.
+the vertical gradients of decreasing temperature
+with depth in the navigational channel reasonably
+well (see below for further discussion of model fit).
+Surface temperatures during the period never ex-
+ceeded 30°C. 
+A depth-wise comparison of the model output
+and the measured values for the DO concentrations
+at different monitoring locations for 25 June 2001 is
+shown in Figure 8. Dissolved oxygen profiles gen-
+erated by the model compare well with observa-
+tions, particularly in the lower layers of the channel
+reach between RM 2.38 and the river mouth. The
+DO standard is violated in this reach as shown by
+both the model and the data. Good agreement be-
+tween the model results and data for CBOD, NH3,
+and NO3 were also obtained (Jaligama 2004). 
+The model confirmation results for DO concen-
+trations in the surface, middle and bottom layers at
+RM 2.38 (the location where the depth and width
+changes drastically) and at RM 1.75 and 1.10 from
+May to September 2001 are shown in Figure 9. This
+comparison demonstrates that the model captures
+the time trends in DO quite well. The DO in the
+bottom layers goes below 4 mg L–1 starting from
+mid-June to the end of the summer, even reaching
+below 1 mg L–1 at several locations. 
+To better quantify the degree to which the model
+fits measured data, cumulative frequency distribu-
+tions for all model results are shown for tempera-
+ture and DO in Figures 10 and 11, respectively.
+These paired comparisons between the model re-
+sults and data were based on the two weekly exten-
+sive sampling periods (25–29 June 2001 and 6–10
+August 2001). Data collected at all sampling loca-
+tions and at various depths were used for conduct-
+ing this analysis. 
+FIG. 9. Model confirmation results: temporal variation in DO showing comparison of model output
+(line) and measured values (filled rectangles) for surface, mid-depth, and bottom layers at RMs 2.38,
+1.75, and 1.10.
+Dissolved Oxygen in a Lake Erie Tributary 77
+As presented in Figure 10, the model results
+compare well with measured data below 26°C.
+However, the model under predicted the measured
+temperatures near the water surface (higher values).
+Note that the surface temperature data were col-
+lected at the water surface, whereas the model re-
+sults represent water temperature at some depth
+below the surface, depending on grid thickness, so
+that a slight under-prediction of surface temperature
+is to be expected.
+As seen in Figure 11, the model under predicted
+DO concentrations for values above 10 mg L–1,
+which represents the near surface conditions. It is
+believed that the DO concentrations at the water
+surface were not simulated properly because
+chlorophyll a data were not available for all sta-
+tions at all times. No attempt was made to better
+represent the high DO values (at the surface) with
+the model since the main concern for this study
+was for lower concentrations. In addition, it is to
+be noted that the data and the model results do not
+always correspond spatially to each other. For ex-
+ample, the data were collected at a particular depth
+in the water column, whereas a model result repre-
+sents a layer of finite thickness, uniform over its
+depth. 
+It should also be noted that the model tends to
+slightly over predict DO values at the lower end,
+which should be taken into account when estimat-
+ing possible regulatory actions. However, the main
+purpose of the present study was to identify causes
+of low DO, and that result is not affected by the
+slight over prediction.
+Table 4 provides estimates of errors between the
+model results and data measured during the two
+weekly sampling periods in 2001 for temperature
+and DO concentrations. In this table, the “relative
+error” is simply the average of all differences be-
+tween the paired measured and simulated values,
+and “absolute error” is the average of the absolute
+values of the differences. As can be seen, the root
+mean square error (RMSE) is largest, since extreme
+differences, while few in number, are emphasized
+in the squaring process. The relative and absolute
+errors, compared with typical magnitudes for tem-
+perature and DO, are considered to be within a rea-
+sonable range for this application.
+FIG. 10. Cumulative frequency distribution plot
+showing the comparison between the model-simu-
+lated and measured temperature at all sampling
+locations monitored during the two extensive mon-
+itoring periods (25 to 29 June 2001 and 6 to 10
+August 2001). 
+FIG. 11. Cumulative frequency distribution plot
+showing the comparison between the model-simu-
+lated and measured dissolved oxygen concentra-
+tions at all sampling locations monitored during
+the two extensive monitoring periods (25 to 29
+June 2001 and 6 to 10 August 2001).
+78 Kaur et al.
+DIAGNOSTIC ANALYSIS AND RESULTS
+The calibrated and confirmed model was applied
+in a diagnostic mode to understand the impact of
+various sources on DO concentrations. The aim of
+the Black River model application was to under-
+stand the factors contributing to low DO in the
+channel and to evaluate whether DO standards can
+be attained with technically feasible and economi-
+cally achievable point and nonpoint source control
+strategies. 
+A series of model runs was performed to assess
+the effects of the WWTP loads, thermal discharges
+from RTI and the upstream and nonpoint source
+loads on the DO concentrations. As mentioned ear-
+lier, the conditions (i.e., loads, inputs, and results)
+used in the model confirmation run served as the
+baseline for the sensitivity analysis. In the reduced
+loading scenarios, SOD rates were kept constant.
+However, in reality, reduction in pollutant loads
+would likely reduce SOD, so that the results pre-
+sented here are probably conservative in terms of
+predicting lower DO concentrations than might ac-
+tually occur. 
+Zero Point Source Pollutant Loads 
+To assess the effect of point sources on DO con-
+centrations, the loads of oxygen-demanding con-
+stituents (CBOD, DO, NH3, NO3, TON) from the
+Elyria PCP, the N. Ridgeville WWTP, and the Lo-
+rain WWTP were set to zero. Two separate model
+runs were conducted. In the first run, the loads from
+the Elyria PCP and the N. Ridgeville WWTP were
+set to zero. A comparison of the DO concentration
+with the baseline results showed a small (~0.5 mg
+L–1) increase in DO concentration at RM 2.38 in
+the middle layer. Almost insignificant changes in
+the DO concentration were found for the surface
+and bottom layers. In the second model run, loads
+from all three WWTPs were set to zero. Compared
+to the results from the first model run, the second
+model run showed a maximum increase of 0.5 mg
+L–1 in surface DO concentration at RM 1.10, while
+there were insignificant changes in DO concentra-
+tion in the middle and bottom layers. The impact
+seen at RM 1.10 might be caused by the location of
+the Lorain WWTP. It appears that the impacts of
+point source discharges on the DO concentration
+are small and are influenced by the outfall locations
+of the WWTPs. 
+Zero Upstream Pollutant Loads 
+The model was run with zero upstream pollutant
+loads while keeping the nonpoint source loads and
+other flows and loads the same as the baseline run.
+A comparison of DO concentrations with the
+baseline results for the lower portion of the river
+showed that the DO concentrations increased
+slightly (< 0.5 mg L–1) in the middle portions of 
+the river. This suggests that upstream pollutant
+loads have a small effect on the bottom DO concen-
+tration. 
+Reduced Upstream and
+Nonpoint Source Pollutant Loads
+To assess the effect of upstream and nonpoint
+source loads, the pollutant concentrations were re-
+duced by half of their baseline values. This change
+in loads resulted in only about a 0.5 mg L–1 in-
+crease in DO in the mid to bottom layers at RM
+2.38. This suggests that nonpoint sources are not
+important.
+Increased RTI Discharges
+The discharge and temperature concentrations
+from all the RTI outfalls were increased by 33 per-
+cent and the water intakes were also adjusted to ac-
+count for increased water withdrawals. Model
+results indicated that the DO concentration was
+slightly increased in the surface layer, which might
+be due to the increased withdrawals. The changes in
+DO concentrations at the mid-depth and lower lay-
+ers were negligible (Jaligama 2004). RTI discharges
+have the most effect at the surface at RM 2.38 (near
+TABLE 4. Statistical measure of the errors between the model-simulated and mea-
+sured dissolved oxygen concentrations at all sampling locations monitored during the
+two extensive monitoring periods (25 to 29 June 2001 and 6 to 10 August 2001).
+Parameter Relative Error Absolute Error Root Mean Square Error (RMSE)
+Temperature (°C) –0.39 0.67 0.94
+DO (mg L–1) 0.77 1.24 1.76
+Dissolved Oxygen in a Lake Erie Tributary 79
+RTI #003). However, the effect of RTI discharges
+on bottom water temperature is negligible. 
+Changes in SOD Rates
+The base SOD rates were increased and de-
+creased by 25 percent of the baseline values. The
+maximum changes in DO concentration relative to
+baseline were 24 percent and 20 percent with 25
+percent increase and decrease in SOD rates, respec-
+tively, at the bottom layer at RM 2.38 (Fig. 12).
+There are also significant responses in DO in the
+bottom layer at RM 1.75 (21 percent and 18 percent
+change in DO with 25 percent increase and de-
+crease in SOD rates, respectively) and RM 1.10 (16
+percent and 15 percent change in DO with 25 per-
+cent increase and decrease in SOD rates, respec-
+tively). Differences in DO concentrations at
+mid-depth are considerably less (0.3-0.5 mg L–1)
+than in the bottom layer, indicating that stratifica-
+FIG. 12. Comparison of DO profiles for 25 percent increased (line) and 25 percent decreased (light thick
+line) SOD rates with baseline (dark thick line) results at RMs 2.38, 1.75, and 1.10 for the surface, mid-
+depth, and bottom layers.
+80 Kaur et al.
+tion reduces the influence of SOD on oxygen re-
+sources at depths above the bottom. This result also
+reflects the relatively low vertical mixing rates in
+the river. Diffusivities were calibrated using tem-
+perature data, as previously described, and higher
+vertical mixing rates would presumably lead to
+greater mixing of low DO water upward. On the
+other hand, greater vertical mixing would also en-
+hance the impact of surface aeration, and the net ef-
+fect of these two processes can be variable. Since
+mixing similarly affects all chemical species in the
+model, it is difficult to isolate the effect of vertical
+mixing on the results, and there was no attempt
+made to consider model sensitivity to variations in
+diffusivities. Differences in DO concentrations at
+the water surface were negligible throughout the
+simulation period at all locations, and it was con-
+cluded that SOD is the primary sensitivity parame-
+ter affecting the DO levels at the critical locations
+of the channel where DO violations have occurred.
+DISCUSSION
+This work demonstrates the development and ap-
+plication of a coupled two-dimensional, hydrody-
+namic/water quality model for a dredged river,
+which typically becomes stratified in summer.
+Model results showed that the DO concentrations in
+surface waters of the river are always above 5 mg
+L–1 and DO violations occur mostly in the bottom
+layers. The region of low DO starts near the up-
+stream limit of navigational dredging, and it ap-
+pears that SOD, combined with altered hydraulics
+due to dredging, is the main cause of DO violations. 
+Navigational dredging has caused significant
+changes in physical and hydraulic conditions in the
+Black River as shown in Figure 1. Moreover, such
+changes in morphology due to navigational dredg-
+ing are not unique in the Great Lakes basin. For ex-
+ample, a similar situation is observed with the
+Buffalo River (Buffalo, New York). Jaligama
+(2004) applied the model to understand the DO dy-
+namics due to changes in morphology and hy-
+draulics resulting from navigational dredging in the
+Buffalo River. Similar to the Black River, velocities
+are strongly affected and mixing is reduced, con-
+tributing to the stratification of the river in the late
+spring and early summer. In both rivers, the thermal
+stratification combined with the low flows during
+the summer decreases vertical mixing in the water
+column and isolates a pocket of water near the bot-
+tom that is significantly impacted by SOD while at
+the same time receiving very limited atmospheric
+reaeration. It should be noted that the SOD is deter-
+mined by deposition of oxygen demanding material
+to the sediment surface, which changes continu-
+ously due to physical-chemical-biological condi-
+tions in the river. Flow reversals along the bottom
+of the channel due to seiches of colder lake water
+also have the effect of increasing water residence
+time (LTI 2001), thus allowing SOD to have a
+larger impact. With prolonged residence times,
+sometimes lasting up to four or five days (in the
+Buffalo River case), even with a low SOD there is
+sufficient time for significant oxygen demand to be
+exerted. For example, for a residence time of 5 days
+and SOD as low as 1 g m–2 d–1 in a bottom layer of
+1 m depth, a drop in DO concentration of 5 mg L–1
+could occur due to SOD. As found in the present
+Black River study, the DO results in the Buffalo
+River application were also found to be most sensi-
+tive to the SOD rates. Thus, the impact on DO con-
+centration due to SOD rates in conjunction with the
+changes in hydraulics of the channel due to naviga-
+tional dredging as found for the Black River and the
+Buffalo River is expected to be found in most Great
+Lakes tributaries that are periodically dredged. 
+It should be noted that vertical mixing in the
+stratified zone of the river and SOD interact to ei-
+ther produce large DO concentration sensitivity to
+SOD in a relatively thin bottom layer of water (low
+vertical mixing) or to spread out (and thus reduce
+the DO concentration change) the areal SOD-in-
+duced DO concentration response over a thicker
+bottom layer (higher vertical mixing). So with high
+vertical mixing, the impact of a given SOD would
+be spread out over a greater depth, and therefore the
+concentration effect would be mitigated to some ex-
+tent.
+It should also be noted that navigational dredging
+may impact SOD due to the removal of oxygen de-
+manding materials. The impact of dredging on the
+reduction of SOD may occur for a short period of
+time (i.e., just after the dredging) due to removal of
+surface sediments yet to undergo diagenetic
+processes, but oxygen demand would not be elimi-
+nated since over time additional oxygen-demanding
+materials would be continuously deposited. 
+SUMMARY AND CONCLUSIONS
+The coupled 2-dimensional (laterally averaged)
+hydrodynamic-dissolved oxygen model developed
+and applied herein has been successful in simulat-
+ing stratified conditions in the Black River. Further-
+more, it has been designed to simulate the effects of
+Dissolved Oxygen in a Lake Erie Tributary 81
+multiple point and nonpoint source discharges,
+withdrawals from the river, time dependent bound-
+ary conditions and changes in the water levels at the
+downstream boundary. The model produced reason-
+able results to represent the observed spatial and
+temporal trends in the dredged portions of the
+Black River for temperature, CBOD, ammonia, or-
+ganic nitrogen, nitrate, and DO concentrations. The
+diagnostic analysis indicated that there are no rea-
+sonable point source controls that can increase DO
+concentrations above 4 mg L–1 at all times.
+Results from the present application, as well as a
+similar application to the Buffalo River, support the
+conclusion that SOD, combined with alterations in
+flow hydraulics due to navigational dredging, are
+the main contributors to low DO levels, and it may
+be expected that similar conditions should prevail
+for other Great Lakes tributaries. These results give
+rise to an interesting question: what is the contribu-
+tion of deposition of organic matter originating
+from upstream, CSOs, and nonpoint sources on
+SOD rates? A more detailed assessment of oxygen
+demanding sediment sources and sinks from up-
+stream and nonpoint sources would be necessary
+prior to implementing a watershed management
+plan aimed at reducing SOD in the dredged portion
+of the rivers. 
+It should be noted that the model does not in-
+clude phosphorus dynamics. Addition of the phos-
+phorus cycle would allow the model to predict
+phytoplankton blooms and their impact on DO con-
+centrations. A more complete picture of relation-
+ships among external phosphorus loadings, cycling
+of phosphorus internally in the system, and its im-
+pact on DO dynamics would require extension of
+the model to incorporate organic and dissolved
+phosphorus kinetics similar to nitrogen and dis-
+solved oxygen kinetics. This application would re-
+quire additional site-specific data for these
+variables. 
+The model is not capable of handling branched
+systems. Tributaries to the main stem of the river
+can be added as point sources, but they cannot be
+modeled simultaneously with the main stem of the
+river. Modifications to handle branched systems
+would make the model applicable to any number of
+water bodies linked together.
+ACKNOWLEDGMENTS
+The model development and its application to the
+Black River were conducted under a contract from
+the Black River Cooperative Parties to Limno-Tech,
+Inc. and sub-contract to the University at Buffalo.
+The application of the model to the Buffalo River
+was carried out by the University at Buffalo with a
+contract from Malcolm-Pirnie. We thank the Cities
+of Elyria, Lorain and North Ridgeville, OH, and
+RTI for providing the database necessary for mod-
+eling the Black River. The authors also acknowl-
+edge the significant contributions of the Ohio EPA
+staff to the monitoring program. Comments from
+the reviewers of the first draft of this manuscript are
+also appreciated.
+REFERENCES
+Ambrose, R.B., Jr., Wool, T.A., and Martin, F. 1993.
+The water quality analysis simulation program,
+WASP5, Part A: model documentation. U.S. Environ-
+mental Protection Agency, Athens, GA. 
+APHA. 1992. American Public Health Association, stan-
+dard methods for the examination of water and
+wasterwater, 18 ed. Washington DC.
+Atkinson, J.F., Blair, S., Taylor, S. and Ghosh, U. 1995.
+Surface aeration. J. Environ. Eng. 121 (1):113–118.
+Blair, S.H. 1992. Dissolved oxygen modeling for the
+Buffalo River. M.S. thesis, Dept. Civil, Structural and
+Environ. Eng., Univ. at Buffalo.
+Brown, L.C.,  and Barnwell,  T.O., Jr.  1987. The
+enhanced stream water quality models, Qual-2E and
+Qual-2E UNCAS: Documentation and users manual.
+EPA/600/3-87/007, Environ. Res. Lab., U.S. Environ-
+mental Protection Agency, Athens, GA.
+Center for Environmental Research and Service (CERS),
+2000. Characteristics of pollutants in storm water
+runoff from Dothan, Alabama catchments: Implica-
+tions for Phase II storm water management. Prepared
+for the Alabama Department of Environmental Man-
+agement.
+Chapra, S. 1997. Surface water-quality modeling. New
+York: McGraw Hill Companies, Inc.
+City of Austin, Texas. 1990. Stormwater Pollutant Load-
+ing Characteristics for Various Land Uses in the
+Austin Area. Prepared by the Watershed Protection
+and Development Review Department. www.ci.
+austin.tx.us/watershed/rptswload.htm
+Clark, M.M., 1996. Transport modeling for environmen-
+tal engineers and scientists. New York: John Wiley
+and Sons, Inc.
+Cole T., and Buchak, E. 1995. CE-QUAL-W2: A two-
+dimensional, laterally averaged, hydrodynamic and
+water quality model. Version 2.0, Tech Rpt. EL-95-
+May 1995, Waterways Experiments Station, Vicks-
+burg, MS.
+FEMA. 1992. Flood Insurance Study. The City of
+Lorain, Ohio.
+Hall, J. 1997. Dissolved oxygen modeling for the Buf-
+falo River. M. Eng. project, Dept. Civil, Structural
+and Environ. Eng., Univ. at Buffalo.
+82 Kaur et al.
+Jaligama, G.K. 2004. A two dimensional coupled hydro-
+dynamic/water quality model for Great Lakes Tribu-
+taries. M.S. thesis. Dept. Civil, Structural and Envi-
+ron. Eng., Univ. at Buffalo.
+Jordan, T.E., Correll, D.L., and Weller, D.E. 2000. Mat-
+tawoman Creek Watershed: Nutrient and Sediment
+Dynamics. Smithsonian Environmental Research Cen-
+ter, Edgewater, MD. www.charlescounty.org/pgm/
+planning/plans/environmental/mattawoman/sercreport.
+pdf
+Kantha, L.H., and Clayson, C.A. 1994. An improved
+mixed layer model for geophysical applications. J.
+Geophysics. Res. 99:25235–25266.
+Limno-Tech, Inc. (LTI). 2001. Design of modeling and
+monitoring programs for the lower Black River water
+quality model, Phase 1 Report. Prepared for the Black
+River Cooperative Parties. Supplemented with
+Revised Section 3.4 of the Lower Black River Phase 1
+Report. Draft. Prepared for the Black River Coopera-
+tive Parties. 
+———
+. 2003. Development of a WASP model of the free-
+flowing portion of the Black River. Memorandum to
+the Black River Cooperative Parties.
+Loehr, R.C. 1974. Characteristics and Comparative Mag-
+nitude of Non-point Sources. Journal WPCF
+46(8):1849–1872.
+Novotny, V. 1991. Urban Diffuse Pollution: Sources and
+Abatement. Water Enviro. Tech. 3(12):60–65.
+———
+. 1992. Unit Pollutant Loads: Their Fit in Abate-
+ment Strategies. Water Enviro. Tech. 4(1):40–43. 
+Ohio EPA. 1999. Biological and Water Quality Study of
+the Black River Basin, Lorain and Medina Counties.
+State of Ohio Environmental Protection Agency,
+Columbus, Ohio, March 31, 1999.
+Rubin, H., and Atkinson, J. F. 2001. Environmental
+Fluid Mechanics. New York: Marcel Dekker, Inc.
+Thomann, R.V., and Mueller, J.A. 1987. Principles of
+surface water quality modeling and control. New
+York: Harper Collins Publishers.
+U.S. Environmental Protection Agency (U.S. EPA). June
+1985. Rates, constants, and kinetics formulations in
+surface water quality modeling (second edition).
+Environmental Research Laboratory. EPA/600/3-
+85/040. Athens, GA.
+———
+. 1986. Ambient water quality criteria for dis-
+solved oxygen. Criteria and standards division. U.S.
+Environmental Protection Agency, Washington, D.C.
+EPA 440/5-86-003.
+Wight, M. 1995. A numerical model to examine dissolved
+oxygen in the Buffalo River. M. Eng. project. Dept.
+Civil, Structural and Environ. Eng., Univ. at Buffalo.
+Wool, T.A., Ambrose, R.B., Martin, J.L., and Comer,
+E.A. 2003. Water Quality Analysis Simulation Pro-
+gram (WASP6). Draft User’s manual, version 6. Envi-
+ronmental Research Laboratory, U.S. EPA, Athens,
+GA (http://www.epa.gov/region4/water/tmdl/tools/
+WASPG_Manuel.pdf)
+Zhao, P.A. 2002. Analysis of numerical dispersion of 2-
+D alternating-direction implicit FDTD method IEEE
+Trans. Microwave Theory Tech. 50:2003–2007.
+Submitted: 10 December 2005
+Accepted: 22 October 2006
+Editorial handling: William M. Schertzer

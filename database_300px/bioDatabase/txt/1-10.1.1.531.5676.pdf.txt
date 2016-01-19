@@ -1,0 +1,474 @@
+OBJECTIVES OF THE THORPEX WORKING GROUP ON DATA 
+ASSIMILATION AND OBSERVING STRATEGIES FOR HIGH IMPACT 
+WEATHER FORECAST IMPROVEMENTS 
+Florence Rabier1, Pierre Gauthier2 , Carla Cardinali3, Ron Gelaro4, Ko Koizumi5,
+Rolf Langland6, Andrew Lorenc7, Peter Steinle8, Mickael Tsyrulnikov9
+[1] CNRM/GAME, Météo-France and CNRS, France
+[2] Meteorological Research Division, Environment Canada, Canada
+[3] European Centre for Medium-range Weather Forecasts, Reading, UK
+[4]  NASA/Global Modelling and Assimilation Office, USA
+[5] Japanese Meteorological Agency, Japan
+[6] Naval Research Laboratory, USA
+[7] The Met-Office, UK
+[8] Bureau of Meteorology Research Centre, Australia
+[9] Hydrometeorological Research Centre of Russia, Russia
+Corresponding address: F. Rabier, CNRM, 42 Av Coriolis, 31057 Toulouse, France
+Email: Florence.rabier@meteo.fr
+Abstract
+The international programme  “THORPEX: a Global Atmospheric Research Programme” is providing a 
+framework in which to tackle  the challenge of  improving the skill  of  high-impact weather forecasts 
+through international collaboration among academic institutions, operational forecast centres, and users 
+of  forecast products.  The objectives of the THORPEX Data Assimilation and Observation Strategy 
+Working Group (DAOS-WG) are two-fold. The primary goal is to assess the impact of observations and 
+various  targeting  methods  in  order  to  provide  guidance for  observation campaigns and  for  the 
+configuration of the Global Observing System. The secondary goal is to set-up an optimal framework for 
+data  assimilation, including aspects  such as targeted observations, satellite  data,  background error 
+covariances and quality control. The Atlantic THORPEX Regional campaign, ATReC, in 2003, has been 
+very successful technically and has provided valuable datasets to test targeting issues. Various data 
+impact experiments have been performed, showing a small but very slightly positive impact of targeted 
+observations. Projects of the DAOS-WG include working on the AMMA field experiment, in the context of 
+IPY and to prepare the future THORPEX-PARC field campaign in the Pacific by comparing sensitivity of 
+the forecasts to observations between several groups.
+INTRODUCTION
+The  international  programme   “THORPEX:  a  Global  Atmospheric  Research  Programme”  was 
+established in  2003  by  the  Fourteenth World Meteorological Congress as  a  ten-year  international 
+research and development programme. It is now providing a framework in which to tackle the challenge 
+of  improving  the  skill  of  high-impact weather  forecasts through  international  collaboration among 
+academic  institutions,  operational  forecast  centres,  and  users  of  forecast  products.  Its  mission 
+Statement is "Accelerating improvements in the accuracy of high-impact 1-14 day weather forecasts for 
+the benefit of society and the economy". Information on this programme, and in particular the science 
+plan and the implementation plan, can be found on the World Meteorological Organisation web page 
+(www.wmo.int).   Among  the  core  objectives,  THORPEX  plans  to  contribute  to  the  design  and 
+demonstration of  interactive  forecast systems  in  which the  uncertainty of  the  analysis  and future 
+forecasts is  assessed.  Other main goals  are  to  perform  THORPEX Observing-System Tests  and 
+Regional field  Campaigns to  test  and evaluate  experimental  remote-sensing and in-situ  observing 
+systems, and when feasible, demonstrate their impact on weather forecasts.  Major field experiments 
+have already been conducted and will continue to be organised, during which many ideas can be tested 
+and new observations can be assimilated. The objectives of the Data Assimilation and Observation 
+Strategy  Working Group  (DAOS-WG) are  two-fold. The  primary goal  is  to  assess  the  impact  of 
+observations and various targeting methods in order to provide guidance for observation campaigns and 
+for the configuration of the Global Observing System (GOS). The secondary goal is  to set-up an optimal 
+framework for  data  assimilation,  including aspects  such  as  targeted  observations, satellite  data, 
+background error covariances and quality control. This paper will give an overview of the objectives of 
+the DAOS-WG, will  present the first results obtained by the WG and plans for future work, before 
+concluding.
+MAJOR GOALS
+The main goal is to develop and test systematic and objective techniques for the design of observing 
+networks. It can be sub-divided into various tasks.
+Assessing the impact of observations and evaluating potential new data streams
+Operational data used at Numerical Weather Prediction (NWP) and research centres consist of various 
+data types, provided by the GOS. An important question arises in the use of observations:  can the 
+information provided by the observations be quantified?  A simple data count might be misleading as not 
+all observations are equal in what they measure and in their accuracy. In the perspective of diagnosing 
+the impact of observations on the data assimilation, diagnostics were developed which are presented 
+here. To measure the impact of observations on the analysis, the Degrees of Freedom for Signal (DFS) 
+can be used (Purser and Huang, 1993, Rodgers, 2000, Fisher, 2003, Cardinali et al, 2004, Chapnik et 
+al., 2006). The DFS characterizes how the assimilation system uses the observations to pull the signal 
+from the background. It corresponds to the partial derivative of the analysis in observation space to the 
+observations. Although this measure of information is not necessarily translated into value in terms of 
+forecast impact, some results about the relative importance of data actually correlate well with recent 
+data-impact studies. Various methods exist to quantify data impact on the forecast. A traditional way of 
+estimating data impact in a forecasting system is to perform Observing System Experiments (OSE) such 
+as those illustrated in Bouttier and Kelly, 2001 or Kelly, 2007. OSEs can be performed in two ways: in 
+one way, the performance of a baseline (reference) experiment which uses a minimum amount of 
+observation types is compared with experiments that  uses at  least  one additional observation type 
+(Kelly, 2007). The other way consists of removing one particular dataset or various datasets over a long 
+assimilation period and compare the performance with respect the control experiment which assimilates 
+the global observation network available. This procedure can be quite costly if one wants to perform a 
+fine analysis of the various contributions of the elements of the GOS. Another important development 
+has been the ability to compute the sensitivity of the forecast to the observations with the adjoint of the 
+data assimilation process together with the adjoint of the forecast model (see Baker and Daley, 2000; 
+Doerenbecher and Bergot, 2001,  Langland and Baker, 2004). This allows one further step in  the 
+computation of the sensitivity with respect to observations and can prove quite valuable, for example in 
+the context of field experiments. Following this work, it is possible to estimate the impact of observations 
+on a 24-h forecast, say. Other methods are ensemble-based (Khare and Anderson, 2006 or Tan et al., 
+2007) or simulate observations with OSSEs (Observing System Simulated Experiments, such as the one 
+developed in the THORPEX context, www.emc.ncep.noaa.gov/research/osse/). OSSEs have been used 
+for several years to try to measure the impact of proposed instruments before they are launched (eg 
+Atlas, 1997; Masutani et al, 2007). OSSEs require an extensive validation and calibration. 
+Evaluating and improving targeting strategies
+The concept of  adaptive observing systems, also known as targeting, has been introduced in field 
+experiments such as FASTEX, NORPEX at the end of the 90's to address the issue of improving 
+individual forecasts  of  active  weather  events.  Targeting  will  be  briefly introduced in  the  following 
+paragraph (for a more complete discussion,  see the paper by Langland, 2005). In the last decade, 
+strategies were developed which identify locations where additional observations would provide maximal 
+improvements in the expected accuracy of forecasts.  Targeting strategies are based on techniques that 
+predict, prior to the actual measurements, the influence of an observation (or set of observations) on the 
+uncertainty of a subsequent forecast. Different targeting techniques have been developed: some involve 
+the adjoint of the linearized version of the forecast model and/or of the assimilation scheme, others 
+manipulate ensembles of forecasts. This concept is currently operational in the US and is called the 
+Winter  Storm Reconnaissance Program (WSRP, Szunyogh et  al,  2000).  The National Centers  for 
+Environmental Prediction use the dispersion of the ensemble of forecasts run routinely and a set of pre-
+defined flight plans to evaluate which of the flight scenario would bring the maximum reduction in the 
+dispersion of the forecasts. Based on this flight scenario, a designated aircraft flies in the area and drops 
+dropsondes at regular intervals to provide additional observations over the Pacific ocean.  Majumdar et 
+al  (2002) provide a detailed comparison of various targeting techniques. Apart from being used for 
+selecting additional observations, targeting observing systems can be extended to other applications 
+such as the control of the sampling rate of satellite sensors or to conduct effective thinning of the 
+observations.  An optimisation of the use of observations can be the selection of the most valuable 
+subset of data. In particular, the sensitivity of the forecast to individual data can also help to select 
+channels from hyperspectral sounders in an adaptive manner (Fourrié and Rabier, 2004).
+DATA ASSIMILATION TASKS 
+The goal is to optimize the data assimilation system, to make the best use of observations in an adaptive 
+context. 
+Improved use of observations
+Estimation of observation-error statistics is necessary for efficient data assimilation. The only way to 
+acquire observation-error  characteristics  is  to  compare  them  (in  one  form  or  another)  with  other 
+observations or a numerical forecast (see Desroziers et al, 2005 for a recent development in this field). 
+The main problem  is  that,  in  general,  it  is  very  difficult  to  distinguish between  the  errors of  the 
+observation type in question, on one hand, and the observations/forecasts selected for comparison, on 
+the other. Therefore, observation campaigns are welcomed in which the observations in question are to 
+be compared with high-quality  observations, whose error  structure is  known. An important point to 
+mention is that different observation types not only have different error structures but also differ in what 
+they measure (e.g. substantial horizontal averaging in most remote observations as compared to in situ 
+observations). Another significant error component, which should be accounted for in data assimilation 
+and whose error structure is to be estimated, is the representativeness error associated with forward-
+models. Developments specifiying the representativeness error characteristics such as those described 
+in  Frehlich (2006)  are  needed. Observation error includes biases that  are estimated and removed 
+through bias correction schemes that have limitations. As current assimilation systems are  bias-blind 
+both for observation and background errors, the estimation of these biases is an element of crucial 
+importance. Work on more advanced bias correction techniques such as variational bias correction 
+(Dee, 2005, Auligné et al, 2007) has to be encouraged. The presence of observation error correlation is 
+also a seriously limiting element that reduces considerably the volume of assimilated data. For instance, 
+Bormann et al (2003) have shown a significant horizontal correlation for atmospheric motion vectors.  Liu 
+and Rabier (2003) have shown, in an idealized context, that for correlated observation errors, increasing 
+the observation density  beyond a threshold can be harmful  in a  sub-optimal scheme in  which no 
+correlations are included in the observation error covariance matrix, as in current systems. Usually, there 
+is a horizontal thinning of satellite data performed in a rather ad-hoc manner. More advanced methods 
+are under consideration (Ochotta,  2005).  More general solutions could be preferable. In  particular, 
+instead of performing a  thinning of the observations, one might prefer to  perform an averaging of 
+neighboring observations as  this  is  performed  for  instance  for  geostationary  clear-sky radiances 
+provided to NWP users. The advantage of this type of "super-obbing" is that more information is kept in 
+the process, which translates into smaller errors in the resulting "super-obs" compared to an individual 
+observation. The best theoretical framework might well be to model the correlations in the long term. 
+Nonlinearity in the observation operator is another issue that has be to dealt with.  In particular, some 
+observations are  indirect measurements of  atmospheric variables, such as  satellite  radiances and 
+scatterometer data.  For  radiances,  nonlinearity is  particularly  severe  in  the  case  of  cloudy/rainy 
+conditions. For  scatterometer data,  the  observed signal  is  a  back-scattered  cross-section,  which 
+depends very nonlinearly on the surface wind over the ocean. This leads to ambiguous wind solutions, 
+which the analysis has to handle. Quality control procedures also need to be improved. Interesting 
+developments exist  in  the  context  of  quality  control, such as flow-dependent tolerances for  outlier 
+observations for an adaptive "buddy check" (Dee et al, 2001).  Given that only a small fraction of all 
+incoming data makes its way to assimilation, it is important to improve our ability to better use them. This 
+requires that progress be made on the assimilation of cloudy and rainy radiances, which involves serious 
+nonlinearities (infrared and microwave, e.g. Bauer et al, 2006) and the representation and inclusion of 
+surface emissivity to use wavebands sensitive to the surface as this prevents the use of many channels 
+that could potentially provide information on the troposphere (e.g. Karbou et al., 2006).
+Adaptive data assimilation
+Most operational centres have adopted 4D-Var but ensemble approaches are also considered by many 
+(Hamill and Snyder, 2002, Lorenc, 2003, Houtekamer and Mitchell, 2005). Promising results have been 
+obtained with quasi-operational systems which may lead to breakthroughs in data assimilation methods, 
+particularly in the context when model error is present. Model error could also be inserted in a weak-
+constraint  4D-Var  (Fisher  et  al.  2005).  The  combination of  variational  methods  and  ensemble 
+approaches to provide the analysis with flow-dependent structure functions is also promising (Etherton 
+and Bishop, 2004, Buehner, 2005) and has to continue to be evaluated. The strong constraint 4D-Var 
+puts limitations on the length of the assimilation window. It is now believed that a weak-constraint 4D-
+Var  would make it  possible to  extend the  assimilation  window over  longer periods. In  ensemble 
+forecasting and data assimilation, several ad hoc approaches to account for model errors are common 
+(stochastic physics, varied model, multi-model), but in 4D-Var, we have to explicitly specify model-error 
+covariances. To do this in a consistent way, a model-error stochastic model is to be introduced. Results 
+of a simulation study (Tsyrulnikov 2005) indicate that such a model should account for, firstly, the state-
+dependent part of model errors, secondly, for temporal correlations, and thirdly, for the fact that model 
+errors are largely advected with the velocity that resembles Rossby-wave phase velocity. In a model-
+error model, model errors are flow-dependent in two respects: first, the state-dependent part of model 
+errors is flow-dependent by definition, and second, all the parameters of the model can and should be 
+made dependent on the local flow structure. Additional research to extend the results of Tsyrulnikov 
+(2005) to physical (not just dynamical) errors (convection, clouds, precipitation etc.) is needed. With 
+high-resolution forecast models and Kalman-filter or weak-constraint 4D-Var based data assimilation, an 
+adequate model-error model is indispensable. Model error estimation techniques are to be devised. It is 
+important to investigate the capability of forecast ensembles to serve as a tool for model-error model 
+identification  and  estimation.  The  THORPEX  Interactive  Global  Grand  Ensemble  (TIGGE, 
+tigge.ecmwf.int) in particular might provide an ideal framework to perform such studies. Independent 
+observation-based techniques are also needed to complement the ensemble-based studies. 
+FIRST RESULTS IN THE CONTEXT OF THE ATREC CAMPAIGN IN 2003    
+The objective of the ATReC (Atlantic THORPEX Regional Campaign) was to test the hypothesis that 
+short term forecast  errors over Europe and the Eastern seaboard of the USA can be reduced by 
+targeting extra observations over sensitive areas determined each day by the forecast flow patterns 
+using NWP techniques (Mansfield et al, 2004).  The field campaign took place in the autumn of 2003.  It 
+was the first attempt at real time adaptive control of a full set of operational observing systems (in an 
+international context) in addition to the deployment of research aircraft.  The observations available for 
+targeting were Sixty-six European and Canadian radiosonde stations, the EUCOS (European Composite 
+Observing System) ASAP Fleet (13 ships), the EUCOS AMDAR Fleet (550 aircraft, Dropsondes from 
+the NOAA G-IV, the University of North Dakota ‘Citation’ aircraft, the DLR Falcon and a USA Air Force 
+C130 aircraft, Super rapid scan winds from the GOES satellite. Once a case was chosen sensitive areas 
+were computed independently using either Adjoint sensitivity, Singular Vectors techniques (SV) or an 
+Ensemble Transform Kalman Filter (ETKF). Mansfield et al (2004) provides details of the websites. 
+Several groups have carried out a series of assessments on the case studies to identify whether any 
+improvement in the forecasts can be detected due to the addition of the targeted data (Langland, 2005; 
+Fourrié et al, 2006; Kelly et al., 2007; Buizza et al., 2007; Cardinali et al., 2007; Petersen and Thorpe, 
+2007; Song, Toth and Majumdar,    www.emc.ncep.noaa.gov/gmb/targobs/ATOST;  Weissmann and 
+Cardinali, 2007). As a summary, the ATReC field campaign has been very successful technically and 
+has provided valuable datasets to test targeting issues. Various data impact experiments have been 
+performed, showing a small but very slightly positive impact of targeted observations. The impact is not 
+always systematically positive on the verification area because of the statistical assumptions involved in 
+the data assimilation procedure, and is not always consistent between centres. In general however, 
+there are about twice as many cases when the forecast is improved as when it is degraded. Additional 
+data  have  been  found  to  have  more  impact  during  the  last  part  of  the  field  campaign 
+(November/December) when the  weather  has been more unsettled.  However,  the  overall forecast 
+uncertainty during the campaign was small, thus a large RMSE reduction due to a small number of 
+additional observations could not really be expected.  Furthermore, the observing system resources in 
+ATReC were not able to fully sample the identified target regions. The degree of success in sampling the 
+target areas varied greatly from case to case, from very poor observation coverage to partial coverage of 
+target areas.  A general finding (by the two centres who performed the experiments) is that the cycling 
+process in the data assimilation procedure enhances the results, compared to a pure targeting mode in 
+which the data impact is computed independently on a case by case basis. Dropsondes are found to 
+have  high  impact  per  observation,  but  low  total  impact  due  to  the  small  number  of  additional 
+observations.   It  is  found that  the  various targeting  techniques gave  different sensitive  areas.  In 
+particular the ETKF and SV results are noticeably different. Data denial experiments confirmed that the 
+SV approach was relevant to find sensitive areas, but that removing data over a small portion of e.g. the 
+Atlantic ocean only amounted on average to a 3.6% degradation of the forecast performance at the day-
+2  range  over  Europe in  summer.  This  might  give  us  an  indirect  confirmation that  the  relatively 
+disappointing results  obtained  during  this  campaign  are  actually  understandable based  on  the 
+predictability of the flow and on the ability of data assimilation systems to cope well  with a slightly 
+reduced number of observations.  However, it  should be kept  in mind that the forecast impact is a 
+function of the quality of current observation coverage in the target region, the assimilation system used 
+and the weather regimes occurring during targeted campaigns. The data denial study, here summarized, 
+is based on the assumption that there are adequate current observations in the SV target region which 
+being based over the oceans consists mainly of satellite data. Satellite observations can be a great 
+potential and inexpensive target source but the limitation to observe sensitive cloud-covered regions 
+must be further investigated. It is anticipated that adding satellite rapid-scan winds or lidar observations 
+might be beneficial. There certainly is a potential for adding much larger amounts of observations on-
+demand, that  could produce significant  forecast impacts.  As a  final  remark, the DA systems used 
+operationally might  not  yet  be  able  to  make optimal use of  data  in  sensitive  regions where the 
+characteristics  of  the  error  statistics  can  deviate  significantly  from the  averaged  values  used  in 
+operational systems. More information content could probably be extracted from extra observations in a 
+fully flow-dependent system. In addition, the forecasting model might also play a role in the propagation 
+or not of the signal introduced by the data assimilation scheme.
+FUTURE PLANS
+AMMA and THORPEX
+The  African  Monsoon  Multidisciplinary  Analyses,  AMMA  (www.amma-international.org)  is  an 
+international project aiming at improving our understanding of the African monsoon on timescales of one 
+day to inter-annual. A core research goal of  THORPEX is to increase knowledge of the global-to-
+regional influences on the initiation, evolution and predictability of high impact weather. A collaboration 
+that extends measurements and modelling efforts from over Africa to across the Atlantic will allow for 
+greater understanding of initiation, evolution and predictability of tropical convection, hurricanes and so-
+called ET (extratropical transition) storm systems and of tropical impacts on midlatitude predictability. 
+Advances in our knowledge of factors that limit the predictability of these systems will also result from 
+these efforts. In this arena, THORPEX and the downstream AMMA goals overlap.
+A  joint  AMMA-THORPEX  working  group  (www.eol.ucar.edu/projects/amma-us/wg/wg5/)  has  been 
+created with objectives to study sensitivities in Tropical regions and to perform a demonstration of using 
+driftsondes. Other projects include optimizing satellite data usage over the region and finding an optimal 
+radiosonde network. 
+THORPEX-IPY
+A  significant effort  is  taking  place  during the  International Polar  Year.  A  number of  observation 
+campaigns will take place in the next few years under the umbrella of the THORPEX program. Joint 
+activities with THORPEX in data assimilation  are organized in a THORPEX-IPY cluster, managed by 
+T.E. Nordeng from Norway. It  focuses on the assimilation of satellite  data over polar regions. The 
+emphasis is on polar-global interactions. Cases have been documented in which Tropical systems go 
+through the extra-Tropical transition process to end up creating high impact weather over regions like 
+Alaska.  The IPY coincides with  the launch of  the operational MetOp satellite  carrying an Infrared 
+Atmospheric Sounding Interferometer (IASI), a high resolution interferometer providing measurements 
+over thousands of wavelengths. The observations deployed during IPY in the Arctic and the Antarctic will 
+be used to validate and assimilate IASI data and other existing infrared radiances (e.g., AIRS). This is 
+for instance the case of the Concordiasi project (www.cnrm.meteo.fr/concordiasi/). The use of satellite 
+infrared/microwave  radiances will benefit from ice analyses to better represent surface emissivity and to 
+better parameterizations of emissivity. 
+Figure 1. Information content, i.e. degrees of freedom for signal (DFS), for the main data types in the 
+assimilation at the ECMWF centre. Three regions are represented: the global (blue bars), the North 
+Pole, north of 65N (cyan bars) and the South Pole, south of  65S (white bars). Note that the DFS for 
+AIRS globally is 40% (truncated in the picture).
+(Courtesy C. Cardinali)
+Figure 1 shows the information content, i.e. DFS, for the main data types in the assimilation for one 
+particular assimilation cycle of the ECMWF system as an example. It is an updated version (dated 2007) 
+of Fig. 5 from Cardinali et al (2004).  The DFS is presented for three areas: globally, and over the two 
+polar areas. The conventional observations consist of surface observations (Synop from surface stations 
+and Dribu from buoys) and altitude data. The latter come either from AIRcraft REPort (Airep), wind 
+observations (Pilot) or radiosondes (Temp). In addition, satellite observations are atmospheric motion 
+vectors from geostationary satellites (Satob), radiances from polar-orbiting satellite radiances (AMSU-A, 
+AMSU-B, MHS, AIRS, HIRS and SSM/I) and from geostationary satellites (Goes and Meteosat), surface 
+winds from scatterometer (QuikSCAT),  precipitable water content (PWC) from SSMI in cloudy/rainy 
+areas, ozone observations (Ozone) and radio-occultation measurements (LIMB) from GPS receivers. 
+One can see that AMSU-A and AIRS (advanced microwave and infra-red sounders respectively) are the 
+most informative data types globally (a large part of the information comes from stratospheric levels). 
+Among the conventional observations, radiosondes are the most informative. Over the polar areas, the 
+analysis is even more controlled by satellite observations than globally, which justifies the effort put on 
+satellite data assimilation in these areas.
+ An intercomparison experiment for THORPEX-PARC
+The Pacific Asian Regional Campaign 2008 (T-PARC) is a major international THORPEX field campaign 
+developed as an outcome of the North American and Asian THORPEX planning process. T-PARC will 
+take place between June and December of 2008 and will focus on advancing knowledge, improving 
+prediction and society’s response to i) western Pacific and Asian typhoons from genesis to extratropical 
+transition/decay, and ii) downstream high-impact weather events over North America, the Arctic and 
+other locations whose dynamical roots and/or forecast errors are driven by aspects of the lifecycle of 
+typhoons and other intense cyclogenesis events over east Asian and the western Pacific. It is suggested 
+that a formal test could be performed for inter-comparison of sensitivities using different methods (adjoint 
+and ensemble based) for some recent periods.  An agreement should be reached on the verification 
+region(s), length of forecasts to be considered and other details. It is intended to be more of a diagnostic 
+study, rather than a targeting study, because the goal would be to identify regions where observation 
+coverage would be supplemented for an extended period of time (not just chasing targets of the day), 
+such as might occur in T-PARC.    Below is an example of the sort of information which can be obtained 
+with adjoint sensitivity of  the forecast to observations.
+ 
+Figure 2:  Adjoint-based sensitivity  to  observations over the Southern Hemisphere in the  Canadian 
+system’s  4D-Var.
+The results presented in Figure 2 were obtained in Canada. This figure represents the total impact of 
+observations on the 24-h forecast measured over a month (August 2004) in the 4D-Var assimilation 
+system. The region represented here is the Southern Hemisphere. The impact is represented over the 6-
+h assimilation window. The impact of surface pressure (green), radiosonde (blue) and AMSU-a (red) 
+clearly stand out in Figure 1, the impact of the latter being independent of the time of the observations. 
+The striking feature is that the impact of observations is more important for observations further down in 
+the assimilation window. This shows that the impact of observations depends on the assimilation method 
+employed and that 4D-Var is more sensitive to the cut-off time than 3D-Var for which there is no such 
+dependence (not shown). The results of the proposed Forecast Sensitivity Inter-comparison would be 
+provided  by  operational centres and  research  groups.  The  objective  is  to  identify  regions where 
+supplemental observations and improved use of existing satellite / in-situ observations are most needed 
+on a regular basis to improve forecast skill. The objective is mainly to extract synthetic results able to 
+lead to practical recommendations for the evolution of the GOS.
+CONCLUDING REMARKS
+As described in this paper, there are a number of approaches that have recently been proposed to 
+evaluate quantitatively the impact of observations on the quality of forecasts. These sensitivities with 
+respect to observations complement the Observing System Experiments that evaluate the impact of 
+specific sets of observations. OSEs are routinely used by operational centres to evaluate the quality of 
+their analysis and forecast  systems. Intercomparison experiments based on OSEs are carried out to 
+confirm the value of  observing systems in different systems. The new approaches offer possibilities to 
+get more detailed information on the impact  of observations and this is actively being examined by 
+several  operational  centres  as  a  promising  avenue  for  operational  use.  The  impact  of  added 
+observations need to be investigated not only with respect to the forecasts but also with respect to the 
+forecast of  their  variability  as measured from ensemble prediction systems. Results of  the ATReC 
+campaign in 2003 are certainly proof that a lot of knowledge could be gained by having several centres 
+to look at a given period with similar datasets and focus on specific scientific issues. From these results, 
+it became clear that it is not appropriate to design campaigns based solely on having in-situ targeted 
+observations. Although the value per observation is  greater,  the overall impact on the forecasts is 
+marginal and  certainly  does  not  justify  the  cost  of  deploying targeted  observations  on  demand. 
+Moreover, the operational management and coordination needed is often causing the observations to be 
+deployed not quite in the way they should have been. However, adding satellite rapid-scan winds or lidar 
+observations might  be  beneficial.  There  is  a  potential  there  for  adding much larger  amounts of 
+observations on-demand, that  could produce significant  forecast impacts.  It  would be important  to 
+estimate observation error statistics and correlation in particular. To achieve this, some thought must be 
+given to the design of a relevant observation campaign. There may be Calibration/Validation (Cal/Val) 
+campaigns being planned and it would be important to know about them and to link with them. It is 
+important to  make it known what information is needed by the assimilation about the observation error 
+to get more information out of satellite measurements. It should be noted that nonlinear processes are 
+often associated with non-Gaussian error probability distributions. Finally, the objectives of observation 
+campaigns could be focused on improving the models and parameterizations. Diagnostics based on 
+observation departures are  useful  to  monitor the  observations  and  the  model.  There is  value in 
+considering the assimilation of the collected measurements even if  only for that purpose.It remains 
+important to make significant progress on the assimilation of satellite data as only a minute fraction of 
+the  incoming  data  is  assimilated.  Progress on  the  assimilation  of  radiances in  cloudy and  rainy 
+conditions  (which  lead  to  strong  nonlinearities  in  the  observation  operator)  and  also  a  better 
+representation and estimation of observation error is needed.Whether it comes as biases or not, model 
+error needs to be taken into account but it is not so obvious to know how to represent and estimate it. 
+The use of multi-model ensembles as provided by the TIGGE database should be explored to estimate 
+the much needed error statistics. 
+The problems described above are complex and the academic community could certainly contribute 
+significantly. Due to the complexity of data assimilation with real observations, such activities are greatly 
+facilitated by having close collaborations between the academic community and research departments 
+of operational centres. This is to be encouraged as much as possible. Several centres are poised to 
+invest in large computational infrastructures to test  methods directly in a quasi-operational context. 
+Exploring new avenues can be performed in a simpler and more controlled environment from which it is 
+easier to understand what is going on. Finally, this working group seeks to reach out to the community 
+and  researchers  are  invited  to  participate  to  a  newly  created  interest  group  (daos-
+ig@internallists.ec.gc.ca). Proposing or encouraging specific activities is an approach which needs to be 
+pursued. Whether those are observation campaigns or intercomparison experiments is irrelevant: the 
+end result that is sought is to have several interested research groups to focus on key issues relevant for 
+the THORPEX program. For instance, the intercomparison experiment discussed above in relation with 
+T-PARC will bring together several groups with genuine interest in the issues raised. These would lead 
+to specialized workshops and the results could then be reported to more general meeting like the 
+THORPEX  Symposia  or  data  assimilation  conferences. The  important  involvement of  the  data 
+assimilation  research departments of  the  operational  centres provides a  good insurance that  this 
+knowledge will be transferred to operational systems.
+REFERENCES 
+Atlas,  R.  A.  1997: Atmospheric observations and experiments to  assess  their  usefulness in  data 
+assimilation. J. Meteor. Soc. Japan, 75, 111-130.
+Auligné, T., A. P. McNally and D.P. Dee, 2007: Adaptive bias correction for satellite data in a numerical 
+weather prediction system. Q.J.R. Meteorol. Soc. , 133, 631-642.
+Baker, N.  L.  and Daley,  R.,  2000:  Observation  and background  adjoint sensitivity  in  the  adaptive 
+observation targeting problem. Q. J. R. Meteorol. Soc., 126, 1431-1454.
+Bauer, P.,  P. Lopez, D. Salmond, A. Benedetti, S. Saarinen, and M. Bonazzola, 2006: Implementation 
+of  1D+4D-Var assimilation  of  precipitation-affected  microwave radiances at  ECMWF.  II:  4D-Var. 
+Quarterly Journal of the Royal Meteorological Society. Volume 132, Issue 620, Date: October 2006 Part 
+A, Pages: 2307-2332.
+Bormann, N., Saarinen, S., Kelly, G. and Thépaut, J.-N., 2003: The spatial structure of observation error 
+in atmospheric motion vectors from geostationary satellite data.Mon. Wea. Rev. 131, 706-718.
+Bouttier, F., and Kelly, G., 2001: Observing-system experiments in the ECMWF 4D-Var data assimilation 
+system. Quart. J. R. Meteorol. Soc., 127,1469-1488.
+ Buehner, M., 2005: Ensemble-derived stationary and flow-dependent background error covariances: 
+Evaluation in a quasi-operational NWP setting. Quart. J. R. Meteorol. Soc., 131,1013-1044.
+Buizza, R., C. Cardinali, G. Kelly and J-N. Thépaut, 2007: The value of observations. Part II: The value 
+of observations located in singular vector-based target areas. Q. J. Roy. Meteorol., accepted.
+Cardinali C.,  and R.,  Buizza, 2003:  Forecast skill  of  targeted observations: a  singual-vector-based 
+diagnostics. J. Atmos. Sci., 60, 1927-1940.
+Cardinali C., Pezzuli S. and Andersson E., 2004: Influence matrix diagnostic of a data assimilation 
+system. Quart. J. R. Meteorol. Soc., 130 , 2767-2786.
+Cardinali, C. R. Buizza, G. Kelly, M. Shapiro and J-N. Thépaut, 2007: The value of observations. Part III: 
+influence of weather regimes on targeting. Q. J. Roy. Meteorol., accepted. 
+Chapnik, B., Desroziers, G., Rabier, F. and Talagrand O., 2006: Diagnosis and tuning of observational 
+error statistics in a quasi operational data assimilation setting. Quart. J. R. Meteorol. Soc., 132,  543-
+565.
+Dee, D. P., Rukhovets, L., Todling, R., da Silva, A. M. and Larson J. W., 2001: An adaptive buddy check 
+for observational quality control. Quart. J. R. Met. Soc., 127, 2451-247.
+Dee, D. P., 2005: Bias and data assimilation. Q.J.R. Meteorol. Soc. , 131, 3323-3343.
+Desroziers, G., L.  Berre, B. Chapnik and P.  Poli,  2005: Diagnosis of observation, background and 
+analysis-error statistics in observation space. Q.J.R. Meteorol. Soc. , 131,  3385-3396.
+Doerenbecher A., and Bergot T., 2001: Sensitivity to observations applied to FASTEX cases.
+ Nonlinear Processes in Geophysics, 8(6), 467-481.
+Doerenbecher, A., M. Leutbecher and D.S.Richardson,  2004:  Comparison of observation targeting 
+predictions during the ATReC. Proceedings of the first International THORPEX Science Symposium, 6-
+10 Dec. 2004, Montreal, Canada.
+Etherton, B. J., and Bishop, C. H., 2004: Resilience of hybrid ensemble/3DVAR analysis schemes to 
+model error and ensemble covariance error. Mon. Wea. Rev., 132, 1065-1080.
+Fisher, M, 2003, Estimation of entropy reduction and degrees of freedom for signal for large variational 
+analysis systems. ECMWF Tech. Memo. 397, 18p.
+Fisher, M., Leutbecher, M. and Kelly, G. A., 2005: On the Equivalence between Kalman Smoothing and 
+Weak-Constraint Four-dimensional Variational Data Assimilation. Quart. J. R. Met. Soc.,131, 3235-3246.
+Fourrié, N., and Rabier, F., 2004: Cloud characteristics and channel selection for IASI radiances in 
+meteorologically sensitive areas. Quart. J. R. Met. Soc.,130, 1839-1856.
+Fourrié, N., D. Marchal, F. Rabier, B. Chapnik and G. Desroziers, 2006:  Impact study of the 2003 North 
+Atlantic THORPEX Regional Campaign.  Q.J.R. Meteorol. Soc. , 132, 275-295.
+Frehlich, R., 2006: Adaptive data assimilation including the effect of spatial variations in observation 
+error. Quart. J. R. Met. Soc.,132, 1225-1257.
+Hamill, T. M. and Snyder, C., 2002: Using improved background-error covariances from an ensemble 
+Kalman filter for adaptive observations. Mon. Wea. Rev., 130, 1552-1572.
+Houtekamer, P. L. and Mitchell H. L., 2005: Ensemble Kalman Filtering. Quart. J. R. Met. Soc., 131, 
+3269-3289.
+Karbou, F., E. Gérard, and F. Rabier, 2006: Microwave land emissivity and skin temperature for AMSU-
+A and -B assimilation over land. Quarterly Journal of the Royal Meteorological Society. Volume 132, 
+Issue 620, Date: October 2006 Part A, Pages: 2333-2355.
+Kelly, G., J-N. Thépaut; R. Buizza and C. Cardinali, 2007: The value of observations. Part I: the value of 
+observations taken over the oceans. Q. J. Roy. Meteorol., accepted. 
+Kelly, G., 2007: Evaluation of the impact of the space component of the Global Observation System 
+through Observing System Experiments. ECMWF Newsletter Autumn.
+Khare, S. P. and J. L. Anderson, 2006: A methodology for fixed observational network design: theory 
+and application to a simulated global prediction system. Tellus, 58A, 523-537.
+Langland, R.H. and Baker, N.L., 2004: Estimation of observation impact using the NRL atmospheric 
+variational data assimilation adjoint system. Tellus, 56A,189-201. 
+Langland, R., 2005: Issues in targeted observing. Quart. J. R. Met. Soc., 131, 3409-3425.
+Langland, R., 2005: Observation impact during the North Atlantic TreC-2003. MWR, 133, 2297-2309.
+Liu,Z.-Q.  and  Rabier,F.,  2003:  The  potential  of  high-density  observations for  numerical  weather 
+prediction: A study with simulated observations. Quarterly Journal of the Royal Meteorological Society. 
+Volume 129, Issue 594, Date: October 2003 Part A, Pages: 3013-3035.
+Lorenc, A. C., 2003: The potential of the ensemble Kalman filter for NWP- a comparison with 4D-Var. Q. 
+J. R. Meteorol. Soc., 129, 383-3202.
+Majumdar, S.J. ,Bishop, C.H., Buizza, R. and Gelaro, R., 2002: A comparison of ensemble-transform 
+Kalman-filter targeting guidance with ECMWF and NRL total energy singular vector guidance. Quart. J. 
+R. Met. Soc., 128, 2527-2549. 
+Mansfield, D., Richardson, D. and Truscott, B. 2005: An overview of the Atlantic THORPEX Regional 
+Campaign, ATReC. In Proceedings of the THORPEX Science Symposium, 6 to 10 December 2004, 
+Montreal, Canada. World Meteorological Organization, Geneva, Switzerland.
+Masutani, M.,  Andersson,  E.,   Terry,  J.,   Reale,  O.,   Jusem, JC,  Riishojgaard, LP,  Schlatter,  T, 
+Stoffelen,  A,  Woollen, J,   Lord,  L,  Toth, Z,  Son,Y,   Kleist, D, Xie, Y, Prive, N,   Liu, E, Sun, H, 
+Emmitt, D,  Greco, S,  Wood, SA,  Marseille, GJ, Errico, R,  Yang, R, McConaughy, G,  Devenyi, D, 
+Weygandt, S, Anantharaj, V, Hill,C,  Fitzpatrick, P, Weng, F,  Zhu, T and  Boukabara, S,  2007: Joint 
+Observing System Simulation Experiments. Proc. “18th Conf. on Numerical Weather Prediction”, 25-29 
+June 2007, Park City, Utah. Available from the American Meteorological Society.
+Ochotta,  T.,  C.  Gerhardt,  D.  Saupe  and  W.  Wergen,  2005:  Adaptive  thinning  of  atmospheric 
+observations in data assimilation with vector quantization and filtering methods. Q.J.R. Meteorol. Soc. , 
+131,  3427-3437.
+Petersen, G. N., and A. J. Thorpe, 2007: The impact on weather forecasts of targeted observations 
+during A-TreC. Quarterly Journal of the Royal Meteorological Society
+Volume 133, Issue 623, Date: January 2007 Part B, Pages: 417-431
+Purser R.J.,  and H.L. Huang,  1993: Estimating effective data  density  in  a  satellite  retrieval  or  an 
+objective analysis. J. Appl. Meteorol., 32, 1092-1107.
+Rodgers, C. D., 2000: Inverse methods for Atmospheres: Theories and practice. World Scientific Publ., 
+Singapore, 238pp.
+Szunyogh, I., Toth, Z., Morss, R., Majumdar, S. Etherton, B.J. and Bishop, C.H., 2000: The effect of 
+targeted dropsonde observation during the 1999 Winter Storm Reconnaissance Program. Mon. Weather 
+Rev, 128, 3520—3537.
+Tan, D.G. H., E. Andersson, M. Fisher and L. Isaksen, 2007: Observing system impact assessment 
+using a data assimilation ensemble technique: Application to the ADM-Aeolus wind profiling mission. To 
+appear in the Q.J.R. Meteorol. Soc.
+Tsyrulnikov, M. D.,  2005: Stochastic modelling of model errors: a simulation study. Q.J.R. Meteorol. 
+Soc. , 131, 3345-3371.
+Weissmann, M. And C. Cardinali, 2007:  Impact of  airborne Doppler lidar observations on ECMWF 
+forecasts. Quarterly Journal of the Royal Meteorological Society, Volume 133, Issue 622, Date: January 
+2007 Part A, Pages: 107-116

@@ -1,0 +1,560 @@
+PERIODIC APPEARANCE OF CORONAL HOLES
+AND THE RELATED VARIATION OF SOLAR WIND
+PARAMETERS
+MANUELA TEMMER
+Hvar Observatory, Faculty of Geodesy, Zagreb, Croatia (mat@igam.uni-graz.at)
+BOJAN VRSˇNAK
+Hvar Observatory, Faculty of Geodesy, Zagreb, Croatia
+(bvrsnak@geodet.geof.hr)
+ASTRID M. VERONIG
+IGAM/Institute of Physics, University of Graz, Graz, Austria
+(asv@igam.uni-graz.at)
+(Received ..............; accepted ..................)
+Abstract. We compared the variability of coronal hole (CH) areas (determined
+from daily GOES/SXI images) with solar wind (daily ACE data) and geomagnetic
+parameters for the time span January 25, 2005 until September 11, 2005 (late declin-
+ing phase of solar cycle 23). Applying wavelet spectral analysis, a clear 9-day period
+is found in the CH time series. The GOES/SXI image sequence suggests that this
+periodic variation is caused by a mutual triangular distribution of CHs ∼120◦ apart
+in longitude. From solar wind parameters a 9-day periodicity was obtained as well,
+simultaneously with the 9-day period in the CH area time series. These findings
+provide strong evidence that the 9-day period in solar wind parameters, showing
+up as higher harmonic of the solar rotation frequency, is caused by the “periodic”
+longitudinal distribution of CHs on the Sun recurring for several solar rotations.
+The shape of the wavelet spectrum from the Dst index matches only weakly with
+that from the CH areas and is more similar to the wavelet spectrum of the solar
+wind magnetic field magnitude. The distinct 9-day period does not show up in the
+sunspot group areas which gives further evidence that the solar wind modulation is
+strongly related to CH areas but not to active region complexes. The wavelet power
+spectra for the whole ACE data range (∼1998–2006) suggest that the 9-day period is
+not a singular phenomenon occurring only during a specific time range close to solar
+minimum but is occasionally also present during the maximum and decay phase of
+solar cycle 23. The main periods correspond to the solar rotation (27d) as well as to
+the second (13.5d) and third (9d) harmonic.
+Keywords: Coronal Holes, Solar Wind, Space Weather
+1. Introduction
+Observations of recurrent geomagnetic disturbances with a period of
+∼27 days, i.e. corresponding to one solar rotation (so-called Bartels
+rotation), brought Bartels, (1940) to postulate the existence of M-
+regions on the Sun as the source of these disturbances. Nowadays these
+c© 2007 Kluwer Academic Publishers. Printed in the Netherlands.
+ms_revision0.tex; 9/01/2007; 9:19; p.1
+2 M. TEMMER ET AL.
+regions are well identified as coronal holes (CHs), characterized by a
+low density and open magnetic field lines that allow the solar wind
+as well as energetic particles easily to escape to interplanetary space
+(e.g. Krieger et al., 1973; Leer et al., 1982; Crooker and Cliver, 1994;
+Fisk, 2005, and references therein). Before the solar minimum, CHs are
+typically situated at the polar caps with some tongue-like extensions
+into the equatorial regions which gives the Sun the appearance of a
+tilted dipole (Schwenn et al., 2005). The activity belt that is left at
+the equatorial region is seen as a warped separatrix between positive
+and negative magnetic field lines that open into interplanetary space
+carrying an electric current, i.e. the heliospheric current sheet, HCS
+(“ballerina model” by Alfven, 1977). Approaching solar minimum, the
+HCS loses its warps and becomes flat in close alignment with the solar
+equatorial plane (Hoeksema, Wilcox, and Scherrer, 1982; Hoeksema,
+1995).
+Originating from CHs, it is predominantly the high-speed compo-
+nent of the solar wind (high-speed streams, HSSs) which can cause
+recurrent geomagnetic storms if reaching the Earth with a southward
+deflection of the interplanetary magnetic field (Tsurutani and Gonzalez,
+1987; Crooker and Cliver, 1994; Tsurutani et al., 2004). Corotating
+interaction regions (CIRs; i.e. stable patterns of regions where the slow
+and fast solar wind interact) in front of HSSs are as well known to
+substantially contribute to geomagnetic activity due to the pressure
+pulse from the compressed plasma (Schwenn 1983; Crooker and Cliver,
+1994; Tsurutani et al., 2004; Schwenn et al., 2005). The major source of
+large geomagnetic storms (Dst ≤ −100 nT) are interplanetary coronal
+mass ejections (ICMEs) which are earth-directed (Gosling et al., 1991;
+Tsurutani and Gonzalez, 1997; Cliver and Ling, 2001; Zhang et al.,
+2003; Alves et al., 2006). It is reasonable to say that the above men-
+tioned drivers of space weather are closely linked to the structure of the
+solar corona, hence the interrelation between active regions and large
+coronal holes at low latitudes.
+The most outstanding period found in solar wind and geomagnetic
+activity parameters is ∼27 days1, i.e. corresponding to one solar rota-
+tion. This is not surprising as the solar corona shows a less pronounced
+differential rotation than the photosphere and a near rigid rotation
+during minimum activity (e.g. Hoeksema and Scherrer, 1987; Nash
+et al., 1988; Wang and Sheeley, 1993; Altrock, 2003). Also smaller
+periods of 13.5 as well as 9 and 7 days are reported (Svalgaard and
+Wilcox, 1975; Bobova and Stepanian, 1994; Mursula and Zieger, 1996;
+Neugebauer et al., 2000; Nayar et al., 2001). The 13.5-day period was
+1 All periods stated in the following are synodic periods.
+ms_revision0.tex; 9/01/2007; 9:19; p.2
+PERIODIC APPEARANCE OF CORONAL HOLES 3
+found predominantly during solar minimum, and was therefore assumed
+to be related to the flat and tilted HCS at this time, which causes an ob-
+server at Earth to encounter two high-speed solar wind streams during
+one solar rotation (Mursula and Zieger, 1996). Bobova and Stepanian,
+(1994) studied geomagnetic data together with solar activity data and
+suggested that the 13.5-day period is due to variations in the solar
+chromosphere, like complexes of active regions separated by 180◦ in
+longitude (Gaizauskas et al., 1983). However, distinct periodicities of
+13.5 days for solar chromospheric variables were found during other
+phases of the solar cycle as well, thus there might be no causal connec-
+tion (Mursula and Zieger, 1996). The periodicities of ∼7 and 9 days
+were associated to the evolution of the warping of the HCS (Nayar
+et al., 2001).
+Vrsˇnak, Temmer, and Veronig, (2006) found for a restricted period of
+low CME activity during the year 2005, a distinct 9-day period for solar
+wind parameters and areas of coronal holes. From GOES/SXI images a
+triangular distribution of three CHs (∼120◦ apart in longitude) which
+was stable over several solar rotations was obvious. A stable pattern of
+CHs might explain in a straightforward manner the obtained periodic-
+ities. In the following, we will study common periods in the range 2–40
+days for solar wind and geomagnetic activity parameters, and compare
+them to the variation of coronal hole areas on the Sun as extracted
+from GOES/SXI images. Outstanding periods observed for the same
+time range in CHs and solar wind parameters would enable us to draw
+direct conclusions on the driver of solar wind variations, namely the
+occurrence of large CHs. This aim will be achieved by means of wavelet
+power spectra which allow us to detect non-stationary periods in the
+data series and to study their evolution in time.
+2. Data description
+Coronal holes are regions of very low density (due to the escape of the
+solar wind along open field lines) which makes them to appear as dark
+features in X-ray images (and EUV). Since December 2004, the Solar
+X-Ray Imager (SXI) on board the GOES-12 satellite provides regular
+observations of the X-ray corona in the wavelength range 6–60 A˚. As
+a special data product, coronal hole images are created by stacking
+12 hours of solar rotation corrected and calibrated X-ray images which
+substantially improves the signal-to-noise ratio with respect to individ-
+ual images (see Hill et al., 2005). From these level-2 files, we chose a
+data set where continuously daily observations were available. This was
+the case from January 1, 2005 until September 11, 2005, i.e. day of year
+ms_revision0.tex; 9/01/2007; 9:19; p.3
+4 M. TEMMER ET AL.
+(DOY) 1–254. This is a time range of low and “simple” solar activity,
+close to the end of the current cycle no. 23, which is advantageous for
+our purpose.
+We used one SXI level-2 image per day (centered at ∼13 UT) to
+extract the fractional area of coronal holes that covered the central
+meridian slice in the longitude range [−10◦, 10◦] (see Fig. 1, top panel).
+For the determination of the CH areas, we applied a fixed threshold to
+the calibrated SXI coronal hole images of 0.15 DN s−1. All pixels below
+that threshold (identified as coronal hole pixels) within a specified
+region of the visible solar disk were summed up and divided by the
+total number of pixels of the considered region in order to calculate the
+fractional area covered by CHs. For a more detailed description on the
+extraction method of the SXI observations see Vrsˇnak, Temmer, and
+Veronig, (2006).
+Measurements of the solar wind and interplanetary magnetic field
+parameters were taken from the Solar Wind Electron, Proton, and Al-
+pha Monitor (SWEPAM; McComas et al., 1998) and the magnetometer
+instrument (MAG; Smith et al., 1998) on board the Advanced Com-
+position Explorer (ACE; Stone et al., 1998). For the analyses we used
+the daily averages (level 2 data) of the following values: proton density
+n [cm−3], radial component of proton temperature T [K], proton speed
+(solar wind (bulk) speed) |v| [km s−1], and the magnetic field magnitude
+|B| [nT]. The SWEPAM and MAG data were linearly interpolated for
+days with bad or missing data (total missing data <5%).
+As an indicator of the geomagnetic activity we used preliminary
+daily averages of the disturbance storm time (Dst) index (Sugiura
+and Wilson, 1964) provided by the WDC-2 Kyoto Dst index service.
+The Dst index is derived from hourly scalings of horizontal magnetic
+variations (H-component) measured by a network of ground-based low-
+latitude geomagnetic observatories. The magnitude of the Dst index is
+proportional to the kinetic energy of ring current particles in the Earth
+magnetosphere, and large negative perturbations are indicative of ge-
+omagnetic storms (Sugiura and Chapman, 1960; Sugiura and Wilson,
+1964; Gonzalez et al., 1994).
+As a cross-check regarding possible photospheric causes on the peri-
+odic solar wind patterns as suggested in Bobova and Stepanian, (1994),
+we study daily areas of sunspot groups that are observed within ±10◦
+central meridian distance. The data are taken from the US Air Force
+and US National Oceanic and Atmospheric Administration (USAF/NOAA)
+who regularly compile sunspot observations from different observato-
+ries. We note that this is only a rough check since we did not directly
+calculate the sunspot area within the considered [−10◦,10◦] central
+ms_revision0.tex; 9/01/2007; 9:19; p.4
+PERIODIC APPEARANCE OF CORONAL HOLES 5
+-1000 -500 0 500 1000
+-1000
+-500
+0
+500
+1000 05/05/06,12:59:51 UT
+GOES-12 SXI
+Area covered by Coronal Holes (central meridian slice)
+0 50 100 150 200 250
+DOY 2005
+0.0
+0.1
+0.2
+0.3
+0.4
+Figure 1. Top: Typical GOES/SXI image from which the fractional CH area within
+the central meridian slice (white dotted lines) was extracted. The derived CH bound-
+aries are outlined in white (within the measuring slice) and in red (outside the
+measuring slice). Bottom: evolution of the fractional CH area in time, given in days
+of the year (DOY) 2005. The vertical red line indicates the observing date of the
+image in the top panel. We refer the reader to the online version of Solar Physics
+for an animation.
+ms_revision0.tex; 9/01/2007; 9:19; p.5
+6 M. TEMMER ET AL.
+meridian slice (as we did for CHs) but summed up the areas of all
+sunspot groups which had their center coordinate within the ±10◦ slice.
+3. Method
+Wavelet power spectra (WPS) are an appropriate tool for investigat-
+ing time series that contain non-stationary power at many different
+frequencies (Daubechies, 1990). In particular, they can be used to de-
+termine predominant periods in a time series together with their times
+of appearance. We use the Morlet wavelet (Grossman and Morlet, 1984)
+as analyzing wavelet function ψ(τ), where τ is a non-dimensional time
+parameter. The continuous wavelet transform can be written as
+Wn(s) =
+N−1∑
+k=0
+xˆkψˆ
+∗(sωk)e
+iωknδt , (1)
+with δt the equal spacing in time, N the number of data points in the
+time series {xn}, xˆk the discrete Fourier transform of xn and ψˆ
+∗(sωk)
+the scaled and translated version of ψ(τ) (∗ indicates the complex
+conjugate). The angular frequency ωk is defined as
+ωk =
+{
+2pik
+Nδt
+: k ≤ N
+2
+− 2pik
+Nδt
+: k > N
+2
+.
+(2)
+With the actual choice for the value of ω, one can specify either
+a high resolution in time or a high resolution in frequency. We have
+chosen the value ω = 12 as a moderate value showing reasonable reso-
+lution in both, frequency and time. All wavelet power spectra (WPS)
+presented in Sect. 4.1 were calculated for the time range January 1,
+2005–September 11, 2005 and for periods in the range 2–40 days. For
+the WPS in Sect. 4.2, the periods from 2–40 days are calculated for the
+entire time span of ACE data, i.e. ∼1998–2006. As significance tests,
+confidence levels at 80%, and 95% are calculated using a red noise
+background spectrum. Regions where edge effects become important,
+due to the finite-length of the time series, are labeled as cone of influence
+(COI). We further present the global wavelet spectrum (GWS) which
+is the time-averaged wavelet spectrum over a certain period (given in
+arbitrary units). The computation of all these parameters is performed
+in the way described by Torrence and Compo, (1998).
+ms_revision0.tex; 9/01/2007; 9:19; p.6
+PERIODIC APPEARANCE OF CORONAL HOLES 7
+Figure 2. WPS (left) and GWS (right) from fractional areas of coronal holes for
+the analyzed time span January 1 until September 11, 2005, i.e., DOY 1–254. Black
+(white) contour lines indicate significance levels of 80% (95%). The COI is indicated
+by cross-hatched regions. The dotted line in the GWS represents the 95% significance
+level.
+4. Results
+4.1. The time period 2005
+In Fig. 1 (bottom panel) daily values of fractional coronal hole areas for
+the analyzed time range are plotted. Within the period DOY 20–130
+several distinct peaks are obtained which appear periodically. Calcu-
+lating the WPS from this data set, a significant (95%) periodicity of
+9 days is obtained for the time range DOY 20–140 (see Fig. 2). The
+GWS in Fig. 2 reveals four peaks above the 95% significance level,
+namely at periods of 9-, 13.5-, 31.5-, and 7-days (ordered from the
+highest to the lowest power). Note that the peak at 9 days is by far
+the strongest one. During this time range, the SXI images clearly show
+a triangular distribution of large CHs, consisting of low-latitude CHs
+not connected to polar regions, as well as polar CHs (cf. animation of
+Fig. 1). This configuration of large CHs, mutually separated from each
+other by ∼120◦ in longitude, is stable and recurs from DOY 20 until
+120 (cf. animated Fig. 2). In addition, a period of 7 days shows up in
+the WPS at about DOY 100–130, which can be identified in the SXI
+images as newly upcoming small scale CHs in addition to the stable
+triangular pattern of large CHs. In the time range DOY 190–240, a
+distinct (significance level of 95%) period of 13.5 days is obvious from
+the WPS which was generated by two CHs situated roughly 180◦ apart
+– one of the CHs was extending from polar to equatorial regions, and
+another one was an isolated low-latitude CH. During DOY 150–210,
+ms_revision0.tex; 9/01/2007; 9:19; p.7
+8 M. TEMMER ET AL.
+.
+Figure 3. Same as Fig. 2 but for the ACE solar wind parameters, from top to bottom:
+velocity, density, temperature, magnetic field magnitude
+ms_revision0.tex; 9/01/2007; 9:19; p.8
+PERIODIC APPEARANCE OF CORONAL HOLES 9
+Figure 4. Same as Fig. 2 but for the Dst index.
+the WPS shows enhanced power in the period range of 32 days which
+is probably due to solar rotation of high-latitude CHs. However, we
+note that in the WPS this period is to a large extent covered by the
+COI.
+Figure 3 presents the WPS and GWS for the solar wind parameters:
+velocity, density, temperature, and the magnetic field magnitude (from
+top to bottom). The variations of all solar wind parameters studied
+seem to be correlated among each other and show similar variations
+in time. Enhanced power (> 95% significance) of a 9-day period is ob-
+tained during the time span DOY 20/30–130/140, obviously matching
+the periodicity in CH areas (cf. Fig. 2). Around DOY 120 the power
+evolves towards a 7-day period, similar as obtained for the CH areas.
+After a short interception, the 9-day period returns during DOY 160–
+250 (partly covered by the COI) which finds no correspondence in the
+periodic appearance of CHs. We note that the 9-day period is most
+pronounced in the solar wind velocity, density and temperature, and
+less significant for the magnetic field variations. However, for each solar
+wind parameter, the strongest signal in the GWS is at a period of
+9-days.
+Figure 4 shows the WPS and GWS for the geomagnetic activity as
+quantified by the Dst index. The most eminent peak in the WPS is
+in the range of 7 days (DOY 120–150), but also the 9-day period is
+revealed with power above the 80% significance level from DOY 170–
+240. Further significant periods obtained are of 14.5 and 22 days. A
+broad power enhancement covering the periods from 29 to 33 days is
+seen from the WPS and GWS. Note that this power enhancement is
+partly covered by the COI.
+ms_revision0.tex; 9/01/2007; 9:19; p.9
+10 M. TEMMER ET AL.
+Figure 5. Same as Fig. 2 but for the daily areas of sunspot groups within ±10◦
+central meridian distance.
+Figure 5 shows the WPS and GWS from daily areas of sunspot
+groups with a central meridian distance of ±10◦. As it can be seen,
+the highest power is revealed at ∼29 days; an increased power is also
+obtained at ∼14 days. There is no significant enhancement of power in
+the range of 9 days after DOY 25.
+4.2. Periodicities in the complete set (1998–2006) of ACE
+data
+To compare the variability of solar wind and magnetic field parameters
+during different phases of cycle 23, we calculated the WPS and GWS
+for the full range of available ACE date, ∼1998–2006, i.e. almost fully
+covering solar cycle 23.
+As it can be seen from Fig. 6, for the solar wind parameters ve-
+locity, density and temperature, the ∼27-day period has the highest
+peak in the GWS but we obtain also high global power (above 95%
+significance) for the 13.5- and 9-day periods. The 9-day period is most
+pronounced when approaching the minimum phase of solar cycle 23
+(2005), however, it is also present for the maximum (2000) and the
+declining phase (2002–2004). During the maximum and declining phase,
+the 9-day period shows up intermittently over no more than two solar
+rotations. Only during 2005 it can be tracked over 5–8 solar rotations
+(Fig. 6, see also Section 4.1). The solar wind parameters show enhanced
+power for the 13.5-day period during the maximum phase around the
+year 2000 and even more distinct after 2003. For the magnetic field, the
+most significant periods are of 13.5 and 9 days (GWS) which reveal a
+very irregular pattern of enhanced power in the WPS over the cycle.
+ms_revision0.tex; 9/01/2007; 9:19; p.10
+PERIODIC APPEARANCE OF CORONAL HOLES 11
+Figure 6. WPS (left) and GWS (right) from ACE data covering the period February
+4, 1998 until March 11, 2006 (first three panels from top to bottom: velocity, den-
+sity, temperature) and September 1, 1997 until February 12, 2006 (bottom panel:
+magnetic field magnitude). Black (white) contour lines indicate significance levels of
+80% (95%), respectively. The COI is indicated by cross-hatched areas. The dotted
+line in the GWS represents the 95% significance level.
+ms_revision0.tex; 9/01/2007; 9:19; p.11
+12 M. TEMMER ET AL.
+5. Discussion and Conclusion
+We inspected and compared the variability of solar, heliospheric, and
+geomagnetic parameters in order to follow periodic patterns evolving
+from their source located on the Sun until their consequences at the
+Earth. We therefore combined statistical results from wavelet power
+spectra together with direct solar observations which is essential for
+the correct interpretation of the statistical results.
+The present study is based on the CH areas extracted from SXI
+images in the wavelength range 0.6–6 nm. Here the question arises
+to what extend these values are comparable to the CH areas deter-
+mined from observations in the He I 1083 nm wavelength. Studies on
+forecasting the solar wind speed based on CH areas extracted from
+He I 1083 nm spectroheliograms (Kitt Peak) by Robbins, Henney, and
+Harvey, (2006) and SXI (same data as used in the present study) by
+Vrsˇnak, Temmer, and Veronig, (2006), led to almost the same results.
+From this we conclude that the areas extracted from SXI data are
+basically in conformity with those from He I observations, although
+there are differences in the determination of the CH boundaries (see
+e.g. de Toma and Arge, 2005; Shen et al., 2006). For our purpose of a
+statistical analysis, this quantitative agreement is sufficient.
+As it can be seen from Fig. 7 showing the daily number of CMEs
+as well as their average velocities <v> (summed up velocity of daily
+observed CMEs divided by their number)2, the time span January 25,
+2005 until May 5, 2005, i.e. DOY 25–125, is a period of very low CME
+activity (if considering only geoeffective ones, i.e. full halo and partial
+halo CMEs). Focusing on this time range, we found that periodic vari-
+ations of 9 days originating from a distinct distribution of CHs, are
+equally obtained in solar wind parameters. Such a behavior provides
+strong evidence that the periodicities in the solar wind parameters,
+showing up as higher harmonics of the solar rotation frequency, are
+generated by the “periodic” longitudinal distribution of CHs. After
+DOY 130 high CME activity starts which may strongly disturb the
+“background” solar wind (shocks, density fluctuations, rotating mag-
+netic field) and destroy the direct relation between the variations of
+CH areas and solar wind parameters.
+The inspection of daily areas of sunspot groups that occurred within
+the central meridian distance of ±10◦ revealed no distinct 9-day period
+for the same time range as observed for CH areas and solar wind param-
+2 The data were taken from the CME online catalogue and can be found un-
+der http://cdaw.gsfc.nasa.gov/CME list/, detailed information on partial/full
+halo CMEs is given at http://lasco-www.nrl.navy.mil/halocme.html (cf. Yashiro
+et al., 2004).
+ms_revision0.tex; 9/01/2007; 9:19; p.12
+PERIODIC APPEARANCE OF CORONAL HOLES 13
+Figure 7. Daily number of CMEs (black dots) and their average velocity <v>.
+Only partial (CMEs with widths between 120 and 359◦) and full halo CMEs were
+extracted from the catalogue.
+eters. Although a rough check, from this we may exclude the association
+of distinct periodic variations observed in solar wind parameters with
+complexes of activity (“active longitudes”) as suggested by Gaizauskas
+et al., (1983).
+The periodic variations of CH areas is not replicated equally well for
+all solar wind parameters studied. The solar wind speed, temperature
+and density reveal the most direct relation to the distribution and sizes
+of CHs. The solar wind magnetic field shows a somewhat less distinct
+correlation with the variation of CH areas, but still follows the same
+pattern of periodicities (see also Vrsˇnak, Temmer, and Veronig, 2006).
+The wavelet spectrum calculated for geomagnetic disturbances as quan-
+tified by the Dst index matches only weakly the spectral result from CH
+areas but is more similar to that of the magnetic field magnitude of the
+solar wind (compare the bottom panel of Fig. 3 and Fig. 4). This is to
+be expected since the geomagnetic activity does not only dependent on
+fast solar wind streams emanating from CHs, but relies on other factors,
+most importantly on the orientation of the interplanetary magnetic field
+with respect to the Earth magnetic field (Schwenn 2006). Therefore, the
+relation to the structure of the solar corona is less direct for the Dst
+index than for the solar wind parameters.
+The clear (triangular) distribution of CHs and their stable appear-
+ance over several solar rotations which causes the distinct 9-day pe-
+riodicity in the solar wind parameters is related to the underlying
+large-scale patterns of the coronal magnetic field. As gathered from
+magnetic source surface extrapolations (see Wilcox Observatory un-
+ms_revision0.tex; 9/01/2007; 9:19; p.13
+14 M. TEMMER ET AL.
+der http://wso.stanford.edu/synsource.html), a similar pattern
+is seen to what we obtained for the triangular distribution of coronal
+holes. The observed large-scale distribution of the magnetic field may be
+related to downflow regions of “giant convective cells” (Bumba, 1987).
+The existence of giant cells was first suggested by Bumba and Howard,
+(1965), however their subsequent history was quite controversial (see
+also Hathaway et al., 2000). Indications were found for various solar ac-
+tivity phenomena during various solar cycles. For example Vrsˇnak et al.,
+(1992) found for the microwave low temperature/brightness regions,
+during various periods within the years 1979–1982 and 1987–1989,
+large-scale patterns that were comparable with observed magnetic field
+distributions. Further evidence for a large-scale evolution/distribution
+of solar activity and the global magnetic field is given by Chertok,
+(2001) studying microwave, soft X-ray and EUV emitting structures
+(chains) that seem to coincide with the boundaries of coronal holes.
+From the entire ACE data set (∼1998–2006) we found that the
+occurrence of 9- and 13.5-day periods is not restricted to the declining
+phase of a solar cycle, but can be occasionally also obtained during the
+maximum and close to the minimum phase of cycle 23, however, over
+much smaller time intervals. Similar results were obtained by Nayar
+et al., (2001) who analyzed solar wind and interplanetary magnetic
+field data from 1964–2000. These observational findings are partially
+in disagreement with the interpretation by Mursula and Zieger, (1996)
+who supposed that a sufficiently flat and tilted heliosheet might gen-
+erate two solar wind high-speed streams per one solar rotation, which
+subsequently produces a 13.5 day period in the solar wind parameters
+when the Earth encounters them. In this scenario, the 13.5 day period
+would only be expected at the minimum phase of a solar cycle.
+Harvey and Recely, (2002) describe an evolutionary process for CHs
+observed during solar cycles 22 and 23, in that isolated high-latitude
+CHs might be pre-polar CHs which evolve in time to polar CHs (after
+5–8 solar rotations). Since polar CHs are stable and rigidly rotating
+objects, they may exist for several years. During their decaying phase
+they appear as isolated lobes of polar CHs. This evolutionary process
+contributes a lot to the time variation of CH areas and configuration,
+and is observed to be most outstanding during times of solar maxi-
+mum and minimum (Harvey and Recely, 2002). This might explain the
+persistence of periodic variations in solar wind parameters over several
+solar rotations during the minimum and maximum phase of the solar
+cycle. However, in this respect we stress that the solar wind variations,
+i.e. its patterns measured at Earth, are dependent on other processes
+too, e.g. CME activity, which can not be straightforwardly related to
+CH distributions.
+ms_revision0.tex; 9/01/2007; 9:19; p.14
+PERIODIC APPEARANCE OF CORONAL HOLES 15
+Acknowledgements
+We thank the ACE SWEPAM and ACE MAG instrument teams and
+the ACE Science Center for providing the ACE data and the GOES-
+SXI, SoHO-LASCO, and WDC-Geomagnetism-Kyoto teams for their
+open data policies. M.T. gratefully acknowledges the Austrian Fonds
+zur Fo¨rderung der wissenschaftlichen Forschung (FWF grant J2512-
+N02). This work is supported by the Air Force Office of Scientific
+Research, Air Force Material Command, USAF, under grant number
+FA8655-06-1-3036. We would like to thank the anonymous referee for
+helpful comments on the manuscript.
+References
+Alfven, H. 1977, Reviews of Geophysics and Space Physics, 15, 271
+Altrock, R. C. 2003, Solar Phys., 213, 23
+Alves, M. V., Echer, E., and Gonzalez, W. D. 2006, Journal of
+Geophysical Research (Space Physics), 111, 7
+Bartels, J. 1940, Journal of Geophysical Research (Space Physics), 45,
+339
+Bobova, V. P. and Stepanian, N. N. 1994, Solar Phys., 152, 291
+Bumba, V. 1987, Bulletin of the Astronomical Institutes of Czechoslo-
+vakia, 38, 92
+Bumba, V. and Howard, R. 1965, ApJ, 141, 1502
+Chertok, I. M. 2001, Solar Phys., 198, 367
+Cliver, E. W. and Ling, A. G. 2001, Astrophys. J., 556, 432
+Crooker, N. U. and Cliver, E. W. 1994, J. Geophys. Res., 99, 23383
+de Toma, G. D. and Arge, C. N. 2005, ASP Conf. Ser. 346: Large-scale
+Structures and their Role in Solar Activity, 346, 251
+Daubechies, I. 1990, IEEE Transactions on Information Theory, 36, 961
+Fisk, L. A. 2005, Astrophys. J., 626, 563
+Gaizauskas, V., Harvey, K. L., Harvey, J. W., and Zwaan, C. 1983,
+Astrophys. J., 265, 1056
+ms_revision0.tex; 9/01/2007; 9:19; p.15
+16 M. TEMMER ET AL.
+Gonzalez, W. D., Joselyn, J. A., Kamide, Y., et al. 1994, J. Geophys.
+Res., 99, 5771
+Gosling, J. T., McComas, D. J., Phillips, J. L., and Bame, S. J. 1991,
+J. Geophys. Res., 96, 7831
+Grossman, A. and Morlet, J. 1984, SIAM J. Math, 15, 723
+Harvey, K. L. and Recely, F. 2002, Solar Phys., 211, 31
+Hathaway, D. H., Beck, J. G., Bogart, R. S., et al. 2000, Solar Phys.,
+193, 299
+Hill, S. M., Pizzo, V. J., Balch, C. C., et al. 2005, Solar Phys., 226, 255
+Hoeksema, J. T. 1995, Space Science Reviews, 72, 137
+Hoeksema, J. T. and Scherrer, P. H. 1987, Astrophys. J., 318, 428
+Hoeksema, J. T., Wilcox, J. M., and Scherrer, P. H. 1982, J. Geophys.
+Res., 87, 10331
+Hundhausen, A. 1977, in The Solar Output and its Variation, ed. O. R.
+White, 36–+
+Krieger, A. S., Timothy, A. F., and Roelof, E. C. 1973, Solar Phys.,
+29, 505
+Leer, E., Holzer, T. E., and Fla, T. 1982, Space Science Reviews, 33,
+161
+McComas, D. J., Bame, S. J., Barker, P., et al. 1998, Space Science
+Reviews, 86, 563
+Mursula, K. and Zieger, B. 1996, J. Geophys. Res., 101, 27077
+Nash, A. G., Sheeley, Jr., N. R., and Wang, Y.-M. 1988, Solar Phys.,
+117, 359
+Nayar, S. R., Sanalkumaran Nair, V., Radhika, V. N., and Revathy, K.
+2001, Solar Phys., 201, 405
+Neugebauer, M., Smith, E. J., Ruzmaikin, A., Feynman, J., and
+Vaughan, A. H. 2000, J. Geophys. Res., 105, 2315
+Robbins, S., Henney, C. J., and Harvey, J. W. 2006, Solar Phys., 233,
+265
+Schwenn, R. 1983, Space Science Reviews, 34, 85
+ms_revision0.tex; 9/01/2007; 9:19; p.16
+PERIODIC APPEARANCE OF CORONAL HOLES 17
+Schwenn, R. 2006, Living Reviews in Solar Physics, 3, 2
+Schwenn, R., dal Lago, A., Huttunen, E., and Gonzalez, W. D. 2005,
+Annales Geophysicae, 23, 1033
+Shen, C., Wang, Y., Ye, P., and Wang, S. 2006, Astrophys. J., 639, 510
+Smith, C. W., L’Heureux, J., Ness, N. F., et al. 1998, Space Science
+Reviews, 86, 613
+Stone, E. C., Frandsen, A. M., Mewaldt, R. A., et al. 1998, Space
+Science Reviews, 86, 1
+Sugiura, M. and Chapman, S. 1960, Abh. Akad. Wiss. Gttingen, 4, K1
+Sugiura, M. and Wilson, C. R. 1964, J. Geophys. Res., 69, 1211
+Svalgaard, L. and Wilcox, J. M. 1975, Solar Phys., 41, 461
+Torrence, C. and Compo, G. P. 1998, Bulletin of the American
+Meteorological Society, vol. 79, Issue 1, 79, 61
+Tsurutani, B. T. and Gonzalez, W. D. 1987, Plan. Space Sci., 35, 405
+Tsurutani, B. T. and Gonzalez, W. D. 1997, The Interplanetary Causes
+of Magnetic Storms: A Review (Magnetic Storms, Geophysical
+Monograph Series, Vol. 98), 77–+
+Tsurutani, B. T., Gonzalez, W. D., Guarnieri, F., et al. 2004, Journal
+of Atmospheric and Terrestrial Physics, 66, 167
+Vrsˇnak, B., Pohjolainen, S., Urpo, S., et al. 1992, Solar Phys., 137, 67
+Vrsˇnak, B., Temmer, M., and Veronig, A. 2006, Solar Phys., accepted
+Wang, Y.-M. and Sheeley, Jr., N. R. 1993, Astrophys. J., 414, 916
+Yashiro, S., Gopalswamy, N., Michalek, G., et al. 2004, Journal of
+Geophysical Research (Space Physics), 109, 7105
+Zhang, J., Dere, K. P., Howard, R. A., and Bothmer, V. 2003,
+Astrophys. J., 582, 520
+ms_revision0.tex; 9/01/2007; 9:19; p.17
+ms_revision0.tex; 9/01/2007; 9:19; p.18

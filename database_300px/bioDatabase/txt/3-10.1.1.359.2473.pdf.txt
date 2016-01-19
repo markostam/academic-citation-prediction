@@ -1,0 +1,525 @@
+Published online 28 April 2009 Nucleic Acids Research, 2009, Vol. 37, Web Server issue W129–W134
+doi:10.1093/nar/gkp264
+FMM: a web server for metabolic pathway
+reconstruction and comparative analysis
+Chih-Hung Chou1, Wen-Chi Chang2,3, Chih-Min Chiu1, Chih-Chang Huang2 and
+Hsien-Da Huang2,3,*
+1Institute of Molecular Medicine and Bioengineering, 2Institute of Bioinformatics and Systems Biology and
+3Department of Biological Science and Technology, National Chiao Tung University, Hsin-Chu 300, Taiwan,
+Republic of China
+Received February 18, 2009; Revised April 6, 2009; Accepted April 8, 2009
+ABSTRACT
+Synthetic Biology, a multidisciplinary field, is
+growing rapidly. Improving the understanding of
+biological systems through mimicry and producing
+bio-orthogonal systems with new functions are two
+complementary pursuits in this field. A web server
+called FMM (From Metabolite to Metabolite) was
+developed for this purpose. FMM can reconstruct
+metabolic pathways form one metabolite to another
+metabolite among different species, based mainly
+on the Kyoto Encyclopedia of Genes and Genomes
+(KEGG) database and other integrated biological
+databases. Novel presentation for connecting differ-
+ent KEGG maps is newly provided. Both local and
+global graphical views of the metabolic pathways
+are designed. FMM has many applications in
+Synthetic Biology and Metabolic Engineering. For
+example, the reconstruction of metabolic pathways
+to produce valuable metabolites or secondary meta-
+bolites in bacteria or yeast is a promising strategy
+for drug production. FMM provides a highly effective
+way to elucidate the genes from which species
+should be cloned into those microorganisms
+based on FMM pathway comparative analysis.
+Consequently, FMM is an effective tool for applica-
+tions in synthetic biology to produce both drugs and
+biofuels. This novel and innovative resource is now
+freely available at http://FMM.mbc.nctu.edu.tw/.
+INTRODUCTION
+Synthetic Biology, a rapidly growing multidisciplinary
+ﬁeld, has two complementary goals- further elucidating
+biological systems through mimicry and producing bio-
+orthogonal systems with new functions (1). Microbes are
+well established as eﬀective hosts for the biosynthesis of
+bio-molecules; consequently, engineered microbial biolog-
+ical systems represent critical frontier in synthetic biology
+(2). Engineered microorganisms are employed in numer-
+ous applications, including food additives, pharmaceuti-
+cals, fuels, animal feed supplements, cosmetics and
+polymer materials (3,4). For example, Corynebacterium
+glutamicum and Escherichia coli are used to produce
+lysine, methionine, valine and threonine (3,5–8) which
+are essential intermediate precursors for antibiotics (9)
+and biofuels (10). These beneﬁts have motivated scientists
+to design and construct new biological components
+(such as enzymes, genetic circuits, metabolic pathways
+and cells) and redesign existing biological systems (11).
+Furthermore, synthetic biology can be modeled, under-
+stood, and tuned to meet particular performance criteria,
+and smaller components can be assembled into larger inte-
+grated systems that solve speciﬁc problems (11). Hence,
+more bioinformatics tools have been created recently for
+applications in metabolic engineering.
+Since 1995, Kanehisa et al. has been developing knowl-
+edge-based methods for elucidating higher-order systemic
+behaviors of cells and organisms from genomic and molec-
+ular information (12–15). They established the Kyoto
+Encyclopedia of Genes and Genomes (KEGG) database
+for integrating genomic, chemical, metabolic pathways,
+and systemic functional information (12–15). MetaCyc
+(16) is a non-redundant database and contains more
+than 1100 experimentally elucidated metabolic pathways
+from more than 1500 organisms; it provides a set of
+reference data for computationally predicting metabolic
+pathways. Several important databases of metabolic path-
+ways exist with hundreds of metabolic pathways and thou-
+sands of biochemical reactions; even the metabolic
+pathways for a small organism constitutes a large net-
+work, such as Roche Applied Science Biochemical
+Pathways chart (17) and BRENDA (18). Although
+numerous servers can reconstruct metabolic pathways
+*To whom correspondence should be addressed. Tel: +886 3 5712121. ext.: 56952; Fax: +886 3 5739320; Email: bryan@mail.nctu.edu.tw
+The authors wish it to be known that, in their opinion, the first two authors should be regarded as joint First Authors.
+ 2009 The Author(s)
+This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License (http://creativecommons.org/licenses/
+by-nc/2.0/uk/) which permits unrestricted non-commercial use, distribution, and reproduction in any medium, provided the original work is properly cited.
+based on available metabolic maps, it is still inconvenient
+to reconstruct metabolic pathways from two interesting
+metabolites. For instance, determining the metabolic path-
+way from glucose to pyruvate from those databases is
+arduous unless the two metabolites are already known
+to be involved in the glycolysis pathway. Moreover, only
+one metabolite can be input to any of those servers, and
+users need considerable time to ﬁnd a speciﬁc pathway
+in which they are interested. In addition, comparative ana-
+lysis of metabolic networks in various species yields
+important information for many topics in biology and
+life sciences, such as evolution and speciation, metabolic
+engineering, and drug design.
+Li et al. (19) adopted Metabolic Pathway Alignment
+and Scoring (M-PAS) for identifying and ranking
+conserved metabolic pathways based on a comprehen-
+sive and ﬂexible similarity measuring method. The
+Comparative Pathway Analyzer (CPA) calculates and
+displays the diﬀerences between the metabolic reaction
+contents of several organisms (20). The Roseobacter sys-
+tems biology database (ROSY) represents an integrated
+platform for studying the comparative genomics and sys-
+tems biology of Roseobacter-related species (21).
+However, even some of the resources for comparative ana-
+lysis of metabolic pathways of various species focus on a
+few species only or do not provide a convenient interface
+for analysis.
+The above considerations motivated the development of
+a novel and easy resource for use in synthetic biology,
+which is proposed herein. In this work, a new web
+server, FMM (From Metabolite to Metabolite), was
+designed to reconstruct metabolic pathways form one
+metabolite to another among diﬀerent species, based
+mainly on the KEGG database (12–15) and other inte-
+grated biological databases. Even though KEGG maps
+utilized in many metabolic tools, none of them can con-
+nect metabolites from diﬀerent KEGG maps. FMM sup-
+ports the connection of diﬀerent KEGG maps. Figure 1
+depicts the basic concept of FMM which demonstrates
+that FMM has numerous applications in synthetic biology
+and metabolic engineering. For instance, the reconstruc-
+tion of metabolic pathways to produce valuable metabo-
+lites or secondary metabolites in bacteria or yeast is a
+promising strategy for producing drugs. FMM provides
+a very convenient way to elucidate which genes
+from which species should be cloned into those microor-
+ganisms based on FMM pathway comparative analysis.
+Accordingly, FMM is an eﬀective tool in synthetic biology
+and metabolic engineering, such as applications in drug
+production and biofuel production.
+METHODS
+Figure 1 displays metabolic pathways that can be easily
+reconstructed from two interesting metabolites among
+various species using the FMM system. Figure 2 presents
+the system ﬂow of FMM. A reaction matrix was devel-
+oped to identify numerous reaction processes from one
+metabolite to another. Enzyme annotations from
+UniProtKB/Swiss-Prot (22) were employed to identify
+enzymes from diﬀerent species in comparative analysis.
+Data collection and integration
+FMM reaction deﬁnitions, species-speciﬁc reactions, reac-
+tion maps and enzyme lists were obtained from KEGG/
+LIGAND and KEGG/PATHWAY database Release
+Figure 1. A conceptual diagram of FMM.
+W130 Nucleic Acids Research, 2009, Vol. 37,Web Server issue
+48.0, updated on 1 October 2008 (12–15). Some informa-
+tion (including gene names, Enzyme Commission (EC)
+numbers, and species-speciﬁc enzymes) was supplied
+from UniProtKB/Swiss-Prot Release 14.0 (22) and
+NCBI Taxonomy database (23,24). The data in the pro-
+posed FMM will be updated regularly. The current meta-
+bolites (including ATP, NADH, H2O and CO2) are
+generally used as carriers for transferring electrons or cer-
+tain functional groups (including phosphate group, amino
+group, one carbon unit, and methyl group); they are like
+the external metabolites that participate in many reactions
+and are not in pseudo steady state in a sub-network. The
+connections through current metabolites should be
+avoided in calculating the path length from one metabolite
+to another. Hence, the connections through current meta-
+bolites and cofactors were deleted manually to make
+the path length analysis physiologically more meaningful.
+The current metabolites are displayed in Table S1 (See
+Supplementary Data). However, some current metabolites
+are primary metabolites. For example, asparate is not only
+a current metabolite involved in transamination mech-
+anism (oxaloacetate+NH3+NADPH=asparate+
+NADP + H2O), but also a primary metabolite in biosyn-
+thesis of amino acids. When the current metabolites are
+involved in the primary pathway as primary metabolites,
+such reactions and metabolites are collected in FMM.
+Therefore, biosynthesis of amino acids can be conducted
+in FMM.
+Posttranslational modiﬁcation (PTM) is the chemical
+modiﬁcation of a protein after its translation. In eukar-
+yote, the PTM of amino acids extends numerous functions
+of the protein involving protein structure change, such as
+formation of disulﬁde bridges and regulation of transcrip-
+tion. However, there is no PTM mechanism after protein
+translation in prokaryote. Therefore, a functional enzyme
+that needed PTM in eukaryote was no function when
+cloning into prokaryote. It is important to know the
+PTM information before cloning one gene from eukaryote
+to prokaryote. dbPTM (25) is a database that compiles
+information on protein post-translational modiﬁcations
+(PTMs), such as the catalytic sites, solvent accessibility
+of amino-acid residues, protein secondary and tertiary
+structures, protein domains and protein variations.
+Protein post-translational modiﬁcation (PTM) informa-
+tion was extracted from dbPTM (25). The numbers of
+collected metabolites, enzymes, reactions, species and
+KEGG maps are 16 832, 2336, 4288, 1491 and 149 in
+FMM, respectively.
+Figure 2. System ﬂow of FMM.
+Nucleic Acids Research, 2009, Vol. 37, Web Server issue W131
+Construction of reaction matrix
+Information on reactions and enzymes was obtained from
+KEGG pathway maps and the equations of each reaction
+were determined. Therefore, a reaction matrix was con-
+structed based on maps, reactions and enzymes data.
+For instance, ‘R01731: Oxaloacetate + L-Arogenate
+<=> L-Aspartate+Prephenate’ is converted into
+‘R01731: C00036+C00826 <=> C00049 + C00254’
+(where R01731 is KEGG reaction ID; C00036, C00826,
+C00049 and C00254 are KEGG compound ID). The reac-
+tion R01731 is a reversible reaction which is regarded as
+two forward reactions in FMM. The direction of one for-
+ward reaction is from C00254 to C00036 in the pathway
+map, the other is from C00036 to C00254. The example
+illustrate herein is only one forward reaction from C00254
+to C00036. Therefore, four reactions are described below:
+C00254 => C00826 1
+C00254 => C00036 2
+C00049 => C00826 3
+C00049 => C00036 4
+Each equation corresponds to an edge in a graph;
+Figure S1 (See Supplementary Data) depicts an example
+reaction matrix. FMM contains 16884 compounds; and so
+the size of the reaction matrix is 1688416884. A direct path
+graph of the reactions depends on the reaction matrix using
+the breadth ﬁrst search (BFS) approach. As shown in
+Figure S2 (See Supplementary Data), when the direct path
+graphfromcompoundC00254tocompoundC00079 is iden-
+tiﬁed by BFS, the search terminates when the C00079 node
+isfound.Additionally,KEGGMODULEisanewcollection
+of pathway modules, molecular complexes, and other func-
+tional units, each represented as a list of KEGGOrthology
+(KO) identiﬁers,whichwereused inpathway reconstruction
+when the node was a KEGGMODULE.
+Reconstruction of metabolic pathway from various KEGG
+pathway maps
+After all possible reaction paths were identiﬁed, the
+number of pathway maps was calculated. Usually, found
+paths occurred not in only a single pathway map, but in a
+complicated fashion in several maps. Pathway maps that
+contain the most paths are selected and the one pathway
+map that has only one reaction is avoided. A matrix of
+maps versus reactions was employed to reconstruct meta-
+bolic pathway from diﬀerent KEGG maps. For example,
+the pathway from C00254 to C00811 passes through sev-
+eral reactions (paths) and maps, as described in Figure S3
+(See Supplementary Data). It is better to select fewer
+maps and fewer map exchanges to reconstruct metabolic
+pathway. Therefore, based on the above example,
+‘map00400 ! map00400 ! map00360 ! map00360’ is
+much better than ‘map00400 ! map00400 ! map00960
+! map00360’.
+COMPARATIVE ANALYSIS
+Comparative analysis provided in FMM is useful in
+synthetic biology. For example, the reconstruction of
+metabolic pathways to produce valuable metabolites or
+secondary metabolites in bacteria or yeast is a promising
+biotechnological strategy. Comparative analysis provides
+an easy way to elucidate which genes from which species
+should be cloned into those microorganisms. First, the
+enzymes identiﬁed in the reconstructed pathway were
+processed to search for orthologous encoding genes from
+various species. Then, the presence or absence of the path-
+way in a particular species can be known. Furthermore,
+comparative tables of several organisms are provided. The
+species are ranked according to the numbers of enzymes
+involved in the reconstructed pathway.
+WEBSITE USAGE
+Web Interface
+Figure S4 (See Supplementary Data) presents the user-
+friendly web interface of the FMM. In ‘Start FMM’,
+two metabolites of interest (keyword or KEGG com-
+pound ID) can be input and several species can be selected
+from four categories (animals, plants, fungi and prokar-
+yotic). The metabolic pathways corresponding to the two
+input metabolites can be reconstructed, as given in
+Figure S4A (See Supplementary Data). As to the compar-
+ative analysis of metabolic pathways, Figure S4B (See
+Supplementary Data) includes one species in the ‘major
+species’ column (of microorganisms commonly used in
+synthetic biology) and several in the ‘comparative species’
+column (of several organisms in common use in the
+laboratory). The comparative metabolic pathways
+between various organisms are then generated. The out-
+puts include two views of the metabolic pathway; one is a
+vertical view (local view); the other highlights the meta-
+bolic pathway in the KEGG map (global view), as shown
+in Figure 3A and B, respectively. The EC number and
+hyperlinks to detailed information (such as orthologous
+enzymes and PTM) of the enzymes that are involved in
+the pathway are supplied when the names of the enzymes
+and star symbols in the output table and ﬁgure are clicked.
+When the metabolic pathway traverses more than one
+KEGG map, it can be connected from several KEGG
+maps using our system, as presented in Figure S5 (See
+Supplementary Data).
+Case studies
+Case study I—application in plant secondary metabolites
+production. Plant-speciﬁc ﬂavonoids are important sec-
+ondary metabolites which are synthesized from
+4-coumaroyl coenzyme A (CoA) and derived from the
+general phenylpropanoid pathway, and three malonyl-
+CoAs. Numerous plant ﬂavonoid biosynthetic enzymes,
+which are individually expressed in E. coli as functional
+enzymes, have been identiﬁed (26,27). Furthermore, Watts
+et al. (28) successfully cloned several critical genes from
+plants into E. coli and observed the high-level production
+of ﬂavanone naringenin by feeding exogenous
+4-coumarate. In this work, the system of Watts et al.’s
+was adopted as an example to demonstrate the eﬀective-
+ness of FMM. When either the genes that can be cloned
+into E. coli to produce naringenin from 4-coumarate,
+W132 Nucleic Acids Research, 2009, Vol. 37,Web Server issue
+or the species from which they can be cloned, are
+unknown, FMM identiﬁes them most easily.
+4-Coumarate (C00811) and naringenin (C00509) were
+inputted into FMM; one E. coli was selected from
+‘major species’ and ‘Arabidopsis thaliana’ and ‘Oryza
+sativa’ were selected from ‘comparative species’ in the
+‘Comparative Analysis’ web page. Figure S6 (See
+Supplementary Data) indicates the eﬀortlessness of under-
+standing how the metabolic pathway from 4-coumarate to
+naringenin passes through three enzymes (4-coumarate-
+CoA ligase, chalcone synthase and chalcone isomerase),
+none of which are present in E. coli. Nevertheless, the
+results of FMM reveal that all of these genes can be
+cloned from A. thaliana, Oryza sativa, Populus tricho-
+carpa, Glycine max and Vitis vinifera. Watts et al. (28)
+cloned 4-coumarate-CoA ligase, chalcone synthase, and
+chalcone isomerase genes from Arabidopsis into E. coli;
+the results herein provide information that supports this
+cloning. FMM is thus a very useful tool in microbial engi-
+neering in synthetic biology.
+Case study II—application in pharmaceuticals. Plants
+are well known to generate large amounts of
+phenylpropanoids which are important sources of phar-
+maceuticals due to their diverse chemical structures; for
+example, resveratrol is a chemopreventive anti-cancer
+agent (29). The inhibition of inﬂammation, tumor promo-
+tion, angiogenesis and metastasis and regulation of cell
+cycle progression are all pharmaceutical beneﬁts of resver-
+atrol (30). However, the mass-production of resveratrol is
+expensive because of the extraction processes are costly.
+However, the superb health eﬀects of resveratrol are moti-
+vating scientists to synthesize resveratrol using metabolic
+engineering methods in bacteria. When synthetic engineer-
+ing in bacteria, genes from which organisms are cloned
+into bacteria should be identiﬁed. FMM is an eﬀective
+tool for this purpose. For instance, if E. coli is to be
+used to produce resveratrol, resveratrol and tyrosine
+(which is a well known amino acid for the production of
+plant secondary metabolites) can be input into FMM. The
+synthesis pathway of resveratrol from tyrosine is easily
+determined (Figure 3A). Figure 3A reveals that E. coli
+and yeast cannot synthesize resveratrol unless several crit-
+ical genes are cloned into their cells from other species.
+For example, tyrosine-ammonia-lyase can be obtained
+from R. sphaeroides, 4-coumarate-CoA-lagase can be
+obtained from V. vinifera or A. thaliana, and trihydroxys-
+tilbene synthase can be obtained from A. hypogaea or
+V. vinifera. The results can be used as candidates for fur-
+ther experimental conﬁrmation. Accordingly, FMM has
+practical and eﬀective functions in synthetic biology.
+Certainly, FMM is also useful in the reconstruction of
+synthesis (metabolic) pathways. The metabolic pathways
+of interest can be signiﬁcantly identiﬁed in KEGG maps in
+FMM. Furthermore, FMM is particularly convenient
+when the metabolic pathway traverses more than one
+KEGG map. Figure S5 (See Supplementary Materials)
+indicates that the metabolic pathway from D-erythrose-4-
+-phosphate to chorismate passes through three KEGG
+maps. No other server has presented such a convenient
+interface for identifying metabolic pathway.
+SUMMARY
+The concept of FMM is illustrated in Figure 1, which
+demonstrates that metabolic pathways can be easily recon-
+structed among various species using the FMM system.
+The results suggest that FMM is helpful in metabolic engi-
+neering by reconstructing metabolic pathways for produ-
+cing some valuable metabolites or secondary metabolites
+in bacteria or yeast, which approach has potential in drug
+production. Moreover, FMM can be used to compare
+the metabolic pathways between numerous species and
+connect metabolic pathways of diﬀerent KEGG maps,
+suggesting that FMM is not only an eﬀective tool for syn-
+thetic biology, such as in the production of drugs and
+biofuels, but also a useful resource for investigation in
+metabolism.
+In order to connect metabolic pathways of diﬀerent
+KEGG maps in FMM, the compounds and reactions are
+restricted by the KEGG database. However, people may
+argue the incompleteness of FMM database for extract-
+ing metabolic pathway, due to several shortcomings of
+Figure 3. An example of web interface in FMM. (A) ‘Vertical graph’
+and (B) ‘Global graph’ (KEGG map) of the metabolic pathway from
+tyrosine to resveratrol.
+Nucleic Acids Research, 2009, Vol. 37, Web Server issue W133
+KEGG database, such as incomplete compounds and
+reactions (31,32). During the prospective works, we will
+integrate other resources, such as MetaCyc (16) to
+enhance the information of biochemical reactions in
+FMM database.
+AVAILABILITY
+The FMM web server will be continuously maintained
+and updated. The web server is now freely available at
+http://FMM.mbc.nctu.edu.tw/.
+SUPPLEMENTARY DATA
+Supplementary Data are available at NAR Online.
+FUNDING
+National Science Council of the Republic of China (con-
+tract numbers: NSC 96-3112-E-009-002, NSC 97-2811-B-
+009-001 and NSC 97-2627-B-009-007); National Research
+Program for Genomic Medicine (NRPGM), Taiwan;
+MOE ATU (Partial). Funding for open access charge:
+National Science Council of the Republic of China and
+MOE ATU.
+Conﬂict of interest statement. None declared.
+REFERENCES
+1. Channon,K., Bromley,E.H. and Woolfson,D.N. (2008) Synthetic
+biology through biomolecular design and engineering. Curr. Opin.
+Struct. Biol., 18, 491–498.
+2. Prather,K.L. and Martin,C.H. (2008) De novo biosynthetic
+pathways: rational design of microbial chemical factories. Curr.
+Opin. Biotechnol., 19, 468–474.
+3. Park,J.H. and Lee,S.Y. (2008) Towards systems metabolic
+engineering of microorganisms for amino acid production. Curr.
+Opin. Biotechnol., 19, 454–460.
+4. Ikeda,M. (2003) Amino acid production processes. Adv. Biochem.
+Eng. Biotechnol., 79, 1–35.
+5. Lee,J.H., Lee,D.E., Lee,B.U. and Kim,H.S. (2003) Global analyses
+of transcriptomes and proteomes of a parent strain and an
+L-threonine-overproducing mutant strain. J. Bacteriol., 185,
+5442–5451.
+6. Ohnishi,J., Katahira,R., Mitsuhashi,S., Kakita,S. and Ikeda,M.
+(2005) A novel gnd mutation leading to increased L-lysine
+production in Corynebacterium glutamicum. FEMS Microbiol. Lett.,
+242, 265–274.
+7. Ruckert,C., Puhler,A. and Kalinowski,J. (2003) Genome-wide ana-
+lysis of the L-methionine biosynthetic pathway in Corynebacterium
+glutamicum by targeted gene deletion and homologous comple-
+mentation. J. Biotechnol, 104, 213–228.
+8. Park,J.H., Lee,K.H., Kim,T.Y. and Lee,S.Y. (2007) Metabolic
+engineering of Escherichia coli for the production of L-valine based
+on transcriptome analysis and in silico gene knockout simulation.
+Proc. Natl Acad. Sci. USA, 104, 7797–7802.
+9. Garg,R.P., Qian,X.L., Alemany,L.B., Moran,S. and Parry,R.J.
+(2008) Investigations of valanimycin biosynthesis: elucidation of the
+role of seryl-tRNA. Proc. Natl Acad. Sci. USA, 105, 6543–6547.
+10. Atsumi,S., Hanai,T. and Liao,J.C. (2008) Non-fermentative path-
+ways for synthesis of branched-chain higher alcohols as biofuels.
+Nature, 451, 86–89.
+11. Keasling,J.D. (2008) Synthetic biology for synthetic chemistry. ACS
+Chem. Biol., 3, 64–76.
+12. Kanehisa,M. (1996) Toward pathway engineering: a new database
+of genetic and molecular pathways. Sci. Technol. Japan, 59, 5.
+13. Kanehisa,M., Araki,M., Goto,S., Hattori,M., Hirakawa,M.,
+Itoh,M., Katayama,T., Kawashima,S., Okuda,S., Tokimatsu,T.
+et al. (2008) KEGG for linking genomes to life and the environ-
+ment. Nucleic Acids Res., 36, D480–D484.
+14. Kanehisa,M., Goto,S., Hattori,M., Aoki-Kinoshita,K.F., Itoh,M.,
+Kawashima,S., Katayama,T., Araki,M. and Hirakawa,M. (2006)
+From genomics to chemical genomics: new developments in KEGG.
+Nucleic Acids Res., 34, D354–D357.
+15. Kanehisa,M. and Goto,S. (2000) KEGG: kyoto encyclopedia of
+genes and genomes. Nucleic Acids Res., 28, 27–30.
+16. Caspi,R., Foerster,H., Fulcher,C.A., Kaipa,P., Krummenacker,M.,
+Latendresse,M., Paley,S., Rhee,S.Y., Shearer,A.G., Tissier,C. et al.
+(2008) The MetaCyc Database of metabolic pathways and enzymes
+and the BioCyc collection of Pathway/Genome Databases. Nucleic
+Acids Res., 36, D623–D631.
+17. Michal,G.E. (1999) Biological Pathways: An Atlas of Biochemistry
+and Molecular Biology. Wiley, New York.
+18. Chang,A., Scheer,M., Grote,A., Schomburg,I. and Schomburg,D.
+(2009) BRENDA, AMENDA and FRENDA the enzyme
+information system: new content and tools in 2009. Nucleic Acids
+Res., 37, D588–592.
+19. Li,Y., de Ridder,D., de Groot,M.J. and Reinders,M.J. (2008)
+Metabolic pathway alignment between species using a comprehen-
+sive and ﬂexible similarity measure. BMC Syst. Biol., 2, 111.
+20. Oehm,S., Gilbert,D., Tauch,A., Stoye,J. and Goesmann,A. (2008)
+Comparative Pathway Analyzer – a web server for comparative
+analysis, clustering and visualization of metabolic networks in
+multiple organisms. Nucleic Acids Res., 36, W433–437.
+21. Pommerenke,C., Gabriel,I., Bunk,B., Munch,R., Haddad,I.,
+Tielen,P., Wagner-Dobler,I. and Jahn,D. (2008) ROSY—a ﬂexible
+and universal database and bioinformatics tool platform for
+Roseobacter related species. In Silico Biol., 8, 177–186.
+22. Boutet,E., Lieberherr,D., Tognolli,M., Schneider,M. and Bairoch,A.
+(2007) UniProtKB/Swiss-Prot. Methods Mol. Biol., 406, 89–112.
+23. Pruitt,K.D., Tatusova,T., Klimke,W. and Maglott,D.R. (2009)
+NCBI Reference Sequences: current status, policy and new
+initiatives. Nucleic Acids Res., 37, D32–D36.
+24. Tatusova,T., Smith-White,B. and Ostell,J. (2007) A collection of
+plant-speciﬁc genomic data and resources at NCBI. Methods Mol.
+Biol., 406, 61–87.
+25. Lee,T.Y., Huang,H.D., Hung,J.H., Huang,H.Y., Yang,Y.S. and
+Wang,T.H. (2006) dbPTM: an information repository of
+protein post-translational modiﬁcation. Nucleic Acids Res., 34,
+D622–D627.
+26. Hotze,M., Schroder,G. and Schroder,J. (1995) Cinnamate 4-hydro-
+xylase from Catharanthus roseus, and a strategy for the functional
+expression of plant cytochrome P450 proteins as translational
+fusions with P450 reductase in Escherichia coli. FEBS Lett., 374,
+345–350.
+27. Ehlting,J., Buttner,D., Wang,Q., Douglas,C.J., Somssich,I.E. and
+Kombrink,E. (1999) Three 4-coumarate:coenzyme A ligases in
+Arabidopsis thaliana represent two evolutionarily divergent classes
+in angiosperms. Plant J., 19, 9–20.
+28. Watts,K.T., Lee,P.C. and Schmidt-Dannert,C. (2004) Exploring
+recombinant ﬂavonoid biosynthesis in metabolically engineered
+Escherichia coli. Chembiochem, 5, 500–507.
+29. Yu,O. and Jez,J.M. (2008) Nature’s assembly line: biosynthesis of
+simple phenylpropanoids and polyketides. Plant J., 54, 750–762.
+30. Kundu,J.K. and Surh,Y.J. (2004) Molecular basis of chemopre-
+vention by resveratrol: NF-kappaB and AP-1 as potential targets.
+Mutat. Res., 555, 65–80.
+31. Ginsburg,H. (2006) Progress in in silico functional genomics: the
+malaria Metabolic Pathways database. Trends Parasitol., 22,
+238–240.
+32. Mombach,J.C.M., Lemke,N., da Silva,N.M., Ferreira,R.A.,
+Filho,E.I., Barcellos,C.K. and Ormazabal,R.J. (2005) Using the
+FORESTS and KEGG databases to investigate the metabolic
+network of Eucalyptus. Genet. Mol. Biol., 28, 4.
+W134 Nucleic Acids Research, 2009, Vol. 37,Web Server issue

@@ -1,0 +1,2383 @@
+MATHEMATICS OF OPERATIONS RESEARCH
+Vol. 34, No. 1, February 2009, pp. 1–25
+issn 0364-765X eissn 1526-5471 09 3401 0001
+informs ®
+doi 10.1287/moor.1080.0352
+©2009 INFORMS
+On Safe Tractable Approximations of Chance-Constrained
+Linear Matrix Inequalities
+Aharon Ben-Tal
+Faculty of Industrial Engineering and Management, MINERVA Optimization Center, Technion–Israel Institute of Technology,
+Technion City, Haifa 32000, Israel, abental@ie.technion.ac.il
+Arkadi Nemirovski
+School of Industrial and Systems Engineering, Georgia Institute of Technology, Atlanta, Georgia 30332,
+nemirovs@isye.gatech.edu
+In the paper we consider the chance-constrained version of an afﬁnely perturbed linear matrix inequality (LMI) constraint,
+assuming the primitive perturbations to be independent with light-tail distributions (e.g., bounded or Gaussian). Constraints
+of this type, playing a central role in chance-constrained linear/conic quadratic/semideﬁnite programming, are typically com-
+putationally intractable. The goal of this paper is to develop a tractable approximation to these chance constraints. Our
+approximation is based on measure concentration results and is given by an explicit system of LMIs. Thus, the approximation
+is computationally tractable; moreover, it is also safe, meaning that a feasible solution of the approximation is feasible for
+the chance constraint.
+Key words : chance constraints; linear matrix inequalities; convex programming; measure concentration
+MSC2000 subject classiﬁcation : Primary: 90C15, 90C22, 90C25; secondary: 60F10
+OR/MS subject classiﬁcation : Primary: programming/stochastic; secondary: mathematics/matrices
+History : Received November 20, 2006; revised October 19, 2007 and August 13, 2008.
+1. Introduction. In this paper we study uncertain linear matrix inequalities (LMIs)
+x  0 (1)
+where x ∈Rm is the decision vector,  ∈Rd is data perturbation, the body x  of the inequality is bi-afﬁne
+mapping in x and  taking values in the space Sn of symmetric n× n matrices, speciﬁcally:
+x =0	x
++
+d∑
+l=1
+ll	x
+ (2)
+where the matrices 0	x
+    d	x
+ ∈ Sn are afﬁne in x. Here A B means that AB are symmetric matrices
+such that the matrix A−B is positive semideﬁnite. We are interested in the case when (1) is a constraint in an
+optimization problem we wish to solve, and our goal is to process such an uncertain constraint. Given the basic
+role played by LMI constraints in modern convex optimization and the fact that the data in real-life optimization
+problems in many cases are uncertain (not known exactly the time the problem is to be solved), the question of
+how to process an uncertain LMI constraint is of major interest.
+For the time being, there are two main approaches to treating uncertain constraints. The more traditional one,
+offered by stochastic programming, utilizes a stochastic uncertainty model:  is assumed to be a random vector
+with known (perhaps only partially) distribution. Here a natural way is to pass from the uncertain constraint (1)
+to its chance-constrained version—the usual—“certain”—constraint
+px = inf
+P∈
+Prob∼P x  0≥ 1−  (3)
+where  is the family of all probability distributions of  compatible with our a priori information, and  ∈ 01
+is a given tolerance. An alternative to this approach, offered by robust optimization, is based on an “uncertain-
+but-bounded” model of data perturbations where all our a priori knowledge of  is that it belongs to a given
+uncertainty set . In this case, a natural way is to replace the uncertain constraint with its robust counterpart
+x  0 ∀  ∈ (4)
+Note that both outlined approaches “as they are” usually lead to computationally intractable constraints. As far
+as the chance-constrained LMI (3) is concerned, typically the only way to check whether a given point belongs
+to its feasible set is to use Monte Carlo simulation with sample size of order −1, and this is computationally
+too demanding when  is small. Another difﬁculty comes from the fact that the feasible set of (3) is usually
+1
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+2 Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS
+nonconvex. The latter complication does not arise with the robust optimization approach—the feasible set of (4)
+is always convex; unfortunately, the ﬁrst difﬁculty—impossible to check efﬁciently whether this semi-inﬁnite
+convex constraint is satisﬁed at a given point—may become even more severe than in the case of chance-
+constrained LMI. These tractability difﬁculties of processing the LMI (1) make it natural to replace such a
+constraint with a safe tractable approximation—a system  of efﬁciently computable convex constraints in
+variables x and, perhaps, additional variables u such that whenever xu is feasible for  , x is feasible for the
+constraint (1). For the time being, “tight” (in a certain precise sense) approximations of this type are known only
+for the robust counterpart type constraints (4), and only under speciﬁc restrictions on the structure of x ;
+see Ben-Tal et al. [3, 4, 5]. In this paper, we focus solely on chance-constrained LMIs (3). In this case, seemingly
+the only safe tractable approximation known in the literature is the one given by the general scenario approach.
+For a chance-constrained optimization program
+min
+x
+f0x Probfix ≤ 0≥ 1−  i= 1     I
+its scenario approximation is the random optimization program
+min
+x
+f0x fix 
+j≤ 0 i= 1     I j = 1     J 
+where 1     J is a sample of independent realizations of  . Theoretical justiﬁcation of this natural approxi-
+mation scheme is presented in Calaﬁore and Campi [8] and de Farias and Van Roy [9]. In particular, it is shown
+in Calaﬁore and Campi [8] that if f0x, fix , i= 1     I , are convex in x ∈Rm and the sample size J is
+large enough:
+J ≥ J ∗ =Ceil [2m−1 log 12/+ 2−1 log 2/+ 2m]  (5)
+then an optimal solution to the approximation, up to probability ≤  of “bad sampling,” is feasible for the
+chance-constrained problem. (For substantial extensions of this remarkable result to the case of ambiguously
+chance-constrained convex problems, see Erdogan and Iyengar [10].) Although pretty general (in particular,
+imposing no restrictions on how the random perturbations enter the constraints and how they are distributed)
+and tractable, the scenario approximation has an intrinsic drawback—it requires samples of order 1/, and
+thus becomes prohibitively computationally demanding when  becomes small, like 10−5 or less. For afﬁnely
+perturbed LMIs (2) with independent of each other “light-tail” perturbations l, l= 1     d, this drawback can
+be circumvented by a kind of importance sampling; see Nemirovski and Shapiro [15]. In this paper, we work
+under the same assumptions as in Nemirovski and Shapiro [15], i.e., focus on afﬁnely perturbed LMIs with
+independent-of-each-other light-tail random perturbations l, and develop a novel, safe, tractable approximation
+of the chance-constrained versions (3) of these LMIs. In contrast to the purely simulation-based approximations
+of Calaﬁore and Campi [8], Erdogan and Iyengar [10], and Nemirovski and Shapiro [15], our new approximation
+is nearly analytic. Speciﬁcally, by itself our approximation is an explicit semideﬁnite program depending on
+a pair of real parameters and completely independent of any samples. In order for this approximation to be
+safe, the pair of parameters in question should be “properly guessed,” that is, should ensure the validity of a
+speciﬁc large-deviation-type inequality. In principle, we can point out appropriate values of these parameters in
+advance. However, to reduce the conservatism of the approximation, we allow for an “optimistic” choice of the
+parameters and introduce a speciﬁc simulation-based postoptimization validation procedure that allows us either
+to justify our “optimistic guess” (and thus guarantees “up to probability ≤  of bad sampling” that the solution
+we end up with is feasible for the chance constraint of interest), or else demonstrates that our guess was “too
+optimistic,” in which case we can pass to an approximation with better-chosen parameters. It should be stressed
+that in principle the size J of the sample used in this “validation procedure" is completely independent of how
+small the tolerance  is; all we need is J ≥O1 ln1/.
+The rest of the paper is organized as follows. In §2 we make our standing assumptions and outline and
+motivate our approximation strategy. This strategy is fully developed in §§3.1 and 3.2. In §4 we consider
+two important special cases of (3). In the ﬁrst of them, all matrices l	x
+, l = 01     d, are diagonal. This
+is the case of randomly perturbed scalar linear inequalities or, which is the same, about chance-constrained
+linear programming. In the second special case, the matrices l	x
+, l= 1     d, are of the form lxGx+
+exf Tl x+ flxeT x, where ex and flx are vectors (and, as always in this paper, l	x
+ is afﬁne in x).
+This situation covers the case when (1) is a randomly perturbed conic quadratic inequality A	x
+ + b	x
+2 ≤
+cT 	x
+ +d	x
+ (A	x
+ b	x
+ c	x
+d	x
+ are afﬁne in x); indeed,
+A	x
+ + b	x
+2 ≤ cT 	x
+ +d	x
+ ⇔
+[
+d	x
+ bT 	x
+
+b	x
+ d	x
+I
+]
+︸ ︷︷ ︸
+0	x
+
++
+d∑
+l=1
+l
+[
+cl	x
+ A
+T
+l 	x
+
+Al	x
+ cl	x
+I
+]
+︸ ︷︷ ︸
+l 	x
+
+ 0 (6)
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS 3
+where Al	x
+ are the columns of A	x
+, and cl	x
+ are the entries of c	x
+. Note that “fully analytic” safe, tractable
+approximations of chance-constrained LPs were recently proposed in Nemirovski and Shapiro [14]; §4 contains a
+comparison of approximations from Nemirovski and Shapiro [14] with the one developed in this paper. Section 5
+presents techniques allowing us to reduce the task of building a safe approximation for the chance-constrained
+LMI (3) (under partially known “light-tail” distributions of independent perturbations l) to a similar task for
+an appropriately chosen reference distribution of  (most notably a Gaussian one). The concluding §6 presents
+numerical illustrations.
+2. Goals, assumptions, strategy. Recall that our ultimate goal is to process a given chance-constrained
+optimization problem of the form
+min
+x
+cT x
+F x≤ 0
+Prob
+{
+0	x
++
+d∑
+l=1
+ll	x
+ 0
+}
+≥ 1− 
+  (7)
+where F x is an efﬁciently computable vector function with convex components, 0	x
+    d	x
+ are sym-
+metric matrices afﬁnely depending on the decision vector x,  ∈ 01 is a given tolerance, and 1     d are
+random perturbations. What we intend to do is to replace in (7) the “troublemaking” chance constraint with a
+safe tractable approximation, the latter notion being deﬁned as follows:
+Deﬁnition 2.1. We say that an explicit system  of efﬁciently computable convex constraints on variables x
+and additional variables u is a safe, tractable approximation of the chance-constrained LMI
+px = Prob
+{
+0	x
++
+d∑
+l=1
+iAi	x
+ 0
+}
+≥ 1−  (8)
+if whenever a vector x can be extended to a feasible solution xu of  , x is feasible for the chance con-
+straint (8) (or, which is the same, if the projection X of the solution set of  on the space of x-variables is
+contained in the feasible set of (8)).
+Note that the requirement that X is contained in the feasible set of (8) means that  produces a sufﬁcient
+condition for (8) to be satisﬁed (“safety” of the approximation). Similarly, the requirement that  is a system
+of efﬁciently computable convex constraints implies that we can minimize efﬁciently convex functions over X
+(“tractability” of the approximation).
+Replacing the chance constraint (8) in the optimization problem (7) with a safe tractable approximation we
+get an optimization problem in variables xu with efﬁciently computable convex constraints, that is, we get
+an efﬁciently solvable problem, and feasible solutions of this problem are feasible for the problem of actual
+interest (7).
+We shall address the problem of building a safe, tractable approximation of (8) under the following assumption
+on the random perturbations:
+Assumption A. The scalar random variables 1     d are mutually independent with zero means and
+either (a) all l have bounded ranges, or (b) all l are Gaussian.
+Note that applying deterministic scalings l → l/sl, l	x
+ → sll	x
+, in the case of (a) we can convert the
+ranges of l into the segment 	−11
+, and in the case of (b) we can enforce l ∼  01 for all l. Therefore,
+from now on, if not stated otherwise, we assume that either
+(A.1.) l is supported on 	−11
+, or
+(A.2.) l ∼ 01 for all l.
+2.1. The strategy. The idea of the construction we are about to develop is simple. Essentially, what we are
+looking for is a veriﬁable sufﬁcient condition for the relation
+A0+
+d∑
+l=1
+lAl  0 (9)
+to be satisﬁed with probability at least 1− ; here A0    Ad are given n× n symmetric matrices. Assuming,
+for the sake of argument, that l are symmetrically distributed and  is small, this is basically the same as to
+seek a sufﬁcient condition for the relation
+Prob
+{
+−A0  S =
+d∑
+l=1
+lAl A0
+}
+≥ 1−  (10)
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+4 Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS
+An evident necessary condition here is A0  0. Assuming a bit more, namely, that A0  0, the condition of
+interest becomes
+Prob
+{
+−I  Sˆ =
+d∑
+l=1
+lAˆl  I
+}
+≥ 1−  Aˆl =A−1/20 AlA−1/20  (11)
+Now, in case (A.2) it is intuitively clear (and can be easily proved) that (11) implies that
+ESˆ2=
+d∑
+l=1
+Aˆ2l O1I ∗
+with some positive absolute constant O1. Thus, the condition ∗ is a necessary condition for (11), provided
+that we want the latter condition to be satisﬁed for all distributions of  compatible with Assumption (A.1).
+Now assume for a moment that a condition of the type ∗, namely, the condition
+d∑
+l=1
+Aˆ2l ≤ )2I  (12)
+with properly chosen ), is sufﬁcient for (11) to be valid. Then we are basically done: It is immediately seen
+that (12) can be equivalently reformulated as the LMI
+Arrow)A0A1    Ad≡
+
+)A0 A1    Ad
+A1 )A0
+
+  
+Ad )A0
+ 0 (13)
+in variables A0A1    Ad. It follows that when Al = l	x
+, l = 01     d, depend afﬁnely on a decision
+vector x (the situation we are interested in), our sufﬁcient condition (13) for the validity of (10) (and thus for the
+validity of (9) as well) becomes an LMI in variables x and thus provides us with safe tractable approximation
+of (8). The level of conservatism of this approximation can be quantiﬁed by )—the less ) is, the larger is the
+“gap” between the sufﬁcient condition (12) and the necessary condition ∗. It is shown in Nemirovski [13] that
+in order for (12) to be always sufﬁcient for (9) (i.e., independently of the structure of Aˆl ∈ Sn and the random
+perturbations l—as long as they satisfy Assumption A), then ) should be at most O1	
+√
+lnn+√ln1/
+−1.
+In Nemirovski [13], it is also proved that with properly chosen O1 and with ) = O1	n1/6 +√ln1/
+−1,
+condition (12) is sufﬁcient for the validity of (10), and is conjectured that this conclusion remains true when
+n1/6 is replaced with “unimprovable”
+√
+lnn. This conjecture was justiﬁed recently; see Man-Cho So [12] and
+Proposition A.1 in the appendix. Note, however, that the outlined value of ) that provably makes (12) sufﬁcient
+for (10) is worst-case oriented and thus might typically lead to an overly conservative approximation (13). The
+main idea of this paper is that, given any guess of )* that makes (12) sufﬁcient for the validity of (10), we can
+use a cheap simulation-based procedure to validate the result yielded by this guess, or else to reﬁne our guess.
+Numerical results presented in §3 demonstrate that this approach can result in signiﬁcantly less-conservative
+approximations of (9) than those associated with the above “provably safe” values of )*.
+3. Approximating chance-constrained LMIs.
+3.1. Preliminaries on measure concentration. Our strategy heavily exploits the following fact:
+Theorem 3.1 (“Measure Concentration”). Let 1     d satisfy Assumption A, + > 0, and * ∈ 01/2
+be reals, and B0    Bd be deterministic symmetric matrices such that
+a ArrowB0B1    Bd 0
+b Prob
+{
+−+B0 
+d∑
+l=1
+lBl +B0
+}
+≥ 1−* (14)
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS 5
+Then
+) ≥ 1 ⇒ Prob
+{
+−)+B0 
+d∑
+l=1
+lBl  )+B0
+}
+≥ 1− *)
+*)=
+
+1
+1−* exp−+
+2)− 12/16  satisﬁes (A.1)
+ErfErfInv*+ )− 1max	+ ErfInv*
+  satisﬁes (A.2)
+(15)
+Here and in what follows Erf· and ErfInv· are the error function and its inverse:
+Erfx= 1√
+2-
+∫ 
+x
+exp−s2/2ds ErfErfInvr≡ r 0< r < 1 (16)
+Proof. Under the premise of our theorem, we clearly have B0  0; by continuity reasons, it sufﬁces to
+prove the theorem in the case of B0  0. In this case, passing from the matrices B0B1    Bd to the matri-
+ces IB−1/20 B1B
+−1/2
+0     B
+−1/2
+0 BdB
+−1/2
+0 , we immediately reduce the situation to the one with B0 = I , which we
+assume from now on. In this case, (14.a) becomes simply
+∑d
+l=1B
+2
+l  I . With this normalization, the validity
+of (15) in the case of (A.1) is readily given by Lemma 1 in Nemirovski [13], and in the case of (A.2) by the
+following reﬁnement of Theorem 1 in Nemirovski and Shapiro [14]: 
+Lemma 3.1. Let  ∼ 0 Id, and let Q⊂Rd be a closed convex set such that Prob ∈Q≤ * < 1/2. Then
+(i) Q contains the centered at the origin  · 2-ball of radius ErfInv*;
+(ii) If Q contains the centered at the origin  · 2-ball of a radius r ≥ ErfInv*, then for every ) > 1 one has
+Prob ∈ )Q≤ Erf)− 1r +ErfInv*≤ Erf)ErfInv*≤ exp−)2ErfInv2*/2 (17)
+Proof of Lemma 3.1. (i) is immediate. Indeed, assuming the opposite and invoking the separation theorem,
+Q is contained in a closed half-space 1 = x eT x ≤ r with a unit vector e and certain r < ErfInv*, and
+therefore Prob ∈Q≥ Prob ∈1= Erfr > * , which is a contradiction.
+(ii) is an immediate corollary of the following fact due to Borell [6]:
+(!) For every * ∈ 01,  ≥ 0 and every closed set X ⊂ Rd such that Prob ∈ X ≤ * one has
+Prob distX > ≤ ErfErfInv*+ , where distaX=min
+x∈X
+a− x2.
+In the situation of (ii), Q contains the centered at the origin  · 2-ball Br of the radius r , whence the set )Q,
+) ≥ 1, contains Q + ) − 1Q ⊃ Q + ) − 1Br and thus contains the set x distxQ ≤  = ) − 1r.
+Invoking (!) with X =Q and = )− 1r , we get the ﬁrst inequality in (17); the second inequality there is due
+to r ≥ ErfInv*, and the last inequality is well known. 
+Lemma ⇒ case (A.2) of theorem: Let Q= u ∈Rd −+I ∑dl=1 ulBl +I, so that Q is a closed convex
+set in Rd such that Prob ∈ Q ≤ * < 1/2 by (14.a). We claim that Q contains the centered at the origin
+ · 2-ball of the radius + (and thus, by Lemma 3.1.(i)), contains the centered at the origin  · 2-ball of the
+radius r¯ =max	+ ErfInv*
+). Indeed, when u2 ≤+ , we have for every e ∈Rn:∥∥∥∥ d∑
+l=1
+ulBle
+∥∥∥∥
+2
+≤
+d∑
+l=1
+ulBle2 ≤ u2
+[ d∑
+l=1
+Ble22
+]1/2
+≤+
+[ d∑
+l=1
+eT B2l e
+]1/2
+= +
+√√√
+eT
+[ d∑
+l=1
+B2l
+]
+e≤+e2
+where the concluding inequality is due to
+∑d
+l=1B
+2
+l  I . Thus, whenever u2 ≤+ , we have u ∈Q. We clearly
+have Prob−)+ ∑dl=1 lBl  )+ = 1− Prob ∈ )Q; the latter quantity, by Lemma 3.1.(ii) applied with
+r = r¯ , is ≥ 1− *). 
+Corollary 3.1. Given  ∈ 01, + > 0, * ∈ 01/2, let us set
+3−1 =
+{
++ + 4√ln−11−*−1 we are in the case of (A.1)
++ +max	ErfInv/ErfInv*− 10
+min	+ ErfInv*
+ we are in the case of (A.2)
+(18)
+Assume, further, that symmetric matrices A0    Ad satisfy
+Arrow3A0A1    Ad 0 (19)
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+6 Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS
+and, in addition, that
+Prob
+{
+−+	3A0
+
+d∑
+l=1
+lAl +	3A0
+
+}
+≥ 1−* (20)
+Then
+Prob
+{
+−A0 
+d∑
+l=1
+lAl A0
+}
+≥ 1−  (21)
+Proof. Relations (19) and (20) imply that the matrices B0 = 3A0B1 = A1    Bd = Ad satisfy (14).
+It remains to apply Theorem 3.1 to the just-deﬁned B0B1    Bd and to ) = 3+−1 and to note that with
+this ) one has *)≤ . 
+3.2. The approximation. Our proposed way to process (7) is as follows.
+1. Building the approximation. We start with somehow choosing parameters + > 0, * ∈ 01/2 and act as
+if we were sure that whenever symmetric n× n matrices B0    Bd satisfy
+ArrowB0B1    Bd 0 (22)
+then they satisfy the relation
+Prob
+{
+−+B0 
+d∑
+l=1
+lBl +B0
+}
+≥ 1−* (23)
+Speciﬁcally, we replace the chance constraint (8) in (7) with the LMI
+Arrow30	x
+1	x
+    d	x
+ 0 (24)
+where 3 is given by (18), and process the resulting optimization problem, arriving at its feasible solution x∗.
+Let us set B∗0 =30	x∗
+B∗1 =1	x∗
+    B∗d =d	x∗
+4 by construction, these matrices satisfy (22). If these
+matrices satisfy (23) as well, then by Corollary 3.1, x∗ is a feasible solution to the chance-constrained prob-
+lem (7). The difﬁculty, however, is that unless we can prove that for +* in question, relation (22) always
+implies relation (23), we cannot be sure in advance that the matrices B∗l satisfy (23) and, consequently, cannot
+be sure that x∗ is feasible for the chance-constrained problem (7).
+In order to overcome this difﬁculty, we use the following validation procedure.
+2. Validation procedure. We generate a training sample of N independent realizations 1     N of  and
+compute the number M of realizations for which the relation −+B∗0 
+∑d
+l=1 
+i
+lB
+∗
+l +B∗0 is not satisﬁed. We then
+use these statistics to get a 1− -reliable lower bound - on the probability p∗ = Prob−+B∗0 
+∑d
+l=1 
+i
+lB
+∗
+l 
++B∗0 speciﬁcally, set
+- = min
+0≤p≤1
+{
+p
+M∑
+i=0
+(
+N
+i
+)
+1−pipN−i ≥ 
+}
+
+where  ∈ 01 is a chosen in advance “unreliability level” (say, = 10−12). We then check whether - ≥ 1−*4
+if it is the case, we claim that the feasibility of x∗ for the problem of interest (7) is validated. Otherwise, we apply
+our approximation scheme anew, increasing the value of + and/or the value of *.
+Proposition 3.1. For the outlined randomized approximation procedure, the probability of x∗ being vali-
+dated when in fact it is infeasible for (7) is at most .
+Proof. It is easily seen that the random quantity - is, with probability at least 1−, a lower bound on p∗.
+Thus, the probability of validating the feasibility of x∗ in the case when p∗ < 1−* is at most ; because x∗ is
+provably feasible for (7), in the case of p∗ ≥ 1−*, is indeed safe up to probability of bad sampling ≤ . 
+The advantage of the outlined validation routine is that when working with * not too close to 0 (and we can
+afford to work with any * ∈ 01/2, say, * = 025 or * = 01), in the case of
+Prob
+{
+−+B∗0 
+d∑
+l=1
+lB
+∗
+l +B∗0
+}
+≥ 1− 08* (25)
+(that is, validating an assumption
+Prob
+{
+−+B∗0 
+d∑
+l=1
+lB
+∗
+l +B∗0
+}
+≥ 1−*
+slightly stronger than the one we wish to validate) the cardinality N of the sample which is sufﬁcient to validate,
+the feasibility of x∗ for (7) with probability 1− 7 close to 1 should not be too large. A rough estimate shows
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS 7
+that it sufﬁces to take
+N ≥ 100ln1/+ ln1/7*−2
+With = 7 = 10−8, * = 025, this formula yields N = 58947; a more accurate computation shows that N = 8750
+also will do. It should be stressed that the sample size in question is completely independent of , which therefore
+can be arbitrarily small; this is in sharp contrast to what would happen if we were checking the fact that x∗ is
+feasible for (8) by trying to estimate px∗ (see (8)) by a straightforward Monte Carlo simulation in order to
+understand whether indeed px∗≥ 1− . Such a simulation would require a sample of cardinality ≥O1/ and
+would therefore be completely impractical when  is small, like 10−6 or less.
+3.3. A modiﬁcation. In many applications, it makes sense to pose problem (7) in a slightly different form,
+speciﬁcally, as the problem
+8∗c¯=max
+x8
+8
+F x≤ 0 cT x≤ c¯
+Prob
+{
+0	x
++8
+d∑
+l=1
+ll	x
+ 0
+}
+≥ 1− 
+  (26)
+Thus, instead of minimizing the value of the objective under the deterministic constraints and the chance con-
+straint with the “reference” uncertainty level 8= 1, we are now maximizing the uncertainty level 8 for which
+the chance-constrained problem admits a feasible solution with the value of the objective ≤ c¯. In reality, we
+could, e.g., start with solving the “nominal” problem
+Opt=min
+x
+cT x F x≤ 0 0	x
+ 0
+and then build the “trade-off curve” 9s= 8∗Opt+ s, s > 0, which shows which uncertainty level could be
+tolerated given a “sacriﬁce” s > 0 in the optimal value.
+The advantage of (26) in our context is that here the safe, tractable approximation given by our approach
+does not require any a priori guess of + , *. Indeed, assume that we start with certain + , * which, we believe,
+ensure the validity of the implication “(22) ⇒ (23).” Acting in exactly the same fashion as above, but aiming
+at the problem (26) rather than at the problem (7), we would arrive at the approximation
+max
+x8
+{
+8
+F x≤ 0 cT x≤ c¯
+Arrow380	x
+1	x
+    d	x
+ 0
+}
+(27)
+where 38 is given by (18) with + replaced with 8+ . Because 38 clearly decreases as 8 grows, we see
+that as far as the x-component of an optimal solution to the resulting problem is concerned, this component is
+independent of our guesses + , * and coincides with the x-component of the optimal solution to the quasi-convex
+(and thus efﬁciently solvable) optimization problem
+min
+x3
+{
+3
+F x≤ 0 cT x≤ c¯ 3 ≥ 0 0	x
+ 0
+Arrow30	x
+1	x
+    d	x
+ 0
+}
+ (28)
+The fact that the resulting approximation is independent of any guess on + and * does not resolve all of our
+difﬁculties—we still need to say what is the “feasibility radius” 8∗x∗ of an optimal (or nearly so) solution x∗
+to (28), which we get when solving the latter problem, that is, what is the largest 8= 8∗x∗ such that
+Prob
+{
+−0	x∗
+ 8
+d∑
+l=1
+ll	x∗
+0	x∗
+
+}
+≥ 1−  (29)
+Assume that x∗ can be extended by certain 3 to a feasible solution to (28). If the guess we started with were
+true, we could take as 8+x∗ the supremum of those 8 > 0 for which 38 ≥ 3∗x∗, where 3∗x∗ is the
+smallest 3 ≥ 0 such that Arrow30	x∗
+1	x∗
+    d	x∗
+  0 (when x∗ is an optimal solution to (28),
+3∗x∗ is exactly the optimal value in (28)). In the case when we are not sure that our guess is true, we can
+build a lower bound 8∗x∗ on 8∗x∗ via an appropriate modiﬁcation of the validation procedure, speciﬁcally,
+as follows.
+Assume that 3∗x∗ > 0 (this is the only nontrivial case, because 3∗x∗ = 0 means that l	x∗
+ = 0, l =
+1     d; because 0	x∗
+ 0 due to the constraints in (28), in this case we clearly have 8∗x∗=+). Let us
+use the following.
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+8 Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS
+Calibration procedure. Given x∗3∗x∗ > 0, let B0 = 3∗x∗0	x∗
+, Bl = l	x∗
+, l = 1     d satisfy
+ArrowB0B1    Bd 0. Let, further,  ∈ 01 be a desired “unreliability level” of our conclusions (cf. the
+Validation procedure). We now carry out the following two steps:
+1. Building a grid of values of 8. As we remember from §3.1, the implication (22)⇒ (23) indeed holds true
+for “safe” values of + and *, e.g., for * = *s = 025 and + =+s =O1
+√
+lnn with appropriately chosen O1.
+From Corollary 3.1 it follows that if 3s is given by (18) with * = *s and + =+s, then, setting
+8s =3s/3∗x∗
+we have
+Prob
+{
+−0	x∗
+ 8s
+d∑
+l=1
+ll	x∗
+0	x∗
+
+}
+≥ 1−  (30)
+Indeed, the matrices B0    Bd satisfy (22) and therefore satisfy (23) with * = *s, + = +s. Applying Corol-
+lary 3.1 to the matrices A0 = 3−1s B0 = 3−1s 3∗x∗0	x∗
+ = 8−1s 0	x∗
+, Al = Bl = l	x∗
+, l = 1     d, we
+conclude that (30) indeed holds true.
+Now let us ﬁnd 8+ ≥ 8s such that the relation
+Prob
+{
+−0	x∗
+ 8+
+d∑
+l=1
+ll	x∗
+0	x∗
+
+}
+≥ 1− 
+is “highly unlikely” to be true. For example, assuming  1/2, we can generate a short (say, with L = 100
+elements) pilot sample of realizations 1     L of  ; compute, for every i≤ L, the largest 8= 8i such that the
+relation
+−0	x∗
+ 8i
+d∑
+l=1
+ill	x∗
+0	x∗
+
+holds true; and take, as 8+, the maximum of 8s and of the median of 81     8L.
+Finally, we insert into the segment 	8s 8
++
+ a moderate number K − 2 of “intermediate” values of 8, say,
+in such a way that the resulting sequence r1 = 8s < r2 < · · · < rK = 8+ forms a geometric progression. This
+sequence forms a grid that we are about to use when building 8∗x∗.
+2. Running simulations. At this step, we
+(i) Generate a training sample of N independent realizations 1     N of  .
+(ii) For every k= 1    K compute the integers
+Mk =Card
+{
+i≤N ¬
+(
+−0	x∗
+ rk
+d∑
+l=1
+ill	x∗
+0	x∗
+
+)}
+and then the reals
+*k =max
+{
+* ∈ 	01
+
+Mk∑
+i=1
+(
+N
+i
+)
+*i1−*N−i ≥ /K
+}
+
+Note that if
+*k = Prob
+{
+¬
+(
+−0	x∗
+ rk
+d∑
+l=1
+ll	x∗
+0	x∗
+
+)}
+
+then the probability for the random quantity *k to be <*k is at most /K, so that
+Prob *k ≥ *k 1≤ k≤K≥ 1−  (31)
+3. Specifying 8∗x∗. In the case of (A.1) we set
+8∗x∗= max
+1≤k≤K
+{
+rk
+1+ 4rk3∗x∗
+√
+ln−11− *k−1
+ *k < 1/2
+}
+ (32)
+and in the case of (A.2) we set
+8∗x∗= max
+1≤k≤K
+{
+rk
+1+max	ErfInv/ErfInv *k− 10
+min	rk3∗x∗ErfInv *k1
+
+ *k < 1/2
+}
+ (33)
+If these formulas are not well deﬁned (e.g., there is no k such that *k < 1/2) or are well deﬁned, but result in
+8∗x∗ < 8s, we set 8∗x∗ to the “safe” value 8s.
+Note that the quantity 8∗x∗ yielded by the calibration procedure is random.
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS 9
+Proposition 3.2. Let x∗3∗x∗ > 0 be feasible for (28). Then, with the outlined calibration procedure,
+the probability for x∗ 8∗x∗ to be infeasible for (26) is ≤ .
+Proof. Assume that *k ≥ *k for all k= 1    K (recall that this condition is valid with probability ≥ 1−),
+and let us prove that in this case x∗ 8∗x∗ is feasible for (26). We already know that this is the case when
+8∗ ≡ 8∗x∗= 8s, so that we can restrict ourselves with the case when 8∗x∗ is given by a well-deﬁned formula
+((32) in the case of (A.1) or (33) in the case of (A.2)).
+In the case of (A.1), let k be such that *k < 1/2 and 8∗ = rk/1+ 4rk3∗x∗
+√
+ln−11− *k−1 (see (32)),
+and let
++k=
+1
+rk3∗x∗
+ 3k=
+1
++k+4
+√
+ln−11− *k−1
+ A0=
+3∗x∗
+3k
+0	x∗
+ Al=l	x∗
+ l=1   d
+Then
+Arrow3kA0A1    Ad=Arrow3∗x∗0	x∗
+1	x∗
+    d	x∗
+ 0
+Prob
+{
+−+k3kA0︸ ︷︷ ︸
+r−1k 0	x∗
+
+
+d∑
+l=1
+lAl︸ ︷︷ ︸
+=∑dl=1 ll 	x∗
+
++k3kA0
+}
+= Prob
+{
+−0	x∗
+ rk
+d∑
+l=1
+ll	x∗
+0	x∗
+
+}
+≥ 1− *k
+where the concluding inequality is valid due to the fact that we are in the case of *k ≥ *k. Invoking Corollary 3.1,
+we conclude that Prob−A0 
+∑d
+l=1 lAl A0≥ 1− or, which is the same (due to A0 = 3∗x∗/3k0	x∗
+=
+1/8∗0	x∗
+) as Prob−0	x∗
+ 8∗
+∑d
+l=1l	x∗
+0	x∗
+≥ 1−  as claimed.
+The result for case (A.2) can be proved in a completely similar way. 
+4. Special cases: Diagonal and arrow matrices. In this section, we consider two special cases where
+the chance-constrained LMI in (7) possesses a speciﬁc structure which, in principle, allows us to point out
+“moderate” + and * which make valid the implication “(22)⇒ (23),” that is, the implication
+ArrowB0B1    Bd 0 ⇒ Prob
+{
+−+B0 
+d∑
+l=1
+lBl +B0
+}
+≥ 1−* (34)
+In particular, using these + , * in the approximation scheme of §3.2, we can avoid the necessity of using the
+validating procedure.
+4.1. Diagonal case. The ﬁrst special case we consider is where 0	x
+1	x
+    d	x
+ in (7) are diagonal
+matrices. We refer to this situation as the diagonal case. Note that in spite of its simplicity, this case is of
+deﬁnite interest: It is the case of chance-constrained system of linear inequalities—the entity of primary interest
+for chance-constrained linear programming. We start with the following observation:
+Lemma 4.1. Let  ∈Rd be a random vector and Bl =DiagB1l     Bsl , l= 01     d, be block-diagonal
+matrices of common block-diagonal structure. Assume that for certain function +*, * ∈ 01/2, and every
+j ≤ s the structure of the blocks Bjl ensures the implication
+∀* ∈ 01/2 ArrowBj0    Bjd 0 ⇒ Prob
+{
+−+*Bj0 
+d∑
+l=1
+lB
+j
+l +*Bj0
+}
+≥ 1−*
+Then one has
+∀* ∈ 01/2 ArrowB0    Bd 0 ⇒ Prob
+{
+−+*/sB0 
+d∑
+l=1
+lBl +*/sB0
+}
+≥ 1−*
+This statement is an immediate consequence of the fact that ArrowB0    Bd  0 if and only if
+ArrowBj0    B
+j
+d 0 for every j = 1     s.
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+10 Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS
+Theorem 4.1. Let B0B1    Bd be diagonal n× n matrices satisfying ArrowB0B1    Bd  0, and
+1     d be random variables satisfying the assumption
+(A.3) 1     d are independent, all with zero mean, and Eexp
+2
+l ≤ exp1, 1≤ l≤ d
+(note that (A.3) is implied by (A.1)). Then the implication (34) holds true for every * ∈ 01/2 with
++ =+n*= 1
+3
+√
+38 ln2n/*
+If, in addition to (A.3), the entries in  are symmetrically distributed, then the above conclusion remains valid
+with
++ =+nS *=
+√
+3 ln2n/*
+Finally, if  satisﬁes (A.2), then the same conclusion remains valid with
++ =+nG *= ErfInv*/2n≤
+√
+2 lnn/*
+Proof. By Lemma 4.1, it sufﬁces to prove the statement in the scalar case n = 1, where the relation
+ArrowB0    Bd 0 means simply that B0 ≥
+√∑d
+l=1B
+2
+l . There is nothing to prove when B0 = 0; assuming
+B0 > 0 and setting hl = Bl/B0, all we need is to prove that whenever  satisﬁes (A.3) and h ∈Rd is deterministic,
+then
+h2 ≤ 1 ⇒ Prob
+{∣∣∣∣ d∑
+l=1
+lhl
+∣∣∣∣>+*}≤ * 0<* < 1/2 (35)
+where +·, depending on the situation, is either +1·, or +1S ·, or +1G ·. This result is readily given by
+standard facts on large deviations; to make the presentation self-contained, here is the demonstration. All we
+need is to prove that if h ∈Rd, h2 ≤ 1, then
+∀+ > 0 Prob
+{∣∣∣∣ d∑
+l=1
+hll
+∣∣∣∣>+}≤
+
+2 exp−9+ 2/38  satisﬁes (A.3)
+2 exp−+ 2/3  satisﬁes (A.3) and is
+symmetrically distributed
+2>+  ∼ 0 Id
+(36)
+where >s= ∫ 
+s
+2-−1/2 exp−r2/2dr is the error function.
+The case of  ∼  0 Id is evident. Now assume that  satisﬁes (A.3). Let ) ∈ R, sl =
+∑l
+r=1 )hrr , and
+J = l hl)>
+√
+3/2. We have
+Eexpsl=Eexpsl−1 exp)hll=Eexpsl ·?l ?l =E)hll (37)
+(we have taken into account that l is independent of sl−1). We claim that
+?l ≤
+{
+exp2)2h2l /3 l ∈ J
+exp7/12+ 2)2h2l /3 l ∈ J 
+(38)
+Indeed, it is easily seen that
+expt≤ t+ exp2t2/3
+for all t ∈ R, whence Eexp)hll ≤ Eexp2)2h2l 2l /3; when l ∈ J , the latter expectation is at most
+Eexp2l 
+2)2h2l /3 by Hölder inequality, as required in (38). Now let l ∈ J . We have )hls ≤ s2+ )2h2l /4 for
+all s, whence
+Eexp)hll ≤ exp)2h2l /4Eexp2l ≤ exp1+)2h2l /4
+≤ exp7/12+ 2)2h2l /3
+as required in (38).
+Combining (37) and (38), we get
+E
+{
+exp
+{
+)
+d∑
+l=1
+hll
+}}
+≤ exp
+{
+2)2
+[ d∑
+l=1
+h2l
+]/
+3
+}
+exp7/12CardJ 
+≤ exp2)2/3 exp7/12 · 2/3 ·)2
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS 11
+where the concluding inequality follows from the facts that h2 ≤ 1 and that h2l > 3/2)2 when l ∈ J , which
+combines with h2 ≤ 1 to imply that CardJ ≤ 2)2/3. Thus,
+E
+{
+exp
+{
+)
+d∑
+l=1
+hll
+}}
+≤ exp19)2/18
+whence, by Tschebyshev inequality,
+Prob
+{∣∣∣∣ d∑
+l=1
+hll
+∣∣∣∣>+}≤ 2min)>0 exp19)2/18−)+= 2 exp−9+ 2/38
+Now let  satisfy (A.3) and be symmetrically distributed. For ) > 0, let us set sl = cosh)
+∑l
+r=1 hrr. Then
+Esl=E
+{
+sl−1 cosh)hll+ sinh
+(
+)
+l−1∑
+r=1
+hrr
+)
+sinh)hll
+}
+=Esl−1Ecosh)hll︸ ︷︷ ︸
+?l
+
+whence
+Esd=?1 ·    ·?d
+Setting J = l )2h2l ≤ 2 and taking into account that cosht≤ expt2/2 for all t, for l ∈ J we have
+?l =Ecosh)hll≤Eexp)2h2l 2l /2≤ exp)2h2l /2
+where the concluding inequality is given by the facts that )2h2l /2≤ 1 and Eexp2l ≤ exp1 in view of the
+Hölder inequality. When l ∈ J , we, the same as above, have
+cosh)hll≤ exp)hll≤ exp2+)2h2l /4
+whence ?l ≤ exp1+)2h2l /4≤ exp1/2+)2h2l /2. We therefore get
+E
+{
+cosh
+(
+)
+d∑
+l=1
+hll
+)}
+≤ exp
+{
+)2
+[ d∑
+l=1
+h2l
+]/
+2
+}
+expCardJ /2
+and, similarly to the previous case, CardJ ≤ )2/2, whence
+E
+{
+cosh
+(
+)
+d∑
+l=1
+hll
+)}
+≤ exp3)2/4
+When ∑dl=1 hll>+ , we have cosh)∑dl=1 hll > exp)+/2, so that
+Prob
+{∣∣∣∣ d∑
+l=1
+hll
+∣∣∣∣>+}≤ 2 inf)>0 exp3)2/4−)+= 2 exp−+ 2/3
+as required in (36). 
+Comparison with other approximations of a chance-constrained LP. As mentioned earlier, the diagonal
+case arises when solving chance-constrained linear programming problems that we prefer to pose in the form
+of (26):
+max
+x8
+{
+8
+Fx− f ≥ 0 cT x≤ c¯
+ProbAx− b ≥ 0≥ 1− 
+}
+ 	A b 
+= 	A0 b0
++8
+d∑
+l=1
+l	A
+l bl
+
+ 
+max
+x8
+8
+Fx− f ≥ 0 cT x≤ c¯
+Prob
+{
+0	x
++8
+d∑
+l=1
+ll	x
+ 0
+}
+≥ 1− 
+  l	x
+=DiagAlx− bl 0≤ l≤ d
+(39)
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+12 Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS
+With our approximation scheme, the safe, tractable approximation of the resulting chance-constrained problem is,
+as it is immediately seen, the quasi-convex program
+max
+x8
+8
+Fx− f ≥ 0 cT x≤ c¯
+8
+√√√√ d∑
+l=1
+[
+bli +
+J∑
+j=1
+Alijxj
+]2
+≤∑
+j
+A0ijxj − b0i  1≤ i≤ I
+ (40)
+where I J are the row and the column sizes of Al. There also exists a more traditional “constraint-by-constraint”
+way to process a chance constrained LP; speciﬁcally, we somehow choose positive i,
+∑
+i i = , and safely
+approximate (39) with the chance-constrained problem
+max
+x8
+8
+Fx− f ≥ 0 cT x≤ c¯
+Prob
+{∑
+j
+A0ijxj − b0i +8
+d∑
+l=1
+l
+[∑
+j
+Alijxj − bli
+]
+≥ 0
+}
+≥ 1− i 1≤ i≤ I
+  (41)
+This problem involves chance-constrained scalar linear inequalities that are much easier to approximate than
+the original chance-constrained vector inequality appearing in (39). For the sake of simplicity, consider the case
+when  ∼ 0 I and  < 1/2. In this case, (41) is exactly equivalent to the explicit quasi-convex problem
+max
+x8
+8
+Fx− f ≥ 0 cT x≤ c¯
+ErfInvi8
+√√√√ d∑
+l=1
+[
+bli +
+J∑
+j=1
+Alijxj
+]2
+≤∑
+j
+A0ijxj − b0i  1≤ i≤ I
+  (42)
+Note that an attempt to treat the parameters i of our construction as decision variables in (42) fails—the resulting
+problem loses convexity; this is why the parameters i should be chosen in advance, and the most natural way
+to choose them is to set i = /I , i = 1     I . Note that with this choice of i, problem (42) is equivalent
+to (40), up to rescaling 8 → 8/ErfInv/I. This, however, does not mean that the approximations are identical;
+although both of them lead to the same optimal decision vector x∗, they differ in what is the resulting lower
+bound 8∗ on the true feasibility radius 8∗x∗ of x∗ (recall that this radius is the largest 8 for which x∗ 8 is
+feasible for the chance-constrained problem of interest (39)). Speciﬁcally, for approximation (42), 8∗ is exactly
+the optimal value of the approximation, whereas for (40) 8∗ is given by the calibration routine. Experiments
+show that which of these two lower bounds is less conservative depends on the problem’s data, so that in practice
+it makes sense to build both these bounds and to use the larger of them.
+4.2. Arrow case. We are about to justify the implication (34) in the Arrow case, where the matrices Bl,
+l= 1     d, are of the form
+Bl = 	ef Tl + fleT 
++lG (43)
+where e fl ∈Rn, l ∈R, and G ∈ Sn. We meet this case in the chance-constrained conic quadratic optimization;
+see (6). Indeed, the matrices l	x
+, 1 ≤ l ≤ d, arising in (6) are, for every x, matrices of the form (43).
+Therefore, all we need when building and processing the safe tractable approximation, as developed in §3.2 for
+the chance-constrained LMI in (6), is the validity of (34) for matrices Bl of the form (43).
+Theorem 4.2. Let the n × n matrices B1    Bd of the form (43) along with a matrix B0 ∈ Sn satisfy
+the premise in (34). Let, further, 1     d be independent random variables with zero means and such that
+E2l  ≤ A2, l = 1     d (note that in the cases of (A.1) and (A.2), one can take A = 1, and in the case of
+(A.3) one can take A =√exp1− 1). Then, for every * ∈ 01/2 and with +* given by
+a 2A
+√
+2/* [general case]
+b min	2
+√
+2/*4+ 4√ln2/*
+ [case (A.1)]
+c 4+ErfInv* [case (A.2)]
+(44)
+one has
++ ≥+* ⇒ Prob
+{
+−+B0 
+d∑
+l=1
+lBl +B0
+}
+≥ 1−* (45)
+that is, with our +*, the implication in (34) holds true.
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS 13
+Proof. First of all, when l, l = 1     d, satisfy (A.3), we indeed have E2l  ≤ exp1 − 1
+due to t2 ≤ expt2− 1 for all t. Further, by continuity argument, it sufﬁces to consider the case where
+ArrowB0B1    Bd 0 and B0  0
+In this case, setting Al = B−1/20 BlB−1/20 , the relation ArrowB0    Bd  0 is equivalent to
+∑d
+l=1A
+2
+l  I , and
+the target relation (45) is equivalent to
++ ≥+* ⇒ Prob
+{
+−+In 
+d∑
+l=1
+lAl +In
+}
+≥ 1−*
+with +* given by (44). Thus, all we need to prove is the following.
+Lemma 4.2. Let Bl, l= 1     d, be of the form of (43), let B0  0, and let the matrices Al = B−1/20 BlB−1/20
+satisfy
+∑
+l A
+2
+l  I . Let l, further, satisfy the premise in Theorem 4.2. Then, for every * ∈ 01/2, one has
+Prob
+{∥∥∥∥ d∑
+l=1
+lBl
+∥∥∥∥≤+*}≥ 1−* (46)
+where  ·  is the standard matrix norm (the largest singular value) and +* is given by (44).
+Proof of Lemma 4.2. Observe that Al, 1≤ l≤ d are also of the form (43):
+Al = 	ghTl +hlgT 
++lH 	g = B−1/20 e hl = B−1/20 fl H = B−1/20 GB−1/20 
+
+Note that by rescaling hl we can ensure that g2 = 1, and then rotate the coordinates to make g the ﬁrst basic
+orth. In this situation, matrices Al become matrices of the form
+Al =
+[
+ql r
+T
+l
+rl lQ
+]
+ (47)
+Finally, by appropriate scaling of l, we can ensure that Q = 1. We have
+A2l =
+[
+q2l + rTl rl qlrTl +lrTl Q
+qlrl+lQrl rlrTl +2l Q2
+]
+
+We conclude that
+∑d
+l=1A
+2
+l  In implies that
+∑d
+l=1q
+2
+l + rTl rl≤ 1 and 	
+∑d
+l=1 
+2
+l 
+Q
+2  In−1; because Q2 = 1, we
+arrive at the relations
+a
+d∑
+l=1
+2l ≤ 1 b
+d∑
+l=1
+q2l + rTl rl≤ 1 (48)
+Now let pl = 0 rTl T ∈Rn. We have
+S ≡
+d∑
+l=1
+lAl =
+[
+g
+( d∑
+l=1
+lpl︸ ︷︷ ︸
+E
+)T
++ EgT
+]
++Diag
+{
+d∑
+l=1
+lql︸ ︷︷ ︸
+F
+
+( d∑
+l=1
+ll︸ ︷︷ ︸
+G
+)
+Q
+}
+⇒ S ≤ gET + EgT +max	F GQ
+= E2+max	F G
+
+Setting
+H=
+d∑
+l=1
+rTl rl I=
+d∑
+l=1
+q2l 
+we have H+I≤ 1 by (48.b). Besides this,
+EET E = ∑
+l l′
+Ell′p
+T
+l pl′ =
+d∑
+l=1
+E2l r
+T
+l rl 	l are independent, El= 0
+
+≤ A2
+d∑
+l=1
+rTl rl ≤ A2H
+⇒ ProbE2 > t≤
+A2H
+t2
+∀ t > 0 	Tschebyshev inequality
+
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+14 Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS
+EG2 =
+d∑
+l=1
+E2l 
+2
+l ≤ A2
+d∑
+l=1
+2l ≤ A2 	see (48.a)
+
+⇒ ProbG> t≤ A
+2
+t2
+∀ t > 0 	Tschebyshev inequality
+
+EF2 =
+d∑
+l=1
+E2l q
+2
+l ≤ A2I
+⇒ ProbF> t≤ A
+2I
+t2
+∀ t > 0 	Tschebyshev inequality
+
+Thus, for every + > 0 and all  ∈ 01 we have
+ProbS>+ ≤ ProbE2+max	F G
+ > +≤ ProbE2 >+
++ProbF> 1−++ProbG> 1−+≤ A
+2
++ 2
+[
+H
+2
++ I+ 1
+1−2
+]
+
+whence, due to H+I≤ 1, one has
+ProbS>+≤ A
+2
++ 2
+max
+H∈	01
+
+min
+∈01
+[
+H
+2
++ 2−H
+1−2
+]
+= 8A
+2
++ 2
+
+so that
++ ≥ 2A√2/* ⇒ ProbS>+≤ * (49)
+which is the “general case” of our lemma (cf. (44.a)). It remains to justify the reﬁnements in the cases of (A.1)
+and (A.2). In the case of (A.1), we have A ≤ 1 so that whenever "+ > 4, we have ProbS ≥ "+< 1/2 by (49).
+Invoking Theorem 3.1, we conclude that for all ) ≥ 1 we have ProbS ≥ ) "+ ≤ 2 exp−"+ 2) − 12/16.
+Given * ∈ 01/2 and setting ) = 1 + 4"+−1√ln2/*, we get ProbS ≥ "+ + 4√ln2/* ≤ *; because
+this relation holds true for every "+ > 4, we see that, in addition to (49), ProbS ≥ 4 + 4√ln2/* ≤ *,
+0< * < 1/2, which proves the “(A.1)-version” of the lemma. Now let (A.2) be the case. Here (49) is satisﬁed
+with A = 1, meaning that whenever s ∈ 01/2, we have ProbS ≥ 2√2/s≤ s. Applying Theorem 3.1 with
+s in the role of *, we conclude that whenever s ∈ 01/2 and ) ≥ 1, we have
+Prob
+{S ≥ 2)√2/s}≤ Erf(ErfInvs+ )− 1max	2√2/s ErfInvs
+)
+It follows that setting
++∗*= inf
+s)
+{
+2)
+√
+2/s
+s ∈ 01/2 ) ≥ 1
+ErfInvs+ )− 1max	2√2/s ErfInvs
+≥ ErfInv*
+}
+
+we ensure the relation ProbS ≥+∗*≤ * for all * ∈ 01/2. It is immediately seen that +*, given in
+(44) for case (A.2), is an upper bound on +∗*, so that (46) holds true in the case of (A.2). 
+4.3. Simulation-free safe, tractable approximations of chance-constrained LMIs. Assume that the struc-
+ture of LMI (8) ensures that the collections of matrices F0	x
+1	x
+    d	x
+, for all x and all F ≥ 0, belong
+to a set  with the following property:
+(P) We can point out functions +1*, +2*, 0 < * < 1/2, such that whenever a collection of matrices
+B0B1    Bd belongs to  and satisﬁes the condition ArrowB0B1    Bd 0, we have
+∀0<* < 1/2 Prob
+{
+−+1*B0 
+d∑
+l=1
+lBl +1*B0
+}
+≥ 1−* whenever  satisﬁes (A.1)4
+∀0<* < 1/2 Prob
+{
+−+2*B0 
+d∑
+l=1
+lBl +2*B0
+}
+≥ 1−* whenever  satisﬁes (A.2).
+(50)
+For example,
+• using some deep results from functional analysis—the “noncommutative Khintchine inequality”
+(Buchholz [7]), it can be easily veriﬁed that P is true for all matrices AA1    Ad, provided that +12*=
+O1
+√
+lnn/*; see Proposition A.1 in the appendix or Man-Cho So [12]. The same is true when  is comprised
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS 15
+of all collections of diagonal n× n matrices, see Theorem 4.1, and it is easily seen that in the latter case the
+outlined value of +* is, up to an O1 factor, the smallest possible;
+• restricting  to be all collections B0B1    Bd of symmetric n×n matrices with B1    Bd of the form
+eT fl+ f Tl e+lG, (P), it was shown in Theorem 4.2 that (50) is satisﬁed with +12*=O1
+√
+ln1/*.
+In the case of (P), we can build safe, tractable approximations of our problems of interest (7) and (26), avoiding
+the necessity to use simulations. Speciﬁcally, combining (50) with Corollary 3.1, we see that the problem
+min
+x
+{
+cT x
+F x≤ 0
+Arrow?0	x
+1	x
+    d	x
+ 0
+}
+
+?−1 =
+
+inf
+0<*<1/2
+[
++1*+ 4
+√
+ln−11−*−1
+]
+ case of (A.1)
+inf
+0<*<1/2
+	+2*+max	ErfInv/ErfInv*− 10
+min	+2*ErfInv*
+
+  case of (A.2)
+(51)
+is a safe, tractable approximation of (7).
+By exactly the same reasons, given a feasible solution x∗3∗ > 0 to (28) and setting 8∗ = ?/3∗, with ?
+given by (51), we ensure that x∗ 8∗ is a feasible solution to (26).
+It is not difﬁcult to see that in the cases of chance-constrained linear and conic quadratic programming (covered
+by Theorems 4.1 and 4.2, respectively), the corresponding “simulation-free” safe, tractable approximations are
+not too conservative. For example, in the case of (A.2) there exists an absolute constant C > 0 such that a
+vector x that does not satisfy the constraint ArrowC−1?0	x
+1	x
+    d	x
+  0 does not necessarily
+satisfy the chance constraint of interest (8), provided that n≤ 1. However, we shall see in §6 that in practice
+simulation-based approximations can be signiﬁcantly less conservative than the simulation-free ones.
+5. Majorization. One way to bound from above the probability of violating a randomly perturbed LMI:
+qx = Prob
+{
+0	x
++
+d∑
+l=1
+ll	x
+  0
+}
+
+is to replace the random perturbations  with easier-to-handle perturbations ˆ—to which we know how to bound
+from above the quantity
+qx = Prob
+{
+0	x
++
+d∑
+l=1
+ˆll	x
+  0
+}
+
+If in addition ˆ is “more diffuse” than  , meaning that qx≥ qx for all x, we indeed end up with a bounding
+scheme for q·. For example, let the entries in  be independent with zero means and unbounded ranges. With
+our present results, we cannot handle this situation unless l are Gaussian. In order to overcome this difﬁculty,
+we could replace l with “more diffuse” Gaussian random variables ˆl, which we do know how to handle.
+For the above idea to be meaningful we should properly specify the notion of “being more diffuse.”
+We are about to present two speciﬁcations of this type, known as monotone and convex stochastic dominances,
+respectively.
+5.1. Monotone dominance and comparison theorem. For our purposes, it sufﬁces to restrict ourselves
+with monotone dominance on the space  of all symmetric w.r.t. 0 and unimodal probability distributions on
+the axis. The latter notion is deﬁned as follows:
+Deﬁnition 5.1. A probability distribution P on the axis is called unimodal and symmetric if P possesses a
+density p· that is an even function nonincreasing on 	0.1
+A probability distribution P ∈  is said to be monotonically dominating another distribution Q ∈ 
+(notation: P m Q, or, equivalently, Q m P ), if
+∫ 
+t
+dPs ≥ ∫ 
+t
+dQs for every t ≥ 0, or, equivalently,2∫
+f sdPs≥ ∫ f sdQs for every even and bounded function f s that is nondecreasing on the nonnegative
+ray R+.
+1 In literature, a unimodal symmetric distribution is deﬁned as a convex combination of the unit mass sitting at the origin and of what is
+called unimodal and symmetric in Deﬁnition 5.1. For the sake of simplicity, we forbid a mass at the origin; note that all results to follow
+remain valid when such a mass is allowed.
+2 This equivalence is well known; to be self-contained, we present the proof in the appendix.
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+16 Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS
+With a slight abuse of notation, if E is a random variable with distribution P and probability density p·,
+then every one of the relations E ∈ , p· ∈  is interpreted as the inclusion P ∈ . Similarly, if E, G
+are random variables with distributions P , respectively, Q, and probability densities p·, respectively, q·, then
+every one of the relations Gm E, q·m p· means that PQ ∈ and P m Q. Relation m is the natural
+“counterpart” of the relation m.
+Important facts on the monotone dominance that we need later are summarized in:
+Proposition 5.1. (i) m is a partial order on .
+(ii) If pi·m qi·, i= 1     I , and Hi ≥ 0 are such that
+∑
+i Hi = 1, then
+∑
+i Hipi·m
+∑
+i Hiqi·.
+(iii) If E ∈ is a random variable, and ,  ≥ 1, is a deterministic real, then E m E.
+(iv) If pi· ∈ weakly converge as i→ to a probability density p· (meaning that
+∫
+gspisds→∫
+gspsds for every continuous g with compact support), qi· ∈  weakly converge as i →  to a
+probability density q· and pi·m qi· for every i, then p· ∈, q· ∈, and p·m q·.
+(v) If El ∈ nl=1, Gl ∈ nl=1 are collections of independent random variables such that El m Gl,
+l= 1     n, and l, l= 1     n, are deterministic reals, then
+∑n
+l=1 lEl m
+∑m
+l=1 lGl
+(vi) Let E ∈  be supported on 	−11
+,  be uniformly distributed on 	−11
+, and G ∼  02/-. Then
+E m  m G.
+(vii) [Comparison Theorem] Let l ∈ dl=1, ˆdl=1 be two collections of independent random variables
+such that l m ˆl for all l. Then for every closed convex and symmetric w.r.t. the origin set Q⊂Rd, one has
+Prob = 	14    4 d
+ ∈Q≥ Probˆ = 	ˆ14    4 ˆd
+ ∈Q
+To the best of our knowledge, some of the facts presented in Proposition 5.1, most notably the comparison
+theorem, are new; to be on the safe side, we provide full proofs of all these facts in the appendix.
+5.2. Convex dominance and the majorization theorem. To conclude this section, we present another
+“Gaussian majorization” result. Its advantage is that the random variables l are not required to be symmetrically
+or unimodally distributed; what is needed, essentially, is just independence plus zero means. We start with
+recalling the deﬁnition of convex dominance. Let n be the space of Borel probability distributions on R
+n with
+zero mean. For a random variable G taking values in Rn, we denote by PG the corresponding distribution, and
+we write G ∈n to express that PG ∈n. Let 	
+n be the set of all convex function f on Rn with linear growth,
+meaning that there exists cf < such that f u ≤ cf 1+u2 for all u.
+Deﬁnition 5.2. Let E G ∈n. We say that G convexly dominates E (notation: E c G, or PE c PG, or
+Gc E, or PG c PE) if ∫
+f udPEu≤
+∫
+f udPGu
+for every f ∈	
+n.
+The relevant facts on convex dominance that we need are summarized in:
+Proposition 5.2. (i) c is a partial order on n.
+(ii) If P1     PkQ1    Qk ∈n, and Pi c Qi for every i, then
+∑
+i
+iPi c
+∑
+i
+iQi for all nonnegative
+weights i with unit sum.
+(iii) If E1     EkG1    Gk ∈n are independent random variables such that Ei c Gi for every i, and si
+are deterministic reals, then
+∑
+i
+siEi c
+∑
+i
+siGi.
+(iv) If E is symmetrically distributed w.r.t. 0 and t ≥ 1 is deterministic, then tE c E.
+(v) Let P1Q1 ∈ r , P2Q2 ∈ s be such that Pi c Qi, i = 12. Then P1 × P2 c Q1 × Q2. In particu-
+lar, if E1     EnG1    Gn ∈1 are independent and such that Ei c Gi for every i, then E1     EnT c
+G1    Gn
+T .
+(vi) Let E ∈1 be supported on 	−11
+ and G∼ 0-/2. Then E c G.
+(vii) Assume that E ∈ n is supported in the unit cube u u ≤ 1 and is “absolutely symmetrically
+distributed,” meaning that if J is a diagonal matrix with diagonal entries ±1, then JE has the same distribution
+as E. Also let G∼ 0 -/2In. Then E c G.
+(viii) Let EG ∈n, E ∼ 0K, G∼ 0? with K?. Then E c G.
+(ix) [Majorization theorem] Let G∼ 0 Id, and let  ∈d be such that  c G. Let, further, Q⊂Rd be a
+closed convex set such that
+* ≡ ProbG ∈Q< 1/2
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS 17
+Then for every ) > 1, one has
+Prob ∈ )Q≤ inf
+1≤I<)
+1
+)−I
+∫ 
+I
+ErfsErfInv*ds ≤ inf
+1≤I<)
+1
+2)−I
+∫ 
+I
+exp
+{
+− s
+2ErfInv2*
+2
+}
+ds (52)
+All of the above facts, except for the Majorization Theorem, are well known; proofs can be found in
+Nemirovski and Shapiro [14]. The present Majorization Theorem is a slight reﬁnement of what is called
+“Majorization Theorem” in Nemirovski and Shapiro [14]; the proof of this reﬁnement is given in the appendix.
+5.3. Calibration-based on Gaussian majorization. We can utilize the preceding facts in the calibration
+procedure as follows.
+Utilizing comparison theorem. Assume that the perturbations l are independent and possess unimodal and
+symmetric distributions Pl such that Pl m  0A2 for certain A and all l (the latter is, e.g., the case when
+l are supported on 	−11
+ and A =
+√
+2/-; see Proposition 5.1.(vi)). Setting G ∼  0 Id and invoking the
+comparison theorem, we conclude that for every deterministic symmetric matrices A0A1    Ad and every
+r > 0 we have
+Prob
+{
+−A0 
+r
+A
+d∑
+l=1
+lAl A0
+}
+≥ Prob
+{
+−A0  r
+d∑
+l=1
+GlAl A0
+}
+ (53)
+Given matrices A0    Ad and 3∗ > 0 such that Arrow3∗A0A1    Ad  0, along with  ∈ 01, the
+purpose of the calibration procedure is to build a (random) 1− -reliable lower bound on the quantity
+8∗ =max
+{
+8 Prob
+{
+−A0  8
+d∑
+l=1
+lAl A0
+}
+≥ 1− 
+}
+ (54)
+By (53), in order to build such a bound, we can apply the plain calibration procedure to ﬁnd a 1− -reliable
+lower bound r∗ on the quantity
+r∗ =max
+{
+r Prob
+{
+−A0  r
+d∑
+l=1
+GlAl A0
+}
+≥ 1− 
+}
+and to set 8∗ = r∗/A . This approach allows us to extend the above constructions beyond the scope of Assump-
+tion A; moreover, we shall see in §6 that this approach makes sense even in the case when  obeys (A.1) and
+thus can be processed “as it is.” The reason is that the constant factors in the measure concentration inequalities
+of Theorem 3.1 in the case of (A.2) are better than in the case of (A.1).
+Utilizing majorization theorem. Now assume that the random variables 1     d are independent with
+zero means, and that we can point out A > 0 such that Pl c  0A2. Introducing G∼ 0 Id and applying
+Proposition 5.2.(v), we conclude that  c AG. Given the input A0    Ad, ,  to the calibration procedure
+and applying Majorization Theorem to the closed convex set
+Q=Qs =
+{
+u ∈Rd − sA0 
+d∑
+l=1
+ulAl  sA0
+}
+
+we conclude that
+∀
+(
+s > 0 *s≡ ProbG ∈Qs≡ 1−Prob
+{
+−A0  s−1
+d∑
+l=1
+GlAl A0
+}
+< 1/2
+)
+
+Prob
+{
+−)sAA0 
+d∑
+l=1
+lAl  )AsA0
+}
+= 1−ProbA−1 ∈ )Qs≥ 1−L)*s
+L)*= inf
+1≤I<)
+1
+)−I
+∫ 
+I
+ErfsErfInv*ds
+(55)
+In order to bound from below 8∗ (see (54)), we apply the calibration procedure with artiﬁcial random pertur-
+bation G in the role of actual perturbation  . Carrying out the ﬁrst two steps of this procedure, we end up with
+a collection rk > 0 *k < 1/2 %Kk=1 such that “up to probability of bad sampling ≤ ” we have, for 1≤ k≤ %K,
+*k ≥ *k = Prob
+{
+¬
+(
+−rk−1A0 
+d∑
+l=1
+GlAl  rk−1A0
+)}
+= ProbG ∈Qsk sk = 1/rk4
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+18 Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS
+this collection is obtained from the collection rk *kKk=1 built at step 2 of the procedure by discarding the pairs
+with *k ≥ 1/2. Setting
+8∗ = max
+1≤k≤ %K
+rk
+A)k
+ )k =min) ≥ 1 L ) *k≤  k= 1     %K
+and invoking (55), we see that 8∗ is a lower bound on 8∗, provided that *k ≤ *k, 1 ≤ k ≤ %K, which happens
+with probability at least 1− .
+Note that with straightforward modiﬁcations, Gaussian majorization can be used in the validation procedure.
+6. Numerical illustrations. In the following illustrations, we focus on problem (26) and on its safe tractable
+approximation given by (28) and the calibration procedure.
+6.1. The calibration procedure. We start with illustrating the “stand-alone” calibration procedure. Recall
+that this procedure is aimed at building 1− -reliable lower bound 8∗ on the quantity
+8∗ =max
+{
+8 p8 = Prob
+{
+−A0  8
+d∑
+l=1
+lAl A0
+}
+≥ 1− 
+}
+ (56)
+where A0A1    Ad are given symmetric n× n matrices such that Arrow3∗A0A1    Ad 0 for a given
+3∗ > 0.
+The questions we tried to answer in our experiments were as follows:
+(i) What is the better strategy to be used in the procedure—the plain calibration procedure (PCP) or the
+Gaussian majorization version (GCP) of this procedure?
+(ii) As we have seen in §4.3, there are situations where not too conservative guaranteed lower bounds on 8∗
+can be built without simulations at all. Are these “100% reliable” lower bounds more attractive than those given
+by calibration procedure?
+(iii) From a practical perspective, how conservative is the calibration procedure?
+Answers to these questions, based on our rather intensive numerical experimentation, are as follows:
+• The calibration procedure, at least its GCP-version, signiﬁcantly outperforms the simulation-free lower
+bounding;
+• GCP signiﬁcantly outperforms PCP;
+• The conservatism of the calibration procedure is not very severe: the ratio 8∗/8∗ is usually well within one
+order of magnitude.
+These observations are summarized in Table 1; they are based on experiments performed as follows: We ran-
+domly generate d = 32 matrices A1    Ad of size 32 × 32 and of prescribed structure, speciﬁcally, full
+(“general case”), diagonal (“diagonal case”), and of the form[
+f T
+f
+]
++I32
+f being a vector (“arrow case”), and scale the generated matrices to ensure that ArrowFI32A1    Ad 0 if
+and only if F ≥ 1; the input to the calibration procedure is the collection A0 = I32, A1    A32, 3∗ = 1. Data in
+Table 1 correspond to 100,000-element training sample. Note that although the performance of the calibration
+procedure somehow improves when the sample size grows (see Table 2), this phenomenon is rather moderate.
+6.2. Illustration: Chance-constrained truss topology design. A truss is a mechanical construction com-
+prised of thin elastic bars linked with each other at nodes. In the simplest Truss topology design (TTD) problem,
+one is given a ﬁnite 2D or 3D nodal set, a list of allowed pair connections of nodes by bars, and an external
+load—a collection of forces acting at the nodes. The goal is to assign the tentative bars weights, summing up to
+a given constant, in order to get a truss most rigid w.r.t. the load (for details, see, e.g., Ben-Tal and Nemirovski
+[2, Chapter 15]). Mathematically, the TTD problem is the semideﬁnite program
+min
+9 t
+9
+29 f
+T
+f
+n∑
+i=1
+tibib
+T
+i
+ 0 t ≥ 0∑
+i
+ti = 1
+  (57)
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS 19
+Table 1. Experiments with stand-alone calibration procedure, = 1e− 6, n= 32, d= 32.
+Case
+General Diagonal Arrow
+ P 8∗  8∗/8∗ ≤ 8∗  8∗/8∗ ≤ 8∗  8∗/8∗ ≤
+1.0e−2 G 9.8e−2 8.2e−3 46 9.8e−2 2.8e−3 34 1.6e−1 2.7e−3 2.5
+4.5e−1 10 3.0e−1 11 3.5e−1 1.1
+4.5e−1 10 3.0e−1 11 3.5e−1 1.1
+U 1.2e−1 0.0 69 1.2e−1 1.0e−5 49 2.0e−1 1.0e−5 3.5
+9.5e−2 89 8.6e−2 70 8.8e−2 8.0
+5.6e−1 15 3.8e−1 16 4.4e−1 1.6
+R 1.3e−2 0.0 40 1.3e−2 0.0 27 1.1e−1 1.0e−5 3.6
+9.5e−2 55 8.5e−2 42 8.6e−2 4.8
+3.3e−1 16 2.3e−1 15 2.7e−1 1.5
+1.0e−4 G 8.6e−2 0.0 44 8.6e−2 2.0e−5 29 1.3e−1 2.0e−5 2.2
+3.5e−1 11 2.3e−1 11 2.6e−1 1.1
+3.5e−1 11 2.3e−1 11 2.6e−1 1.1
+U 1.1e−1 0.0 68 1.1e−1 0.0 42 1.6e−1 0.0 3.1
+7.1e−2 11 6.6e−2 69 6.7e−2 7.5
+4.3e−1 17 2.9e−1 16 3.2e−1 1.6
+R 8.7e−3 0.0 55 8.7e−3 0.0 32 9.8e−2 0.0 3.1
+7.1e−2 68 6.5e−2 43 6.6e−2 4.6
+2.6e−1 19 1.7e−1 17 1.9e−1 1.6
+1.0e−6 G 7.9e−2 0.0 44 7.9e−2 0.0 29 1.1e−1 0.0 2.2
+2.7e−1 13 1.9e−1 12 2.0e−1 1.2
+2.7e−1 13 1.9e−1 12 2.0e−1 1.2
+U 9.9e−2 0.0 71 9.9e−2 0.0 37 1.4e−1 0.0 2.9
+5.9e−2 12 5.6e−2 67 5.7e−2 7.4
+3.4e−1 21 2.4e−1 16 2.6e−1 1.6
+R 7.0e−3 0.0 67 7.0e−3 0.0 39 8.8e−2 0.0 3.0
+5.9e−2 79 5.5e−2 49 5.6e−2 4.8
+2.1e−1 22 1.4e−1 20 1.5e−1 1.7
+Notes. Column “P”: identical to each other distributions of 1     d; G, U, R stand for  01, Uniform	−11
+, and Uniform−141,
+respectively.
+Columns “8∗”: lower bounds on 8
+∗. Rows in a cell are as follows:
+• First row: simulation-free bound (Gaussian majorization coupled with Proposition A.1, Theorem 4.1, Theorem 4.2, depending on whether
+Al are general/diagonal/arrow)
+• Second row: PCP calibration
+• Third row: GCP calibration.
+Gaussian majorization is based either on comparison, or on Majorization Theorem, depending on the type (U/R) of the distributions of l.
+Columns “ ”: empirical value, over 100,000-element sample, of 1− p8, see (56), 8 being set to the largest value in the corresponding
+cell of the 8∗-column
+Columns “8∗/8
+∗ ≤”: ratios of the empirical bound on 8∗ as yielded by 100,000 sample, to the corresponding lower bounds on 8∗ from the
+8∗-column.
+where 9 is (an upper bound on) the compliance—a natural measure of truss’ rigidity (the less the compliance,
+the better), ti are weights of the bars, f represents the external load, and bi are readily given by the geometry
+of the nodal set. The dimension M of bis and f is the total # of degrees of freedom of the nodes.
+The “nominal design” shown in Figure 1(a) is the optimal solution to a small TTD problem with 9×9 planar
+nodal grid and where the load f is comprised of a single force (see Figure 1(c)). This design uses just 12 of
+the original 81 nodes and 24 of the potential 2,039 bars. In reality, the truss, of course, will be subject not only
+to the primary load f , but also to occasional secondary, relatively small, loads affecting the nodes used by the
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+20 Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS
+Table 2. Performance of stand-alone calibration procedure vs. size N of training sample,
+= 1.e− 6, n= 32, d= 32, general-type matrices Al.
+8∗
+ P N = 1000 N = 10000 N = 100000
+1.0e−2 G 3.7e−1 4.4e−1 4.5e−1
+3.7e−1 4.4e−1 4.5e−1
+U 9.4e−2 9.5e−2 9.5e−2
+4.7e−1 5.5e−1 5.6e−1
+R 9.4e−2 9.5e−2 9.5e−2
+2.5e−1 3.2e−1 3.3e−1
+1.0e−4 G 2.5e−1 3.0e−1 3.5e−1
+2.5e−1 3.0e−1 3.5e−1
+U 7.0e−2 7.1e−2 7.1e−2
+3.1e−1 3.8e−1 4.4e−1
+R 7.1e−2 7.1e−2 7.1e−2
+1.7e−1 2.3e−1 2.6e−1
+1.0e−6 G 2.0e−1 2.4e−1 2.7e−1
+2.0e−1 2.4e−1 2.7e−1
+U 5.9e−2 6.0e−2 5.9e−2
+2.5e−1 3.0e−1 3.4e−1
+R 5.9e−2 6.0e−2 5.9e−2
+1.4e−1 1.8e−1 2.1e−1
+Notes. Column “P”: see Table 1. The ﬁrst number in “8∗”-cells corresponds to PCP, the
+second corresponds to GCP.
+construction. The truss should, of course, withstand these loads as well. This is by far not the case with the
+truss on Figure 1(a)—it can be crushed by a very small occasional load. Indeed, a typical random load f˜ acting
+on the 12 nodes of the nominal design, and of very small size as compared to f , say (f˜ 2 ≤ 10−7f 2), results
+in compliances that are about 10 times larger than the compliance caused by f—a phenomenon illustrated on
+Figure 1(b). A natural way to “cure” the nominal design is to reformulate the TTD problem, explicitly imposing
+(a): Nominal design,
+      12 nodes, 24 bars.
+(b)  Dotted lines: Positions of nodes in
+       deformated nominal design, sample
+       of 100 loads ~  (0, 10–16 I20)
+f
+f
+(c): 12-node set with left-most
+       nodes fixed and the load of interest.
+       M = 20 degrees of freedom.
+(d): 54 tentative bars (f): Clouded nodes: Positions of nodes in deformated
+      chance-constrained design, sample of 100
+      loads ~  (0, 10–2 I20)
+(e): Chance-constrained design, 12
+       nodes, 33 bars. Compliance w.r.t.
+       the load of interest 1.025.
+Figure 1. Nominal and chance-constrained designs.
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS 21
+the requirement that the would-be truss should carry occasional random loads well. Speciﬁcally, we
+• replace the original 81-point nodal set with the 12-point set of nodes actually used by the nominal design
+(Figure 1(c)). Note that among these nodes, the two leftmost ones are ﬁxed by boundary conditions (“are in the
+wall”), so that the total number M of degrees of freedom of this reduced nodal set is 2× 10= 20;
+• allow for all pair connections of the resulting 12 nodes by tentative bars (except for clearly redundant bar
+linking the two ﬁxed nodes and the bars incident to more than 2 nodes); the resulting 54 tentative bars are
+shown on Figure 1(d);
+• assume that the occasional loads are random ∼  0 82I20, where 8 is an uncertainty level, and take, as
+the “corrected” truss, the chance-constrained design—the optimal solution to the following chance-constrained
+semideﬁnite program:
+max
+8 t
+
+8
+At︷ ︸︸ ︷29 f
+T
+f
+54∑
+i=1
+tibib
+T
+i
+ 0 t ≥ 0 ∑
+i
+ti = 1
+Prob∼ 0 I20
+
+ 29 8
+T
+8
+54∑
+i=1
+tibib
+T
+i
+
+︸ ︷︷ ︸
+0	t
++8
+∑M
+l=1 ll 	t
+
+ 0
+
+≥ 1− 
+
+ (58)
+where 9 is slightly greater than the optimal value 9∗ in the original TTD problem (in our experiment, we set
+9 = 10259∗). In other words, we are now looking for truss for which the compliance w.r.t. the primary load
+f is nearly optimal—is at most 9 , and which is capable of withstanding equally well to “nearly all” (up to
+probability ) random occasional loads of the form 8 ,  ∼  0 I20; under these restrictions, we intend to
+maximize 8, i.e., to maximize (the 1− -quantile of) the rigidity of the truss w.r.t. occasional loads (cf. (26)).
+Note that the robust optimization version of the outlined strategy was proposed and discussed in full details in
+Ben-Tal and Nemirovski [1].
+Implementing the outlined strategy, we built and solved the safe tractable approximation
+min
+3 t
+3
+At 0 t ≥ 0 ∑
+i
+ti = 1
+Arrow30	t
+1	t
+    M	t
+ 0
+ (59)
+(cf. (27)) of the chance-constrained TTD problem (58). After a feasible solution t∗ to the approximation is
+found, we used the calibration procedure to build a 1− -reliable lower bound 8∗ on the largest 8= 8∗t∗
+such that t∗ 8 is feasible for (58). In our experiment, we worked with pretty high reliability requirements:
+ = = 1.e−10. The results are presented in Table 3 and are illustrated on Figure 1. Note that we are in the
+arrow case, so that we can build a simulation-free lower bound on 8∗t∗; see §4.3. With our data, this load
+is 4.01e−3—more than 10 times worse than the best simulation-based extremely reliable (= 1e−10) bound
+presented in Table 3.
+Comparison with the scenario approximation. We have used the TTD example to compare our approx-
+imation scheme with the scenario one (see the introduction). The latter, to the best of our knowledge, is the
+Table 3. Lower bounds for 8∗t∗ in the chance-constrained TTD problem vs. the
+size N of training sample, = = 1e−10.
+N = 1000 N = 10000 N = 100000
+8∗ 0035 0041 0043
+8∗t∗/8∗ ≤ 199 164 156
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+22 Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS
+only existing alternative for processing chance-constrained LMIs. The scenario approximation of the chance
+constrained problem of interest (58) is the semideﬁnite program
+max
+8 t
+
+8
+29 f
+T
+f
+54∑
+i=1
+tibib
+T
+i
+ 0 t ≥ 0 ∑
+i
+ti = 1
+ 29 8	
+j 
+T
+8j
+54∑
+i=1
+tibib
+T
+i
+ 0 1≤ j ≤ J
+
+ (60)
+where 1     J is a sample drawn from  0 I20; the sample size J is given by (5) where one should set
+m= dim t + dim8= 55. Needless to say, the scenario approximation with the above  = = 1e−10 requires
+a completely unrealistic sample size; this is why we ran the scenario approximation with  = 001, = 0001.
+Although these levels of unreliability are by far too dangerous for actual truss design, they are acceptable in our
+current comparison context. With the outlined , the sample size J as given by (5) is 42,701, and the optimal
+value in (60) turned out to be 8SA = 00797. For comparison, our approximation with  = 001 and = 0001
+results in 8∗ = 0105≈ 1318SA; keeping = 001 and reducing  to 1.e−6, we still get 8∗ = 0103≈ 1298SA.
+Note that the design given by (59) also seems to be better than the one given by (60): At uncertainty level
+8 = 0105, the empirical probabilities (over 100,000-element sample of random occasional loads) for the two
+designs to yield a compliance worse than the desired upper bound 9 were 0.0077 and 0.0097, respectively. Thus,
+in the experiment we are reporting, our approximation scheme is a clear winner.
+Appendix A. Some proofs.
+Proof of Equivalence in Deﬁnition 5.1. We should prove that if ps, qs are nonincreasing on R+
+and such that
+∫
+R+ psds =
+∫
+R+
+qsds, and  is the family of all bounded nondecreasing functions on R+,
+then {
+∀ f ∈
+∫
+f spsds ≤
+∫
+f sqsds
+}
+⇔
+{
+∀ t ≥ 0
+∫ 
+t
+psds ≤
+∫ 
+t
+qsds
+}
+ (61)
+By standard continuity arguments, the left condition in (61) is equivalent to the similar condition with  replaced
+with the space 	 of all continuously differentiable bounded nondecreasing functions on R+.
+Setting Ps= ∫ 
+s
+prdr , Qs= ∫ 
+s
+qrdr , for every f ∈	 we have
+I	f 
+ =
+∫ 
+0
+f s	qs−ps
+ds =−
+∫ 
+0
+f sdQs+
+∫ 
+0
+f sdPs
+= f 0	Q0−P0
++
+∫ 
+0
+f ′s	Qs−Ps
+ds =
+∫ 
+0
+f ′s	Qs−Ps
+ds
+We see that I	f 
+ ≥ 0 for every continuously differentiable nondecreasing and bounded f if and only if∫ 
+0 gs	Qs − Ps
+ds ≥ 0 for every nonnegative summable function g· on R+; because P·, Q· are
+continuous, the latter is the case if and only if Qs≥ Ps for all s ≥ 0. 
+Proof of Proposition 5.1. Relations (i)–(iv) are evident in view of the equivalence mentioned in Deﬁni-
+tion 5.1.
+(v): Relation E m G clearly implies that E m G for every deterministic . In view of this fact, in order to
+prove (v) it sufﬁces to prove that if the densities p pq q belong to  and p m q, p m q, then p ∗ p and
+q ∗ q belong to  and p ∗ pm q ∗ q.
+10. Let us verify that p ∗ p ∈. We should prove that the density p ∗ ps= ∫ ps− r prdr is even
+(which is evident) and is nonincreasing on R+. By standard approximation arguments, it sufﬁces to verify the
+latter fact when the probability densities p, p, in addition to being even and nonincreasing on R+, are smooth.
+In this case we have
+p ∗ p′s=
+∫
+p′s− r prdr =
+∫
+ps− r p′rdr =
+∫ 0
+−
+ps− t−ps+ t p′tdt (62)
+Let s ≥ 0. Then for t ≤ 0 we have s + t = s− t ≥ s+ t, and because p is even and nonincreasing on R+,
+we conclude that ps− t= ps− t≤ ps+ t= ps+ t, so that ps− t−ps+ t≤ 0 when s ≥ 0 t ≤ 0.
+Because, in addition, p′t ≥ 0 when t ≤ 0, the concluding quantity in (62) is nonpositive, meaning that the
+density p ∗ p is even and is nonincreasing on R+.
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS 23
+20. Now let us verify that if ∗ is the family of all even bounded and continuously differentiable functions
+on R that are nondecreasing on R+, then f+ = p ∗ f ∈∗ whenever f ∈∗. The only nontrivial claim is that
+f+ is nondecreasing on R+, and when verifying it, we, the same as in 10, can assume that p is not only even
+and nonincreasing on R+, but is also smooth. In this case we have f ′+s=
+∫
+f s− rp′rdr = ∫ 0−f s− t−
+f s+ tp′tdt. Assuming s ≥ 0, t ≤ 0 and taking into account that f is even and is nondecreasing on R+, we
+have f s− t= f s− t= f s+ t≥ f s+ t= f s+ t; because p′t≥ 0 when t ≤ 0, we conclude that∫ 0
+−f s− t− f s+ tp′tdt ≥ 0 when s ≥ 0.
+30. Now we can conclude the proof of (v). We already know from 10 that the convolutions of every two
+of the four densities p pq q belong to . All we should prove is that when p·m q· and p·m q·,
+then p ∗ p·m q ∗ q·.
+30.(a) Let us ﬁrst verify that p ∗ p·m p ∗ q·, that is,∫
+f sp ∗ psds ≤
+∫
+f sp ∗ qsds (63)
+for every even bounded function f that is nondecreasing on R+. By evident continuity reasons, it sufﬁces to
+verify that (63) holds true for every f ∈∗. Taking into account that p is even, we get∫
+f sp ∗ psds =
+∫
+f sps− t ptds dt =
+∫
+f ∗pt ptdt
+and by similar reasons ∫
+f sp ∗ qsds =
+∫
+f ∗pt qtdt
+As we know from 20, f ∗p ∈∗ whenever f ∈∗, and (63) follows from the fact that p·m q·.
+30.(b) The result of 30.(a) states that p ∗ pm p ∗ q. By the same result, but with swapped roles of “plain”
+and “̂ ” components, we further have p ∗ q m q ∗ q. As we know from (i), m is a partial order, so that
+p ∗ pm p ∗ q and p ∗ q m q ∗ q imply the desired relation p ∗ pm q ∗ q. (v) is proved.
+(vi): To prove that E m  , observe that because E ∈  and E is supported on 	−11
+, the density of E
+clearly is the weak limit of convex combinations of densities of uniform distributions on segments of the form
+	−aa
+ with a≤ 1. Every one of these uniform distributions is m the distribution of  by (iii), so that their
+convex combinations are m the distribution of  by (ii). Applying (iv), we conclude that E m  .
+To prove that  m G, let p· and q· be the respective densities (both of them belong to ), and let
+P˜ t= ∫ t0 psds = 12 min	t1
+, Q˜t= ∫ t0 qsds; this function is concave in t ≥ 0 because q· is nonincreasing
+on R+. To prove that  s G is exactly the same as to verify that P˜ t≥ Q˜t for all t ≥ 0. This is indeed the case
+when 0≤ t ≤ 1, because Q˜0= 0, Q˜′0= 1/2, and Q˜ is concave on R+, whereas P˜ t= 12 t = Q˜0+ tQ˜′0
+when 0≤ t ≤ 1. And, of course, P˜ t= 1/2≥ Q˜t when t ≥ 1. (vi) is proved.
+(vii): 10. Observe, ﬁrst, that whenever p· ∈, then there exists a sequence pt· ∈t=1 such that
+(a) every pt· is a convex combination of densities of uniform symmetric w.r.t. 0 distributions;
+(b) pt → p as t→ in the sense that∫
+f sptsds→
+∫
+f spsds as t→
+for every bounded piecewise-continuous function f on the axis.
+20. We have the following:
+Lemma A.1. Let Q ⊂ Rd be a nonempty convex compact set symmetric w.r.t. the origin, and let
+p1·     pd· q· ∈ be such that p1·     pd−1· are densities of uniform distributions and pd·m
+q·. Then, ∫
+Q
+p1x1p2x2   pd−1xd−1pdxddx≥
+∫
+Q
+p1x1p2x2   pd−1xd−1qxddx (64)
+Proof of Lemma A.1. Let Kl, 1≤ l < d, be the support of the density pl, so that Kl is a segment on the
+axis symmetric w.r.t. 0. Let us set K = K1 × · · · × Kd−1 ×R, Q = Q ∩ K, so that Q is a convex compact set
+symmetric w.r.t. the origin, and let
+f s=mesd−1x ∈ Q xd = s
+The function f s is even; denoting by M the projection of Q onto the xd-axis and applying the symmeterization
+principle of Brunn-Minkowski, we conclude that f 1/d−1s is concave, even, and continuous on M, whence, of
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+24 Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS
+course, f 1/d−1s is nonincreasing in M∩R+. We see that the function f s is even, bounded, and nonnegative,
+and is nonincreasing on R+, whence ∫
+f spdsds ≥
+∫
+f sqsds (65)
+due to pd·m q·. It remains to note that the left- and the right-hand sides in (64) are proportional, with a
+common positive coefﬁcient, to the respective sides in (65). 
+30. Now we can complete the proof of (vii). Clearly, all we need is to show that if p1·     pd· qd· ∈
+ and pd·m qd·, then∫
+Q
+p1x1p2x2   pd−1xd−1pdxddx≥
+∫
+Q
+p1x1p2x2   pd−1xd−1qdxddx
+By continuity argument and in view of 10, it sufﬁces to verify the same relation when p1·     pd−1· are
+convex combinations of densities of uniform and symmetric w.r.t. the origin distributions. Because both sides
+in our target inequality are linear in every one of p1     pd−1, to prove the latter fact is the same as to prove
+it when every one of p1     pd−1 is a uniform distribution symmetric w.r.t. the origin. In the latter case, the
+required statement is given by Lemma A.1. 
+Proof of Proposition 5.2.(ix). Under the premise of the statement to be proved, Q contains the centered
+at the origin ·2-ball of the radius ErfInv* (Lemma 3.1.(i)), so that the Minkowski function Fx = inf
+t  t−1x ∈Q of Q belongs to 	
+n. Let I ∈ 	1 ), and let x=max	Fx−I0
+We clearly have · ∈	
+n,
+so that ∫
+xdPEx≤
+∫
+xdPGx (66)
+For s ≥ I, let ps= ProbG ∈ sQ= ProbG > s−I. By Lemma 3.1.(ii) we have
+s ≥ I ⇒ ps≤ ErfsErfInv* (67)
+We have
+∫
+xdPGx=−
+∫ 
+I
+s−Idps= ∫ 
+I
+psds ≤ ∫ 
+I
+ErfsErfInv*ds (the concluding inequality
+is due to (67)), whence
+∫
+xdPEx ≤
+∫ 
+I
+ErfsErfInv*ds by (66). Now, when E ∈ )Q, we have E ≥
+)−I. Invoking the Tschebyshev inequality, we arrive at
+ProbE ∈ )Q≤ EE
+)−I ≤
+1
+)−I
+∫ 
+I
+ErfsErfInv*ds 
+Proof of Property P via Noncommutative Khintchine Inequality. We start with the following
+deep fact of functional analysis due to Lust-Piquard [11], Pisier [16], and Buchholz [7]; see Tropp [17, Propo-
+sition 10]:
+Noncommutative Khintchine Inequality (NKI): Let G∼ 0 Id, and let Q1    Qd be deterministic matri-
+ces. Then for every p ∈ 	2 one has
+E
+{∣∣∣∣ d∑
+l=1
+GlQl
+∣∣∣∣p
+p
+}
+≤ 	2−1/4√p-/e
+pmax[∣∣∣∣ d∑
+l=1
+QlQ
+T
+l
+∣∣∣∣
+p/2
+
+∣∣∣∣ d∑
+l=1
+QTl Ql
+∣∣∣∣
+p/2
+]p/2
+ (68)
+where Ap = AAp, AA being the vector of singular values of a matrix A.
+As an immediate corollary of NKI, we have the following
+Proposition A.1. Let Bl ∈ Sn, n≥ 2, be such that
+∑d
+l=1B
+2
+l ≤ I , and let
+cn = inf
+2≤p<
+	2−1/4
+√
+p-/en1/p
+
+Then cn ≤O1
+√
+lnn and for all * ∈ 01/2 one has
+Prob
+{
+−+*I 
+d∑
+l=1
+lBl +*I
+}
+≥ 1−*
++*=
+{
+16cnErfInv03* we are in the case of (A.1)
+cn/* we are in the case of (A.2)
+(69)
+Ben-Tal and Nemirovski: On Safe Tractable Approximations of Chance-Constrained Linear Matrix Inequalities
+Mathematics of Operations Research 34(1), pp. 1–25, © 2009 INFORMS 25
+Proof. When p = max	2 lnn
+, we clearly have 2−1/4√p-/en1/p ≤ O1√p ≤ O1√lnn, so that cn ≤
+O1
+√
+lnn. Now assume that (A.2) is the case. Applying NKI with Ql = Bl and taking into account
+that ∑dl=1 lBlp ≤ ∑dl=1 lBl and taking into account that ∑dl=1B2l p/2p/2 ≤ n due to ∑l B2l  In, we get
+E∑dl=1 lBlp ≤ 	2−1/4√p-/e
+pn whence Prob∑l lBl > + ≤ 	2−1/4√p-/e
+n1/p for every + > 0 by
+Tschebyshev Inequality. The resulting bound is valid for every p ∈ 	2, and the (A.2)-version of (69) follows.
+The (A.1)-version of (69) follows from the (A.2)-version of this relation due to Gaussian majorization. 
+Acknowledgments. This research was partly supported by BSF Grant 2002038; research of the second
+author was supported by NSF Grant 0619977. The authors are greatly indebted to A. Man-Cho So, who brought
+to their attention the noncommutative Khintchine inequality.
+References
+[1] Ben-Tal, A., A. Nemirovski. 1997. Stable truss topology design via semideﬁnite programming. SIAM J. Optim. 7(4) 991–1016.
+[2] Ben-Tal, A., A. Nemirovski. 2001. Lectures on Modern Convex Optimization: Analysis, Algorithms and Engineering Applications.
+MPS-SIAM Series on Optimization, SIAM, Philadelphia.
+[3] Ben-Tal, A., A. Nemirovski. 2002. On tractable approximations of uncertain linear matrix inequalities affected by interval uncertainty.
+SIAM J. Optim. 12 811–833.
+[4] Ben-Tal, A., A. Nemirovski, C. Roos. 2002. Robust solutions of uncertain quadratic and conic-quadratic problems. SIAM J. Optim. 13
+535–560.
+[5] Ben-Tal, A., A. Nemirovski, C. Roos. 2003. Extended matrix cube theorems with applications to N-Theory in control. Math. Oper.
+Res. 28 497–523.
+[6] Borell, C. 1975. The Brunn-Minkowski inequality in Gauss space. Inventiones Mathematicae 30(2) 207–216.
+[7] Buchholz, A. 2001. Operator Khintchine inequality in the non-commutative probability. Mathematische Annalen 391 1–16.
+[8] Calaﬁore, G., M. C. Campi. 2005. Uncertain convex programs: Randomized solutions and conﬁdence levels. Math. Programming 102
+25–46.
+[9] de Farias, D. P., B. Van Roy. 2004. On constraint sampling in the linear programming approach to approximate dynamic programming.
+Math. Oper. Res. 29 462–478.
+[10] Erdogan, G., G. Iyengar. 2006. Ambiguous chance constrained problems and robust optimization. Math. Programming B 107(1–2)
+37–61.
+[11] Lust-Piquard, F. 1986. Inégalités de khintchine dans Cp 1< p <. Comptes Rendus de l’Académie des Sciences de Paris, Série I
+393(7) 289–292.
+[12] Man-Cho So, A. 2008. Improved approximation bound for quadratic optimization problems with orthogonality constraints. Technical
+report, Department of Systems Engineering and Engineering Management, The Chinese University of Hong Kong, Shatin, N. T.,
+Hong Kong.
+[13] Nemirovski, A. 2007. Sums of random symmetric matrices and quadratic optimization under orthogonality constraints. Math. Pro-
+gramming B 109 283–317.
+[14] Nemirovski, A., A. Shapiro. 2006. Scenario approximations of chance constraints. G. Calaﬁore, F. Dabbene, eds. Probabilistic and
+Randomized Methods for Design Under Uncertainty. Springer-Verlag, New York, 3–48.
+[15] Nemirovski, A., A. Shapiro. 2006. Convex approximations of chance constrained programs. SIAM J. Optim. 17(4) 969–996.
+[16] Pisier, G. 1998. Non-commutative vector valued Lp spaces and completely p-summing maps. Austérisque 247 1–111.
+[17] Tropp, J. A. 2008. The random paving property for uniformly bounded matrices. Studia Mathematica 185 67–82.

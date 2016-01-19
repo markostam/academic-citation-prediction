@@ -1,0 +1,3126 @@
+Res. Lett. Inf. Math. Sci.,  2006, Vol. 10,  pp 17-48
+Available online at http://iims.massey.ac.nz/research/letters/
+Variances of first passage times in a Markov chain with
+applications to mixing times
+J. J. HUNTER
+Institute of Information & Mathematical Sciences
+Massey University at Albany, Auckland, New Zealand
+In an earlier paper the author introduced the statistic η πi ij jj
+m
+m =
+=
+∑ 1  as a measure of the
+“mixing time” or “time to stationarity” in a finite irreducible discrete time Markov chain
+with  stationary distribution {pj} and mij  as the mean first passage time from state i to state
+j of the Markov chain. This was shown to be independent of the initial state i with ηi = η
+for all i, minimal in the case of a periodic chain, yet can be arbitrarily large in a variety of
+situations. In this paper we explore the variance of the mixing time vi ,  starting in state i.
+The vi , are shown to depend on i and an exploration of recommended starting states, given
+knowledge of the transition probabilities, is considered. As a preamble, a study of the
+computation of second moments of the mixing times, m
+ij
+( )2 , and the variance of the first
+passage times, in a discrete time Markov chain is carried out leading to some new results.
+1 Introduction
+Let P = [pij] be the transition matrix of a finite irreducible, discrete time Markov chain
+{Xn},  (n ≥ 0), with state space S = {1, 2,…, m}. It is well known that such Markov
+chains have a unique stationary distribution {πj}, (1  ≤ j ≤ m), that, in the case of a
+regular (finite, irreducible and aperiodic) chain, is also the limiting distribution of the
+Markov chain ([10, Theorem 7.1.2]).  Let π T  = (π1, π2, ... ,πm )  be the stationary
+probability vector of the Markov chain.
+Let Tij be the first passage time random variable from state i to state j, i.e. Tij = min{
+n ≥1 such that Xn = j given that X0 = i}, so that Tii is the “first return to state i”. Let M =
+[mij] be the matrix of the mean first passage times from state i to state j, i.e. mij =
+E[Tij | X0 = i] for all i, j ∈S.
+The irreducibility of the Markov chain ensures that the Tij are all proper random
+variables ( [9, Theorem 5.3.6]), and under the finite state space restriction, all the
+moments of Tij are finite, ( [10, Theorem 7.3.1]).  (It is possible, in the presence of null
+states in the case of an infinite state space for mii = + ∞.)
+18 J.J. Hunter
+Definition 1.1.  (T, the “time to mixing” in a Markov chain)
+Let Y be a random variable whose probability distribution is the stationary distribution
+{πj}. We shall say that the Markov chain  {Xn}, “reaches stationarity”, or achieves
+“mixing”, at time T = k, when Xk = Y for the smallest such k ≥ 1. 
+Thus, we first sample from the stationary distribution {πj} to determine a value of the
+random variable Y, say Y = j.  We then observe the Markov chain, starting at a given
+state i and achieve “mixing” at time T  = n when Xn = j for the first such n ≥ 1. i.e.,
+conditional upon      Y = j, T = Tij, the first passage time from state i to state j, (or return
+to state j when i  = j). The finite state space restriction, under irreducibility conditions,
+ensures the finiteness of the “mixing time” (a.s), with a finite expectation.
+Let us define ηi
+k kE T X i( ) [ | ]= =0  as the k-th moment of the mixing time, starting in
+state i.  Also let mij
+k( )  be the k-th moment of the first passage time from state i to state j
+in the Markov chain.
+Theorem 1.1. For all i, η πi k k jj
+m
+m
+ij
+( ) ( )
+.=
+=
+∑ 1
+Proof. E T E E T Y E T Y j P Y jk Y
+k k
+j
+m
+[ ] ( [ | ]) [ | ] [ ]= = = =
+=
+∑  1
+= E T X iij
+k
+jj
+m
+[ | ]01 ==∑ π = mijk jjm ( ) .π=∑ 1   ❑
+In [3] we explored the properties of η πi ij jj
+m
+m =
+=
+∑ 1 ,  the expected time to mixing
+starting at state i, and showed that ηi = η, a constant independent of i, the starting state.
+Since the average time to mixing does not depend on which state the Markov chain
+commences, we pose the following question: Is there some particular state that could be
+more desirable as a starting point? The distributions of the mixing times, starting from
+different states could possibly have some widely different characteristics, even though
+they have the same mean. In this paper we derive expressions for the variances vi, of the
+mixing times starting in each state i and then explore the possibility of choosing some
+particular state that say minimises the variances vi of the mixing times over the state
+space S. The existence of such a state would certainly be desirable from the view of
+eliminating any widely varying mixing times providing some tighter bounds on the time
+to mixing.
+Observe that v T X i mi i ij jj
+m
+= = = − = −
+=
+∑var [ | ] ( ) ( )0 2 2 21 2η η π η , thus we first need to
+explore the derivation of the first two moments of the first passage times.
+In Section 2 we develop some new results for the second moment and the variances of
+the first passage times in a Markov chain based upon the use of generalized matrix
+inverses in solving systems of linear equations. These results are used in Section 3 to
+derive expressions for the variances of the mixing times starting in a particular state. In
+Section 4 we apply the results to general two-state and three-state Markov chains, in the
+Variances of mixing times in Markov chains 19
+latter model focusing on a variety of special cases. The paper contains many new results
+and opens up an area of research, in particular the application of the results to more
+general Markov chains.
+2 Moments of the first passage times
+Let M m M mij ij= =[ ] [ ]
+( ) ( ) and 2 2  be the first and second moments of the first passage
+times from state i to state j in an irreducible finite Markov chain with transition matrix
+P.
+In earlier papers ([6], [11], [12]), we have shown that generalized inverses (g-inverses)
+of the Markovian kernel I – P have useful properties in determining the mean first
+passage times.
+Theorem 2.1. M satisfies the matrix equation
+(I – P)M = E – PMd ,                                                                                                      (2.1)
+where, if eΤ  = (1, 1, ..., 1), E = eeΤ = [1], Md = [δijmij], a diagonal matrix with elements
+the diagonal elements of M.
+Proof: Equation (2.1) is well known. (See for example, [10, Corollary 7.3.3B], [11,
+Section 5.1], [13, Theorem 4.4.4]). ❑
+Lemma 2.2. If X is an arbitrary square matrix, and Λ is a diagonal matrix,
+( ) ( ) , (X X D X Xd d dE Ed d= =Π Λ) Λ, Π = Π        .            (2.2)
+Proof: These results are well known. See [10, Lemma 7.3.5]. ❑
+Corollary 2.1.1.    Md
+ = (Πd)-1 ≡ D, where Π = eπ Τ.
+Proof: This result is well known since mii i= 1 π .  It also follows by multiplying both
+sides of (2.1) by Π. Note that Π P = Π  so that Π Ε ΠE M d= = and the result follows
+by taking diagonal elements and noting that E I Md d= = Πd .  ❑
+It is well know that the solution of equations of the form of Eqn. (2.1) can be effected
+using g-inverses of I – P, (see e.g. [10] and [11]). Any g-inverse of I – P has the form
+G = [I – P + tuT] –1 + ef T + gπ T
+where uTe ≠ 0, π Tt ≠ 0 and f and g are arbitrary vectors.
+20 J.J. Hunter
+Theorem 2.3. If G is any g-inverse of I – P, then
+  M = [GΠ  – E(GΠ)d + I – G + EGd]D.                                                            (2.3)
+Proof:  Result (2.3) appears in [10, Theorem 7.3.6] and [11, Theorem 5.1]. ❑
+By choosing special g-inverses, Eqn.(2.3) can be simplified. First note the following
+consequence of Theorem 2.3.
+Corollary 2.3.1.
+  GE  – E(GΠ)dD = M –  [I – G + EGd]D.                                                          (2.4)
+Proof:  Result (2.4) follows from Eqn.(2.3) by noting that ΠD  =  E. ❑
+If A = [aij] is a matrix, define a ai ijj
+m
+i =
+=
+∑ 1 .
+Corollary 2.3.2. Under any of the following three equivalent conditions,
+(i)  Ge = ge , g a constant,
+(ii) GE  – E(GΠ)dD = 0,
+ (iii)  GΠ  – E(GΠ)d = 0,
+M =  [I – G + EGd]D.                          (2.5)
+Proof:   Condition (i) Ge =ge implies GE  = GeeT = geeT = gE and E(GΠ)dD =
+E(Geπ  T)dD = E(geπ  T)dD = gEΠdD = gE leading to condition(ii). Since ΠD = E
+substitution in (ii) and post-multiplication by D-1 leads to condition(iii). Further under
+condition(iii), GΠ = GeπT = eeT(GΠ)d. Post-multiplication by e, since π Te  =  1 , yields
+Ge = eeT(GΠ)de = ge  where g = eT(GΠ)de, a constant ( ).=
+=
+∑ gj jjm iπ1 Thus (i) ⇒ (ii) ⇒
+(iii) ⇒ (i) and the conditions are equivalent. Result (2.5) follows from Eqn.(2.4) under
+condition (ii).  Note that condition (i) implies that  gj i = g for all j.  ❑
+From [7, Cor 3.1.1] the conditions of Corollary 2.3.2 also imply that if G = H + ef T +
+gπ  T then M =[I – H + EHd]D  if and only if H = [I – P + euT] –1 for some u such that
+uTe ≠ 0.
+If we take G = H + ef T then Ge = ge with g = 1 + f Te. Special cases for Eqn.(2.5) are G
+= Z, Kemeny and Snell’s fundamental matrix Z = [ ]I P− − −Π 1 (since Ze = e and g = 1)
+as given initially in [13, Theorem 4.4.7] and G = T =  Z – Π,  Meyer’s group inverse of
+I – P, (with Te = 0 and g = 0) as given in [14, Theorem 3.3].
+Elemental expressions for the mij follow from Theorem 2.3 as follows.
+Variances of mixing times in Markov chains 21
+Corollary 2.3.3. If  G = [ gij] then
+       (     m g g g gij jj ij ij j i j= − + + −⋅ ⋅([ ] ) ),δ π for all i j      , .                          (2.5)
+Further, when Ge =ge,
+    
+              m g g for all i jij jj ij ij j= − +[ ] , .δ π                      (2.6)
+We parallel the development, given above for M, for M ( ).2
+Theorem 2.4. M ( )2 satisfies the matrix equation
+( ) ( ) .( ) ( )I P M E P M M PMd d− = + − −2 22                                                 (2.7)
+Proof: This result is well known. See [10, Theorem 7.3.10], [13, proof of Theorem
+4.5.1]. ❑
+Corollary 2.4.1.
+M D M Dd d
+( ) ( ) .2 2= −Π     (2.8)
+Proof: Pre-multiplication of both sides of Eqn. (2.7) with Π , noting that Md = D, Π =
+ΠP, and ΠE = E,  yields
+Π ΠM E M Dd
+( ) ( ).2 2= + −
+Now take diagonal elements, using Lemma 2.2, to obtain
+  Π Π Πd M I M Dd d d
+( ) ( ) .2 2 2= + −
+Eqn.(2.8) follows, from Corollary 2.1,  since Πd D− =1 . ❑
+Corollary 2.4.2. If G is any g-inverse of I – P,
+M D D I G I Dd d
+( ) {( ) ( )} .2 2= + − −Π Π     (2.9)
+Proof: From Eqn.(2.3), noting that Π E =  E, it is easily seen that
+ΠM – M = [(I – Π)G(I – Π)  + Π – 
+ 
+I]D.
+Taking the diagonal elements, and noting that Md = D and Πd D = I, yields
+   ( {( ) ( )} .ΠΜ) Π Πd = − − +I G I D Id                                                          (2.10)
+Eqn (2.9) now follows from Eqn.(2.7).  ❑
+Corollary 2.4.3. If Ge = ge,
+M D D I G Dd d
+( ) {( ) } .2 2= + − Π            (2.11)
+In particular,
+22 J.J. Hunter
+M D DT Dd d
+( )
+,
+2 2 = +            (2.12)
+                  = 2DZ D Dd − .            (2.13)
+Proof:  Eqn.(2.11) follows from Eqn.(2.9) by observing that GΠ  =  Geπ Τ = eπΤ =Π    and
+that   (I – Π ) Π = 0   since Π  2=  eπ ΤeπΤ = eπ Τ=Π .
+Eqn.(2.12) follows directly from Eqn.(2.9) as it has been shown ([11,Theorem 6.3]) that
+for all g-inverses G of I - P, (I – Π)G(I –Π) is invariant and is in fact T, the group
+inverse of I – P.
+Eqn.(2.13) follows directly from Eqn.(2.12) since T = Z – Π.
+ 
+     ❑
+Expression (2.9) is also given in [7, Eqn.(3.8)];  expression (2.12) is given in [14, proof
+Theorem 3.4] and [10, Eqn.7.3.25]; and expression (2.13) is given in [13, Theorem
+4.5.2].
+Closed form expresssions for M (2) have been derived by Kemeny and Snell [13] (using
+Z, the fundamental matrix), Meyer [14] (using T the group inverse) and Hunter [10],
+[11] and [12]. The only presentations using arbitrary g-inverses of I – P are those of
+Hunter [10] and [11].  In [7] general techniques, using generalized inverses of I – P, for
+finding the higher moments of the first passage times were also discussed.
+The results given by the following theorem are however new and offer possible
+computational advantages.
+Theorem 2.5. If G is any g-inverse of I – P, then
+             M GM E GM I G EG M D Md d d
+( ) ( )[ ( ) ] [ ][ ] ,2 22= − + − + + −                         (2.14)
+           = − + − + −2 2[ ( ) ] [ ] ( ) .GM E GM I G EG D M Md d dΠ            (2.15)
+Proof:  Eqn.(2.7) is of the form AX = C, where A = I – P, X = M(2) and C is known.
+Consistent equations of this form can be solved using any g-inverse of A, A–, with the
+general solution given by X = A–B + (I – A–A)U, where U is an arbitrary matrix (see
+[11], Corollary 3.1.1]. (The consistency condition, A–AC = C, can be shown to be
+satisfied.)
+Thus the general solution of Eqn.(2.7), with G is any g-inverse of I – P, is given by
+ M G E P M M PM I G I P Ud d
+( ) ( )[ ( ) ] [ ( )]2 22= + − − + − −                      (2.16)
+where U is an arbitrary matrix. The arbitrariness of U can be eliminated by taking
+advantage of the knowledge of M d
+( )2
+.  We first simplify Eqn.(2.16) by using Eqn. (2.7)
+to show that
+GP M M GPM GPD GM GEd( ) .− = − = −
+Variances of mixing times in Markov chains 23
+Secondly, for any g-inverse G of I – P, it can be shown that for some β T ,  (see [6,
+Eqn.(2.15)]) that
+I G I P T− − =( ) .eβ             (2.17)
+Thus, defining β T TU = b and noting that ebT can be expressed as EB, say, where B is a
+diagonal matrix, whose diagonal elements are those of the vector bT .  Thus Eqn.(2.16)
+can be expressed as
+ M GM GE GPM EBd
+( ) ( )
+.
+2 22= − − +                                                     (2.18)
+We now determine B by taking the diagonal elements of Eqn.(2.18) and, using an
+appropriate expression for M d
+( )2
+, to  obtain
+B M GM G D GP Md d d d d= − + +
+( ) ( )( ) ( ) ( )2 22 Π .                                     (2.19)
+Substitution of B, from Eqn.(2.19) into Eqn.(2.18) yields
+      M GM E GM GE E G D E E GP GP Md d d d
+( ) ( ) ( ) [ ( ) ]2 2 2= − − + + + −Π ( ).2  (2.20)
+Further simplification of Eqn.(2.20) is possible. From Eqn.(2.17) observe that
+E I G GP I G GPd
+T
+d
+T( ) )− + = = = − +ee (e eT β β
+yielding, after further refinement,
+M GM E GM GE E G D I G EG Md d d d
+( ) ( )( ) ( ) [ ] .2 22 2= − − + + − +Π     (2.21)
+We can now make use of Corollary 2.3.1 to obtain Eqn.(2.14).  
+Eqn.(2.15) follows from Corollary 2.4.1.    ❑
+Corollary 2.5.1 If G is any g-inverse of I – P, such that Ge = ge, then
+             M GM E GM MD Md d
+( ) ( )[ ( ) ] .2 1 22= − + −                                             (2.22)
+Proof. When Ge = ge, from Cor 2.3.2, GE  – E(GΠ)dD = 0 and [ ] .I G EG MDd− + = −1
+Eqn.(2.22) now follows immediately from Eqn.(2.21).      ❑
+Corollary 2.5.2.
+ M ZM E ZM M Z D Id d
+( ) [ ( ) ] ( ),2 2 2= − + −                                                   (2.23)
+=  2 2[ ( ) ] ( ).TM E TM M T D Id d− + +             (2.24)
+Proof. Eqns.(2.23) and (2.24) follow from Eqn.(2.22) making use of Eqns.(2.12) and
+(2.13).   ❑
+The original derivation of Eqn.(2.23) is due to Kemeny and Snell [13, Theorem 4.5.3]
+but was by indirect methods. A proof using Z along the lines given above (but not using
+arbitrary g-inverses) was given by the author [10,Theorem 7.3.10]. Meyer [14, Theorem
+3.4], using T as a g-inverse of I – P, deduced expression (2.23).
+Eqns.(2.23) and (2.24) have, in the past, provided the standard computational methods
+for finding M ( )2 . Theorem 2.5 is new and has the added computational advantage that
+24 J.J. Hunter
+any g-inverse of I – P can be used. This is particularly important since the previously
+used g-inverses (Z and T) both required and involved expressions for the stationary
+distribution of the Markov chain.
+The efficient computation of the moments of first passage times in a Markov chain has
+attracted interest, see for example Heyman and Reeves [2], and Heyman and O’Leary
+[1]. Techniques for solving linear equations occurring in Markov chains involving
+Gaussian elimination, algorithmic methods, state reduction and hybrid methods have
+been popular but in many instances they have been based upon the closed form
+solutions given by Eqn.(2.5) for the mean first passage times, and Eqns.(2.23) and
+(2.24) for the second moments and variances, using either Z or T.  In particular it was
+noted in [2] that there are potential accuracy problems in using such closed forms where
+it is pointed out that “the first thing that needs to be done is to compute Z. The majority
+of the work is to compute π and to do a matrix inversion.”  Further “ There are three
+sources of numerical error. The first is the algorithm to compute π. The second occurs
+in computing the inverse of (I – P – Π); this matrix may have negative elements, and
+this can cause round-off errors when the inverse is evaluated. The third is the matrix
+multiplication in Eqn.(2.5); the matrix multiplying D may have negative elements. Now
+we consider the additional work to compute M(2), and the additional numerical errors
+that might occur. There are three matrix multiplications that are required, two of which
+involve at least one diagonal matrix. … In each of these multiplications there is a matrix
+with (possibly) negative elements, which may introduce round-off errors.”  In [1] it is
+noted that “Deriving means and variances of first passage times from either the
+fundamental matrix Z or the group generalized inverse T leads to a significant
+inaccuracy on the more difficult problems.” The authors then conclude that “for this
+reason, it does not make sense to compute either the fundamental matrix or the group
+generalized inverse unless the individual elements of those matrices are of interest.”
+However the only closed form expressions utilized in the literature for finding M and
+M(2) , thus far, have been expressions involving Z and T.
+Corollary 2.5.1 provides a much simpler form for the computation of M ( )2 if one is
+prepared to restrict attention to the class of g-inverses of I – P that have the property Ge
+= ge.  While Z and T both satisfy this restriction we can take advantage of much simpler
+forms of such g-inverses. We explore some further consequences of this observation in
+Example 2.1, below.
+Elemental expressions for mij
+( )2
+ can be found from Eqn.(2.14). If A = [aij] then EAd =
+[ajj].
+Corollary 2.5.3. If G = [gij] then
+m g g m m g gij ik jk kjk
+m
+ij ij ij jj
+( ) ( ) ( )2
+1
+2= − − + − +
+=
+∑ δ ( ).( )m mjj jj2 +                   (2.25)
+Variances of mixing times in Markov chains 25
+Similarly, for inverses with the property that Ge = ge, we have the following expression
+from Eqn(2.22).
+Corollary 2.5.4. If G is any g-inverse of I – P, such that Ge = ge, then
+m g g m m m mij ik jk kjk
+m
+ij jj jj
+( ) ( )( ) .2
+1
+22= − +
+=
+∑                                                  (2.26)
+Eqns.(2.25) and (2.26) do not provide an explicit expressions for the mjj( )2 . These can be
+derived from Eqn.(2.8).
+Corollary 2.5.5.
+m m m mjj jj jj i iji
+m( ) .2
+1
+2+ =
+=
+∑ π                                                                          (2.27)
+To utilise Equation (2.27), simplified expressions of π i iji
+m
+m
+=
+∑ 1 are required.
+Corollary 2.5.6. If α T m≡ ( ,..., )α α1  where α πj i iji
+m
+m≡
+=
+∑ 1 ,  then
+α πT T T dM M= = e ( ) .Π                         (2.28)
+Further, α = ( )Π M d e  and if G is any g-inverse of I – P, then
+α π= − + − +( ) ( ) ( )T d d dG GE G D G De e e e e eΠ .            (2.29)
+In particular if  Ge = ge,
+α = − +e e e( )ΠG D G Dd d .                        (2.30)
+If Z is the fundamental matrix and T is the group inverse,
+   α = = +Z D T Dd de e e.               (2.31)
+Proof: The first expression of Eqn.(2.28) follows from the definition. Note that
+Π M MT T= =e e  π α ,and consequently α j jj ijM M= =( ) ( )Π Π for all i, j. This
+implies that α T T dM= e ?( )Π  and hence α = ( )Π M d e.
+From Eqn.(2.3), α π πT T T d dM G E G I G EG D= = + − +[ – ( ) ] .Π Π  Simplification
+yields  α πT T T T d
+T T
+d
+T
+dG GE G D G D= − + − +( ) ( ) ( ) ,e e e e e eΠ  since  Π D = E = ee
+T
+,
+π  T E = eT,  π T D = eT ,  π TG =  eT dG( ) ,Π and from Eqn.(2.2), ( ) ( ) .G E GEd dΠ =
+Eqn.(2.29) follows by noting that if Λ  is a diagonal matrix and a T = eTΛ then   a  = Λe.
+An alternative derivation also follows from Eqn.(2.10) by noting that α = ( )Π M d e
+= − − +[( ) ( )] .I G I DdΠ Π e e  The equivalence follows by noting that
+( )Π ΠG D Gd  = (π
+T )Ie .
+26 J.J. Hunter
+When G e  = g e , ( ) ( ) ( )π πT d
+T
+dG G D g g D g ge e e e e e e e 0− = − = − =Π Π , and Eqn.
+(2.30) follows from Eqn.(2.29). Eqns.(2.31) follow from Eqn.(2.30) and the facts that
+(Π ΠZ D D Id d) = =  and T = Z – Π.  ❑
+The transpose variant of Eqn.(2.31), using Z, has been derived earlier - see [10,
+Theorem 7.3.8], [13, Theorem 4.49]. The expressions using an arbitrary g-inverse G are
+new.
+Elemental expressions for the α j  follow either from the expressions of Corollary 2.5.6
+for α T , or from the expressions of Corollary 2.3.3 for the mij.
+Corollary 2.5.7. If G = [gij] is any g-inverse of I – P, then
+α π π π πj i ij i ii
+m
+j jj i iji
+m
+m g g g g= = + − + −( )= =∑ ∑1 1 1i i jim=∑ 1 .                       (2.32)
+In particular if Ge = ge (i.e. g gii =  for all i),
+α π πj jj i iji
+m
+jg g= + −( )=∑1 1 .                                   (2.33)
+Further if Z = [zij] and T = [tij],
+α π πj jj j jj jz t= ( ) = + ( )1 .                        (2.34)
+Some  expressions in Cor 2.5.7 can be found directly by matrix-vector multiplications.
+For all G  = [g i j], π TG g G tr G tr Gi ii
+m T
+de = = e e π i=∑ = =1 ( ) ( ) ( )Π Π Π ,  and
+π T i ij
+m
+G ge j i== ∑ π1 .
+Eqn.(2.34) is consistent with the observation from Eqn.(2.13) that
+M D DZ D m m zd d jj jj jj j
+( ) ( )[ ( )2 2 22 +  ] = 2 [= = + π ] = 2[ ]. jα mjj
+The variances of the first passage times Tij can be derived as
+ var[Tij] = var [ | ]T X iij 0 = = m mij ij( ) ( ) .2 2−
+ In matrix form, V T m m M Mij ij ij sq=   = − = −var[ ] [ ] [( ) ] .( ) ( )2 2 2
+Example 2.1: Special case
+The simplification of expressions for M and M(2) when Ge = e has been demonstrated. In
+[4] it was shown that matrix G eb = [gij] = [I – P + ee b T]–1 has many desirable
+characteristics. In particular it was shown that for such a matrix
+π j bjg j m= =, , ,...,   1 2                                                                                      (2.35)
+Variances of mixing times in Markov chains 27
+and   m g g g
+g i j
+g g gij ij jj ij bj
+bj
+jj ij bj
+= + − =
+=
+−
+( ) , ,( ) ,δ
+1
+i j≠
+ .
+                        (2.36)
+Thus, following one matrix inversion, (actually only the b-th row for the stationary
+distribution), one can find the stationary probabilities and the mean first passage times.
+The efficiency of such a procedure is clear in that the inaccuracies alluded to in [1] and
+[2] are reduced to a minimum with the requirement that only an accurate package to
+compute a single matrix inverse (of a matrix whose elements do not need to be
+computed in advance) is required.
+We consider using the matrix G = Geb to also find expressions for M Md
+( ) ( )
+.
+2 2
+ and 
+ Firstly, from Cor 2.3.2, M = D – GD + EGdD  where
+D diag g g g gb b bm ij bj= =( , ,..., ) [ ]1 1 11 2 δ , GD g gij bj= [ ] , EG D g gd jj bj= [ ]
+Further ΠG G G g gT bk kjk
+m
+= = =
+=
+∑e eebTπ 2 1[ ]  so that
+(ΠG g g g diag gd ij bk kjk
+m
+ij bj b) [ ] [ ] (( )== = =
+=
+∑δ δ1 2 12 22 2( ) ( ) ( ), ,..., )g gb bm .
+From Cor 2.4.3, M D G D Dd d
+( ) (2 2 22 2= + − ΠG)d  where
+G D g gd ij jj bj
+2 2
+= [ ]δ ,  ΠG G gbj= =eebT 2 2[ ]( ) , ( [ ]( )ΠG)d D g gij bj bj2 2 2= δ
+implying that m g g g g g gjj bj jj bj bj bj bj
+( ) ( )( ) ( ) ( ) [2 2 2 21 2 2= + − = + −2 2 2( )] .( )g g gjj bj bj
+Thus, from Eqn.(2.35)
+m m m g gjj jj jj jj bj
+( ) ( )( )2 2 22= + − .                         (2.37)
+Note that the only terms that needed to compute mjj
+( )2
+ involve the elements of the j-th
+column of G and the (b,j)-th element of G2. In fact the computation of M d( )2  is effected
+through knowledge of G and the elements of the b-th row of G2.
+Note that since Ge = e, g gik ik
+m
+= =
+=
+∑ i1 1 , and thus
+( ) [( ) ] [ ( )g g m g g m g gik jk kjk
+m
+ij jj jj ik jk− = − + −=∑ 1 ( ) ]g g mjjk jm kj jj≠∑ −
+= − + − −
+=
+=
+∑( ) ( )( )g g m g g g g m
+m
+ij jj jj ik jk jjk
+m
+kj jj
+j
+1
+j ij jj ik jj ik kjk
+m
+jk jj jkg g g g g g g g g[( ) (− + − − +=∑ 1 g
+m g g g g g g
+kj
+jj ij jj ik jj ijk
+m
+j
+)
+[( ( ) (( )= − + − −
+=
+∑ 21 kkm jj jj
+jj ij jj jj ij
+g g
+m g g g g
+) ]
+[
+( )
+( )
+=
+∑ +
+= − + − −
+1
+2
+2 g g m g g g gjj jj jj ij jj jj ij+ + = − + −
+( ) ( ) ( )] [ ].2 2 2
+From Eqn.(2.26), for i ≠ j, using Eqn.(2.36),
+m m g g m
+m
+mij jj jj ij ij
+jj
+jj
+( ) ( ) ( )
+( )
+[ ]2 2 2
+2
+2 2= − + −
+
+
+
+
+
+
+.
+                                                      (2.38)
+28 J.J. Hunter
+Eqns.(2.37) and (2.38) give elemental expressions for m i jij( ) , .2  for all  Further
+m m m m m g gij jj jj ij jj jj bj
+( ) ( )/ [ ( )]2 21 2= + −  so that
+m
+m m g g i j
+m gij
+jj jj jj bj
+jj jj
+( )
+( )[ ( )], ,
+[
+2
+21 2
+2
+=
++ − =
+( ) ( ) ( )( )] , .2 2 2− + − − ≠
+ g m g g m i jij ij jj bj ij
+                                     (2.39)
+These explicit elemental forms for mij
+( )2
+, using the simple g-inverse Geb =
+[I – P + eebT] –1   are new.
+Further, var[ ] var[ | ] ( ) ,( )T T X i m mij ij ij ij= = = −0 2 2  and Eqn. (2.39) yields
+var[ ] [ ( )], ,
+( )
+T
+m m m g g i j
+m
+ij
+jj jj jj jj bj
+=
+− + − =1 2
+2
+2
+jj jj ij ij jj bj ij ig g m g g m m[ ( )] (( ) ( ) ( )2 2 2 1− + − − − j i j), .≠
+
+                   (2.40)
+We explore an application in Example 4.2. ❑
+3 Variances of the mixing times
+In [3] the “mixing matrix” was defined as L = [ lij] = [mijπj ] so that
+   L  = MΠd = MD-1 = M(Md)-1.                          (3.1)
+Note from Theorem 2.1, since EΠd = Π,
+  (I – P)L = Π – P
+ 
+.
+                                                                                   
+(3.2)
+Theorem 3.1.  Let G be any g-inverse of I – P, then
+ L = GΠ  – E(GΠ)d + I – G + EGd,                                                                    (3.3)
+If Ge = ge  then
+L = I – G + EGd.  (3.4)
+Further if G = [gij] then, for all i, j,
+          l g g g gij jj ij i j j ij= − + − +( ) ,i i π δ  (3.5)
+and if Ge = ge ( . . , ),i e g g for all ii     i =
+              . l g gij jj ij ij= − + δ  (3.6)
+Proof: Eqn.(3.3) follows from Eqn.(2.13) while Eqn.(3.4) follows from Eqn.(2.5). The
+elemental expressions, Eqns.(3.5) and (3.6), follow from Corollary 2.3.3. ❑
+Since η πi ij jj
+m
+m =
+=
+∑ 1 , if ηT m= ( , ,..., ),η η η1 2   η = Le.  Thus, from (3.2), since Πe =
+eπΤe = e and Pe = e, 
+ (I – P)η    = 0.                           (3.7)
+Variances of mixing times in Markov chains 29
+The irreducibility of the finite state Markov chain with transition matrix P implies ([10,
+Theorems 6.1.5 and 6.1.6]) that η    is the right eigenvector corresponding to the
+eigenvalue λ = 1 and thus η = ηe, for some η. Thus ηi  =  η , for all i = 1, 2, ..., m.
+The following theorem summarises and extends the results given in  [3] for expressions
+for η.
+Theorem 3.2. If G = [gij] is any g-inverse of I – P,
+η = − + − +[ ( ) ] [ ( ) ( )]I E G EG tr G tr Gd dΠ Π ηe = e = e1 .                   (3.8)
+Further if g gj jkk
+m
+i =
+=
+∑ 1 , then
+η π= + −
+=
+∑1 1( ).g gjjjm j ji                                                                  (3.9)
+Further, if Ge = ge, η = 1 – g + tr(G).                                    (3.10)
+In particular, η =   tr(Z) = 1 + tr(T).                        (3.11)
+Proof: Eqn.(3.8) follows from (3.3) and η = Le  observing E G tr GT T d  = =ee e e  , ( )
+and similary for tr(GΠ). Eqn.(3.9) is obtained by summing the expressions given by
+(3.5). Eqn.(3.10) follows by noting that under the condition Ge = ge,  GΠ = gΠ,  and
+tr(GΠ) = g. For Eqns.(3.11), when G = Z, g = 1, and when G = T, g = 0.  ❑
+We now wish to extend these results by exploring expressions for what we shall call the
+“second moment mixing matrix” defined as L l mij ij j
+( ) ( ) ( )[ ] [ ]2 2 2= = π  so that
+L M M Dd
+( ) ( ) ( )2 2 2 1
+= =
+−Π .                                          (3.12)
+ 
+Theorem 3.3. If G is any g-inverse of I – P, then
+L GL E GL I G EG L I Ld d d
+( ) ( )[ ( ) ] [ ][ ] ,2 22= − + − + + −                                    (3.13)
+         = − + − + −2 2[ ( ) ] [ ]( ) ,GL E GL I G EG D Ld d dΠ L            (3.14)
+with   
+   L D Id d
+( ) (2 2= −Π )L .                        (3.15)
+If Ge = ge  then
+L GL E GL LLd d
+( ) ( )[ ( ) ]2 22= − + .                                                            (3.16)
+Proof: Eqns.(3.13) and (3.14) follow from Eqns.(2.14) and (2.15) observing that
+M D Ld d
+( ) ( )2 1 2−
+=  and M = LD implying Ε Π Π( ) ( ) ( )GM E GL D E GLd d dd d= = . Further
+( ) ( ) .Π ΠM Dd d= L  Eqn.(3.15) follows from Eqn.(2.8), and Eqn.(3.16) follows from
+Eqns. (3.13) or (3.14) using Eqn.(3.4) and ΠD = E. ❑
+30 J.J. Hunter
+Since η πi jj
+m
+m
+ij
+( ) ( )
+,
+2 2
+1
+=
+=
+∑  we define η( ) ( ) ( ) ( )( , ,..., )2 12 22 2T m= η η η  and observe that
+η( ) ( )2 2= L e.
+Theorem 3.4. If G is any g-inverse of I – P, then
+             η α( ) [ ( ) [ ]2 2 2= − + − + −η ηG tr GL I G EGde e e] .              (3.17)
+Further, if Ge = ge,
+η α( ) [ ( ) ( ) ( )( )]2 22 3 1 2 1 2= − − − − +tr G tr G g g Le .            (3.18)
+In particular, when g = 1,
+η α( ) [ ( ) ( )]2 22 3 2= − +tr G tr G Le .            (3.19)
+Also 
+η α   =( ) [ ( ) ( )] [ ( ) (2 2 22 3 2 2 3= − + −tr Z tr Z L tr T tre T L) ]− +1 2e α  .            (3.20)
+Proof: Since η( ) ( )2 2= L e,  Eqn.(3.17) follows from Eqn.(3.14) utilizing the results that
+GLe  = Gη  = ηGe; E GL GL tr GLd d( ) ( ) ( )e  ee e  e = =T ;α = =( ) ( )ΠΜ Πd dLe eD  and
+Le e= η .
+Under the condition Ge = ge, from Eqn.(3.4), L = I – G + EGd.   
+Further  GL = G[I – G + EGd ] = G – G2 + GEGd = G – G2 + gEGd.
+Since tr(EGd) = tr(G), tr(GL) = (1 + g)tr(G) – tr(G2)and Eqn.(3.18) follows from
+Eqn.(3.17) using Eqn.(3.10), and Eqn.(3.19) from (3.18) when g = 1.
+Eqn.(3.20) follows upon simplification with g = 1 when G = Z and g = 0 when G = T.❑
+As discussed in Section 1, νi, the variance of the mixing time when the Markov chain
+starts in state i, is given by η η η ηi i i( ) ( )( ) .2 2 2 2− = −  Thus if ν T m= ( , ,..., )ν ν ν1 2 we have
+that ν = η( ) .2 2− η e  The following key result now follows using the expressions for η( )2
+and η given by Theorems 3.2 and 3.4.
+Theorem 3.5. If G is any g-inverse of I – P, then
+            ν α= − + + − − −2 2 2 2[ ] [ ( )I G EG G tr GLd η η η e] .                                      (3.21)
+Further, if Ge = ge,
+ν α= − − − − −2 2 5 2 1 22 2L tr G tr G g tr G g+[ ( ) ( ( )) ( ) ( ) ( )( − 3g)]e.            (3.22)
+In particular, if g = 1,
+ν α= − −2 2 32 2L tr G tr G tr G+[ ( ) ( ( )) ( )]e.            (3.23)
+Also,
+ν α= − −2 2 32 2L tr Z tr Z tr Z+[ ( ) ( ( )) ( )] ,e                                                (3.24)
+ν α= − − −2 2 5 22 2L tr T tr T tr T+[ ( ) ( ( )) ( ) ] .e            (3.25)
+Variances of mixing times in Markov chains 31
+Proof: Eqn.(3.21) follows from (3.17), Eqns.(3.22) and (3.23) from (3.18) noting, from
+(3.10), that η = 1 – g + tr(G), while (3.24) follows from (3.23) with G = Z and (3.25)
+from (3.22) with G = T and g = 0 respectively. ❑
+A key observation from Theorem 3.5 is that v T X ii = = =var [ | ]0 ν , constant for all i,
+if and only if Lα =l e for some constant l. Since Le = ηe, a sufficient condition is that α
+= α e for some α.
+Since, from Eqn.(2.29), α π= − + − +( ) ( ) ( )T d d dG GE G D G De e e e e eΠ ,  this requires
+[ – 1]α − Ππ T d d dG G D GE G De e e= − −[ ( ) ( ) ]
+⇔ − − =G D GE G D kI kd d d( ) ( ) .Π  for some 
+4 Special cases
+Example 4.1.  Two-state Markov chains
+Let P
+p p
+p p
+a a
+b b
+=
+
+
+
+
+
+ =
+−
+−
+
+
+
+
+11 12
+21 22
+1
+1
+, (0 ≤ a ≤ 1, 0 ≤ b ≤ 1), be the transition matrix of a
+two-state Markov chain with state space S = {1, 2}.   Let d = 1 – a – b so that 1 – d =
+a + b.
+If – 1≤ d < 1, the Markov chain is irreducible with a unique stationary distribution
+given by
+                                                   π π
+1 21 1
+=
+−
+=
+−
+b
+d
+a
+d
+,  .
+If – 1< d < 1, the Markov chain is regular and this stationary distribution is in fact the
+limiting distribution. If d = – 1 the Markov chain is irreducible periodic, period 2.
+Thus for – 1≤ d < 1, Π   = 1
+1−
+
+
+
+d
+b a
+b a
+.
+Every g-inverse of I – P can be expressed as G(t, u) + ef Τ + gπΤ  (see [10], [11])  where
+G(t, u) = [I – P + tuΤ ]-1, provided πΤt ≠ 0, uΤe ≠ 0.
+For the above two-state Markov chain
+G G
+bt at u u
+b t u a t u
+b t
+≡
++ +
++ −
+−
+( , )
+( )( )
+t u  =
+1
+1 2 1 2
+2 2 1 2
+2u a t u1 1 1+
+
+
+
+
+
+
+.
+Provided – 1≤ d < 1, the fundamental matrix Z = G(e,π),  so that taking u1 = b/(1 – d),
+u2 = a/(1 – d),
+Z I P
+d
+b
+a
+d
+a
+a
+d
+b
+b
+d
+a
+b
+d
+= − + =
+−
++
+−
+−
+−
+−
+−
++
+−
+
+
+
+−[ ]Π 1 1
+1
+1 1
+1 1
+
+
+
+
+, ([13]).
+32 J.J. Hunter
+The group inverse T = (I – Π)G(I – Π) = Z – Π  now follows, as T = 1
+1 2( )−
+−
+−
+
+
+
+d
+a a
+b b
+.
+The mean first passage time matrix, M G E G I G EG D
+d d
+= − + − +[ ( ) ]Π Π , where
+G E G
+bt at d
+t t a
+t t bd
+Π Π− =
++ −
+−
+−
+( )
+( )( )
+( )
+( )
+1
+1
+0
+01 2
+2 1
+1 2
+
+
+
+
+
+ = =   when , as for the case ( 0 1 2t t G( , ))e u
+I G EG
+bt at
+bt at t
+t bt atd
+− + =
++
++
++
+
+
+
+
+
+
+1
+1 2
+1 2 1
+2 1 2
+   when ( )=
+−
+−
+−
+
+
+
+
+=
+1
+1
+1 1
+1 1 1 2d
+d
+d
+t t
+leading to M
+d
+b a
+b
+d
+a
+=
+−
+−
+
+
+
+
+
+
+1 1
+1 1
+, ([10, p. 135], [13, p. 94]).
+Now M D
+d
+b
+d
+a
+d
+= =
+−
+−
+
+
+
+
+
+
+1
+0
+0
+1
+ and Π M
+a
+b d
+b
+a d
+a
+b d
+b
+a d
+=
++
+−
++
+−
++
+−
++
+−
+
+
+
+1
+1
+1
+1
+1
+1
+1
+1
+( ) ( )
+( ) ( )
+
+
+
+
+ so that
+ M D M D
+d
+b
+a
+b
+d
+a
+b
+a
+d d
+( ) ( )2
+2
+2
+2
+1 2
+0
+0
+1 2
+= − =
+−
++
+−
++
+
+
+
+
+Π
+
+
+M GM E GM I G EG M D M
+a
+b
+d d d
+( ) ( )[ ( ) ] [ ][ ]2 2
+2
+2
+2
+= − + − + + − =
++
+−
+−
+− +
+−
+
+
+
+
+
+
+( )
+( )
+1 2 1
+2 1 2 1
+2
+2 2
+d
+b a a
+b b
+b
+a
+d
+a
+.
+(Simplification takes place using ad b d a+ = − −( )( )1 1  and bd a d b+ = − −( )( ).1 1 )
+Since M
+d
+b a
+b
+d
+a
+sq
+=
+−
+−
+
+
+
+
+
+
+( )
+( )
+1 1
+1 1
+2
+2 2
+2
+2
+2
+, we deduce that
+[var ]
+( )
+( )
+( )T M M
+a d
+b
+a
+a
+b
+b
+b d
+a
+ij sq
+= − =
++ −
+− +
+2
+2 2
+2
+1 1
+1 1
+2
+
+
+
+
+
+
+,  ([10, p. 135], [13, p. 94]).
+Variances of mixing times in Markov chains 33
+The mixing matrix L G E G I G EG d
+d
+d d
+= − + − + = −
+−
+
+
+
+
+
+
+Π Π( )
+1
+1
+1
+1
+1
+1
+,
+so that the expected time to mixing, η = = +
+−
+= +
++
+L
+d a b
+e 1
+1
+1
+1
+1
+.
+As shown in [3], for all two-state irreducible Markov chains, η ≥ 1.5 with the minimum
+value of η = 1.5 occurring when d = – 1,  (a = 1, b = 1) in which case the Markov chain
+is periodic, period 2. Arbitrarily large values of η occur as d→ 1, (when both a → 0 and
+b→ 0), when the chain is approaching the situation when the chain is close to being
+reducible with both states absorbing.  Graph 1 displays the expected time to mixing for
+a, b taking values 0.025 to 1.000 in steps of 0.025.
+0.025
+1.000
+0.025
+1.000
+0
+25
+η
+a
+b
+Graph 1: Expected time to mixing
+To find the second moment mixing matrix first observe that
+L D I I
+a
+b d
+b
+a
+d d d
+( ) ( ( ( )
+(
+2 2 2
+1 2
+1
+0
+0 1 2
+= − = − =
++
+−
++
+Π ) ΠΜ)L
+1−
+
+
+
+
+
+d)
+, and hence
+L(2) = − + − + + − =
++
+2
+1 2
+2[ ( ) ] [ ][ ]( )GL E GL I G EG L I L
+a
+d d d
+b d
+a
+a d
+b
+b d
+b
+a d
+( ) ( )
+( ) ( )
+1
+2
+1
+2
+1
+1 2
+1
+−
+−
+−
+−
+−
++
+−
+
+
+
+
+
+
+.
+The second moments of the mixing times, η( ) ( ) ( ) ( )
+( )
+2 2
+1 2
+1
+2
+1
+1 2
+1
+2
+= =
++
+−
++
+−
+−
++
+−
++
+L
+a
+b d
+a
+a d
+b
+a d
+e
+−
+−
+
+
+
+
+
+
+b
+b d( )1
+.
+34 J.J. Hunter
+Observe also that α = =
++
+−
++
+−
+
+
+
+
+
+
+ ( )
+( )
+( )
+Π M
+a
+b d
+b
+a d
+d e
+1
+1
+1
+1
+.
+The variances of the mixing times, starting in state i, are given by νi where
+ν = η= 
+
+ − =
+−
++
+−
+−
+−
+ν
+ν
+η1
+2
+2 2
+2
+1
+2
+1
+3
+1( ) ( ) ( )e
+a
+b d a d d
+−
+−
+
+
+
+
+−
++
+−
+−
+−
+−
+−
+
+
+
+1
+1
+2
+1
+2
+1
+3
+1
+1
+1
+2
+d
+b
+a d b d d d( ) ( ) 
+
+
+
+
+
+
+=
+−
+2
+2
+1
+1
+               
+ab d( )
+( )( )
+( )( )
+2 2 3
+2 2 3
+2
+2
+a b ab a b ab
+b a ab a b ab
++ − + −
++ − + −
+
+
+
+
+.
+We graph the values of ν1 (Graph 2) andν2 (Graph 3) for all values of a and b between
+0.025 and 1.000 in steps of 0.025. (Observe that ν1 → ∞ and ν2  → ∞ as both a → 0 and
+b → 0.)
+                Graph 2: Variance1                  Graph 3: Variance2
+It is easy to show that ν1 < ν2 ⇔ d(a – b) > 0  ⇔ either (i) a >  b and a + b < 1 or (ii) a
+< b and a + b > 1.
+The lines a = b and a + b = 1 partition the parameter space (a, b) into regions where ν1
+= ν2, ν1 < ν2, and ν1 > ν2, as illustrated on Graph 4.
+The significance of this is that if we are given the transition probabilities, or the
+transition matrix P
+p p
+p p
+a a
+b b
+=
+
+
+
+
+
+ =
+−
+−
+
+
+
+
+11 12
+21 22
+1
+1
+, of the Markov chain and we wish to
+minimise the variance of the time to mixing one would choose state 1 as the starting
+0.025
+1.000
+0.025
+1.000
+0
+1200
+v1
+a
+b
+0.025
+1.000
+0.025
+1.000
+0
+1200
+v2
+a
+b
+Variances of mixing times in Markov chains 35
+0.025
+1.000
+0.025
+1.000
+-500
+0
+500
+v1 - v2
+a
+b
+0-500
+-500-0
+Graph 4: Variance1 – Variance2
+state to achieve ν1 < ν2. This is equivalent to choosing state 1 if either p21 < p11 < p22 or
+p22 < p11< p21 (or, equivalently, if p21 < p12< p22 or p22 < p12 < p21) otherwise choose state
+2.
+If a = b (i.e. p12  = p21 or p11  = p22) or  a + b = 1 (i.e.  p11 = p21 or  p12 = p22) the choice of
+the starting state is immaterial. The later case is equivalent to independent trials.
+Note that as a → 0 and b → 0 both of the variances ν1 and ν2  → ∞ but one needs to
+consider how the limit is approached since the difference ν1 – ν2 can approach → ∞  or
+→  - ∞ or be equal (and both →  ∞ ). In these situations the MC is tending to an
+absorbing MC and close to being reducible. The expected time to mixing in such a
+chain can also be arbitrarily large, as considered in [3].
+Note that the minimum variances of the mixing times (ν1 = 0.25, ν2 = 0.25) occur when
+a = b = 1, (with a minimum of 0.25) with the expected mixing time also at a minimum
+of η = 1.5.
+Example 4.2.  Three-state Markov chains
+Let P
+p p p
+p p p
+p p p
+a a a a
+b b b b
+c c c c
+=
+
+
+
+
+
+
+=
+− −
+− −
+− −
+
+
+
+
+
+
+11 12 13
+21 22 23
+31 32 33
+2 3 2 3
+1 1 3 3
+1 2 1 2
+1
+1
+1
+ be the transition matrix
+of a Markov chain with state space S = {1, 2, 3}. Note that 0 < a2 + a3 ≤ 1, 0 < b1 + b3
+≤ 1 and 0 < c1 + c2 ≤ 1.
+36 J.J. Hunter
+Let ∆1 ≡ b3c1 + b1c2 + b1c1, ∆2 ≡ c1a2 + c2a3+ c2a2, ∆3 ≡ a2b3 + a3b1 + a3b3,
+∆ ≡ ∆1 + ∆2 + ∆3,
+The Markov chain, with the above transition matrix, is irreducible (and hence a
+stationary distribution exists) if and only if ∆1 > 0, ∆2 > 0, ∆3 > 0.
+It is easily shown that the stationary probability vector is ( , , ) ( , , )π π π1 2 3 1 2 3
+1
+ =
+∆
+∆ ∆ ∆ ,
+so that  Π = 1
+1 2 3
+1 2 3
+1 2 3
+∆
+∆ ∆ ∆
+∆ ∆ ∆
+∆ ∆ ∆
+
+
+
+
+
+
+  so that  =D  . Πd
+−
+=
+
+
+
+
+
+
+1
+1
+2
+3
+1 0 0
+0 1 0
+0 0 1
+∆
+∆
+∆
+∆
+The matrix G(t, u) = [I – P + tuΤ ]-1,where πΤt ≠ 0, uΤe ≠ 0, can be taken as a g-inverse of
+I – P.  It can be shown that any g-inverse of I – P can be can be expressed as G(t, u) +
+ef T + gπ T. (see [9], [10].)
+In [3] we showed that for the above three-state Markov chain that if
+ ∆(t, u) = (∆1t1+ ∆2t2+ ∆3t3)(u1 + u2 + u3), then
+G( , )
+( , )
+t u
+t u
+ =
+1
+1 2 3
+1 2 3
+1 2 3
+∆
+∆ ∆ ∆
+∆ ∆ ∆
+∆ ∆ ∆
+
+
+
+
+
+
+ +
+t u
+c c b
+c b b
+t u1 1
+1 2 3
+2 1 3
+1
+0 0 0
+0
+0
+∆( , )t u
++
++
+
+
+
+
+
+
++ 2
+1 2 3
+1 1
+1
+0
+0 0 0
+0
+∆( , )
+( )
+t u
+− + −
+−
+
+
+
+
+
+
++
+c c b
+c b
+t u3
+2 1 3
+1 1
+0
+0
+0 0 0
+∆( , )
+( )
+t u
+− − +
+−
+
+
+
+
+
+
++
+c b b
+c b
+  
+t u
+c c a
+c a
+2 1
+1 2 3
+2 2
+0 0 0
+0
+0
+∆( )
+( )
+t u,
+− + −
+−
+
+
+
+
+
+
++
++
++
+
+
+
+
+
+
++
+t u
+c c a
+c a a
+t2 2
+1 2 3
+1 2 3
+0
+0 0 0
+0
+∆( )t u,
+2 3
+2 2
+1 2 3
+0
+0
+0 0 0
+u
+c a
+c a a
+∆( , )t u
+−
+− − +
+
+
+
+
+
+
++( )
+  
+t u
+b a
+b b a
+3 1
+3 3
+1 3 2
+0 0 0
+0
+0
+∆( , )
+( )
+t u
+−
+− + −
+
+
+
+
+
+
++
+−
+− − +
+
+
+
+
+
+
+t u
+b a
+b a a
+3 2
+3 3
+1 2 3
+0
+0 0 0
+0
+∆( , )
+( )
+t u
++
++
++
+
+
+
+
+
+
+t u
+b b a
+b a a3 3
+1 3 2
+1 2 3
+0
+0
+0 0 0
+∆( , )
+.
+t u
+        
+Define  τ12 = a3+ c1+ c2, τ13 = a2+ b1+ b3, τ21 = b3+ c1+ c2, τ23 = b1+ a2+ a3, τ31 = c2+
+b1+ b3,  τ32 = c1+ a2+ a3, τ  =  a2+ a3 + b1+ b3 + c1+c2,  so that τ = τ12 + τ13 = τ21 + τ23
+=  τ31 + τ32.
+Variances of mixing times in Markov chains 37
+Now ∆(e, u) = ∆(u1 + u2 + u3), so that
+G e
+u
+b a
+c a
+( , )u  =  + Π 1 21 12 3 3
+31 2 2 13
+0 0 0
+∆
+− −
+− −
+τ τ
+τ τ
+
+
+
+
+
+
++
+− −
+− −
+
+u
+a b
+c b
+2
+21 12 3 3
+1 1 32 23
+0 0 0
+∆
+τ τ
+τ τ
+
+
+
+
++
+− −
+− −
+
+
+u
+a c
+b c3
+31 2 2 13
+1 1 32 23
+0 0 0
+∆
+τ τ
+τ τ
+
+
+
+
+Observe that  G e( , )u e e =  implying that g = 1.
+Note that explicit expressions for Z = G(e, π) and T = Z – Π  follow. In particular
+Τ    = − −
+− −
+
+
+
+
+∆
+∆
+1
+2 21 12 3 3
+31 2 2 13
+0 0 0
+τ τ
+τ τ
+b a
+c a 
+
++
+− −
+−
+
+
+
+
+
+∆
+∆
+2
+2
+21 12 3 3
+1 1 32 23
+0 0 0
+τ τ
+τ τ
+a b
+c b
+
++
+− −
+− −
+
+
+
+
+
+∆
+∆
+3
+2
+31 2 2 13
+1 1 32 23
+0 0 0
+τ τ
+τ τ
+a c
+b c
+
+.
+One of the simplest g-inverses of I – P that we can take is
+  G G gij   = ≡   = − +( , )e e1
+1 2 3
+1 21 2 12
+1
+∆
+∆ ∆ ∆
+∆ ∆ ∆τ τ 3 21 12
+1 31 2 31 13 3 13
++ −
+− + − +
+
+
+
+
+
+
+τ τ
+τ τ τ τ∆ ∆ ∆
+.
+Using G, as defined above, the mean first passage time matrix can be found using Eqn.
+(2.36) as
+m
+g g
+g
+i j
+i j
+ij
+ij jj ij
+j
+j
+ij
+j
+=
++ −
+=
+=
+≠
+
+
+
+
+
+δ
+τ1
+∆
+∆
+∆
+, ,
+, ;
+implying
+M =
+
+
+∆
+∆ ∆ ∆
+∆
+∆
+∆ ∆
+∆ ∆
+∆
+∆
+1
+12
+2
+13
+3
+21
+1 2
+23
+3
+31
+1
+32
+2 3
+τ τ
+τ τ
+τ τ
+
+
+
+
+, (as also derived in [3]).
+Define κ1 = ∆2τ21 + ∆3τ31, κ2 = ∆1τ12 + ∆3τ32, κ3 = ∆1τ13 + ∆2τ23 and note that
+κ1 + κ2 + κ3 = ∆τ. Also let ρj ≡ κj/∆j.
+We compute G g g gij ik kjk
+2 2
+1
+3
+=   =  =∑( )  yielding, for the first row, after simplification,
+g11
+2 1 2 21 3 31
+2
+( )
+,= −
++∆
+∆
+∆ ∆
+∆
+τ τ
+g12
+2 2 2 12 3 31 13
+2
+( ) ( )
+,= +
++ −∆
+∆
+∆ ∆
+∆
+τ τ τ
+g13
+2 3 2 21 12 3 13
+2
+( ) ( )
+.= +
+− +∆
+∆
+∆ ∆
+∆
+τ τ τ
+From these terms, the expressions for the mij , and Eqn. (2.37), i.e.
+38 J.J. Hunter
+ m m m g gjj jj jj jj j
+( ) ( )( )2 2 122= + − ,
+we immediately obtain expressions for  the mjj
+( )2 which, after simplification, yield
+m m jjj
+j
+j
+j
+j
+j
+jj
+j
+j
+( )
+, , ,
+2
+2
+2 2 2
+1 2 3= + =
++
+= + =
+∆
+∆ ∆
+∆
+∆ ∆
+κ ρ ρ
+.              (4.1)
+We now compute the remaining gij
+( )2 terms (re-expressing and simplifying where
+necessary):
+g21
+2 1 2 21 3 31
+2
+12 31 12 21 21( ) [
+= −
++
++
+− −∆
+∆
+∆ ∆
+∆
+τ τ τ τ τ τ τ τ 31
+2
+]
+,
+∆
+g22
+2 2 2 12 3 31 13
+2
+12 32 21( ) ( ) [
+= +
++ −
++
++∆
+∆
+∆ ∆
+∆
+τ τ τ τ τ τ τ 31 13 21
+2
+− τ τ ]
+,
+∆
+g23
+2 3 2 21 12 3 13
+2
+21 13 12( ) ( ) [
+= +
+− +
++
+−∆
+∆
+∆ ∆
+∆
+τ τ τ τ τ τ τ 23
+2
+]
+,
+∆
+g31
+2 1 2 21 3 31
+2
+13 21 21 31 13( ) [
+= −
++
++
+− −∆
+∆
+∆ ∆
+∆
+τ τ τ τ τ τ τ τ 31
+2
+]
+,
+∆
+g32
+2 2 2 12 3 31 13
+2
+12 31 13 3( ) ( )
+= +
++ −
++
+−∆
+∆
+∆ ∆
+∆
+τ τ τ τ τ τ τ 2
+2∆
+,
+g33
+2 3 2 21 12 3 13
+2
+21 31 13( ) ( ) [
+= +
+− +
++
++∆
+∆
+∆ ∆
+∆
+τ τ τ τ τ τ τ 23 12 31
+2
+− τ τ ]
+.
+∆
+From these results it can be shown that
+g g i jjj ij ij ji kj ij ji( ) ( )
+[ ( ]
+,
+2 2
+2− =
++ −
+≠
+τ τ τ τ τ
+∆
+   ≠ ∈k { , , }.1 2 3
+Substitution in Eqn.(2.38), yields  for i ≠ j,
+mij
+ij ji kj ij ji ij j ij
+j
+( ) [ ( ) ]2 2
+=
++ − + −τ τ τ τ τ τ ρ τ ∆
+∆∆
+.                                       (4.2)
+The explicit elemental expressions for the mean first passage times in a general three-
+state Markov chain given by Eqns. (4.1) and (4.2) are new results.
+Alternatively, using G, as above, {( ) }I G d− =
+
+
+
+
+
+
+Π
+∆
+1
+0 0
+0 0
+0 0
+2
+1
+2
+3
+κ
+κ
+κ
+, and Eqn.(2.11),
+yields, after simplification,
+Md
+( )
+( )
+( )
+( )
+2
+1 1
+2 2
+3 3
+2 0 0
+0 2 0
+0 0 2
+=
++
++
++
+
+
+
+∆ ∆
+∆ ∆
+∆ ∆
+ρ
+ρ
+ρ
+
+
+
+.
+Further from Eqn.(2.22), M GM E GM MD Md d
+( ) ( )[ ( ) ]2 1 22= − + −  where the diagonal
+elements of the first expression 2[ ( ) ]GM E GM d−  are all 0, and the diagonal elements
+of the second expression are M D M Md d d
+−
+=
+1 2 2( ) ( )
+.
+By evaluating each element of GM it can be shown, upon simplification:
+Variances of mixing times in Markov chains 39
+         ( ) ( )
+[ ( ) ] /
+GM GM
+ij jj
+ij ji kj ij ji ij
+− =
++ − −τ τ τ τ τ τ∆ ∆∆
+j
+i j k
+i j
+, { , , },
+, .
+≠ ≠ ∈
+=
+
+
+1 2 3
+0
+Further ( )
+( ) / , ,
+( ) /
+( )MD M
+i j
+d ij
+ij j j
+j j
+−
+=
++ ≠
++
+1 2
+2
+2
+τ ρ
+ρ
+∆ ∆∆
+∆ ∆ , ,i j=
+
+
+
+  leading to Eqns.(4.1) and (4.2)
+above.
+Expressions for the variances of each first passage time r.v. Tij follow from elemental
+expressions of V =  [ var(Tij)] =  M
+(2) – Msq.
+V m mij ij
+ij ji kj ij ji ij
+= − =
++ − +
+[ ]
+[ ( )( )2 2 2 2 2τ τ τ τ τ τ ρ τ τ
+ρ
+j ij j ij j
+j
+i j− − ≠ ≠
++
+∆ ∆∆ ∆
+∆
+] / ( / ) , ,
+([ ] /
+2
+2
+ (  )k
+∆ ∆ ∆j j i j) , .  ( / )2− =
+
+
+
+The matrix of ‘mixing times’ are L = m
+ij j
+π
+τ τ
+τ τ
+τ τ
+  =
+
+
+
+
+
+
+1
+12 13
+21 23
+31 32
+∆
+∆
+∆
+∆
+.
+The common row sums of L lead to the expected “time to mixing”,
+η τ= +1  ( ∆) .                           (4.3)
+In Hunter [3] it was shown that for all three-state irreducible Markov chains, η ≥ 2, with
+η = 2 achieved by  “the minimal period 3” case (See Case 1 to follow.).
+Elemental expressions for “second moments of mixing”, l mij ij j
+( ) ( )2 2
+= π , follow from
+Eqns.(4,1) and (4.2). These lead to the second moment of the mixing time starting in
+state i as η πi jj
+m
+m
+ij
+( ) ( )
+.
+2 2
+1
+=
+=
+∑  Derivation of simple forms for these elemental
+expressions, when evaluated directly from the stationary probabilities and the second
+first passage time moments, requires considerable effort. However, from Eqn.(3.18) of
+Theorem 3.4, with  α = ( )Π M d e, η α
+( ) [ ( ) ( )]2 22 3 2= − +tr G tr G Le .
+α = (Π M d) e =
++
++
++
+
+
+
+1 0 0
+0 1 0
+0 0 1
+1
+1
+2
+2
+3
+3
+κ
+κ
+κ
+∆∆
+∆∆
+∆∆
+
+
+
+
+
+
+
+
+
+
+=
++
++
+1
+1
+1
+1
+1
+1
+1
+2
+κ
+κ
+∆∆
+∆∆
+∆∆
+∆2
+3
+3
+1
+1
++
+
+
+
+
+
+
+= +
+κ
+e ρ,
+with ρT = ( , , )ρ ρ ρ
+1 2 3
+implying that L Lα ρ β= +
+
+ +e + L =
+1
+∆
+1
+1
+2
+τ
+∆ ∆
+e , where
+40 J.J. Hunter
+ β =
++ +
++ +
++
+∆
+∆
+ρ τ ρ τ ρ
+τ ρ ρ τ ρ
+τ ρ τ ρ
+1 12 2 13 3
+21 1 2 23 3
+31 1 32 2 +
+
+
+
+
+
+∆ρ3
+.
+Further
+tr G g g g( ) = + + = + =
+11 22 33
+1
+τ η
+∆
+,
+tr G g g g( )
+[ (( ) ( ) ( )2
+11
+2
+22
+2
+33
+2
+2
+21 131
+2
+= + + = +
+− +τ τ τ τ τ τ τ τ12 31 21 31
+2
+2
+2
+1
+2−
+= − +
+)]
+∆ ∆ ∆
+.
+so that
+η β( ) [ ]2
+2
+2 21
+4 2 2
+= − − + +
+τ τ
+∆ ∆ ∆ ∆
+e .                                                     (4.4)
+If the variance of the mixing time when the Markov chain starts in state i, is  νI, let the
+vector of the variances be ν T m= ( , ,..., )ν ν ν1 2 . Since ν  = η( )2 2− η e,  from Eqns. (4.3)
+and (4.4),
+ν β= − − +[ ]τ τ
+2
+2 2
+3 4 2
+∆ ∆ ∆ ∆
+e .                                                                               (4.5)
+The expression given by Eqn.(4.5) shows that variability between the variances of the
+mixing times is explained by the elements of the vector β, i.e. ∆ρ τ ρ τ ρ1 12 2 13 3+ +  for
+state 1, τ ρ ρ τ ρ21 1 2 23 3+ +∆ for state 2, and τ ρ τ ρ ρ31 1 32 2 3+ + ∆  for state  3 since the
+terms associated with the vector e are not state dependent.
+We can examine inequalities between the variances as follows:
+v v1 2 1 12 2 13 3 21 1 2 23 3> ⇔ + + > + +∆ ∆ρ τ ρ τ ρ τ ρ ρ τ ρ
+  ⇔ − + − + − >( ) ( ) ( )∆ ∆τ ρ τ ρ ρ21 1 12 2 3 3 3 0b a .
+Similarly v v c b2 3 1 1 1 32 2 23 3 0> ⇔ − + − + − >( ) ( ) ( ) ,ρ τ ρ τ ρ∆ ∆
+and       v v a c3 1 31 1 2 2 2 13 3 0> ⇔ − + − + − >( ) ( ) ( ) .τ ρ ρ τ ρ∆ ∆
+To choose a starting state to minimise the variance of the mixing time, select state 1, for
+example, if both ν1 ≤ ν2  and  ν1 ≤ ν3.
+Because of the high dimension of the parameter space (a2, a3, b1, b3, c1 and c2), the
+verification and establishment of regions where such general inequalities are satisfied
+are better considered in special cases. We look at a selection of the special cases
+considered in the earlier paper [3].
+Case 1: “Minimal period 3”
+If a2 = b3 = c1 = 1, the Markov chain is periodic, period 3, with transitions occurring 1
+→ 2 → 3 → 1 ... and transition matrix P =
+
+
+
+
+
+
+0 1 0
+0 0 1
+1 0 0
+.
+Variances of mixing times in Markov chains 41
+In this particular case, the distribution of the mixing time has a simple derivation. In
+particular, given X0 = i,  T = k , (k = 1, 2, 3) with probability 1/3, for all such i. (Each of
+the states 1, 2, or 3 are sampled according to the stationary distribution of the Markov
+chain – each with probability 1/3. Since the chain cycles through all the states, the state
+sampled will be reached from the starting state i in either 1, 2 or 3 steps (each with the
+same probability of 1/3). Thus
+ E T X i( | ) .( / ) .( / ) .( / ) .
+0
+1 1 3 2 1 3 3 1 3 2= = + + =
+Further
+ var( | ) ( ) ( / ) ( ) ( / ) ( ) (T X i
+0
+2 2 21 2 1 3 2 2 1 3 3 2= = − + − + − 1 3 2 3 0 6667/ ) / .= = .
+This is consistent with the general theory developed above and verified below.
+Note that∆1 = ∆2 = ∆3 = 1, ∆ = 3, implying πT = (1/3, 1/3. 1/3).
+Further τ12 = 1, τ13 = 2, τ21 = 2, τ23 = 1, τ31 = 1, τ32 = 2, τ = 3 with
+M =
+
+
+
+
+
+
+=
+3 1 2
+2 3 1
+1 2 3
+1
+1,  
+1/3 2/3
+2/3 1/3
+1/3 2
+L
+/3 1
+
+
+
+
+
+
+ leading to η = 2.
+Further taking G I P T= − + −[ ]ee
+1
+1
+, κ1 = 3, κ2 = 3, κ3 = 3, ρ1 = 3, ρ2 = 3, ρ3 = 3 with
+ M L( ) ( ),
+/ /
+/2 2
+9 1 4
+4 9 1
+1 4 9
+3
+3
+1 3 4 3
+4 3 1=
+
+
+
+
+
+
+== /
+/ /
+3
+1 3 4 3 3
+
+
+
+
+
+
+ l e a d i n g  t o
+η ν( )
+/
+/
+/
+/
+/
+/
+2
+4
+4
+4
+2 3
+2 3
+2 3
+2 3
+2 3
+2 3
+=
+
+
+
+
+
+
+=
+ 
+ 
+ 
+, 
+
+
+
+
+
+
+.
+Note also that g = 1, tr(G) = 2, tr(G2) = 4/3, α Τ = (2, 2, 2)  with Eqns.(4.5) and (4.6)
+yielding the above results for η ν(2)  and .
+In this case, the symmetry of the transition matrix does not provide any opportunity for
+η(2)  or ν to vary according to the starting state X0 = i, (i = 1, 2 or 3).  Further, the values
+of η and v are the smallest possible amongst all 3-state Markov chains.
+Case 2: “Period 2”
+If a2 = 1, b1 + b3 = 1, c2 = 1, the Markov chain is periodic, period 2 (with transitions
+alternating between the states {1, 3} and {2}), and transition matrix P b b=
+
+
+
+
+
+
+0 1 0
+0
+0 1 0
+1 3 .
+Then ∆1 = b1, ∆2 = 1, ∆3 = b3, ∆ = 2, implying π T b b= ( , , ).1 32 1 2 2
+Further τ12 = 1, τ13 = 2, τ21 = b3 + 1, τ23 = b1 + 1, τ31 = 2, τ32 = 1, τ = 3 with
+42 J.J. Hunter
+M
+b b
+b b b b
+b b
+= + +
+
+
+
+
+
+
+2 1 2
+1 2 1
+2 1 2
+1 3
+3 1 1 3
+1 3
+( ) ( ) , ( ) ( ) L = + +
+
+
+
+
+
+
+1 1 2 1
+1 2 1 1 2
+1 1 2 1
+3 1
+b b
+leading to η = 2.5.
+Further taking G I P T= − + −[ ]ee
+1
+1
+, κ1 = 1 + 3b3, κ2 = 1, κ3 = 1 + 3b1, ρ1 = (1 + 3b3)/b1,
+ρ2 = 1, ρ3 = (1 + 3b1)/b3, with
+M
+b b b b
+b b b( )
+( ) ( )
+( ) (2
+3 1
+2
+1 3
+2
+3 3
+2
+1
+2
+4 1 1 4 1
+1 6 4 1=
++ +
++ + + +
++ +
+
+
+
+
+
+6
+4 1 1 4 1
+1 1
+2
+3
+2
+3 1
+2
+1 3
+2
+b b b
+b b b b
+)
+( ) ( ) 
+,  
+ L
+b b b b
+b b b( )
+( ) ( )
+( ) (2
+3 1 1 3
+3 3
+2
+1
+2 1 1 2 2 1
+1 6 2 2 1=
++ +
++ + + +
++ +
+
+
+
+
+
+
+6 2
+2 1 1 2 2 1
+1 1
+2
+3
+3 1 1 3
+b b b
+b b b b
+)
+( ) ( )
+ ,
+leading, after simplification using b b b b b b b b b b1 3 1
+2
+3
+2
+1 3 1
+3
+3
+3
+1 31 1 2 1 3+ = + = − + = −, , , to
+ (2)η =
+
+
+
+
+
+
+−
+
+
+
+
+
+
+4
+1
+1
+1
+3 5
+5 5
+3 51 3
+b b
+.
+.
+. 
+and ν =
+
+
+
+
+
+
+=
+
+
+
+
+
+
+var
+var
+var
+1
+2
+3
+1 3
+4
+1
+1
+1
+b b
+−
+
+
+
+
+
+
+9 75
+11 75
+9 75
+.
+.
+.
+.
+Note also that g = 1, tr(G) = 2.5 , tr(G2) = 2.25, α T b b b b= + +(( ) , ,( ) )3 2 3 2 3 2
+3 1 1 3
+with
+Eqns.(4.5) and (4.6) yielding the above results for η ν(2)  and .
+Graph 5 gives a plot of the variances of the mixing times starting in states 1, 2 and 3.
+One notes that for the same b1(and b3), var2 = var1 + 2 = var3 +2, thus if one wishes to
+minimise the variance of the mixing time one should always start in state 2.
+0.000
+20.000
+40.000
+60.000
+80.000
+100.000
+120.000
+140.000
+160.000
+180.000
+0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1
+b1
+V
+a
+ri
+a
+n
+ce var 1 = var 3
+var 2
+Graph 5: Variance of Mixing Times for Case 2
+Variances of mixing times in Markov chains 43
+Case 3: “Constant movement”
+If a2 + a3 = 1, b1 + b3 = 1, c1 + c2 = 1, then at each step the chain does not remain at the
+state but moves to one of the other states.  The Markov chain is irreducible. It is regular
+if 0 < a = a2 < 1, 0 < b = b3 < 1, 0 < c = c1  < 1.  The transition matrix is
+P
+a a
+b b
+c c
+=
+−
+−
+−
+
+
+
+
+
+
+0 1
+1 0
+1 0
+.
+Now ∆1 = 1 – b(1 – c), ∆2 = 1 – c(1 – a), ∆3 = 1 – a(1 – b), τ12 = 2 – a, τ13 = 1 + a, τ21 = 1
++ b, τ23 = 2 – b, τ31 = 2 – c, τ32 = 1 + c, implying that ∆ = 3 – b(1 – c) – c(1 – a) –
+a(1 –
+ 
+b), τ
+ 
+= 3, and hence that η = + − − − − − −1 3 1 1 13 [ ( ) ( ) ( )]b c c a a b .
+In [3] we showed 2 ≤ η  ≤ 2.5.   The minimal value of 2 occurs when a = b = c = 1, and
+this case reduces to the “period 3” Case 1 above. Further when a = b = c = 0 this case
+again reduces to a periodic, “period 3” chain but with transitions 1 → 3 → 2 → 1 .... .
+The maximal value of 2.5 occurs when any pair of (a ,b, c) take the values 0 and 1, say
+a = 1, c = 0  when this case reduces to the “period 2” Case 2 above. For the regular case
+2 < η  < 2.5.
+Expression (4.5) gives explicit expressions for ν , involving terms β , with β T  =
+(β1, β 2, β3). Since β βi j−  = −∆
+2
+2
+( )ν ν
+i j
+, we can deduce inequalities between the
+variances of the mixing times starting in state i, νI, without finding expressions for the
+constant terms.
+It is difficult to give simple forms for the βi , and  the differences between the  βi . We
+have however computed values of βi for a, b and c = 0.1(0.1)0.9, and determined the
+particular state i where the minimum βi, and hence νi, occurs. For each such a, b, c
+combination, Table 1 displays the relevant starting state. The entry 123 indicates that
+each starting state gives the same variance.
+Note that the regions for the appropriate starting state are not simple in form. One can
+make some simple observations from Table 1.
+If  a ≥ b + 0.2 then either ν1 < ν3  or ν2  < ν3  so that the minimum variance cannot occur
+at state 3 so that state 3 would not be a recommended starting state for the mixing
+process. Similarly if b ≥ c + 0.2  do not start the mixing in state 1 while if if c ≥ a + 0.2
+do not start in state 2.
+In any given Case 3 situation, by relabelling the states if necessary, effectively only four
+different scenarios arise (i) a > b > c  (ii) a = b > c  (iii) a > b = c  (iv) a = b = c. For
+(i)  and  (ii) never start in state 1; for (iii) always start in state 2; while for (iv) the start
+44 J.J. Hunter
+state is immaterial. We have not been able to derive simple rules based on the values of
+a, b and c to establish the recommended starting state other than using the guidelines
+evident in Table 1.
+Table 1: States where minimum variance of mixing time occurs for Case 3.
+Case 4: “Independent”
+Let b1 = c1 = 1 – a2 – a3, c2 = a2 = 1 – b1 – b3, b3 = a3 = 1 – c1 – c2,implying that the
+Markov chain is equivalent to independent trials on the state space S = {1, 2, 3}.
+∆1 = 1 – a2 – a3, ∆2 = a2, ∆3 = a3, ∆ = 1. For all i, j, τij = 1, τ = 1, κ1 = a2 + a3, κ2 = 1 – a2,
+κ3 = 1 – a3, with ρi  = κi /∆i  implying  ρ ρ ρ1 2 3
+2 3
+2
+2
+2
+2
+3
+31
+1 1
+=
++
+− −
+=
+−
+=
+−a a
+a a
+a
+a
+a
+a
+, , .  and 
+It is easily shown that η = 3, η (2) = {3 + 2(ρ1 + ρ2 + ρ3)}e, and ν = 2{ρ1 + ρ2 + ρ3 − 3}e.
+As to be expected, the variances of the mixing times starting in any state are constant
+with νi = 2{ρ1 + ρ2 + ρ3 − 3} ≥ 6. The minimum variance of 6 occurs when a2 = a3 = 1/3.
+c = 0.1 b c = 0.2 b c = 0.3 b
+0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
+a 0.1 123 3 3 3 3 3 3 3 3 a 0.1 1 3 3 3 3 3 3 3 3 a 0.1 1 3 3 3 3 3 3 3 3
+0.2 2 2 2 2 3 3 3 3 3 0.2 1 123 3 3 3 3 3 3 3 0.2 1 1 3 3 3 3 3 3 3
+0.3 2 2 2 2 2 2 3 3 3 0.3 1 2 2 2 3 3 3 3 3 0.3 1 1 123 3 3 3 3 3 3
+0.4 2 2 2 2 2 2 3 3 3 0.4 1 2 2 2 2 3 3 3 3 0.4 1 1 2 2 3 3 3 3 3
+0.5 2 2 2 2 2 2 2 3 3 0.5 2 2 2 2 2 2 3 3 3 0.5 1 2 2 2 2 3 3 3 3
+0.6 2 2 2 2 2 2 2 3 3 0.6 2 2 2 2 2 2 3 3 3 0.6 1 2 2 2 2 2 3 3 3
+0.7 2 2 2 2 2 2 2 3 3 0.7 2 2 2 2 2 2 2 3 3 0.7 2 2 2 2 2 2 3 3 3
+0.8 2 2 2 2 2 2 2 3 3 0.8 2 2 2 2 2 2 2 3 3 0.8 2 2 2 2 2 2 2 3 3
+0.9 2 2 2 2 2 2 2 3 3 0.9 2 2 2 2 2 2 2 3 3 0.9 2 2 2 2 2 2 2 3 3
+c = 0.4 b c = 0.5 b c = 0.6 b
+0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
+a 0.1 1 3 3 3 3 3 3 3 3 a 0.1 1 1 3 3 3 3 3 3 3 a 0.1 1 1 3 3 3 3 3 3 3
+0.2 1 1 3 3 3 3 3 3 3 0.2 1 1 1 3 3 3 3 3 3 0.2 1 1 1 1 3 3 3 3 3
+0.3 1 1 1 3 3 3 3 3 3 0.3 1 1 1 1 3 3 3 3 3 0.3 1 1 1 1 1 3 3 3 3
+0.4 1 1 1 123 3 3 3 3 3 0.4 1 1 1 1 3 3 3 3 3 0.4 1 1 1 1 1 3 3 3 3
+0.5 1 1 2 2 2 3 3 3 3 0.5 1 1 1 1 123 3 3 3 3 0.5 1 1 1 1 1 3 3 3 3
+0.6 1 2 2 2 2 2 3 3 3 0.6 1 1 2 2 2 2 3 3 3 0.6 1 1 1 1 1 123 3 3 3
+0.7 2 2 2 2 2 2 3 3 3 0.7 1 2 2 2 2 2 3 3 3 0.7 1 2 2 2 2 2 3 3 3
+0.8 2 2 2 2 2 2 2 3 3 0.8 2 2 2 2 2 2 2 3 3 0.8 2 2 2 2 2 2 2 3 3
+0.9 2 2 2 2 2 2 2 3 3 0.9 2 2 2 2 2 2 2 3 3 0.9 2 2 2 2 2 2 2 3 3
+c = 0.7 b c = 0.8 b c = 0.9 b
+0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
+a 0.1 1 1 1 1 3 3 3 3 3 a 0.1 1 1 1 1 1 1 1 1 1 a 0.1 1 1 1 1 1 1 1 1 1
+0.2 1 1 1 1 1 1 3 3 3 0.2 1 1 1 1 1 1 1 1 1 0.2 1 1 1 1 1 1 1 1 1
+0.3 1 1 1 1 1 1 1 3 3 0.3 1 1 1 1 1 1 1 1 1 0.3 1 1 1 1 1 1 1 1 1
+0.4 1 1 1 1 1 1 1 3 3 0.4 1 1 1 1 1 1 1 1 1 0.4 1 1 1 1 1 1 1 1 1
+0.5 1 1 1 1 1 1 1 3 3 0.5 1 1 1 1 1 1 1 1 1 0.5 1 1 1 1 1 1 1 1 1
+0.6 1 1 1 1 1 1 1 3 3 0.6 1 1 1 1 1 1 1 1 1 0.6 1 1 1 1 1 1 1 1 1
+0.7 1 1 2 2 2 2 123 3 3 0.7 1 1 1 1 1 1 1 1 3 0.7 1 1 1 1 1 1 1 1 1
+0.8 2 2 2 2 2 2 2 3 3 0.8 2 2 2 2 2 2 2 123 3 0.8 2 2 2 2 2 2 1 1 1
+0.9 2 2 2 2 2 2 2 2 3 0.9 2 2 2 2 2 2 2 2 3 0.9 2 2 2 2 2 2 2 2 123
+Variances of mixing times in Markov chains 45
+0
+.0
+2
+5
+0
+.1
+2
+5
+0
+.2
+2
+5
+0
+.3
+2
+5
+0
+.4
+2
+5
+0
+.5
+2
+5
+0
+.6
+2
+5
+0
+.7
+2
+5
+0
+.8
+2
+5
+0
+.9
+2
+5 0.025
+0.125
+0.225
+0.325
+0.425
+0.525
+0.625
+0.725
+0.825
+0.925
+0.00
+200.00
+variance
+a3
+a2
+Graph 6: Variance of Mixing Times for Case 4
+Case 5: “Cyclic drift”
+Let, a3 =  b1 = c2 = 0, a2 = a , b3 = b , c1 = c with 0 < a < 1, 0 < b < 1, 0 < c < 1,
+implying that the Markov chain is regular with transition matrix
+P
+a a
+b b
+c c
+=
+−
+−
+−
+
+
+
+
+
+
+1 0
+0 1
+0 1
+.  At each transition the chain either remains in the same state i
+or moves to state i + 1 (or 1 if i = m).
+Now ∆1 = bc, ∆2 = ca, ∆3 = ab, ∆ = bc + ca + ab, 1, τ12 = c, τ13 = a + b, τ21 = b + c, τ23
+= a, τ31 = b, τ32 = a +c, leading to τ = a + b + c.  Further κ1 = a{bc + b2 + c2},  κ2 = b{ac
++ a2 + c2},  κ 3 = c{ab  + a2 + b 2}.  Note that 0 < τ  < 3 and 0 < ∆  < 3 implying
+η τ= + = + + +
++ +
+1 1
+∆
+a b c
+bc ca ab
+.
+When a + b + c → 3 then bc + ca + ab → 3 and η → 2 (as in Case 1).
+When a + b + c → 0 then bc + ca + ab → 0, but the behaviour of η depends upon the
+rates of convergence and can be large. In this situation the Markov chain resides for a
+large number of transitions in each state so that there is little movement implying that
+the mixing time can become excessively large.
+For any situation the mean time to mixing does not depend on the starting state, but we
+explore scenarios in order to determine the appropriate starting state under the condition
+that the variance of the mixing time is minimised. We use expression (4.5) giving
+explicit expressions for ν in terms of elements of β.
+46 J.J. Hunter
+As in Case 3, it is not easy to give explicit simple conditions on the parameters a, b, c to
+describe the region where inequalities between the β i occur. It can be shown that
+ρ ρ ρ ρ ρ ρ
+1 2 2 3 3 1
+< ⇔ < < ⇔ < < ⇔ >a b b c c a, , .     Further
+β β ν
+1 2
+2 2
+2
+2
+− = − + − + −{ } =∆ ∆ ∆
+abc
+c a b c b ac b c ab( ) ( ) ( ) (
+1 2
+− ν ) .
+Conditions under which β1 – β2 > 0 are not easy to express. Values of βi for a, b and c =
+0.1(0.1)0.9, can be easily computed and the particular state i where the minimum βi, and
+hence νi, occurs, determined. For each such a, b, c combination, Table 2 displays the
+relevant starting state. Where multiple entries are given any such listed state can be used
+as they provide the same minimum variance.
+Note that the regions for the appropriate starting state are not simple in form but some
+inequalities can be deduced, from the calculations underpinning Table 2, to assist in the
+derivation of some “rules of thumb” for determining the starting state.
+If a < b then either ν1 < ν3 or  ν2 < ν3 which implies that one should not start in state 3.
+Similarly, if b < c, never start in state 1 while if c < a, never start in state 2.
+If ∆ – a ≤ – 0.09 then either ν1 < ν2 or  ν3 < ν2 which implies that one should not start in
+state 2. Similarly, if ∆ – b ≤ – 0.09, never start in state 3 while if ∆ – a ≤ – 0.09, don’t
+start in state 1.
+If a2 - bc ≤ – 0.10  then either ν1 < ν3 or  ν2 < ν3 implying that one should not start in
+state 3. Further, if b2 - ac ≤ – 0.10, never start in state 1 while if c2 - ab ≤ – 0.10, don’t
+start in state 2.
+Note also that b ac c bc a b2 20 0 0− > − > ⇒ − >  and  .
+As for Case 3, in this situation, by relabelling the states if necessary, effectively only
+four different scenarios arise (i) a > b > c  (ii) a = b > c  (iii) a > b = c  (iv) a = b = c.
+For (i) never start in state 3; for (ii) never start in state 2; for (iii) never start in state 2
+(“Rule of thumb”: start in state 1 if ∆ < b or start in state 3 if ∆ > b, either 1 or 3 if ∆ =
+b); while for (iv) the start state is immaterial. There are no simple universal rules to
+determine the starting state in (ii) and (iii).
+Note that changes in the parameter values in different directions can lead to quite
+dramatic changes especially around the parameter set (a, b, c) = (0.5, 0.5, 0.5) where it
+is immaterial which state one starts in. Increase, or decrease any of the parameters
+individually only slightly can lead to quite different recommended starting points. For
+(0.51, 0.5, 0.5) start in state 3, for (0.5, 0.51, 0.5) start in state 1, for (0.5, 0.5,0.51) start
+in state 2, while for (0.49, 0.5, 0.5) start in state 2, for (0.5, 0.49, 0.5) start in state 3, and
+for (0.5, 0.5, 0.49) start in state 1. Thus there is a great deal sensitivity around the
+central parameter set  (0.5, 0.5, 0.5). In general, this dramatic shift in recommended
+starting states is also exhibited around each of the equal valued parameter sets (a, a, a).
+Variances of mixing times in Markov chains 47
+One typically assumes some sense of stability in the Markov chain around such a
+parameter set where the stationary distribution displays stability with π T = (1/3, 1/3,
+1/3) and mean time to mixing of η = 1 + (1/a).
+Table 2: States where minimum variance of mixing time occurs for Case 5.
+References
+ [1] Heyman D.P. and D. P. O'Leary D.P. (1995). What is Fundamental for Markov
+chains? First passage times, Fundamental matrices, and group generalized Inverses,
+in Computations with Markov chains, Proceedings of the 2nd International
+Workshop on the Numerical Solution of Markov Chains, (Stewart W.J. Ed), Kluwer
+Academic Publishers, Dordrecht, 151-159.
+[2] Heyman D. P. and A. Reeves A (1989). Numerical solution of linear equations
+arising in Markov chain models. ORSA J. Comput. 1: 52 – 60.
+[3] Hunter J. J. (2006). Mixing times with applications to perturbed Markov chains,
+Linear Algebra Appl. (Available on-line)
+[4] Hunter J. J. (2005a). Simple procedures for finding mean first passage times in
+Markov chains, Proceedings of IWMS 2005, Res. Lett. Inf. Math. Sci., 8: 209 – 226.
+[5] Hunter J. J. (2005b) Stationary distributions and mean first passage times of
+perturbed Markov chains, Linear Algebra Appl. 410: 217-243.
+c = 0.1 b c = 0.2 b c = 0.3 b
+0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
+a 0.1 123 2 2 2 1 1 1 1 2 a 0.1 3 2 2 2 2 2 2 2 2 a 0.1 3 2 2 2 2 2 2 2 2
+0.2 1 1 1 1 1 1 1 1 1 0.2 3 123 2 1 2 1 1 1 1 1 0.2 3 3 2 2 2 2 2 2 2
+0.3 1 1 1 1 1 1 1 1 1 0.3 3 1 1 1 1 1 1 1 1 0.3 3 3 123 1 1 1 1 1 1
+0.4 1 1 1 1 1 1 1 1 1 0.4 3 1 3 1 1 1 1 1 1 1 0.4 3 3 3 1 1 1 1 1 1
+0.5 3 1 1 1 1 1 1 1 1 0.5 3 3 1 1 1 1 1 1 1 0.5 3 3 3 1 1 1 1 1 1
+0.6 3 1 1 1 1 1 1 1 1 0.6 3 3 1 1 1 1 1 1 1 0.6 3 3 3 1 1 1 1 1 1
+0.7 3 1 1 1 1 1 1 1 1 0.7 3 3 1 1 1 1 1 1 1 0.7 3 3 3 1 1 1 1 1 1
+0.8 3 1 1 1 1 1 1 1 1 0.8 3 3 1 1 1 1 1 1 1 0.8 3 3 3 1 1 1 1 1 1
+0.9 3 1 1 1 1 1 1 1 1 0.9 3 3 1 1 1 1 1 1 1 0.9 3 3 3 3 1 1 1 1 1
+c = 0.4 b c = 0.5 b c = 0.6 b
+0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
+a 0.1 3 2 2 2 2 2 2 2 2 a 0.1 2 2 2 2 2 2 2 2 2 a 0.1 2 2 2 2 2 2 2 2 2
+0.2 3 2 3 2 2 2 2 2 2 2 0.2 3 2 2 2 2 2 2 2 2 0.2 3 2 2 2 2 2 2 2 2
+0.3 3 3 2 2 2 2 2 2 1 0.3 3 3 2 2 2 2 2 2 2 0.3 3 3 2 2 2 2 2 2 2
+0.4 3 3 3 123 1 1 1 1 1 0.4 3 3 3 2 2 2 1 1 1 0.4 3 3 3 2 2 2 2 2 1 2
+0.5 3 3 3 3 1 1 1 1 1 0.5 3 3 3 3 123 1 1 1 1 0.5 3 3 3 3 2 2 1 1 1
+0.6 3 3 3 3 1 1 1 1 1 0.6 3 3 3 3 3 1 1 1 1 0.6 3 3 3 3 3 123 1 1 1
+0.7 3 3 3 3 3 1 1 1 1 0.7 3 3 3 3 3 3 1 1 1 0.7 3 3 3 3 3 3 1 1 1
+0.8 3 3 3 3 3 1 1 1 1 0.8 3 3 3 3 3 3 3 1 1 0.8 3 3 3 3 3 3 3 1 3 1
+0.9 3 3 3 3 3 1 3 1 1 1 0.9 3 3 3 3 3 3 3 3 1 0.9 3 3 3 3 3 3 3 3 3
+c = 0.7 b c = 0.8 b c = 0.9 b
+0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
+a 0.1 2 2 2 2 2 2 2 2 2 a 0.1 2 2 2 2 2 2 2 2 2 a 0.1 2 2 2 2 2 2 2 2 2
+0.2 3 2 2 2 2 2 2 2 2 0.2 3 2 2 2 2 2 2 2 2 0.2 3 2 2 2 2 2 2 2 2
+0.3 3 3 2 2 2 2 2 2 2 0.3 3 3 2 2 2 2 2 2 2 0.3 3 3 2 2 2 2 2 2 2
+0.4 3 3 3 2 2 2 2 2 2 0.4 3 3 3 2 2 2 2 2 2 0.4 3 3 2 2 2 2 2 2 2
+0.5 3 3 3 2 2 2 2 1 1 0.5 3 3 3 2 2 2 2 2 1 0.5 3 3 3 2 2 2 2 2 2
+0.6 3 3 3 3 2 2 2 1 1 0.6 3 3 3 3 2 2 2 1 2 1 0.6 3 3 3 2 3 2 2 2 2 1
+0.7 3 3 3 3 3 3 123 1 1 0.7 3 3 3 3 2 2 2 1 1 0.7 3 3 3 3 2 2 2 2 1
+0.8 3 3 3 3 3 3 3 3 1 0.8 3 3 3 3 3 2 3 2 123 1 0.8 3 3 3 3 2 2 2 2 1
+0.9 3 3 3 3 3 3 3 3 3 0.9 3 3 3 3 3 3 3 3 1 0.9 3 3 3 3 3 2 2 2 123
+48 J.J. Hunter
+[6] Hunter J. J. (1992). Stationary distributions and mean first passage times in Markov
+chains using generalized inverses, Asia-Pacific J. Oper. Res. 9: 145-153.
+[7] Hunter J. J. (1990). Parametric forms for generalized inverses of Markovian kernels
+and their applications, Linear Algebra Appl. 127: 71-84.
+[8] Hunter J. J. (1988). Characterizations of generalized inverses associated with
+Markovian kernels, Linear Algebra Appl. 102: 121-142.
+[9]  Hunter J. J. (1983). Mathematical Techniques of Applied Probability, Volume 1,
+Discrete Time Models: Basic Theory, Academic, New York.
+[10] Hunter J. J. (1983). Mathematical Techniques of Applied Probability, Volume 2,
+Discrete Time Models: Techniques and Applications, Academic, New York.
+[11] Hunter J. J. (1982): Generalized inverses and their application to applied
+probability problems, Linear Algebra Appl. 45: 157-198.
+[12] Hunter J. J. (1969). On the moments of Markov renewal processes, Adv. Appl.
+Probab. 1: 188-210.
+[13] Kemeny J. G. and Snell J. L. (1960). Finite Markov Chains, Van Nostrand, New
+York.
+[14] Meyer C. D. Jr. (1975).  The role of the group generalized inverse in the theory of
+finite Markov chains, SIAM Rev. 17: 443-464.

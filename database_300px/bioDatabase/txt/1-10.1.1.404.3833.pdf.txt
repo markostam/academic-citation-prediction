@@ -1,0 +1,391 @@
+
+
+
+
+
+
+
+Publ. RIMS, Kyoto Univ.
+41 (2005), 971–977
+A Double Exponential Formula for
+the Fourier Transforms
+By
+Takuya Ooura∗
+§1. Introduction
+In this paper, we propose a new and eﬃcient method that is applicable
+for the computation of the Fourier transform of a function which may possess
+a singular point or slowly converge at inﬁnity. The proposed method is based
+on a generalization of the method of the double exponential (DE) formula;
+the DE formula is a powerful numerical quadrature proposed by H. Takahasi
+and M. Mori in 1974 [1]. Although it is a widely applicable formula, it is not
+eﬀective in computing the Fourier transform of a slowly decreasing function.
+Actually it is not very eﬃcient even if one wants to compute the value of
+a Fourier transform at a particular point, i.e., a Fourier-type integral. To
+conquer this weakness at least for a Fourier-type integral, M. Mori and the
+author proposed a new DE formula in 1991 [2]. See also [3] for a further
+improvement. The method proposed there is eﬀective for Fourier-type integrals,
+but it is still weak in the computation of the Fourier transform. Here we propose
+another DE formula which is applicable to the computation of the Fourier
+transform. One point in the new method proposed here is that it makes use of
+ﬁxed sampling points even if we change the point where the Fourier integral is
+evaluated.
+In this paper we propose the new method and illustrate the eﬃciency of
+the new method in several concrete examples through the comparison with the
+older methods.
+Communicated by H. Okamoto. Received August 5, 2005.
+2000 Mathematics Subject Classiﬁcation(s): 65D32, 65T50, 65Y20.
+Partially Supported by Grant-in-Aid of JSPS, No. 16760054.
+∗RIMS, Kyoto University, Kyoto 606-8502, Japan.
+c© 2005 Research Institute for Mathematical Sciences, Kyoto University. All rights reserved.
+
+
+
+
+
+
+
+972 Takuya Ooura
+§2. DE Formula for Integrals
+We ﬁrst review the classical DE formula for integrals. For the sake of sim-
+plicity, we restrict ourselves to the following integral including a sine function
+and a parameter ω > 0
+(2.1) I =
+∫ ∞
+0
+f(x) sinωx dx,
+assuming that f(x) converges very slowly as x → ∞. We apply to (2.1) a
+variable transformation
+(2.2) x = Mϕ(t), ϕ(t) =
+t
+1− exp(−2t− α(1− e−t)− β(et − 1)) ,
+where M,α, and β are positive constants, and obtain
+(2.3) I =
+∫ ∞
+−∞
+f(Mϕ(t)) sin (ωMϕ(t))Mϕ′(t) dt.
+Applying the trapezoidal rule with mesh size h, we have
+(2.4) Ih = Mh
+∞∑
+n=−∞
+f(Mϕ(nh)) sin (ωMϕ(nh))ϕ′(nh).
+We assume that M satisﬁes ωMh = π. Then, sin (ωMϕ(nh)) → sinnπ = 0
+rapidly as n →∞ since ϕ(t)/t→ 1 as t →∞, and (2.4) converges to I in (2.3)
+very quickly. Thus, the following formula is obtained [3].
+Approximation Formula 1. Choose h > 0 and two integers N+ and
+N−. Compute
+(2.5) I(N)h =
+π
+ω
+N+∑
+n=−N−
+f
+( π
+ωh
+ϕ(nh)
+)
+sin
+(π
+h
+ϕ(nh)
+)
+ϕ′(nh),
+where the parameters of ϕ(t) are chosen as α=β/
+√
+1 + log(1 + π/(ωh))/(4ωh),
+β = 0.25. If N = N− + N+ + 1 is appropriately chosen, the error is bounded
+as |I − I(N)h | < c′ exp(−c/h) < C ′ exp(−CN/ logN) for typical f ’s, where
+c, c′, C, C ′ are positive constants depending only on f(x) and ω.
+The integrand and the sampling points in the case of f(x) = x−1/2 and ω =
+1 are shown in Figure 1. We can see that the sampling points are dependent on
+the period π/ω. We note that the change of ω forces the change of the sampling
+points. Hence, the computation on varying ω’s of the Fourier transform using
+Approximation Formula 1 requires many sampling points.
+
+
+
+
+
+
+
+A DE Formula for the Fourier Transforms 973
+-4
+-2
+0
+2
+4
+-2 -1.5 -1 -0.5 0 0.5 1 1.5 2 2.5
+t
+Figure 1. Integrand of (2.3) and sampling points of (2.4).
+§3. DE Formula for Transforms
+We now propose a new method. We will derive an approximation formula
+for the Fourier transform
+(3.1) F (ω) =
+∫ ∞
+0
+f(x) exp(iωx) dx.
+By applying the variable transformation (2.2), we obtain
+(3.2) F (ω) =
+∫ ∞
+−∞
+f(Mϕ(t)) exp (iωMϕ(t))Mϕ′(t) dt.
+Next we deﬁne
+(3.3) E(ω) =
+∫ ∞
+−∞
+f(Mϕ(t)) exp (iωMϕ(t)− iω0Mϕˆ(t))Mϕ′(t) dt,
+where ϕˆ(t) = ϕ(t) − t and ω0 is a positive constant to be ﬁxed later. Then,
+|E(ω)| is very small for large M , and the order is
+|E(ω)| = O(exp(−d′M min(ω, ω0)))
+for typical f ’s, where d′ is a positive constant depending on f(x). As the proof
+of this fact is rather complicated, it will be given elsewhere. We calculate
+F˜ (ω) = F (ω)− E(ω) instead of F (ω). Then,
+F˜ (ω) =
+∫ ∞
+−∞
+f(Mϕ(t)) exp
+(
+iωMϕ(t)− i
+2
+ω0Mϕˆ(t)
+)
+(3.4)
+· 2iM sin
+(
+1
+2
+ω0Mϕˆ(t)
+)
+ϕ′(t) dt.
+Since ϕˆ(t) → 0 as t → +∞ and ϕ′(t) → 0 as t → −∞, ∣∣sin ( 12ω0Mϕˆ(t))ϕ′(t)∣∣
+converges to zero rapidly as t → ±∞. Therefore the integrand of F˜ (ω) is a
+
+
+
+
+
+
+
+974 Takuya Ooura
+function to which we can readily apply the ordinary DE method. This means
+that we can choose the mesh size h independently of ω. As an illustration, the
+imaginary parts of the integrands of F (ω), E(ω) and F (ω)− E(ω) in the case
+of f(x) = x−1/2 are shown in Figure 2. To compute integral for ω ∈ (0, 2ω0),
+it suﬃces to choose M = π/(ω0h). Then, the following formulas are obtained.
+Approximation Formula 2. Let us compute the integral (3.1) for ω
+in the interval (0, 2ω0). Then, the approximation formula we propose is as
+follows:
+F˜
+(N)
+h (ω) =
+2πi
+ω0
+N+∑
+n=−N−
+f
+(
+π
+ω0h
+ϕ(nh)
+)
+sin
+( π
+2h
+ϕˆ(nh)
+)
+ϕ′(nh)(3.5)
+· exp
+(
+πiω
+ω0h
+ϕ(nh)− πi
+2h
+ϕˆ(nh)
+)
+,
+where the parameters of ϕ(t) is chosen as α=β/
+√
+1 + log(1 + π/(ω0h))/(4ω0h),
+β = 0.25. This formula is approximated in the interval 0 < ω < 2ω0, and the
+error is bounded by |F (ω)− F˜ (N)h (ω)| < c′0e−c0/h + c′1e−c1ω/h + c′2e−c2(2ω0−ω)/h,
+where ci, c′i are positive constants depending on f(x) through d
+′.
+Once ω0 is ﬁxed, the sampling points of Approximation Formula 2 need
+not be changed. Moreover, the imaginary part of Approximation Formula 2
+in the case of ω = ω0 is the same as Approximation Formula 1. Therefore,
+Approximation Formula 2 is a generalization of Approximation Formula 1.
+-4
+-2
+0
+2
+4
+-4 -3 -2 -1 0 1 2
+In
+te
+gr
+an
+d 
+of
+ F
+t
+-8
+-6
+-4
+-2
+0
+2
+4
+6
+8
+-4 -3 -2 -1 0 1 2
+In
+te
+gr
+an
+d 
+of
+ F
+-
+E
+t
+-4
+-2
+0
+2
+4
+-4 -3 -2 -1 0 1 2
+In
+te
+gr
+an
+d 
+of
+ E
+t
+Figure 2. Integrands of (3.2), (3.3), (3.4).
+
+
+
+
+
+
+
+A DE Formula for the Fourier Transforms 975
+§4. A Numerical Example
+To illustrate the eﬀectiveness of the proposed method, we consider the
+following integral:
+(4.1) F (ω) =
+∫ ∞
+0
+log x√
+x
+exp(iωx) dx,
+which cannot be computed eﬃciently by the FFT-based method since the in-
+tegrand has a singularity at x = 0 and decays very slowly as x →∞. Figure 3
+shows the absolute error of the computation by using Approximation Formula
+2 with parameters ω0 = 1, h = 0.075, N− = 94, N+ = 69. In the parameters,
+the interval of eﬀective accuracy is 0 < ω < 2ω0 = 2. The computation was
+done in double precision (53-bit precision) so the round-oﬀ error is about 10−15.
+10-16
+10-14
+10-12
+10-10
+10-8
+10-6
+10-4
+10-2
+100
+0 0.5 1 1.5 2
+Err
+or
+ω
+Figure 3. |F (ω)− F˜ (N)h (ω)|, (h = 0.075, N− = 94, N+ = 69).
+Figure 4 and Figure 5 show the absolute error when the mesh size h is
+changed on the same computation environment. We observe that the interval
+of eﬀective accuracy becomes larger if the mesh size h is reduced. Here we
+note the following: when the mesh size h is reduced the accuracy improves but
+bigger N+ and N− are needed. To compute for a wider range of ω, the method
+of changing ω0 and the re-computation is recommended.
+§4.1. Comparison with a conventional method
+Let us compare the labor we need to compute (4.1) approximately by our
+new method and that by the conventional DE method: we want to compute
+
+
+
+
+
+
+
+976 Takuya Ooura
+10-16
+10-14
+10-12
+10-10
+10-8
+10-6
+10-4
+10-2
+100
+0 0.5 1 1.5 2
+Er
+ror
+ω
+Figure 4. |F (ω)− F˜ (N)h (ω)|, (h = 0.15, N− = 44, N+ = 35).
+10-16
+10-14
+10-12
+10-10
+10-8
+10-6
+10-4
+10-2
+100
+0 0.5 1 1.5 2
+Er
+ror
+ω
+Figure 5. |F (ω)− F˜ (N)h (ω)|, (h = 0.03, N− = 253, N+ = 173).
+
+
+
+
+
+
+
+A DE Formula for the Fourier Transforms 977
+(4.1) with the absolute error tolerance 10−12 and the interval of ω is set to 0.5 ≤
+ω < 1.5. We computed 128-point transform F (0.5+k/128), k = 0, 1, 2, · · · , 127.
+Table 1 shows the total number N of the function evaluations and the execution
+time.
+Table 1. Comparison of quadrature methods.
+h N
+CPU time
+(Xeon 3.06GHz + gcc3.2)
+Proposed DE (Formula 2) 0.075 164 0.07 m sec
+DE Formula [3] (Formula 1) 0.15 20096 2.42 m sec
+As another example, let us consider
+(4.2) F (ω) =
+∫ ∞
+0
+1√
+1 + x2
+cos(ωx) dx.
+This time we also try another powerful method: the continuous Euler transfor-
+mation [4] with FFT, which is applicable to (4.2). The absolute error tolerance
+is set at 10−12 and the interval of ω is set to 0.5 ≤ ω < 1.5. We computed
+128-point transform. Table 2 shows the result of the computation.
+Table 2. Comparison of quadrature methods.
+h N
+CPU time
+(Xeon 3.06GHz + gcc3.2)
+Proposed DE (Formula 2) 0.075 157 0.04 m sec
+DE Formula [3] (Formula 1) 0.15 9856 0.89 m sec
+Continuous Euler Transf.+FFT π/16 2049 0.12 m sec
+References
+[1] Takahasi, H. and Mori, M., Double exponential formulas for numerical integration, Publ.
+RIMS, Kyoto Univ., 9 (1974), 721-741.
+[2] Ooura, T. and Mori, M., The double exponential formula for oscillatory functions over
+the half inﬁnite interval, J. Comput. Appl. Math., 38 (1991), 353-360.
+[3] , A robust double exponential formula for Fourier type integrals, J. Comput.
+Appl. Math., 112 (1999), 229-241.
+[4] Ooura, T., A continuous Euler transformation and its application to the Fourier trans-
+form of a slowly decaying function, J. Comput. Appl. Math., 130 (2001), 259-270.

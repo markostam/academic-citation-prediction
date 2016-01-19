@@ -1,0 +1,1728 @@
+HEAVY-TRAFFIC LIMITS FOR THE G/H∗2/n/m QUEUE
+by
+Ward Whitt
+Department of Industrial Engineering and Operations Research
+Columbia University, New York, NY 10027
+July 5, 2002
+Revision: May 26, 2004
+To appear in Mathematics of Operations Research.
+Abstract
+We establish heavy-traffic stochastic-process limits for queue-length, waiting-time and over-
+flow stochastic processes in a class of G/GI/n/m queueing models with n servers and m extra
+waiting spaces. We let the arrival process be general, only requiring that it satisfy a functional
+central limit theorem. In order to capture the impact of the service-time distribution beyond
+its mean within a Markovian framework, we consider a special class of service-time distribu-
+tions, denoted by H∗2 , which are mixtures of an exponential distribution with probability p
+and a unit point mass at 0 with probability 1 − p. These service-time distributions exhibit
+relatively high variability, having squared coefficients of variation greater than or equal to one.
+As in Halfin and Whitt (1981), Puhalskii and Reiman (2000) and Garnett, Mandelbaum and
+Reiman (2000), we consider a sequence of queueing models indexed by the number of servers,
+n, and let n tend to infinity along with the traffic intensities ρn so that
+√
+n(1 − ρn) → β for
+−∞ < β < ∞. To treat finite waiting rooms, we let mn/
+√
+n → κ for 0 < κ ≤ ∞. With the
+special H∗2 service-time distribution, the limit processes are one-dimensional Markov processes,
+behaving like diffusion processes with different drift and diffusion functions in two different re-
+gions, above and below zero. We also establish a limit for the G/M/n/m+M model, having
+exponential customer abandonments.
+American Mathematical Society 2000 subject classifications. Primary 60K25, 60F17; Secondary
+60K30.
+OR/MS subject classifications: Queues, limit theorems: many-server heavy-traffic limits; Queues,
+multichannel: many-server heavy-traffic limits with non-exponential service times.
+Keywords: queues, multiserver queues, stochastic-process limits, heavy-traffic, Halfin-Whitt
+regime, diffusion approximations, abandonments, reneging, customer impatience.
+1. Introduction
+Our goal in this paper is to establish new heavy-traffic stochastic-process limits for multi-
+server queues in which the number of servers is allowed to increase along with the traffic in-
+tensity. Such limits were established for the GI/M/n/∞ queueing model (with renewal arrival
+process, exponential service times, n servers, unlimited waiting room and first-come first-served
+service discipline) by Halfin and Whitt (1981), for the more general GI/PH/n/∞ model (with
+phase-type service times) by Puhalskii and Reiman (2000) and for the M/M/n/∞+M model
+with exponential customer abandonment by Garnett, Mandelbaum and Reiman (2000). They
+considered a sequence of models indexed by the number of servers, n, and let n→∞ with the
+traffic intensities ρn converging to 1, the critical value for stability. Interesting nondegenerate
+limits occur when
+√
+n(1− ρn)→ β for −∞ < β <∞ . (1.1)
+(The systems without customer abandonment are stable with proper steady-state distributions
+only when β > 0.)
+We obtain more general results by allowing a non-renewal arrival process and a finite
+waiting room, but we only consider a special class of GI service-time distributions: The non-
+exponential service-time distribution we consider is the mixture of an exponential distribution
+with probability p and a unit point mass at 0 with probability 1 − p. This special service-
+time distribution is mathematically appealing because, just like the exponential service-time
+distribution, it makes appropriate queue-length processes Markov processes in the renewal-
+arrival case, and because it leads to a one-dimensional limiting Markov process in the stochastic-
+process limit. Interestingly, the limit process is not directly a diffusion process, because of
+anomalous behavior at an interior boundary point, but it is a convex piecewise-linear function
+of a diffusion process, which is quite tractable.
+We want to analyze the G/GI/n/m model with the special H∗2 service-time distribution
+because, even though the service-time distribution is special, it may provide insight into the
+way performance depends on the service-time distribution beyond its mean. Indeed, we exploit
+the heavy-traffic stochastic-process limits here in a companion paper, Whitt (2004), to support
+a heuristic approximation for the queue-length process and its steady-state distribution in the
+more general G/GI/n/m model with general service-time distribution. That approximation
+is asymptotically correct in the regime (1.1) for the G/H∗2/n/m special case. Whitt (2004)
+examines the quality of approximations for basic steady-state performance measures, using
+1
+results from simulations and numerical algorithms.
+Since the special service-time distribution is an extremal distribution among the class of
+hyperexponential (H2, mixtures of two exponentials) distributions, see Whitt (1984b), we de-
+note this class by H∗2 . Whitt (1983) observed that H∗2 service-time distributions are convenient
+for developing explicit closed-form expressions for performance measures in the M/GI/n/∞
+model. For example, he showed that the steady-state delay probability with the H∗2 service-
+time distribution is independent of the parameter p, provided that the mean service time is
+held fixed.
+Puhalskii and Reiman (2000) already established many-server heavy-traffic limits for the
+GI/PH/n/∞ model with phase-type service-time distributions, but the limit process there is
+a complicated multidimensional diffusion process, whose steady-state distribution remains to
+be determined. The standard H2 distributions are a subclass of the PH distributions, and so
+are covered by the results in Puhalskii and Reiman (2000), but the case H∗2 is not covered,
+because their analysis makes use of the fact that the component exponential distributions have
+positive mean (and thus finite rate). Indeed, going from H2 to H∗2 lowers the dimension of the
+limiting Markov process from two-dimensional to one-dimensional.
+To treat a finite waiting room in the heavy-traffic regime (1.1), it is necessary to letmn →∞
+as n→∞ so that
+mn/
+√
+n→ κ for 0 < κ ≤ ∞ . (1.2)
+The case of a finite waiting room is not discussed in Halfin and Whitt (1981). Even for
+GI/M/n/m, a different proof is required for the heavy-traffic limit, because the finite waiting
+room introduces a reflecting upper barrier in the diffusion process, which cannot be represented
+simply as a reflection map applied to an unreflected free process. For the M/M/n/m model,
+related heavy-traffic limits have been established by Massey and Wallace (2002).
+Motivated by Garnett, Mandelbaum and Reiman (2003) and Ward and Glynn (2001), in
+this paper we also establish a stochastic-process limit for theG/M/n/mmodel with exponential
+customer abandonment (the G/M/n/m+M model): each customer that must wait in queue
+before beginning service abandons after an exponential time with mean θ−1 if service has not
+begun by that time. (The extension to H∗2 service times remains an open problem.) The
+stochastic-process limit is similar to the previous G/M/n/m limit: The exponential customer
+abandonment only changes the drift for x > 0 from constant to linear.
+Here is how the rest of the present paper is organized: We state the stochastic-process
+limits for the G/H∗2/n/m model in Section 2 and the extension to allow exponential customer
+2
+abandonment in Section 3. We provide proofs in Sections 4–6.
+2. The Stochastic-Process Limit with H∗2 Service Times
+In this section we formulate the heavy-traffic stochastic-process limits for the G/H∗2/n/m
+model. We construct a sequence of these G/H∗2/n/m models indexed by the number of servers,
+n, and let n→∞. We let the associated sequence of traffic intensities {ρn : n ≥ 1} approach
+1 and the associated sequence of waiting-room sizes {mn : n ≥ 1} approach infinity so that
+(1.1) and (1.2) hold.
+We start with a rate-1 arrival counting process C ≡ {C(t) : t ≥ 0} with associated interar-
+rival times {Uk : k ≥ 1}. Our key assumption about C is that it satisfies a functional central
+limit theorem (FCLT). To state the assumed limit, let ⇒ denote convergence in distribution
+and let D ≡ D([0,∞),R) be the function space of right-continuous real-valued functions on
+the positive halfline with left limits, endowed with the customary Skorohod (J1) topology; see
+Billingsley (1999) and Whitt (2002). Since we frequently refer to Whitt (2002), we refer to it
+by its title initials “SPL”.
+Let Cn be the random element of D defined by
+Cn(t) ≡ [C(nt)− nt]/
+√
+n, t ≥ 0. (2.1)
+We assume that
+Cn ⇒ C ≡
+√
+c2aB in (D,J1) (2.2)
+for some nonnegative scaling constant c2a, where B is standard (zero drift, unit diffusion coef-
+ficient) Brownian motion. When the arrival process is a renewal process, the limit (2.2) holds
+with c2a being the squared coefficient of variation (SCV, variance divided by the square of the
+mean) of an interarrival time (then assumed to be finite), but the limit (2.2) holds much more
+generally; see Corollary 7.3.1 of SPL.
+When the number of servers is n, we scale time in the arrival process, letting the arrival
+process be
+Cn(t) ≡ C(λnt), t ≥ 0 , (2.3)
+where λn is the arrival rate in model n (with n servers). Equivalently, the interarrival times
+in model n are Un,k ≡ Uk/λn. As a consequence, assuming that λn/nµ → 1, we have the
+associated limit
+C′n ⇒ C′ ≡
+√
+µc2aB in (D, J1) (2.4)
+3
+where
+C′n(t) ≡
+Cn(t)− λnt√
+n
+, t ≥ 0 . (2.5)
+Let the H∗2 service-time distribution be independent of n. With probability p, it is an
+exponential with mean ν−1; with probability 1 − p it is 0. It has mean µ−1 = pν−1, so that
+the traffic intensity as a function of n is ρn = λn/µn. The second moment of a service time is
+thus 2pν−2, so that the SCV is c2s = (2/p) − 1. Equivalently, p−1 = (c2s + 1)/2. The SCV c2s
+ranges from 1 to ∞ as p decreases from 1 to 0. Hence, the variability of the H2 distribution is
+greater than or equal to that of an exponential distribution.
+Let Qn(t) be the queue length at time t, by which we mean the number in system, including
+both waiting and in service. We assume that the stochastic process Qn almost surely has
+sample paths in the function space D; in particular, the process Qn provides no record of an
+arrival with zero service time that can enter service upon arrival and depart immediately. Let
+Qan(k) be the queue length just before the k
+th (potential) arrival, including all arrivals up to
+number k−1 if there are batch arrivals. The arrival is a potential arrival, because it may leave
+immediately upon arrival if it has a zero service time and there is a free server or if the system
+has finite capacity and is full at that arrival epoch, in which case the customer is blocked and
+lost (without affecting future arrivals). Customers with zero service times are all counted by
+the discrete-time process Qan.
+For the stochastic-process limit, we construct scaled random elements of D by letting
+Qn(t) ≡ [Qn(t)− n]/
+√
+n,
+Qan(t) ≡ [Qan(bntc)− n]/
+√
+n, t ≥ 0 . (2.6)
+There is no time scaling for Qn in (2.6) because the arrival rate λn is allowed to grow directly.
+We also must specify the initial conditions, which could be complicated because of the
+general arrival process. In standard heavy-traffic limits for the G/GI/n/∞ model with a fixed
+number of servers, it is common to start the system empty. However, with the scaling in
+(2.6), where n → ∞, it is convenient to let Qn(0) = n. Alternatively, we could let Qn(0) =
+bn+ x√nc ∨ 0 for some real number x, where bxc is the greatest integer less than or equal to
+x and x ∨ 0 = max{0, x}. More generally, we let Qn(0) be an integer-valued random variable
+with
+0 ≤ Qn(0) ≤ n+mn (2.7)
+that is independent of the arrival process {Cn(t) : t ≥ 0} and we assume that
+Qn(0)⇒ Q(0) as n→∞ , (2.8)
+4
+where Q(0) is a proper random variable and
+Qn(0) ≡ [Qn(0)− n]/
+√
+n . (2.9)
+We also let Qan(0) = Qn(0) and Q
+a
+n(0) = Qn(0). Moreover, we assume that the min{n,Qn(0)}
+customers initially in service have exponential service times with mean ν−1, while the [Qn(0)−
+n]+ customers initially waiting in queue have the H∗2 cdf. (That is, we assume that customers
+with zero service times would already have left if they could be in service.) Finally, given that
+specification, we assume that all service times are independent of the initial state Qn(0) and
+the arrival process.
+Let D2 ≡ D×D be the product space with the associated product topology. As indicated
+above, we use the standard J1 topology on each coordinate, but the specific Skorohod topology
+(e.g., J1 orM1) does not matter because the limit process has continuous sample paths. Indeed,
+the topology could be the J1 or M1 topology on D([0,∞),R2); see Sections 3.3 and 11.5 and
+Chapter 12 of SPL. Let e be the identity function in D, i.e., e(t) = t, t ≥ 0. Let ◦ be the
+composition map, defined by (x ◦ y)(t) ≡ x(y(t)); see Section 13.2 of SPL.
+Theorem 2.1. For the family of G/H∗2/n/m models specified above, where the rate-1 arrival
+process obeys the FCLT in (2.2), suppose that the arrival rate λn and the number of waiting
+spaces, mn, change with n so that (1.1) and (1.2) hold with −∞ < β <∞ and 0 < κ ≤ ∞. In
+addition, suppose that the initial conditions are as specified above with (2.7)-(2.9). Then
+(Qn,Qan)⇒ (Q,Qa) in (D,J1)2 as n→∞ , (2.10)
+where
+Q(t) ≡ g(Qp(t)), t ≥ 0, (2.11)
+g(x) ≡
+{
+x, x < 0,
+x/p, 0 ≤ x ≤ pκ , (2.12)
+Qa ≡ Q ◦ µ−1e and , (2.13)
+and Qp is a diffusion process starting at Qp(0) = g−1(Q(0)) with a reflecting upper barrier at
+pκ if κ < ∞ and an inaccessible upper boundary at infinity if κ = ∞. The diffusion process
+Qp has infinitesimal mean (drift function)
+mQp(x) =
+{ −pµβ, 0 ≤ x < pκ,
+−pµ(x+ β), x < 0 , (2.14)
+and infinitesimal variance (diffusion function)
+σ2Qp(x) = p
+2µ(c2a + (2/p)− 1) = p2µ(c2a + c2s),−∞ < x < pκ . (2.15)
+5
+Remark 2.1. The superscript p. The limit process Qp in Theorem 2.1 has a natural physical
+interpretation: It is the limit process for the scaled version of the queue-length process {Qp(t) :
+t ≥ 0} containing only the customers with positive (non-zero) service times, ignoring the
+customers with zero service times. When all servers are not busy, we can ignore the customers
+with zero service times because they leave immediately upon arrival, and Q(t) does not record
+their appearance. Except for the upper barrier at mn, the customers with zero service times
+have no impact on other customers. To obtain the limit process Qp directly in the case
+mn = κ =∞, we ignore the customers with zero service times, giving us the stochastic process
+{Qp(t) : t ≥ 0}, which corresponds to the queue-length process {Q(t) : t ≥ 0} in the G/M/n/∞
+model where p = 1, but with different parameters. Thus, in the special case of GI arrivals and
+unlimited waiting space, the limit for the scaled version of {Qp(t) : t ≥ 0} is a consequence of
+Halfin and Whitt (1981) and Puhalskii and Reiman (2000). For the limiting diffusion process
+Qp, the extension to a finite upper barrier κ is obtained by inserting a reflecting upper barrier
+at κ; see Remark 2.5 for a discussion of the construction. We do not actually prove that
+Qpn → Qp in the finite-waiting-room case here; that remains an open problem.
+Remark 2.2. Q and Qa are not diffusion processes. Since the function g in (2.12) is not
+differentiable at 0 (and has a discontinuous derivative using one-sided derivatives), the limit
+processes Q and Qa are not diffusion processes with the common definitions; e.g., see p. 110 of
+Rogers and Williams (1987) and p. 159 of Karlin and Taylor (1981). The limit processesQ and
+Qa are strong Markov processes with continuous sample paths, but the infinitesimal mean and
+variance are not well defined in state 0. However, the function g is a convex function, so that
+the limit processes Q and Qa can be characterized as stochastic integrals, using a generalized
+Itoˆ rule for convex functions based on Tanaka’s formula; e.g., see Sections 43, 45 and 47 of
+Rogers and Williams (1987). Indeed, by Theorem 45.1 of Rogers and Williams (1987), Q can
+be represented as the stochastic integral
+Q(t) = g(Qp(t))
+= g(Qp(0)) +
+∫ t
+0
+[1(−∞,0](Qp(s)) + (1/p)1(0,pκ](Qp(s))]dQp(s)
++
+1− p
+2p
+LQp(t, 0) , (2.16)
+where 1A(x) is the indicator function, with 1A(x) = 1 if x ∈ A and 1A(x) = 0 otherwise, and
+LQp(t, 0) is the local time in state 0 of the diffusion process Qp (with infinitesimal parameters
+in (2.14) and (2.15)). In turn, by Theorem 49.1 of Rogers and Williams (1987), the local time
+6
+of the diffusion process Qp is a time change of the local time of standard Brownian motion B,
+i.e.,
+LQp(t, 0) = LB(γ(t), 0) (2.17)
+for appropriate time-change function γ(t) fully specified there.
+Remark 2.3. Tractability. It is evident that the limit processes Q and Qa are quite tractable
+due to the representation in (2.11) - (2.13). First, it is easy to obtain the steady-state dis-
+tributions from the steady-state distribution of Qp. We do not give details here, because the
+steady-state distribution is discussed extensively in Whitt (2004). It also follows that the limit
+processes Q and Qa act like diffusion processes away from the origin. Away from the origin,
+the process Q has infinitesimal mean (drift function)
+mQ(x) =
+{ −µβ, 0 < x < κ,
+−pµ(x+ β), x < 0 , (2.18)
+and infinitesimal variance (diffusion function)
+σ2Q(x) =
+{
+µ(c2a + (2/p)− 1) = µ(c2a + c2s), 0 < x < κ,
+p2µ(c2a + 2− p) = p2µ(c2a + c2s), x < 0 . (2.19)
+However, the infinitesimal parameters are not well defined at 0. For example, in theM/H∗2/n/m
+special case, from state n the process Qn(t) has a drift up of λn, but a drift down of pµn. If we
+could regard the process Q as a diffusion process with the infinitesimal parameters in (2.18)
+and (2.19), extended to 0, then the diffusion process would be a piecewise-linear diffusion (like
+Qp) as in Browne and Whitt (1995), and we could directly write down the steady-state distri-
+bution. However, since Q is not actually a diffusion, that alleged steady-state distribution for
+Q is not correct.
+Remark 2.4. Different speeds in different regions. The infinitesimal variance σ2Q(x) in (2.19)
+is discontinuous at x = 0 when p < 1: σ2Q(0−) = p2σ2Q(0+), so that the limit process Q “moves
+faster” when x > 0. That difference in the infinitesimal variances is evident from plots of queue-
+length sample paths obtained from simulations. To demonstrate that property, we plot sample
+paths of the queue-length process for 104 arrivals in the M/M/n/∞ and M/H∗2/n/∞ models
+with λ = 100, µ = 1, p = 0.1 and several values of n in Figures 1 and 2. For the M/H∗2/n/∞
+model with p = 0.1, the infinitesimal variance ofQ is σ2Q(x) = 2pµ for x < 0 and σ
+2
+Q(x) = 2µ/p
+for x > 0. Hence the ratio of the infinitesimal variances in the two regions is p2 = 0.01. The
+difference is striking in the plots.
+7
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100
+0
+1 0
+0
+3 0
+0
+5 0
+0
+n = 95
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100
+0
+2 0
+4 0
+6 0
+8 0
+1 2
+0
+n = 110
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100
+0
+5 0
+1 0
+0
+1 5
+0
+2 0
+0
+n = 100
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100
+0
+2 0
+4 0
+6 0
+8 0
+1 2
+0
+n = 115
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100
+0
+5 0
+1 0
+0
+1 5
+0
+n = 102
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100
+0
+2 0
+4 0
+6 0
+8 0
+1 2
+0
+n = 120
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100
+0
+5 0
+1 0
+0
+1 5
+0
+n = 105
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100
+0
+2 0
+4 0
+6 0
+8 0
+1 2
+0
+n = 125
+Figure 1: Sample paths of the queue-length process for 104 arrivals in the M/M/n queue with
+arrival rate λ = 100, service rate µ = 1 and several values of n. A common realization of the
+arrival process and service times is used for all n.
+For the simulation, the same arrival process sample path is used for all plots, and the same
+service-time realizations are used for different n in each separate queueing system. Consistent
+with the steady-state distribution described in Whitt (2004), the steady-state probability that
+all servers are busy tends to be no greater for the more highly-variable H∗2 service times than
+for the exponential service times. Indeed, for n = 120 in these plots, no customers are delayed
+for H∗2 service times, whereas some are for exponential (M) service times.
+Remark 2.5. Constructing Qp. The key limit processQp in Theorem 2.1 is a diffusion process
+on the interval (−∞, pκ) with reflection at the upper barrier when κ < ∞. It is of course
+important that this limiting diffusion process be well defined. Constructing this diffusion
+process is somewhat complicated when κ < ∞, because it cannot be regarded simply as the
+image of an “unreflected free process” under a reflection map, as in Sections 5.2, 9.3, 13.5 and
+14.8 of SPL. There are several ways to do the construction. One is to rely on an asymptotic
+construction of the reflected process from an associated unreflected process on (−∞,∞) as in
+the proof of Theorem 4.1 of Srikant and Whitt (1996). That construction characterizes the
+probability law of the reflected process as the common limit (in distribution) of two converging
+8
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100 120
+0
+1 0
+0
+3 0
+0
+5 0
+0
+n = 95
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100 120
+0
+5 0
+1 0
+0
+1 5
+0
+n = 110
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100 120
+0
+1 0
+0
+2 0
+0
+3 0
+0
+n = 100
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100 120
+0
+2 0
+4 0
+6 0
+8 0
+1 2
+0
+n = 115
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100 120
+0
+5 0
+1 0
+0
+2 0
+0
+n = 102
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100 120
+0
+2 0
+4 0
+6 0
+8 0
+1 0
+0
+n = 120
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100 120
+0
+5 0
+1 0
+0
+1 5
+0
+2 0
+0
+n = 105
+time
+Q u
+e u
+e L
+e n
+g t
+h
+0 20 40 60 80 100 120
+0
+2 0
+4 0
+6 0
+8 0
+1 0
+0
+n = 125
+Figure 2: Sample paths of the queue-length process for 104 arrivals in theM/H∗2/n queue with
+arrival rate λ = 100, µ = 1 and p = 0.1 (SCV c2s = 19) and several values of n. A common
+realization of the arrival process and service times is used for all n.
+9
+sequences of bounding processes. These bounding processes have small jumps into the interior
+of the state space the instant the boundary is hit.
+A second approach is to directly apply the standard reflection map in the neighborhood
+of the upper barrier. That second approach is useful to construct an approximation for the
+overflow process in the queueing model (recording arrivals turned away because the waiting
+room is full), which we do in the next corollary. To do that construction, we can use the
+following “alternating-renewal-process” construction: We let the reflected diffusion process be
+distributed as the unreflected diffusion process until the first time the upper barrier is hit.
+Since the diffusion process has constant drift for states in the interval (0, pκ), we can then let
+the reflected diffusion process be reflected Brownian motion (with one-sided reflection down
+from the upper barrier) until a state b is next hit, with 0 < b < pκ, using the usual construction
+involving the reflection map; see Chapters 5 and 9 in SPL. The approximation for the losses
+in the queueing model is determined by the upper-barrier regulator map associated with the
+reflection map in the random intervals during which the process acts as reflected Brownian
+motion. After hitting the state b again, we repeat the construction above. For further discussion
+about constructing diffusion processes, see Lions and Sznitman (1984), Stroock and Varadhan
+(1979) and Rogers and Williams (1987).
+We now state some corollaries. Our first is for the loss processes when κ < ∞. Let Ln(t)
+be the number of customers lost (blocked) in the interval [0, t] and let Lan(k) be the number of
+customers lost among the first k arrivals. Paralleling (2.6), let the associated scaled processes
+be
+Ln(t) ≡ Ln(t)/
+√
+n,
+Lan(t) ≡ Lan(bntc)/
+√
+n, t ≥ 0 . (2.20)
+We construct the loss process associated with the limiting diffusion process in Theorem 2.1 by
+using the reflection map in the “alternating-renewal-process” framework specified in Remark
+2.5.
+Corollary 2.1. If, in addition to the assumptions of Theorem 2.1, Ln(0) = Lan(0) = 0 w.p.1
+and 0 < κ <∞, then
+(Ln,Lan)⇒ (L,La) in (D, J1)2 (2.21)
+jointly with (2.10), where Ln and Lan are as in (2.20), L
+a = L ◦ µ−1e and L is constructed as
+indicated above in Remark 2.5.
+10
+We now state a corollary for the waiting time and virtual waiting time. Let Wn(k) be the
+waiting time of the kth admitted customer (before beginning service) and let W vn be the virtual
+waiting time (the time required for all the customers in the queue at time t to begin service) in
+model n. Since there are n servers, the waiting timeWn(k) tends to be about [Qn(l)−n]+/nµ,
+where l is the index of the kth admitted customer. (In the limit the proportion of admitted
+customers approaches 1, so the shift in index is asymptotically negligible.) Thus, for the
+stochastic-process limit, we need to scale the waiting times by multiplying by
+√
+n instead of
+dividing by
+√
+n as in (2.6).
+Let
+Wn(t) ≡
+√
+nWn(bntc),
+Wvn(t) ≡
+√
+nW vn (t), t ≥ 0 . (2.22)
+For x ∈ D, let x ∨ 0 be the element of D defined by
+(x ∨ 0)(t) ≡ x(t) ∨ 0 ≡ max{x(t), 0}, t ≥ 0 . (2.23)
+The following result is established very similarly to Corollary 2.3 of Puhalskii and Reiman
+(2000); we give details in Section 4.
+Corollary 2.2. Under the conditions of Theorem 2.1,
+(Wn,Wvn)⇒ (µ−1Qa ∨ 0, µ−1Q ∨ 0) in (D, J1)2 as n→∞ , (2.24)
+where (Qa,Q) is as in Theorem 2.1.
+3. Extension for Customer Abandonments
+As in Garnett et al. (2003), suppose that each customer that joins the queue before
+receiving service abandons, independently of all other events, after an exponential time with
+mean θ−1 if service has not begun before that time. We now extend Theorem 2.1 to this setting
+for the special case of exponential service times. (The extension to H∗2 service times remains
+an open problem.)
+Theorem 3.1. For the G/M/n/mn +M model with exponential customer abandonment as
+specified above, under the conditions of Theorem 2.1, the conclusions of Theorem 2.1 hold with
+two modifications: First, here p = 1; second, the infinitesimal mean for Q ≡ Qp should be
+changed to
+mQ(x) =
+{ −βµ− θx, 0 ≤ x < κ,
+−βµ− µx, x < 0 . (3.1)
+11
+4. Proof of Theorem 2.1
+4.1. Outline of the Proof
+In this subsection we give a high-level view. Our proof of Theorem 2.1 has three steps:
+Step 1. G/M/n/∞. We first establish a stochastic-process limit under two extra restrictions:
+(i) We consider only the customers with positive service times, and (ii) we assume an unlim-
+ited waiting room. We show that this first step is equivalent to establishing the heavy-traffic
+stochastic-process limit for the G/M/n/∞ model, which then requires only a slight general-
+ization of the results by Halfin and Whitt (1981) and Puhalskii and Reiman (2000) (restricted
+to the special case of exponential service times). The G/M/n/∞ result is only more general
+because the arrival process need not be a renewal process, but that is a useful generalization
+for applications.
+We actually give two different proofs of the G/M/n/∞ result. Since the service times
+are exponential in this step, the second proof extends to the G/M/n/mn +M model with
+exponential abandonments and finite waiting room, thus yielding a proof of Theorem 3.1.
+Proof 1. Piecewise Construction for G/M/n/mn Exploiting Previous Results. Our
+first proof is a piecewise construction for G/M/n/mn, with finite waiting room, exploiting
+established results for the more elementary G/M/∞ infinite-server and G/M/1/mn single-
+server models. The G/M/∞ model applies below state n when not all servers are busy, while
+the G/M/1/mn model applies above n when all servers are busy. In each separate region we
+can apply previous results for these more elementary systems. We recursively establish limits
+in the different regions, letting the end of the previous excursion in the other region serve as
+the initial distribution for the next excursion in the new region. Then we show that the pieces
+can be put together to imply convergence for the entire process. The piecewise construction
+is interesting in part because it can be applied in other contexts. Indeed, our proof in Step 3
+uses a variant of the same argument.
+Proof 2. Martingale Proof for M/M/n/mn +M Extended to G Arrivals. In Section
+5 we also give a second proof for the G/M/n/∞ model. This second proof is a martingale
+proof for the M/M/n/∞ model in the spirit of Puhalskii and Reiman (2000), but extended to
+a general G arrival process. Since the service times are exponential, the model can also have
+finite waiting room and exponential customer abandonments, so we obtain a proof of Theorem
+12
+3.1 at the same time. The logic for the extension to G arrival processes also applies to many
+other contexts. In particular, the same reasoning lets us extend the results in Puhalskii and
+Reiman (2000) from GI/PH/n/∞ to G/PH/n/∞. For the general arrival process, we assume
+only a FCLT, as in (2.2).
+Open Problems. We conjecture that the proof for the G/M/n/mn + M model (Proof
+2 above) can be extended to yield corresponding direct proofs for the G/H∗2/n/mn model
+(Theorem 2.1) and generalizations to, first, the G/H∗2/n/mn +M model and, more generally
+the G/H∗2/n/mn +H∗2 model. Those remain interesting open problems. Even if those direct
+proofs can be done, we believe that the piecewise constructions are interesting.
+Step 2. G/H∗2/n/∞. We apply the G/M/n/∞ result in Step 1 (not considering the ex-
+tensions to finite waiting rooms and customer abandonment) to obtain the stochastic-process
+limit for the more general G/H∗2/n/∞ model, having H∗2 service times instead of M service
+times, but still an unlimited waiting room. For the case of an unlimited waiting room, we show
+that the distance between Qn and Q
+p
+n is asymptotically negligible. Thus for the G/H∗2/n/∞
+model we establish joint convergence of (Qn,Q
+p
+n).
+Step 3. G/H∗2/n/mn. Finally, we apply the result for the G/H∗2/n/∞ model in Step 2
+to obtain the desired stochastic-process limit for the associated G/H∗2/n/mn model, having
+finite waiting room. The finite-waiting-room proof is by no means a simple extension, such as
+directly applying the continuous-mapping theorem with a reflection map. We use a piecewise
+construction as in the first proof of Step 1. It requires the same rather complicated recursive
+or inductive proof. To treat the finite waiting rooms, we consider two regions with boundary
+above n. In the upper region, the system behaves like a G/MX/1/mn single-server system
+with batch service, while in the lower region the system behaves like the G/H∗2/n/∞ system
+treated in Step 2. We can apply the standard one-sided reflection map associated with the
+upper barrier to treat each piece in the upper region, and we can apply Step 2 to treat each
+piece in the lower region. Thus, in both steps 2 and 3, we make strong use of the result
+established in the previous step. (By our argument, it is not possible to skip any steps.)
+4.2. Positive Customers and an Unlimited Waiting Room.
+We start with the case of an unlimited waiting room, which produces a limit process without
+an upper barrier. Establishing the desired limit with H∗2 service times is complicated even with
+13
+an infinite waiting room because of different system behavior in two regions of the state space.
+If the servers are not all busy, then customers with zero service times depart immediately upon
+arrival. however, if all severs are busy, then customers with zero service times must join the
+queue. Subsequently, upon any service completion, there is a random batch of departures,
+because customers with zero service times that enter service at that time will also depart
+immediately. Hence there may be several simultaneous departures at each of these departure
+epochs.
+With an infinite waiting room, the situation simplifies if we focus on the customers with
+positive (non-zero) service times. With an infinite waiting room (but not with a finite waiting
+room), the customers with zero service times have absolutely no impact on the customers with
+positive service times. Thus, with an infinite waiting room, we can focus on the customers with
+positive service times, by simply ignoring the customers with zero service times. We initially
+establish a limit for the queue-length process consisting only of the customers with positive
+service times. Afterwards, in Step 2, we use the limit for customers with positive service times
+to establish the limit for all customers (in the setting with unlimited waiting room).
+When we look only at the customers with positive service times, the system behaves like
+a G/M/n/∞ model with a new G arrival process and a new initial condition. To reduce our
+problem to the G/M/n/∞ model, we need to show that the assumed FCLT for the arrival
+process and the assumed initial conditions imply corresponding behavior for the positive cus-
+tomers alone. We first show that the assumed FCLT for the full arrival process in (2.2) implies
+a corresponding FCLT for the arrival process of customers with positive service times.
+Let Cp(t) count the number of arrivals in the interval [0, t] that have positive service times.
+We first observe that an analog of the FCLT assumed for the full arrival process C in (2.2)
+holds for Cp under the assumption (2.2). Let Cpn be the random element of D defined by
+Cpn(t) ≡ [Cp(nt)− pnt]/
+√
+nc2p,a , (4.1)
+where the new scaling parameter is
+c2p,a ≡ pc2a + p(1− p) . (4.2)
+Lemma 4.1. If the FCLT in (2.2) holds, then
+Cpn ⇒ B in (D, J1) . (4.3)
+14
+Proof. Recall that Cp(t) can be written as the random sum
+Cp(t) =
+C(t)∑
+i=1
+Yi ,
+where {Yi : i ≥ 1} is a sequence of IID Bernoulli random variables, independent of the stochastic
+process C, with P (Yi = 1) = 1− P (Yi = 0) = p, so that Yi has mean p and variance p(1− p).
+Hence,
+(
+√
+c2aCn,SY,n)⇒ (
+√
+c2aB1,
+√
+p(1− p)B2) in (D, J1)2 , (4.4)
+where Cn is given in (2.1), B1 and B2 are independent standard Brownian motions and
+SY,n(t) ≡ n−1/2
+bntc∑
+i=1
+(Yi − p), t ≥ 0 .
+Hence we can apply the continuous mapping theorem with composition and addition to obtain
+the desired conclusion; specifically, we can Theorem 9.5.1 of SPL with (4.4) to obtain (4.3).
+In the same spirit, we need to show that the initial conditions specified for Qn(t) imply
+corresponding initial conditions for Qpn(t). For that purpose, let
+Qpn(0) ≡ [Qpn(0)− n]/
+√
+n .
+Lemma 4.2. If
+Qn(0) ≡ [Qn(0)− n]/
+√
+n⇒ Q(0) in R as n→∞ ,
+then
+|Qpn(0)− g−1(Qn(0))| ⇒ 0
+so that
+Qpn(0)⇒ g−1(Q(0)) in R as n→∞ ,
+Proof. Note that [Qpn(0)− n]+ can be written as the random sum
+[Qpn(0)− n]+ =
+[Qn(0)−n]+∑
+i=1
+Yi ,
+where {Yi : i ≥ 1} is the sequence of IID Bernoulli random variables we introduced to prove
+Lemma 4.1. Hence,
+Qpn(0)− g−1(Qn(0)) = n−1/2
+[Qn(0)−n]+∑
+i=1
+(Yi − EYi) .
+15
+We have Qpn(0) − g−1(Qn(0)) = 0 where Qn(0) ≤ 0. Otherwise, Qpn(0) − g−1(Qn(0)) is
+asymptotically negligible. To see that, use the Skorohod representation theorem to replace the
+convergence Qn(0) ⇒ Q(0) by convergence w.p.1. For the case Q(0) ≤ 0, we have Qpn(0) =
+Qn(0)→ Q(0) ≤ 0. Henceforth focus on the case Q(0) > 0. For that case, we can write
+n−1/2
+[Qn(0)−n]+∑
+i=1
+(Yi − EYi) = [Qn(0)− n]
++
+√
+n
+∑[Qn(0)−n]+
+i=1 (Yi − EYi)
+[Qn(0)− n]+ ,
+and then apply the LLN together with the assumed limit for Qn(0). That w.p.1 convergence
+implies convergence in law for the original versions, which is equivalent to convergence in
+probability because the limit is deterministic.
+Hence, establishing the limit for the customers with positive service times is actually equiva-
+lent to proving Theorem 2.1 for the special case of the G/M/n/∞model, i.e., with an unlimited
+waiting room and exponential service times.
+4.3. Proof 1 in Step 1: The Piecewise-Construction Proof
+Thus, to complete Step 1, it suffices to prove Theorem 2.1 for the special case with exponen-
+tial (M) service and unlimited waiting room (mn =∞). However, given that we now consider
+exponential service times, we are also able to treat finite waiting rooms. As mentioned earlier,
+we give two different proofs for the G/M/n/mn result, because each is of some independent
+interest. The second proof appears in Section 5. There we treat customer abandonments as
+well; there is no customer abandonment here.
+Our main result in this subsection is
+Theorem 4.1. If, in addition to the conditions of Theorem 2.1, the service-time distribution
+is exponential (p = 1), then
+Qn ⇒ Q in (D,J1) as n→∞ , (4.5)
+where Q is the diffusion process specified in Theorem 2.1 with p = 1, so that Q = Qp.
+As a consequence, we obtain the desired result for the customers with positive service times.
+To state it, let Qpn(t) be the queue length of customers with positive service times at time t in
+the nth model. Let Qpn be the associated random element of D defined by
+Qpn(t) ≡ [Qpn(t)− n]/
+√
+n, t ≥ 0 .
+16
+Corollary 4.1. If, in addition to the conditions of Theorem 2.1, mn =∞ for all n, then
+Qpn ⇒ Qp in (D,J1) as n→∞ ,
+where Qp is the diffusion process specified in Theorem 2.1 (with κ =∞).
+The Main Ideas in the Proof of Theorem 4.1. Our proof is based on the recognition
+that the G/M/n/mn model and the limiting diffusion process have different character in two
+regions, with the state-dependent rates being piecewise-linear, as discussed in Halfin and Whitt
+(1981) and Browne and Whitt (1995). When Qn(t) < n, the system behaves like the G/M/∞
+model; when Qn(t) ≥ n, the system behaves like the G/M/1/mn model. For both those
+component models, limits have already been established. (For the G/M/∞ model, we could
+employ a simplification (special case) of the second (martingale) proof in Section 5 below.)
+Similarly, the limiting diffusion process acts like simple reflected Brownian motion (RBM)
+above 0 and like the Ornstein-Uhlenbeck (OU) diffusion process below 0.
+The idea, then is to apply the previous limits in successive excursions above and below
+n. Suppose that we start above n. Then we use the known convergence for the G/M/1/mn
+model during the excursion above n, until Qn(t) falls below n. Then we switch over to the
+other region, using the terminal distribution of the process in the upper region to serve as the
+initial distribution for the excursion in the lower region. We apply induction to deduce that
+the limits hold for all such excursions, and we use the continuous mapping theorem to show
+that we can put all the pieces together to obtain the originally desired convergence for the full
+process.
+However, there is a complication in the piecewise argument as just described: As stated,
+there are too many excursions, because the process changes back and forth quickly in the
+neighborhood of the boundary n (which will become 0 for the limiting diffusion process).
+(There will be no such difficulty in Step 3 later, because the switchover points are widely
+separated.) In order to circumvent this difficulty here, we modify the original processes at
+the boundary n. When we hit level n from above, we insert a jump down of size b²√nc; and
+when we hit level n from below, we insert a jump up of size b²√nc. By inserting those jumps
+in the original process, we ensure that the excursions above and below n asymptotically have
+length of order O(1). (Without inserting the jumps, the expected lengths of the excursions
+are of order O(1/
+√
+n).) We then carry out the piecewise constructions for the processes with
+these extra jumps. Afterwards, we obtain the desired result by letting ² ↓ 0. Conceptually, the
+17
+argument is relatively simple (should already be crystal clear), but there are several technical
+details, which we will try to treat carefully.
+Overview of the Detailed Proof of Theorem 4.1. Recall that we are now considering
+the G/M/n/mn model. We will establish the desired convergence Qn ⇒ Q in (4.5) by approx-
+imating the processes Qn by related processes that are easier to analyze. For each ² > 0, we
+will define processes Q²n such that, for all t > 0 and n ≥ 1,
+‖Qn −Q²n‖t ≤ ², (4.6)
+where
+‖x‖t = sup
+0≤s≤t
+{|x(s)|} ,
+and, for each ² > 0,
+Q²n ⇒ Q² in (D, J1) as n→∞ . (4.7)
+We form Q²n by deliberately introducing jumps, so the limit processes Q
+² do not have contin-
+uous sample paths, but they only have jumps of size ².
+Since the limit processes Q² in (4.7) have jumps, we will need to use the nonuniform J1
+topology on D in the convergence. Given the nonuniform J1 convergence in (4.7), it is useful to
+measure distance on D using a J1 metric over the interval [0, t], say dJ1 as in (3.2) of SPL. Let
+pi be the Prohorov metric on the space of all probability measures on (D, J1), using the time
+interval [0, t] and the metric dJ1 on D; see (2.2) of SPL. The main property for our purposes
+is that it induces weak convergence. For random elements X1 and X2, let pi(X1, X2) denote
+the Prohorov metric applied to the probability laws of the random elements. We can apply
+the triangle inequality to deduce that
+pi(Qn,Q) ≤ pi(Qn,Q²n) + pi(Q²n,Q²) + pi(Q²,Q) . (4.8)
+Now we use the fact that
+pi(X1, X2) ≤ inf{c > 0 : P (dJ1(X1, X2) > c) < c}
+≤ inf{c > 0 : P (‖X1 −X2‖t > c) < c} (4.9)
+for any random elements X1, X2 ∈ D, by virtue of the Strassen representation theorem, The-
+orem 11.3.5 of SPL. As a consequence, (4.6) implies that
+pi(Qn,Q²n) ≤ ² for all n . (4.10)
+18
+Hence we can apply (4.6) and (4.7) to treat the first two terms on the right in (4.8). We
+complete the proof by showing that
+Q² ⇒ Q as ² ↓ 0 , (4.11)
+which is equivalent to pi(Q²,Q)→ 0.
+Thus, we can apply (4.10) and (4.11) to first pick ² to make the first and third terms on the
+right in (4.8) small, uniformly in n. Then, by (4.7), given that ², we can choose n to make the
+second term arbitrarily small. In that way, we succeed in establishing the desired convergence.
+Verifying (4.6): Constructing the Approximation with Jumps. To establish (4.6),
+we modify the unscaled process Qn by inserting a jump up of b²
+√
+nc whenever the sample path
+reaches level n from below, and a jump down of b−²√nc whenever the sample path reaches
+level n− 1 from above.
+Let the associated scaled processes be
+Q²n ≡ [Q²n(t)− n]/
+√
+n, t ≥ 0 .
+Clearly the scaled processes have jumps of size ², at least asymptotically as n→∞.
+We construct the unscaled processes Q²n on the same sample space as Qn so that (4.6) holds.
+First, we give all these processes the same sample path of arrivals. We cannot give the processes
+the same sample paths of departures, because they are in different states with different rates.
+However, we can exploit the special form of our exponential service-time distribution to perform
+a stochastic coupling construction with the desired property, drawing on Whitt (1981); see
+especially Theorem 10.
+For simplicity, suppose we start at time 0 with an arrival from state n. Then Q²n immedi-
+ately has a jump up of b²√nc. It thus starts out b²√nc above Qn; i.e., initially we have the
+relation
+Q²n(t) ≥ Qn(t) ≥ Q²n(t)− b²
+√
+nc . (4.12)
+Above the level n, the servers are all busy, so that the processes can be given identical service
+completions, which occur in a Markovian manner. Specifically, the departure events can be
+generated by a Poisson process with rate nµ. At each departure event, there is a single
+departure, which occurs in both processes as long as Qn(t) ≥ n.
+We have yet to account for the upper barrier at state n+mn. If both processes are equal,
+then the common new arrivals will be lost in both processes. Otherwise, the higher process
+19
+may hit the upper barrier, while the lower process does not. That may cause losses to occur
+in the higher process that are not matched in the lower process. But that causes no problem;
+that just brings the two ordered sample paths closer together. Even with the upper barrier,
+we maintain the relation (4.12) throughout the excursion in the upper region.
+Now consider what happens whenQn first hits level n−1 from above. Because all servers are
+no longer busy, its departure rate decreases. However, below level n−1, the departure process
+is a pure death process with rate kµ in level k. We can thus generate all departures from the
+common Poisson process with rate nµ by thinning: If the queue-length process Qn is at level
+k (< n) at a departure epoch, then the candidate departure event generated from the Poisson
+process with rate nµ is an actual departure with probability k/n; otherwise the candidate
+departure event has no effect. Since, we construct the departures for the two queue-length
+processes from a common Poisson process, whenever a departure occurs in Qn a corresponding
+departure necessarily occurs in Q²n, but there may be departures in Q
+²
+n that are not matched
+in Qn. Those departures may bring the two sample paths closer together, but the relation
+(4.12) is necessarily maintained. Moreover, the construction gives each of the two processes
+their correct probability law.
+Now we come to the time that the process Q²n first hits the level n−1. As indicated before,
+that process immediately is given a jump down of b²√nc. Since prior to that jump, the relation
+(4.12) held, after the jump the order of the processes is switched, i.e., we have the relation
+Q²n(t) ≤ Qn(t) ≤ Q²n(t) + b²
+√
+nc . (4.13)
+Going forward in time, the processes get no further apart, because we do the sample path
+construction so that the higher process Qn has a departure whenever the lower process Q²n
+does. The lower process may fail to match departures with the upper process, either because
+of hitting the lower barrier at 0 or, probabilistically, because of the difference in the service
+rates. That could cause the processes to couple, after which the sample paths would be identical
+until level n is first hit from below. In any case, relation (4.13) is maintained until Q²n again
+hits level n from below.
+When Q²n again hits level n from below, it experiences a jump up of b²
+√
+nc, causing relation
+(4.13) to be replaced by relation (4.12), with the subsequent reasoning repeated (leading to
+a formal proof by induction on the successive hitting of level n from below and level n − 1
+from above). From the scaling in (2.6), we have thus established the inequality in (4.6), which
+implies the inequality in (4.10) uniformly in n.
+20
+Verifying (4.7): Establishing Convergence of the Approximations. To establish the
+convergence in (4.7), we focus on the successive intervals during which the unscaled processes
+Q²n spend above n and below n− 1. Equivalently, we focus on the successive intervals during
+which the scaled processes Q²n spend above 0 and below 0. Because of the jumps of size ² > 0
+at each crossing of 0 by the scaled processes, those intervals are asymptotically of positive
+finite (but random) length. (Without the size-² jumps, the average excursion interval length
+would be of order 1/
+√
+n and would be harder to analyze.)
+The convergence in each of the two regions follows easily from previous heavy-traffic limits,
+because the unscaled processes Q²n behave like queue-length processes in previously studied
+queueing systems in their excursions above and below level n. Above level n, the queue-
+length process Q²n behaves like the queue-length process in a G/M/1/mn queue; below level
+n, the queue-length process Q²n behaves like the queue-length process in a G/M/∞ queue.
+The assumed FCLT for the arrival process in (2.2) implies associated convergence over random
+subintervals.
+One step of the proof is to treat the successive excursions between each successive crossing.
+Another step is to show that we can put together all the pieces and establish convergence of
+the overall process. We address that second step first.
+Putting the Pieces Together. It should be apparent that convergence of all the pieces
+implies convergence of the overall process. To demonstrate it, we apply the continuous map-
+ping theorem; see Section 3.4 of SPL. We now define the function that puts together all the
+converging pieces. Let t ≡ {tk : k ≥ 0} be a sequence of numbers with 0 = t0 < t1 <
+. . . < tk < tk+1 < . . . such that tk → ∞ as k → ∞. Let ∆ be the subset of such se-
+quences in R∞. (The subset ∆ is well defined, being an intersection of open subsets in R∞:
+The subset A ≡ {t : t0 = 0, tk ≤ tk+1 for all k} is a closed subset of R∞. The subset
+Am ≡ {t : tk ≤ m for all k} is a closed subset, the subset Bm ≡ {t : tm = tm+1} is a closed
+subset, and ∆ is the (countable) intersection of the complements Acm and B
+c
+m within A. Thus
+∆ is metrizable as a complete separable metric space with the relative topology from R∞; see
+p. 371 of SPL.)
+We also consider a sequence of elements of D: let x ≡ {xk : k ≥ 0} be an element of the
+product space D∞ (with the product topology; see Section 11.4 of SPL). Let h : (D∞ ×∆)→
+(D, J1) be the function defined by
+h((x, t))(s) ≡ xk(s) : tk ≤ s < tk+1, k ≥ 0 . (4.14)
+21
+Note that we need to restrict h to (D∞×∆) (instead of just (D∞×R∞) in order for h((x, t))
+to be a legitimate element of D. We use the following lemma.
+Lemma 4.3. The function h : (D∞×∆)→ (D, J1) defined in (4.14) is continuous at all (x, t)
+such that, for all k, xk is continuous everywhere except possibly at the points t1, . . . , tk.
+Proof. Suppose that (x, t)n ≡ (xn, tn)→ (x, t)) as n→∞ in (D∞×∆) with the continuity
+condition holding. We want to show that yn ≡ h((xn, tn))→ h((x, t) ≡ y as n→∞ in (D,J1).
+Because of the discontinuities at the transition points tk, we need the J1 topology on the range.
+It suffices to focus on bounded intervals [0, t], where t is not one of the limit points tk. Suppose
+such a t is given. We fix k by also supposing that tk < t < tk+1. Hence it suffices to work with
+the first k + 1 limits (xj,n, tj,n)→ (xj , tj) : 0 ≤ j ≤ k.
+To treat the convergence in D with time domain [0, t], we make use of the J1 metric on
+D([0, t],R); see (3.2) on p. 79 of SPL. We let λn : [0, t]→ [0, t] be the strictly increasing time
+transformations used there (not to be confused with the arrival rate in the queue). We want
+to construct time transformations λn such that
+‖λn − e‖t → 0 as n→∞ , (4.15)
+where e is the identity map and
+‖yn ◦ λn − y‖t → 0 as n→∞ . (4.16)
+Note that the only difficulties (discontinuities of the functions in D) occur at the points tk.
+(There is local uniform convergence elsewhere.) We thus construct λn by requiring that λn(s) =
+s for s = 0, s = (tj−1+ tj)/2, 1 ≤ j ≤ k, and for s = t. We let λn be defined on the subinterval
+[0, (t0+t1)/2] as required to get the convergence x1,n → x1 for the restrictions to [0, (t0+t1)/2].
+We let λn be defined on the subinterval [(tj−1 + tj)/2, (tj + tj+1)/2] as required to get the
+convergence xj+1,n → xj+1 for the restrictions to [(tj−1 + tj)/2, (tj + tj+1)/2]. This continues
+up to the last component process xk,n and the last interval, which is [(tk−1+ tk)/2, (tk + t)/2].
+It is easy to see that this construction produces the desired asymptotic behavior in (4.15) and
+(4.16).
+Analyzing the Pieces. Now we construct the processes that let us analyze the different
+pieces. We define a sequence of queue-length processes {Q²n,k : k ≥ 0} and an associated
+22
+sequence of first passage times {T ²n,k : k ≥ 0}. The process Q²n,k is constructed to agree with
+the process Q²n up to the random time T
+²
+n,k.
+As before, for simplicity, we assume that there is an initial jump up, so that the scaled
+queue length starts off at +². In particular, let
+Q²n,0(0) = ² and T
+²
+n,0 = 0 . (4.17)
+(It is easy to modify this with some other initial condition as specified before Theorem 2.1.)
+For t > 0, we let Q²n,0(t) be the scaled queue-length process in the G/M/1/mn model with
+arrival process Cn(λnt) and service rate µn. Hence we can apply established heavy-traffic limits
+for single-server queues in Chapter 9 of SPL, modified to treat the upper barrier to deduce
+that
+Q²n,0 ⇒ Q²0 in (D, J1) as n→∞ . (4.18)
+The assumption of exponential service times allows us to directly apply the continuous mapping
+theorem with the one-sided reflection map to treat the upper barrier. Alternatively, we could
+use the two-sided reflection map, as in Chapter 5 and Section 14.8 of SPL.
+We now define the remaining random times and processes recursively. For k ≥ 1, let
+T ²n,2k−1 ≡ inf{t > T ²n,2k−2 : Q²n,2k−2(t) ≤ 0} ,
+Q²n,2k−1(T
+²
+n,2k−1) ≡ −² ,
+Q²n,2k−1(t) ≡ Q²n,2k−2(t), 0 ≤ t < T ²n,2k−1 ,
+T ²n,2k ≡ inf{t > T ²n,2k−1 : Q²n,2k−1(t) ≥ 0} ,
+Q²n,2k(T
+²
+n,2k) ≡ +² ,
+Q²n,2k(t) ≡ Q²n,2k−1(t), 0 ≤ t < T ²n,2k . (4.19)
+As part of the recursive definition, we also must define the scaled queue-length processes Q²n,k
+after the random time T ²n,k. For t > T
+²
+n,2k−1, we let Q
+²
+n,2k−1(t) be the scaled queue-length
+process associated with the G/M/∞ model with individual service rate µ and scaled arrival
+process Cn(λnt) starting at level −² at the random time T ²n,2k−1. Just as for Q²n,0, for t > T ²n,2k,
+we let Q²n,2k(t) be the scaled queue-length process in the G/M/1/mn model with service rate
+µn and arrival process Cn(λnt), starting at lever +² at the random time T ²n,2k.
+Having established the convergence in (4.18), we next show that
+T ²n,1 ⇒ T ²1 in R as n→∞ , (4.20)
+23
+jointly with the limit in (4.18), where T ²1 is the first passage time to the origin for the limiting
+diffusion process Q²0, i.e.,
+T ²1 ≡ inf{t > T ²0 = 0 : Q²0(t) ≤ 0} . (4.21)
+We obtain the convergence in (4.20) by applying the continuous mapping theorem with the
+first-passage-time function, see Section 13.6.3 of SPL. We use the fact that the first-passage-
+time function is measurable and continuous almost surely with respect to the limit process.
+The almost sure continuity follows because the limiting diffusion process is almost surely not
+flat on any interval. That property for general diffusions can be reduced to the familiar
+property of Brownian motion because the diffusion process can be expressed as a time and
+space transformation of Brownian motion involving strictly increasing functions; see Chapter
+7 of Rogers and Williams (1987).
+We next turn to Q²n,1. As indicated above, the process is defined after random time T
+²
+n,1
+by treating it as the queue-length process in a G/M/∞ model with the scaled arrival process
+starting after T ²n,1. The previous results imply that the initial conditions satisfy the conditions
+needed for a stochastic-process limit after the random times T ²n,1. (It is perhaps helpful to
+think of the processes as having domain [0,∞), shifting time in the nth process by T ²n,1 and
+shifting time in the limit process by T ²1 . Afterwards, we can shift time back to obtain the
+desired construction.
+Just as in Srikant and Whitt (1996), we can thus apply a previous FCLT for the G/M/∞
+system, specifically Theorem 1 on p. 103 of Borovkov (1984). An especially transparent
+argument to show that the limit should apply to G arrival processes only under the FCLT
+condition (2.2) is given in Glynn and Whitt (1991) for G/GI/∞ queues for the special case
+of discrete service-time distributions having only finitely many point masses; see Section 10.3
+of SPL. An alternative direct proof is provided in Proof 2 in Section 5 below; the G/M/∞
+result is an easier special case. Also see Krichagina and Puhalskii (1997), which treats the
+more difficult case of general service times, but again with infinite waiting room. Here, the
+established G/M/∞ FCLT applies to each “below 0” interval, yielding convergence to the
+Ornstein-Uhlenbeck diffusion process starting each such random interval in state −².
+In order to obtain the desired convergence, we use the established convergence of Q²n,1
+before time T ²n,1. To obtain the joint convergence of all random quantities considered, we
+exploit the map h1 : D × C × R→ D ×D × R defined by
+h1(x, y, t)(s) ≡
+{
+(x(s), x(s), t), 0 ≤ s < t,
+(x(s), y(s), t), s ≥ t .
+24
+This map h1 is continuous at all (x, y, t) ∈ D×C×R such that x is continuous at t (our case).
+We thus obtain the joint convergence
+(Q²n,0,Q
+²
+n,1, T
+²
+n,1)⇒ (Q²0,Q²1, T ²1) (4.22)
+in (D, J1)2 × R as n→∞, where Q²1 is an OU process after the random time T ²1 . Since T ²1 is
+obtained as a first passage time relative to Q²0, it is a stopping time relative to Q
+²
+0. Hence the
+limit process Q²1 is a (Markov) diffusion process.
+Paralleling (4.19) and (4.21), we recursively define the other limit processes by
+T ²2k−1 ≡ inf{t > T ²2k−2 : Q²2k−2(t) ≤ 0} ,
+Q²2k−1(T
+²
+2k−1) ≡ −² ,
+Q²2k−1(t) ≡ Q²2k−2(t) , 0 ≤ t < T ²2k−1
+T ²2k ≡ inf{t > T ²2k−1 : Q²2k−1(t) ≥ 0} ,
+Q²2k(T
+²
+2k) ≡ +² ,
+Q²2k(t) ≡ Q²2k−1(t) , 0 ≤ t < T ²2k . (4.23)
+As before, we also need to define the processesQ²k after the random times T
+²
+k ; we let the process
+evolve after T ²k according to the appropriate diffusion process, depending on whether we are
+above zero or below zero. As before, since T ²k is a first passage time, T
+²
+k is a stopping time
+relative toQ²k−1 for each k, so thatQ
+²
+k is a diffusion process for all k. Moreover, {T ²2k−1−T ²2k−2 :
+k ≥ 1} and {T ²2k−{T ²2k−1 : k ≥ 1} are independent sequences of IID positive random variables.
+We then apply the arguments above to recursively establish the limits
+T ²n,2k−1 ⇒ T ²2k−1 in R ,
+Q²n,2k−1 ⇒ Q²2k−1 in (D, J1) ,
+T ²n,2k ⇒ T ²2k in R ,
+Q²n,2k ⇒ Q²2k in (D,J1) (4.24)
+for all k ≥ 1, where the convergence is joint. In order to get the joint convergence, we need to
+modify the map h1 above as k increases. In particular, for each k, we construct an analogous
+map hk : (D×R)k−1×C ×R→ (D×R)k and apply induction to obtain joint convergence for
+all k. That joint convergence for all k then implies convergence of the entire sequence in the
+product space (D × R)∞.
+25
+Finally, we apply the continuous map h in (4.14) to establish the overall desired convergence
+stated in Theorem 4.1. We can apply Lemma 4.3 because
+Q²n = h(({Q²n,k : k ≥ 0}, {T ²n,k : k ≥ 0})) (4.25)
+and
+Q² = h(({Q²k : k ≥ 0}, {T ²k : k ≥ 0})) . (4.26)
+We use the fact that {T ²2k−1 − T ²2k−2 : k ≥ 1} and {T ²2k − {T ²2k−1 : k ≥ 1} are independent
+sequences of IID positive random variables to deduce that the single sequence {T ²k : k ≥ 0}
+almost surely belongs to ∆: By the strong law of large numbers, the averages converge to the
+positive means, which implies that T ²k →∞ w.p.1.
+Verifying (4.11): Q² ⇒ Q. We now complete the proof of Theorem 4.1 by establishing
+(4.11), i.e., by showing that Q² ⇒ Q as ² ↓ 0. We give two different proofs.
+The first proof exploits previously established limits for the special GI/M/n/∞ model in
+Halfin and Whitt (1981) or Puhalskii and Reiman (2000), where the arrival process as assumed
+to be renewal. The previous results imply, first, that Qn ⇒ Q and, second, as a consequence of
+that, Q²n ⇒ Q² as n→∞ for each ² > 0. Then, by doing the special construction to establish
+(4.6), we obtain pi(Q²n,Qn) ≤ ² for all n and ² > 0. As a consequence, we obtain pi(Q²,Q) ≤ ²
+for each ² > 0, which implies the desired conclusion.
+The second proof works directly with the limiting diffusion processes Q² and Q. As in
+comparison theorems for diffusion processes, such as in Theorem 43.1 of Rogers and Williams
+(1987), we construct the two diffusions on the same sample space by using a common Brownian
+motion in the definition of the stochastic differential equations. In this way, we show that
+analogs of the two relations (4.12) and (4.13) hold for the processes Q² and Q over excursions
+above and below 0.
+First, suppose that we start with a jump up to ² inQ². We then construct the two processes
+on the same space using the stochastic integrals
+Q(t) = Q(0) +
+∫ t
+0
+σ2Q dB(s) +
+∫ t
+0
+m(Q(s)) ds
+Q²(t) = ²+
+∫ t
+0
+σ2Q dB(s) +
+∫ t
+0
+m(Q²(s)) ds, (4.27)
+where σ2Q is the constant diffusion coefficient of Q in (2.15), 0 ≤ Q(0) ≤ ² w.p.1 and we use a
+common standard Brownian motion B in both cases. Since the diffusion coefficient is constant,
+we can simplify the component stochastic integrals with respect to Brownian motion, to obtain
+26
+σ2QB(t). This construction remains valid until Q
+² next hits zero, after which there is a jump
+down to −².
+Referring to the two stochastic integrals in (4.27), we see that the drifts are identical when
+Q(t) > 0, but the drift of Q is greater than the drift of Q² whenever Q²(t) > 0 > Q(t). As a
+consequence, with the special construction, the distance between the two stochastic processes
+is a nonincreasing function until the two sample paths coincide, i.e., until they couple. In
+particular,
+Q²(t)−Q(t) = ²+
+∫ t
+0
+(m(Q²)−m(Q(s))) ds . (4.28)
+Hence we have the relation
+Q²(t) ≥ Q(t) ≥ Q²(t)− ²
+during each excursion of Q² above 0. Essentially the same argument works for excursions of
+Q² below 0, yielding the relation
+Q²(t) ≤ Q(t) ≤ Q²(t) + ²
+during each excursion of Q² below 0. From these constructions, we obtain ‖Q² −Q‖t ≤ ² for
+the special processes on the same sample space. That in turn implies that pi(Q²,Q) ≤ ², which
+implies the claimed convergence.
+4.4. Step 2: G/H∗2/n/∞; Relating Qn to Qpn.
+We now return attention to the G/H∗2/n/∞ model. We now show that the limit for Qpn
+established in Corollary 4.1, the Corollary to to Theorem 4.1, implies a corresponding limit
+for the primary processes of interest Qn when there are H∗2 service times, in the case of an
+unlimited waiting room. We do this by establishing the following result, which goes beyond
+Theorem 2.1 to establish joint convergence of Qn and Q
+p
+n (only in the case of unlimited waiting
+room). Let gˆ : D → D be the function defined by
+gˆ(x)(t) = g(x(t)) for all t ≥ 0 , (4.29)
+where g : R→ R is the function defined in (2.12). Clearly gˆ is a continuous function.
+Theorem 4.2. Consider the G/H∗2/n/∞ model under the assumptions of Theorem 2.1. For
+each t > 0,
+‖Qn − gˆ(Qpn)‖t ⇒ 0 as n→∞ , (4.30)
+27
+so that
+(Qn,Qpn)⇒ (gˆ(Qp),Qp) in (D,J1)2 (4.31)
+where Qp is the limit process in Theorem 2.1 and gˆ is the mapping in (4.29) and (2.12).
+Proof. We exploit the infinite-waiting room assumption. Let Dpn(t) be the number of de-
+partures of customers with positive service times in the interval [0, t] in the nth system. Since
+there is unlimited waiting space, we have the basic relation
+Qpn(t) = Q
+p
+n(0) + C
+p
+n(t)−Dpn(t) for t ≥ 0 . (4.32)
+We now relate Qn to Q
+p
+n, C
+p
+n, D
+p
+n and a single sequence of IID geometric random variables
+{Xi : i ≥ 1}. The random variable Xi represents 1 (for the ith arrival with positive service
+times) plus the number of customers with zero service times that arrive after the ith arrival
+with positive service times but before the (i + 1)st arrival with positive service times. For
+example, X1+ · · ·+Xk represents the total number of arrivals before the (k+1)st arrival with
+a positive service time.
+First, if Qpn(t) < n, then Qn(t) = Q
+p
+n(t). Next, if Q
+p
+n(t) ≥ n, then we have the bound
+Qp(0)+Cpn(t)−1∑
+i=Dpn(t)+n
+Xi ≤ Qn(t) ≤
+Qp(0)+Cpn(t)∑
+i=Dpn(t)+n
+Xi . (4.33)
+The bound applies for all Qpn(t) if we understand the sum to be zero whenever the lower index
+exceeds the upper index. The upper bound includes all the possible arrivals with zero service
+times that could occur following the (Cpn(t))th arrival with positive service times, while the
+lower bound omits the last batch, allowing for the possibility that some of those customers
+have not arrived yet.
+Hence we can write
+(Qn(t)− n)− g(Qpn(t)− n)) = 1{Qpn(t)≥n}[
+Qpn(0)+C
+p
+n(t)∑
+i=Dpn(t)+n
+(Xi − p−1) +Rn(t)] for t ≥ 0 , (4.34)
+where EXi = p−1 and Rn(t) is a remainder term involving the last batch, as can be seen from
+the bounds in (4.34). We obtain the desired convergence in (4.30) because both the partial
+sums of the summands Xi− p−1 satisfy a FCLT and the random number of terms, within 1 of
+[Qpn(t)− n]+, also satisfies a FCLT.
+First, we apply Donsker’s theorem for the IID geometric random variables, i.e.,
+Sn ⇒
+√
+(1− p)/p2B , (4.35)
+28
+where
+Sn(t) = n−1/2
+bntc∑
+i=1
+(Xi − p−1) . (4.36)
+As a first consequence of this FCLT, we can deduce that the remainder term Rn(t) in (4.34)
+is asymptotically negligible after dividing by
+√
+n, uniformly over the interval [0, t]. (We first
+obtain the related FCLT for the random sum of (Xi − p−1) up to Cpn(t), Corollary 13.3.2 of
+SPL, and then we apply the continuous mapping theorem with the maximum jump functional;
+p. 119 of SPL.) To state that result, let Rn(t) = n−1/2Rn(t), t ≥ 0; we are concluding that
+‖Rn‖t ⇒ 0.
+As a second consequence of the limit in (4.35), we can apply Prohorov’s theorem to obtain
+tightness, so that we have an associated bound on the oscillations of Sn: For each u > 0, ² > 0
+and η > 0, there exists a δ with 0 < δ < 1 and an n0 such that
+P (w(Sn, δ, u) > ²) ≤ η for all n ≥ n0 , (4.37)
+where w(x, δ, u) is the modulus of continuity of x over the interval [0, u], i.e.,
+w(x, δ, u) ≡ sup{|x(s)− x(t)| : 0 ≤ s ≤ u, 0 ≤ t ≤ u, |s− t| < δ} ; (4.38)
+see Section 11.6 of SPL.
+As a consequence of the continuous mapping theorem and Corollary 4.1, for each t > 0,
+‖Qpn‖t ≡ sup
+0≤s≤t
+{|Qpn(s)|} ⇒ sup
+0≤s≤t
+{|Qp(s)|} ≡ ‖Qp‖t . (4.39)
+Finally, combining (4.34), (4.37) and (4.39), we obtain (4.30), which together with Corollary
+4.1 implies the desired limit (4.31), using the convergence-together theorem, Theorem 11.4.7
+of SPL. In particular, defining events
+An,² ≡ {‖Qn − gˆ(Qpn)‖t > ²},
+Bn,² ≡ {w(Sn, δ, t) > ²/2},
+Cn,² ≡ {‖Rn‖t > ²/2},
+Dn ≡ {‖Qpn‖t > η} ,
+we have, for any η > 0 and then all sufficiently large n, that
+An,² ⊆ Bn,² ∪ Cn,² ∪Dn ,
+so that
+P (An,²) ≤ P (Bn,²) + P (Cn,²) + P (Dn) ,
+29
+Since, for each ² > 0 and η > 0, each of the terms on the right converges to 0 as n → ∞, the
+result is established.
+We have now completed the proof of Theorem 2.1 for the stochastic process Qn in the case
+of an unlimited waiting room. We treat the stochastic process Qan later.
+4.5. Step 3. G/H∗2/n/mn; Piecewise Construction for a Finite Waiting Room.
+We now apply the previous results, in particular, Corollary 4.1 and Theorem 4.2, to es-
+tablish the desired limit for Qn in the G/H∗2/n/mn model; i.e., we now treat Qn in the case
+of a finite waiting room. Our proof here is recursive or inductive, exploiting a piecewise con-
+struction, just as in the first proof of Step 1 above. In particular, our proof here is like the
+verification of (4.7) previously. By that, we mean that we use a similar piecewise construction.
+The overall argument now is much easier than Proof 1 of Step 1, however, because (i) we
+now make no special distinction between the customers with positive service times and the
+customers with zero service times, and (ii) we do not need to introduce any approximating
+processes, such as we did before by adding the jumps away from the boundary. Now we are
+able to construct the necessary pieces directly. However, the proof now closely follows part of
+Proof 1 of Step 1. In particular, the specific construction here is an obvious modification of
+(4.17) - (4.26), so we will be brief here.
+We break up the construction of the processes, and the justification of convergence, into
+pieces, just like we did for Q²n in the verification of (4.7). Here we consider two levels a and b
+with 0 < a < b < κ. Assuming that the scaled queue-length (number in system) process starts
+below level b, we first consider the scaled queue-length process until it first hits or passes level
+b. Up to that time, we use the result for an infinite waiting room established in Step 2 above.
+That obviously is reasonable, because whenever the scaled number in system is below level b,
+the actual finite waiting room plays no role.
+After the process hits level b from below, we switch over to another process, in particular,
+to a reflected version of the scaled queue-length process, using the standard reflection map
+with a reflecting upper barrier at κ. It is natural for arrivals to occur one at a time, so that the
+scaled process will indeed pass the level b at a well defined time. However, our assumptions
+permit batch arrivals. In that event, the batch sizes necessarily are of order O(1) before scaling,
+and become asymptotically negligible after scaling. So, without loss of generality, it suffices to
+assume that the scaled process is asymptotically at level b when the switch occurs.
+New treatment is required for the pieces starting when level b is first hit or passed from
+30
+below. In each of these “upper” pieces, starting at a hitting time of b from below, the queue-
+length process behaves like the queue-length process in a single-server G/H∗2/1/mn model and
+a finite waiting room, which in turn is equivalent to a G/MX/1/mn model with batch service
+(a geometric batch at exponential intervals) as long as all servers remain busy. In order to
+make this equivalence clear, we elaborate on two points:
+First note that, without loss of generality, we can let customer service times be determined
+the moment that a customer starts service. Thus the identification of customers – specifying
+whether they have positive service time or zero service time – can be determined by independent
+Bernoulli random variables, with each customer having a positive service time with probability
+p, independent of the system history prior to the instant the customer enters service. (That
+construction is not actually required, but it can help understanding. It is then easy to see that
+there is no dependence between the number in system and the type of the customers waiting
+in queue.)
+Second, we should explain what we mean by the batch service. As usual, in the batch-service
+queue we have in mind, there is a batch of potential service times, with the number of potential
+service times being geometrically distributed. At a service epoch, service is simultaneously
+performed on that many (the batch size) customers if that many customers are in the system;
+otherwise, all available customers are served. Thus the number of potential customers served
+at a service epoch has a geometric distribution, but the actual number of customers served at a
+service epoch does not have a geometric distribution. The M in MX means that the intervals
+between successive service epochs are exponentially distributed, provided there are customers
+to be served. Since all servers are busy in the G/H∗2/n/mn model when the scaled process is
+above level a, that will always (asymptotically) be the case.
+The upper pieces start when they hit or pass level b from below, and they end when they
+hit or pass level a from above. Since 0 < a < b < κ, the length of these pieces is asymptotically
+of order O(1). Moreover, all servers are always busy when we are considering the upper pieces.
+We can analyze each piece starting after hitting or passing b from below and ending when
+the lower level a is hit or passed from above by applying the continuous-mapping theorem
+together with the one-sided reflection map associated with the upper barrier at κ together
+with established limits for the G/MX/1/∞ queue; see Sections 5.2 and 13.5 of SPL. Since the
+arrival process is exogenous and the service times are Markovian, the construction for each of
+these pieces starting at level b is routine. That is, the reflection map applies directly; no extra
+approximation step is needed. Expressed differently, we can treat each upper piece starting at
+31
+b and ending at a by applying known results for the G/MX/1/mn model.
+We use the reflection construction just specified until the scaled queue-length process next
+hits or passes below level a from above. In general, the scaled queue-length process will jump
+below level a because of batch services, but with the scaling, the batch sizes are asymptotically
+negligible. The fact that the heavy-traffic limit for the G/MX/1/mn model is RBM, which
+almost surely has continuous paths, allows us to prove the point by applying the maximum
+jump functional; see p. 119 of SPL. Thus, asymptotically, no servers in the full G/H∗2/n/mn
+model will become idle at these transition epochs. Moreover, it suffices to assume that the
+level a is actually hit at the transition points.
+For an upper piece, after the scaled queue-length process hits or passes level a from above,
+we transition to a lower piece; i.e., we revert back to the previous construction involving the
+G/H∗2/n/∞ model without an upper barrier, discussed above. We use the lower piece starting
+at a until the process next hits or passes level b again. We switch back and forth between
+successive visits to b from below and a from above.
+Just as for (4.7), each successive piece requires a new construction. The overall construction
+and proof is inductive. The limit for each successive piece provides the convergence for the
+initial conditions in the next piece. The initial weak convergence of the arrival process implies
+weak convergence for the new arrival processes after the random times. Since the switching
+times are specified as first passage times, they are again stopping times. As before, that
+stopping time property implies that the overall limit process is a diffusion process.
+The argument just sketched justifies the convergence, but how do we know that the limit
+process has the properties stated in Theorem 2.1? We know that because the full diffusion
+limit has the local character of the diffusion limits for the pieces. First, below level a, the new
+limit must agree with the previously established limit for the G/H∗2/n/∞ model. Necessarily,
+we have thus captured the difficult behavior at 0 without directly addressing the issue again
+when there is a finite waiting room. (Indeed, it should be evident that the addition of a finite
+waiting room cannot alter the behavior at 0.) At the same time, above level b, the new limit
+must coincide with the RBM limit for the upper piece; and it is easy to see that that is the
+case. In particular, the RBM limit for the upper piece determines the reflection map applying
+at the upper barrier and the infinitesimal mean and variance of the diffusion process, which we
+have displayed in (2.18) and (2.19). Finally, since the switching levels a and b are arbitrary,
+they obviously play no role in the final result.
+32
+4.6. Establishing convergence of (Qan,Qn)
+We now show that the stochastic-process limit established forQn in (2.6) implies a correspond-
+ing stochastic-process limit for Qan and the joint convergence in (2.10). Just as in Halfin and
+Whitt (1981), we apply a random-time-change argument to connect the two limits; i.e., we
+apply the continuous mapping theorem with the composition map.
+Recall that Cn(t) counts the number of arrivals in the interval [0, t] and form the scaled
+process
+Cˆn(t) ≡ Cn(t)/n, t ≥ 0 .
+Since λn/n→ µ as n→∞, it is an elementary consequence of the assumed FCLT in (2.2) that
+Cˆn ⇒ µe in (D, J1) as n→∞.
+Now let Tn(k) be the arrival time of the kth customer in model n and let Tˆn be the scaled
+random element of D defined by
+Tˆn ≡ Tn(bntc), t ≥ 0 .
+By the continuous mapping theorem with the inverse map, see Section 13.6 of SPL,
+Tˆn ⇒ µ−1e in (D, J1) as n→∞.
+Given that we have established Qn ⇒ Q, we can invoke Theorem 11.4.5 of SPL to obtain
+the joint convergence
+(Qn, Tˆn)⇒ (Q, µ−1e) in (D, J1)2 ,
+from which we deduce (by applying the continuous mapping theorem with the composition
+map) that
+Qn ◦ Tˆn ⇒ Q ◦ µ−1e = Qa .
+We now show that
+‖Qan −Qn ◦ Tˆn‖t ⇒ 0 (4.40)
+for each t > 0, which implies the desired conclusion. The limit in (4.40) follows because the
+difference there is bounded by the maximum batch size among all arrivals up to time t divided
+by
+√
+n. However, we can apply the assumed convergence in (2.2) to deduce that this scaled
+maximum batch size is asymptotically negligible. In particular, we can apply the continuous
+mapping theorem with the maximum jump function, as on p. 119 of SPL, with the limit in
+(2.2) to obtain (4.40).
+33
+That finally completes the proof of Theorem 2.1. We now turn to the alternative proof of
+Step 1 in our proof of Theorem 2.1 and Theorem 3.1.
+5. Proof of Theorem 3.1: Martingale Proof for G/M/n/mn +M
+We now present the proof of the limit with customer abandonments in Theorem 3.1. The
+special case with an infinite waiting room and without customer abandonments yields the
+second proof of Step 1 in the proof of Theorem 2.1.
+In particular, here we prove the following result, which extends Theorem 3.1 by giving an
+alternative characterization of the limit process (which is equivalent).
+Theorem 5.1. Under the conditions of Theorem 3.1, Qn ⇒ Q, whereQ is a reflected diffusion
+process, defined by
+Q(t) = Q(0) +C′(t)− µβt− θ
+∫ t
+0
+(Q(s)∨ 0) ds− µ
+∫ t
+0
+(Q(s)∧ 0) ds+√µW(t)−Φ(t) , (5.1)
+where C′ is the limit in (2.4), W is a Brownian motion independent of Q(0) and C′, and Φ
+is the regulator process recording the time spent at the upper barrier κ, i.e.,
+Φ(t) =
+∫ t
+0
+1(Q(s) = κ) dΦ(s) . (5.2)
+Proof. Much of the proof can follow Puhalskii and Reiman (2000), so we will be brief. We will
+start by indicating how we do the extension to G arrival processes. Given that the martingale
+proof is the “standard modern” argument, the extension to G arrival processes seems to be
+the most interesting part. The fact that the arrival process is exogenous allows us to condition
+on it and then afterwards uncondition, and establish convergence.
+As in Theorem 2.1, the arrival processes is created from a single rate-one arrival process
+by scaling according to (2.3). The scaled rate-one process in (2.1) satisfies the FCLT in (2.2).
+Thus we have the FCLT in (2.4). We now condition on possible realizations of these processes.
+For that purpose, for each n, let cn be a possible realization of the scaled stochastic process C′n
+in (2.5), and let c be a possible realization of the limit process C′. Let Qcnn be the conditional
+scaled queue-length stochastic process Qn in the G/M/n/mn+M model given that C′n = cn,
+and let Qc be the conditional limit process Q given that C′ = c. Technically, it is significant
+that these conditional probabilities can be regular conditional probabilities; see Chapter 5 of
+Parthasarathy (1967). The martingale proof below establishes that
+Qcnn ⇒ Qc in D whenever cn → c in D . (5.3)
+34
+We establish the desired convergence Qn ⇒ Q by showing that
+E[f(Qn)]→ E[f(Q)] as n→∞ (5.4)
+for each continuous bounded real-valued function on D. For that purpose, observe that the
+limit (5.3) can be restated as
+hn(cn) ≡ E[f(Qcnn )]→ E[f(Qc)] ≡ h(c) as n→∞ (5.5)
+for all such f . We obtain the desired limit in (5.4) by combining (2.4) and (5.5); i.e.,
+E[f(Qn)] = E[hn(C′n)]→ E[h(C′)] = E[f(Q)] as n→∞ ,
+by virtue of the generalized continuous-mapping theorem; Theorem 3.4.4 of SPL.
+It remains to establish the limit in (5.3). For that purpose, it suffices to establish the limit
+under the condition that C′n converges to C′ with probability one, and, for that, we use the
+martingale proof, following the line of reasoning in Puhalskii and Reiman (2000). What makes
+the simple global conditioning argument work is the fact that the arrival process is exogenous
+in the queueing model.
+Let Lk(t) and Nk(t) be mutually independent Poisson processes with rates θ and µ, respec-
+tively, for each k, k ≥ 1. The unscaled number in system can be written as
+Qn(t) = Qn(0) +An(t)−Dn,1(t)−Dn,2(t) , (5.6)
+where
+An(t) ≡
+∑
+s:s≤t
+(n+mn −Qn(s−)) ∧∆Cn(s) ,
+with the sum being over the jumps of the arrival process Cn, and
+Dn,1(t) ≡
+∞∑
+k=1
+∫ t
+0
+1(Qn(s−) ≥ k + n) dLk(s) ,
+Dn,2(t) ≡
+n∑
+k=1
+∫ t
+0
+1(Qn(s−) ≥ k) dNk(s) .
+Let
+Φn(t) ≡
+∑
+s:s≤t
+(∆Cn(s) +Qn(s−)− n−mn)+,
+Mn,1(t) ≡ n−1/2
+∞∑
+k=1
+∫ t
+0
+1(Qn(s−) ≥ k + n) d(Lk(s)− θs) ,
+Mn,2(t) ≡ n−1/2
+n∑
+k=1
+∫ t
+0
+1(Qn(s−) ≥ k) d(Nk(s)− µs) .
+35
+Then, by (5.6), we have the following equation for the scaled process
+Qn(t) = Qn(0) +C′n(t)− θ
+∫ t
+0
+(Qn(s) ∨ 0) ds− µ
+∫ t
+0
+(Qn(s) ∧ 0) ds
+−Mn,1(t)−Mn,2(t)− Φn(t), (5.7)
+where
+Φn(t) =
+∫ t
+0
+1(Qn(s) = mn + n) dΦn(s) =
+∫ t
+0
+1(Qn(s) = mn/
+√
+n) dΦn(s) . (5.8)
+To apply the martingale argument, we need to specify the filtration. Let the filtration Fn ≡
+{Fn(t) : t ≥ 0} be defined by
+Fn(t) = σ(Qn(0);Lk(s), 0 ≤ s ≤ t;Nk(s), 0 ≤ s ≤ t; k ≥ 1) .
+Then the processes Mn,1 and Mn,2 are orthogonal Fn-locally-square-integrable martingales
+with predictable quadratic variation processes
+〈Mn,1〉(t) = θ
+∫ t
+0
+(
+Qn(s)
+n
+− 1)+ ds (5.9)
+and
+〈Mn,2〉(t) = µ
+∫ t
+0
+(
+Qn(s)
+n
+∧ 1) ds . (5.10)
+We next deduce limits in the fluid scale (when dividing by n instead of
+√
+n). By (5.7), the
+fact that Qn(0)/
+√
+n⇒ 0, (5.9) and (5.10), we deduce that Qn(t)/
+√
+n⇒ 0 uniformly in t over
+bounded intervals. Hence, by (5.9) and (5.10),
+〈Mn,1〉(t)⇒ 0 and 〈Mn,2〉(t)⇒ µt
+uniformly in t over bounded intervals. Also the jumps of Mn,1 and Mn,2 uniformly go to 0.
+Thus, by the martingale central limit theorem, see Ethier and Kurtz (1986) or Liptser and
+Shiryaev (1989),
+Mn,1 ⇒ 0¯ and Mn,2 ⇒
+√
+µW in D as n→∞ ,
+where 0
+¯
+(t) ≡ 0, t ≥ 0. Then we can apply the continuous mapping theorem with the reflection
+map in (5.7) and (5.8) to deduce the claimed limit.
+6. Proofs of the Corollaries
+We conclude by proving the two corollaries in Section 2.
+36
+Proof of Corollary 2.1. We exploit the alternating-renewal-process construction used in
+the definition of the limit process L before the statement of Corollary 2.1 (without requiring
+the independence in the converging processes) and used in the proof of Theorem 2.1 in the
+case of a finite waiting room. With that explicit use of the reflecting upper barrier, we obtain
+converence of the upper-boundary regulator processes along with convergence of the content
+processes Qn by an application of the continuous mapping theorem; see Sections 3.4, 5.2 and
+13.5 of SPL. The same argument can be used for Qan.
+Proof of Corollary 2.2. We apply Lemma A.2 of Puhalskii and Reiman (2000), just as
+they do to establish their Corollary 2.3. (In the statement of Lemma A.2, the condition
+λN/N → λ should be replaced by the stronger condition (λN −Nλ)/
+√
+N → β, which holds in
+our application.) Their Lemma A.2 draws upon Puhalskii (1994); see Theorem 13.7.4 of SPL
+and Section 5.4 of the Internet Supplement to SPL.
+By (2.3), Cn(t) counts the number of arrivals in the interval [0, t] in model n. Let Cadn (t)
+count the number of admitted customers in the interval [0, t] in model n. Let
+C1n ≡ [Cn(t)− λnt]/
+√
+λnc2a,
+Cadn ≡ [Cadn (t)− λnt]/
+√
+λnc2a . (6.1)
+(We use the superscript in C1n to avoid confusion with Cn in (2.1).) By (2.2), C
+1
+n ⇒ B, where
+B is standard Brownian motion. It is evidently possible, with some work, to extend Theorem
+2.1 and Corollary 2.1 to obtain the joint convergence
+(C1n,Qn,Ln)⇒ (B,Q,L) in (D,J1)3 ,
+but it is not necessary to do that. Tightness for the sequence {(C1n,Qn,Ln) : n ≥ 1} follows
+from the convergence of the component processes; see Theorems 11.6.1 and 11.6.7 of SPL.
+By Prohorov’s theorem, that tightness implies relative compactness: Any subsequence has a
+convergent subsubsequence. Consider any convergent subsequence:
+(C1nk ,Qnk ,Lnk)⇒ (C1,Q,L) in (D,J1)3 .
+Since Cadn = C
+1
+n − Ln, we deduce that
+(Cadnk ,Qnk)⇒ (C1 − L,Q) in (D, J1)2 . (6.2)
+We can apply Lemma A.2 of Puhalskii and Reiman (2000) to (6.2) in order to obtain the limit
+(2.24) for that subsequence. Since the limit Q is independent of the subsequence chosen, we
+obtain the full convergence in (2.24).
+37
+7. Acknowledgment
+This research was done at AT&T Labs Research, Columbia University and Avaya Labs
+Research. At Columbia University, the author was supported by National Science Foundation
+Grant DMS-02-2340. The author thanks a Referee and an Associate Editor for helping to
+improve the paper. In particular, the martingale proof in Section 5, including the nice method
+for treating general G arrival processes, was suggested by the Referee. Theorem 3.1 had
+previously been proved by extending strong-approximation results in Mandelbaum and Pats
+(1995) to G arrival processes, assuming a strong approximation for the G arrival process (which
+itself is of some interest).
+38
+References
+Billingsley, P. 1999. Convergence of Probability Measures, second ed., Wiley, New York.
+Borovkov, A. A. 1984. Asymptotic Methods in Queueing Theory, Springer, New York.
+Browne, S. and Whitt, W. 1995. Piecewise-linear diffusion processes. Advances in Queueing,
+J. Dshalalow (ed.), CRC Press, Boca Raton, FL, 463-480.
+Ethier, S. N. and Kurtz, T. G. 1986. Markov Processes, Characterization and Convergence,
+Wiley, New York.
+Garnett, O., Mandelbaum, A. and Reiman, M. I. 2003. Designing a call center with impatient
+customers. Operations Res., to appear.
+Glynn, P. W. and Whitt, W. 1991. A new view of the heavy-traffic limit theorem for the
+infinite-server queue. Adv. Appl. Prob. 23, 188-209.
+Halfin, S. and Whitt, W. 1981. Heavy-traffic limits for queues with many exponential servers.
+Operations Research 29, 567-588.
+Jelenkovic P., Mandelbaum A. and Momcilovic P. 2002. Heavy Traffic Limits for Queues with
+Many Deterministic Servers. Columbia University.
+Karlin, S. and Taylor, H. M. 1981. A Second Course in Stochastic Processes, Academic Press,
+New York.
+Krichagina, E. V. and A. A. Puhalskii. 1997. A heavy-traffic analysis of a closed queueing
+system with a GI/∞ service center. Queueing Systems 25, 235–280.
+Lions, P. L. and Sznitman, A. S. 1984. Stochastic differential equations with reflecting bound-
+ary conditions. Commun. Pure Appl. Math. 37, 511-537.
+Liptser, R. Sh. and Shiryaev, A. N. 1989. Theory of Martingales, Kluwer.
+Mandelbaum, A. and Pats, G. 1995. State-dependent queues: approximations and applica-
+tions. Stochastic Networks, IMA Volumes in Mathematics and its Applications, F. P.
+Kelly and R. J. Williams, eds., Springer, Berlin, 239—282.
+39
+Massey, W. A., and Wallace, R. 2002. An asymptotically optimal design of the M/M/c/k
+queue for call centers. Department of Operations Research and Financial Engineering,
+Princeton University.
+Parthasarathy, K. R. 1967. Probability Measures on Metric Spaces, Academic, New York.
+Puhalskii, A. A. 1994. On the invariance principle for the first passage time. Math. Oper.
+Res. 19, 946-954.
+Puhalskii, A. A. and Reiman, M. I. 2000. The multiclass GI/PH/N queue in the Halfin-Whitt
+regime. Adv. Appl. Prob. 32, 564-595.
+Rogers, L. C. G. and Williams, D. 1987. Diffusions, Markov Processes and Martingales,
+Volume 2: Itoˆ Calculus, Wiley, New York.
+Srikant, R. and Whitt, W. 1996. Simulation run lengths to estimate blocking probabilities.
+ACM Trans. Modeling and Computer Simulation 6, 7-52.
+Stroock, D. and Varadhan, S. R. S. 1979. Multidimensional Diffusion Processes, Springer,
+New York.
+Ward, A. R. and Glynn, P. W. 2003. A diffusion approximation for a Markovian queue with
+reneging. Queueing Systems, 43, 103-128.
+Whitt, W. 1981. Comparing counting processes and queues. Adv. Appl. Prob. 13, 207-220.
+Whitt, W. 1983. Comparison conjectures about the M/G/s queue. Operations Research
+Letters 2, 203-210.
+Whitt, W. 1984. On approximations for queues, III: mixtures of exponential distributions.
+AT&T Bell Lab. Tech. J. 63, 163-175.
+Whitt, W. 2002. Stochastic-Process Limits, Springer, New York.
+Whitt, W. 2004. A diffusion approximation for the G/GI/n/m Queue. Department of
+Industrial Engineering and Operations Research, Columbia University. Operations Res.,
+to appear.
+40

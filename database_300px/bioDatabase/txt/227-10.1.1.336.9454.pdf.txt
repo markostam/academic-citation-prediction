@@ -1,0 +1,3693 @@
+An Information Flow Model for Conflict and 
+Fission in Small Groups1 
+WAYNE W. ZACHARY 
+Data from a voluntary association are used to construct a new formal model for a traditional 
+anthropological problem, fission in small groups. The process leading to fission is viewed as 
+an unequal flow of sentiments and information across the ties in a social network. This flow 
+is unequal because it is uniquely constrained by the contextual range and sensitivity of each 
+relationship in the network. The subsequent differential sharing of sentiments leads to the 
+formation of subgroups with more internal stability than the group as a whole, and results in 
+fission. The Ford-Fulkerson labeling algorithm allows an accurate prediction of membership 
+in the subgroups and of the locus of the fission to be made from measurements of the potential 
+for information flow across each edge in the network. Methods for measurement of potential 
+information flow are discussed, and it is shown that all appropriate techniques will generate 
+the same predictions. 
+T H E P R O B L E M OF H O W and why fission takes place in small 
+bounded groups has long been a central issue in social anthropology, 
+even though the small groups studied have often been described under 
+some other rubric, such as kinship. Fission in kinship groups has been 
+studied from a variety of perspectives, especially those of descent theory 
+(e.g. Evans-Pritchard 1940; Middleton and Tait 1958; Peters 1960; 
+Forde 1964), and ecological adaptation (e.g. Reay 1967; Kelly 1968; 
+Rappaport 1969; Nelson 1971). Another type of small bounded group 
+frequently studied by anthropologists is the voluntary association (e.g. 
+Mangin 1965, 1970; Doughty 1970, Goode 1970), although seldom with 
+regard to fission or faction formation. In this paper I present data from 
+such a group, a university-based karate club, in which a factional 
+division led to a formal separation of the club into two organizations. 
+The process leading to this fission is analyzed using a new model of 
+fission, based on a social network approach. This model is a formal one, 
+taken from the family of mathematical structures known as capacitated 
+networks, and was developed directly from the ethnographic material 
+outlined in the following section. The model allows the locus of fission 
+within the group to be accurately predicted (greater than 97% accuracy 
+for the data reported here). Moreover, this result is not limited to 
+voluntary associations or to American culture, but rather is applicable 
+1 I would like to thank Henry Selby, Lucy Garretson, and David Smith who read and 
+commented on this and several earlier versions of this paper, as well as Russell Bernard, Peter 
+Killworth, Lori Corwin, and Arthur Murphy who commented on earlier versions oniy. I would also 
+like to thank George Benko and Robert Leskovec who helped me collect the original data. Still, 
+any errors and misrepresentations are my own doing. Finally, I would like to thank the National 
+Science Foundation which supported me as a Graduate Fellow during the analysis of the data. 
+452 
+Vol. 33, 1977 
+CONFLICT AND FISSION IN SMALL GROUPS 453 
+to bounded social groups of all types in all settings. Also, the data 
+required can be collected by a reliable method currently familiar to 
+anthropologists, the use of nominal scales. 
+THE ETHNOGRAPHIC RATIONALE 
+The karate club was observed for a period of three years, from 1970 
+to 1972. In addition to direct observation, the history of the club prior to 
+the period of the study was reconstructed through informants and club 
+records in the university archives. During the period of observation, the 
+club maintained between 50 and 100 members, and its activities 
+included social affairs (parties, dances, banquets, etc.) as well as 
+regularly scheduled karate lessons. The political organization of the 
+club was informal, and while there was a constitution and four officers, 
+most decisions were made by concensus at club meetings. For its classes, 
+the club employed a part-time karate instructor, who will be referred to 
+as Mr. Hi.2 
+At the beginning of the study there was an incipient conflict 
+between the club president, J o h n A., and Mr. Hi over the price of 
+karate lessons. Mr. Hi, who wished to raise prices, claimed the authority 
+to set his own lesson fees, since he was the instructor. John A., who 
+wished to stabilize prices, claimed the authority to set the lesson fees 
+since he was the club's chief administrator. 
+As time passed the entire club became divided over this issue, and 
+the conflict became translated into ideological terms by most club 
+members. The supporters of Mr. Hi saw him as a fatherly figure who 
+was their spiritual and physical mentor, and who was only trying to 
+meet his own physical needs after seeing to theirs. The supporters of 
+John A. and the other officers saw Mr. Hi as a paid employee who was 
+trying to coerce his way into a higher salary. After a series of 
+increasingly sharp factional confrontations over the price of lessons, the 
+officers, led by John A., fired Mr. Hi for at tempting to raise lesson prices 
+unilaterally. The supporters of Mr. Hi retaliated by resigning and 
+forming a new organization headed by Mr. Hi, thus completing the 
+fission of the club. 
+During the factional confrontations which preceded the fission, the 
+club meeting remained the setting for decision making. If, at a given 
+meeting, one faction held a majority, it would at tempt to pass 
+resolutions and decisions favorable to its ideological position. The other 
+faction would then retaliate at a future meeting when it held the 
+majority, by repealing the unfavorable decisions and substituting ones 
+2 All names given are pseudomyms in order to protect the informants' anonymity. For 
+similar reasons, the exact location of the study is not given. 
+454 JOURNAL OF ANTHROPOLOGICAL RESEARCH 
+favorable to itself. Thus, the outcome of any crisis was determined by 
+which faction was able to "stack" the meetings most successfully. 
+The factions were merely ideological groupings, however, and were 
+never organiztionally crystallized. There was an overt sentiment in the 
+club that there was no political division, and the factions were not 
+named or even recognized to exist by club members. Rather, they were 
+merely groups which emerged from the existing network of friendship 
+among club members at times of political crisis because of ideological 
+differences. There was no a t tempt by anyone to organize or direct 
+political strategies of the groups, and, in general, there was no barrier to 
+interaction between members of opposing factions. Only at times of 
+direct political conflict did individuals selectively interact with others 
+who shared the same ideological position, to the exclusion of those 
+holding other positions. This selective association during confrontations 
+is what brought the factions together only at crisis moments. 
+Political crisis, then, also had the effect of strengthening the 
+friendship bonds within these ideological groups, and weakening the 
+bonds between them, by the pattern of selective reinforcement. A series 
+of political crises, like that which preceded the fission had the effect of 
+"pull ing" apart the network of friendship ties which held the club 
+together, until the group completely and formally separated. 
+There are several reasons for formalizing this ethnographic descrip-
+tion of the fission process into a mathematical model. First, the 
+description is clarified. The formalization of the data necessary for the 
+construction of a mathematical model requires that the intuitively 
+based description be made precise and that all the relationships among 
+descriptive categories be made clear. Second, the intuitive conclusions 
+drawn can be formally stated and included in the model. The case 
+study can then be generalized on the basis of the formal properties of 
+these conclusions. In particular, the conclusions drawn about this group 
+force a rejection of a standard anthropological social network model and 
+require the construction of a more powerful network model—a network 
+flow model. This model is new to anthropology and suggests several 
+important new avenues of investigation in small-group studies. Third, 
+hypotheses about the fission process, intuited from observation of the 
+club, may be rigorously stated within the terms of the model and 
+mathematically tested. Alternatively, assumptions about the basic 
+conditions of the political process could be stated and then simulated 
+within the model to assess their validity. Only the former approach will 
+be used here, however. 
+The model is constructed by formalizing those relationships, or 
+those components of the system, believed to be the most significant or 
+the most explanatory. The feature of the karate club that appeared most 
+CONFLICT AND FISSION IN SMALL GROUPS 455 
+important in the ethnographic data was the network of friendship 
+relationships among club members. While only (affective) friendship is 
+considered here, any other dyadic relationship, such as effective 
+friendship, patron-client relationships, or kinship ties, could have been 
+used to specify the model. This flexibility gives the model a great 
+generality. 
+A formal model of the friendship network within the club, one that 
+contains sufficient complexity and precision to allow the testing of 
+propositions about the political activities and the fission process, can be 
+constructed. The model-building process will begin from the point of 
+the social network model, an intuitive, nonformal model which can 
+easily be transformed into a mathematical one. 
+SOCIAL NETWORKS 
+The idea of the social network model is now well-established in the 
+social science literature (Barnes 1968; Wolfe and Whitten 1974; Bott 
+1971; and Mitchell 1969), and is thus familiar to most anthropologists. 
+In a social network model, the social relationships among the individ-
+uals in some bounded group are represented by a graph. Each 
+individual in the group is represented by a point on the graph, with a 
+line (called an edge) being drawn between any two points on the graph 
+if, and only if, the relationship under consideration exists between the 
+corresponding individuals. The analysis of patterns of social relationship 
+in the group is then conducted on the graph, which is merely a 
+shorthand representation of the ethnographic data. Barnes (1969), for 
+example, has programmatically suggested the investigation of such 
+features as the density (the ratios of actual to possible edges in the 
+graph) or the average length of closed circuits in the graph. 
+An alternative, more formal, representation of the social network is 
+as a square matrix of ones and zeroes. In this form, each individual is 
+represented by a row and column in the matrix; for example, the ith 
+individual being represented by the ith row and the ith column. For 
+each cell in the matrix, a one is assigned to it if, and only if, an edge was 
+drawn between the points corresponding to the row and column 
+designating that cell. A zero is assigned otherwise. The matrix can then 
+be manipulated by matrix algebraic procedures to uncover formal 
+relationships which are not superficially evident in the data. Examples 
+of techniques for using the matrix form to analyze the structure of social 
+relationships are presented in Flament (1963), Holland and Leinhardt 
+(1970), and Lorraine and White (1971). 
+Both the graph and the matrix representations can be constructed 
+for the karate club. The graph representation of the relationships in the 
+club (shortly before the fission) is given in Figure 1. A edge is drawn if 
+456 JOURNAL OF ANTHROPOLOGICAL RESEARCH 
+FIGURE 1 
+Social Network Model of Relationships in the Karate Club 
+This is the graphic representation of the social relationships among the 34 indi-
+viduals in the karate club. A line is drawn between two points when the two 
+individuals being represented consistently interacted in contexts outside those of 
+karate classes, workouts, and club meetings. Each such line drawn is referred to as 
+an edge. 
+two individuals consistently were observed to interact outside the 
+normal activities of the club (karate classes and club meetings). Tha t is, 
+an edge is drawn if the individuals could be said to be friends outside 
+the club activities. This graph is represented as a matrix in Figure 2. All 
+the edges in Figure 1 are nondirectional (they represent interaction in both 
+directions), and the graph is said to be symmetrical. It is also possible to 
+draw edges that are directed (representing one-way relationships); such 
+CONFLICT AND FISSION IN SMALL GROUPS 457 
+FIGURE 2 
+MATRIX OF RELATIONSHIPS IN THE CLUB: THE MATRIX E 
+Individual Number 
+1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 
+1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+8 
+9 
+10 
+11 
+12 
+13 
+14 
+15 
+16 
+17 
+18 
+19 
+20 
+21 
+22 
+23 
+24 
+25 
+26 
+27 
+28 
+29 
+30 
+31 
+32 
+33 
+34 
+0 
+1 
+1 
+1 
+1 
+1 
+1 
+1 
+1 
+0 
+1 
+1 
+1 
+1 
+0 
+0 
+0 
+1 
+0 
+1 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+1 
+0 
+1 
+1 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+1 
+0 
+1 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+1 
+1 
+0 
+1 
+0 
+0 
+0 
+1 
+1 
+1 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+1 
+0 
+1 
+1 
+1 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+1 
+1 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+1 
+0 
+1 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+1 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+1 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+1 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+1 
+0 
+1 
+0 
+1 
+1 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+1 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+1 
+0 
+0 
+0 
+1 
+1 
+1 
+0 
+0 
+1 
+1 
+1 
+0 
+0 
+1 
+0 
+0 
+1 
+1 
+1 
+1 
+1 
+1 
+1 
+0 
+This is the matrix representation of the graph shown in Figure 1. The rows and col-
+umns represent individuals in the club. An entry, determined by a row/column pair, 
+is valued at 1 if an edge was drawn in Figure 1 between the two individuals repre-
+sented by the row and column. The entry is valued at 0 otherwise. For example, the 
+entry in the fifth row, seventh column, is a 1, indicating there is an edge existing be-
+tween individuals 5 and 7. Notice that the matrix is symmetrical--i.e., the seventh 
+row fifth column is also valued at 1, since it identifies the same edge. Because, by 
+definition, no individual can interact with himself, zeroes occupy the main diagonal 
+(from row/column 1 to row/column 34). Later, this matrix will be referred to by the 
+symbol E. 
+458 JOURNAL OF ANTHROPOLOGICAL RESEARCH 
+graphs are called asymmetrical. However, only symmetrical networks will 
+be considered in this paper. 
+Only 34 individuals are presented in Figures 1 and 2. Although club 
+membership was near 60 at that time, none of the 26 members not 
+represented interacted with other club members outside the context of 
+meetings and classes. Because these individuals would only be uncon-
+nected points in the graph, and rows and columns of zeroes in the 
+matrix, they are not included. These individuals belonged to neither 
+faction, and did not participate in the politics of the club. Most joined 
+neither club at the time of the fission, preferring to quit the study of 
+karate altogether because of the political conflict. 
+Density analysis, or the various forms of matrix analysis, are not 
+conducted here because they, like all social network analyses, are static. 
+Lorraine and White (1971) have pointed out that an analysis of the 
+relationships between edges in the network is the only kind of analysis 
+possible on graph and matrix representations. Such an analysis is purely 
+structural (by the classic Jacobsonian definition) and must ignore all 
+processual aspects of the social activity represented by the network. 
+Since the political process leading to the fission rather than the political 
+structure of the group is the focus of this paper, neither the graph nor 
+the matrix representation is adequate. However, further information 
+can be included along with the matrix form to make a processual 
+analysis possible. 
+CAPICITATED NETWORKS 
+In constructing a processual model, the network shown in Figures 1 
+and 2 must be considered only as it represents the social constraints of 
+the system within which the political process operates. The model built 
+here is based on the friendship structure within the club, and the 
+feature of the political process which operated through these friendship 
+relations was the transmission of political information (both tactical, 
+e.g., when a meeting would occur, and ideological) during times of 
+political crisis. This process brought the factions into existence during 
+crisis periods, and was the mechanism for the positive feedback 
+relationship which existed between crisis and factional organization. In 
+this relationship, crises caused the reinforcement of only those relation-
+ships within factions, thus making the factions more defined, and also 
+making another confrontation more likely. 
+From the point of view of information flow, the ties in the network 
+can be thought of as channels across which information may flow. The 
+absence of an edge precludes any direct passage of political information 
+between the two individuals represented by the potential edge. It is 
+obvious that the flow, or potential for flow, is not identical across all 
+CONFLICT AND FISSION IN SMALL GROUPS 459 
+edges in the network. Some individuals are much closer friends than 
+others, some see each other only in the presence of members of the other 
+factions. All these differing relationships are represented in the same 
+way in Figures 1 and 2. In order to represent the network accurately as a 
+net of channels for information flow, the different potentials for 
+information flow of the different edges in the network must be 
+quantified and included in the model. 
+By quantifying the strengths/weaknesses of the edges in the network, 
+a mathematical model can be specified that is formally adequate for the 
+investigation of information flow in the karate club, and its effect on the 
+fission process. The matrix representation of the social network shown in 
+Figures 1 and 2 will be retained as one component of this model. The 
+matrix form is chosen because of its greater ease of algebraic manipula-
+tion. The matrix in Figure 2 will be referred to as the existence matrix, 
+and all entries of value one will be referred to as existing edges in the 
+network. A second matrix must be created which quantifies the relative 
+strengths/weaknesses of the existing edges in the network. This second 
+matrix is called the capacity matrix. 
+The complete mathematical model of the karate club can now be 
+specified as an ordered triplet (V,E,C), where V is the set of individuals 
+included in the network, E is an existence matrix, and C is a capacity 
+matrix. The elements of set V are called nodes in the network, and the 
+triplet (V,E,C) is called a capacitated network. The mathematical 
+development of capacitated networks is presented in Ford and Fulker-
+son (1962), Hu (1969), Maki and Thompson (1974), and Zachary 
+(1977). 
+Each value of the matrix C can be interpreted as representing a 
+"capacity" or "value" of maximum possible flow for the corresponding 
+edge in the existence matrix E. It can be shown mathematically that 
+most features of flow in networks, (in this case flow of political 
+information) are functions of the edge capacities in the network (see 
+Ford and Fulkerson 1962, or Zachary 1977). In particular, the maxi-
+mum flow in the network is completely determined by the values in the 
+matrix of edge capacities. 
+Unfortunately, there is no way known to quantify what has been 
+referred to as "political information," and by extension, there is no sure 
+way to specify actual capacities of information flow for the edges in the 
+network. However, by making certain assumptions about the social 
+settings in which information was communicated, this problem can be 
+circumvented. 
+Political information was communicated in contexts outside the 
+regular activities of the club, and club members interacted in a number 
+of such contexts. Since political activity was not overtly recognized by 
+460 JOURNAL OF ANTHROPOLOGICAL RESEARCH 
+club members, the transmission of political information was then 
+incidental to normal social interaction. It can be assumed that the 
+amount of information transmitted was related to the number of 
+contexts in which the information might have been communicated. 
+Mathematically, this can be stated as assuming that the amount of 
+information communicated is a function of the number of contexts in 
+which communication could take place. If, from a knowledge of the 
+karate club, some specific relationship between the amount of informa-
+tion and the number of contexts can be determined, a procedure for 
+assigning values to C based on the number of contexts can be devised. 
+The functional relationship is at least monotone increasing. Tha t is, the 
+greater the number of contexts in which a pair interacted, the more the 
+information that could be passed between them. The data indicate that 
+the relationship is roughly linear. For instance, twice as much informa-
+tion could be passed over time between individuals who interacted in 
+four contexts as between individuals who interacted in only two 
+contexts. 
+Some ethnographic description of this proposed linearity can be 
+provided. A typical message unit transmitted through the network was 
+the news of a club meeting. The "goal" of any faction member was to 
+pass along such information to as many members as possible of the same 
+faction and to as few as possible of the opposing faction. However, as 
+previously stated, the communication of such items of information was 
+incidental to normal interaction. The assumption of linearity, then, 
+claims that the likelihood of this item of information being communi-
+cated to any individual increases linearly with the number of contexts 
+in which interaction with that individual takes place. 
+The assumption of linearity can also be justified mathematically. 
+Given a monotone increasing function, it can be reasonably approxi-
+mated by a single linear function if there is no severe change in the rate 
+of increase of the function in the interval under consideration. The data 
+provide no indication that such a change in rate of increase in 
+information flow occurs, and thus the assumption of linearity can be 
+accepted. 
+The linearity of the relationship between information flow and the 
+number of contexts of interaction suggests a method for generating 
+values for the matrix C. Since information cannot be quantified, but has 
+been shown to be a linear function of a variable that can be, the 
+quantifiable variable may be used in its place, and the analysis to follow 
+will not be effected, as proved in Zachary (1977, see Theorem 4).3 A 
+3 In particular, Zachary (1977: Theorem 4) shows that any capacity matrix which is a linear 
+multiple of the unknown but "true" capacity matrix will produce the same minimum cut as the 
+"true" matrix when the maximum flow-minimum cut labeling procedure (used throughout the 
+CONFLICT AND FISSION IN SMALL GROUPS 461 
+specific procedure can now be outlined for generating the values of C. A 
+finite set of possible contexts, chosen on the basis of observation of the 
+group, will be used as the domain of a scale variable. Then, the 
+relationship between each pair of individuals in the network is 
+examined against this (nominal) scale. A value, equal to the total 
+number of contexts from the scale in which the two individuals 
+interacted, is then assigned to the corresponding entry in C. Eight 
+contexts are included in the domain of the scale applied to the edges in 
+the karate club network. They are: 
+(1) Association in and between academic classes at the university. 
+(2) Membership in Mr. Hi's private karate studio on the east side of 
+the city where Mr. Hi taught nights as a part-time instructor. 
+(3) Membership in Mr. Hi's private karate studio on the east side of 
+the city, where many of his supporters worked out on weekends. 
+(4) Student teaching at the east-side karate studio referred to in (2). 
+This is different from (2) in that student teachers interacted with each 
+other, but were prohibited from interacting with their sutdents. 
+(5) Interaction at the university rathskeller, located in the same 
+basement as the karate club's workout area. 
+(6) Interaction at a student-oriented bar located across the street from 
+the university campus. 
+(7) Attendance at open karate tournaments held through the area at 
+private karate studios. 
+(8) Attendance at intercollegiate karate tournaments held at local 
+universities. Since both open and intercollegiate tournaments were held on 
+Saturdays, attendance at both was impossible. *• 
+This scale was applied to the relationships between all pairs of 
+individuals in the karate club, using data compiled over the three years 
+of direct observation of interactions in the club. For each existing edge 
+in E (Figure 2), the pair of individuals involved interacted in at least 
+one of the above eight contexts. The quantified matrix of contexts is 
+given in Figure 3, and is the third component in the capacitated 
+network model (V,E,C). 
+NETWORK FLOWS 
+The flow of information in the club can now be analyzed with the 
+fully specified model (V,E,C), by using the family of mathematical 
+problems known as network flows, or Ford-Fulkerson problems, after the 
+remainder of the paper) is applied. A linear multiple is a linear function in which the zero in the 
+domain (here, information flow) is mapped into the zero in the range (here, number of contexts of 
+interaction). Since zero potential for information flow clearly maps into zero contexts of 
+interaction, the linear function used is really a linear multiple. 
+462 JOURNAL OF ANTHROPOLOGICAL RESEARCH 
+FIGURE 3 
+QUANTIFIED MATRIX OF RELATIVE STRENGTHS OF THE RELATIONSHIPS 
+IN THE KARATE CLUB: THE MATRIX C 
+Individual Number 
+1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 
+1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+8 
+9 
+10 
+11 
+12 
+13 
+14 
+15 
+16 
+17 
+18 
+19 
+20 
+21 
+22 
+23 
+24 
+25 
+26 
+27 
+28 
+29 
+30 
+31 
+32 
+33 
+34 
+0 
+4 
+5 
+3 
+3 
+3 
+3 
+2 
+2 
+0 
+2 
+3 
+1 
+3 
+0 
+0 
+0 
+2 
+0 
+2 
+0 
+2 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+0 
+0 
+4 
+0 
+6 
+3 
+0 
+0 
+0 
+4 
+0 
+0 
+0 
+0 
+0 
+5 
+0 
+0 
+0 
+1 
+0 
+2 
+0 
+2 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+0 
+0 
+0 
+5 
+6 
+0 
+3 
+0 
+0 
+0 
+4 
+5 
+1 
+0 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+2 
+0 
+0 
+0 
+2 
+0 
+3 
+3 
+3 
+0 
+0 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+3 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+0 
+2 
+0 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+0 
+5 
+0 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+0 
+0 
+0 
+2 
+5 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+4 
+4 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+0 
+5 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+0 
+3 
+4 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+2 
+0 
+0 
+0 
+3 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+5 
+3 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+2 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+4 
+0 
+0 
+0 
+0 
+0 
+3 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+2 
+2 
+2 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+1 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+1 
+2 
+2 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+5 
+0 
+4 
+0 
+3 
+0 
+0 
+5 
+4 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+0 
+3 
+0 
+0 
+0 
+2 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+5 
+2 
+0 
+0 
+0 
+0 
+0 
+0 
+7 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+4 
+0 
+0 
+0 
+2 
+0 
+0 
+2 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+4 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+4 
+0 
+0 
+2 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+0 
+2 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+0 
+0 
+4 
+0 
+0 
+0 
+0 
+0 
+4 
+2 
+0 
+2 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+3 
+2 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+2 
+7 
+0 
+0 
+2 
+0 
+0 
+0 
+4 
+4 
+0 
+0 
+3 
+0 
+0 
+0 
+0 
+0 
+4 
+0 
+0 
+0 
+0 
+0 
+3 
+3 
+0 
+0 
+1 
+0 
+3 
+0 
+2 
+5 
+0 
+0 
+0 
+0 
+0 
+3 
+3 
+4 
+0 
+5 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+0 
+3 
+2 
+0 
+0 
+0 
+3 
+2 
+4 
+0 
+0 
+2 
+1 
+1 
+0 
+0 
+4 
+0 
+0 
+2 
+4 
+2 
+2 
+3 
+4 
+5 
+0 
+The scale given in the text (p. 461) was used to assign values of relative strength/ 
+weakness of the relationships in the club. This matrix gives the values assigned to 
+each edge specified in matrix E (Figure 2). The value represents the number of con-
+texts in which interaction took place between the two individuals involved. The 
+row/column ordering is the same as in Figure 2. 
+two mathematicians who first extensively studied flows in networks 
+(Ford and Fulkerson 1962). 
+An item of political information (for example, a decision to call a 
+meeting) originated with one or several individuals and was spread 
+through the club. This can be interpreted in the model as a flow from 
+one node to all other nodes in the network. The effect of the basic 
+CONFLICT AND FISSION IN SMALL GROUPS 463 
+structure of E and C (that is, the paths and strengths of relationships in 
+the club) on the passage of this item of information through the network 
+can be observed by noting the paths that the item will take in a given 
+communication. The information (the calling of a meeting) usually 
+began with one of the factional leaders, Mr. Hi or John A. This 
+individual will be called the "source of the information," or simply, the 
+source. Given the course of political conflict in the club, it would be 
+advantageous to the source if individuals in the opposing faction did not 
+receive this information. Further, the source would benefit more if the 
+information would be deprived to individuals proportionately to their 
+affiliation with the other faction—the more closely a person was aligned 
+with the other side, the less the source would benefit from his or her 
+knowing about the meeting. By this reasoning, the leader of the other 
+faction should be the last to receive the information. He will therefore 
+be called the "sink of the information," or simply, the sink—the terms 
+"source" and "sink" being standard terms from network flow theory. 
+A hypothesis to be investigated is that no overt at tempt may have 
+had to be made to avoid mentioning the news in the presence of 
+members of the other faction because the network tended to prevent 
+such meetings from occurring. The hypothesis suggests that the sink's 
+faction generally would not receive the information, since members of 
+opposing factions were less likely to associate, or did so in fewer different 
+contexts, than members of the same faction. 
+Not all individuals in the network were solidly members of one 
+faction or the other. Some vacillated between the two ideological 
+positions, and others were simply satisfied not to take sides. These 
+individuals are key nodes in the network, in that it was through them 
+that information was likely to pass from one faction to the other. The 
+feedback principle can be used to state that as the frequency of crisis 
+increases, these individuals are likely to be included in the network ties 
+of the members of one faction to the exclusion of those of the other 
+faction, regardless of whether they are politically part of that faction. It 
+would be expected that these individuals would join the club formed by 
+the faction with which they were associated when the split in the club 
+occurred. A second, more general, hypothesis can be framed from this 
+discussion: that a bottleneck in the network, representing a structural 
+limitation on information flow from the source to the sink, will predict 
+the break that occurred in the club at the time of the fission. The term 
+"bottleneck" refers to the first hypothesis, which claims the existence of 
+some structural feature in the network inhibiting information flow 
+between factions. 
+The validity of both hypotheses can be evaluated by a single 
+mathematical technique called the maximum flow—minimum cut labeling 
+464 JOURNAL OF ANTHROPOLOGICAL RESEARCH 
+procedure, developed by Ford and Fulkerson (1962) when they established 
+that the value of the maximum flow in a capacitated network is strictly 
+determined by the values assigned to the capacities of the edges in the 
+network. Intuitively stated, they proved that the maximum flow is equal 
+to the capacity of the smallest possible break in the network separating 
+the source from the sink. 
+A break in the network is conceptualized as a division of the set of 
+nodes V into two subsets, one containing the source and the other, the 
+sink. The edges connecting elements of one subset to elements of the 
+other are called the cut. The sum of the capacities of all edges in the cut 
+is its capacity. From Ford and Fulkerson, the maximum flow is equal to 
+the capacity of the minimum cut. The minimum cut, then, represents a 
+bottleneck in the network and possesses the properties described in the 
+two hypotheses. 
+The minimum cut is located by means of an algorithm which begins 
+by starting a flow moving in the network from the source to the sink. 
+This flow is then systematically incremented until no more flow can be 
+added because it is equal to the capacity of some edge on each possible 
+path from the source to the sink. The minimum cut is comprised of 
+those edges on each path from the source to the sink for which the flow 
+equals the capacity. If the flow is equal to the capacity of more than one 
+edge on the path, only the edge closest to the source is in the cut. 
+Mathematically, the first hypothesis states that the members of one 
+faction will all be on one side of the minimum cut and that the 
+members of the other faction will all be on the other side. The second 
+hypothesis states that the minimum cut will separate the club members 
+who joined Mr. Hi's club after the split from those who joined the 
+officers' club. 
+N E T F L O W (Smillie 1969) is an APL language computer program 
+which carries out the maximum flow—minimum cut labeling procedure 
+of Ford and Fulkerson. N E T F L O W was run on the model of the karate 
+club, (V,E,C). The program requires that the first row/column of 
+matrices E and C represent the source and that the last row/column 
+(here, row/column 34) represent the sink. Hence, row/column 1 in these 
+matrices designates Mr. Hi, and row/column 34 designates John A. The 
+results of N E T F L O W support both hypotheses, and are summarized in 
+Table 1. In all cases, except individual number 9, individuals on the 
+source side of the cut belonged to Mr. Hi's faction (or no faction), and 
+joined the club formed by his supporters after the split. Individuals on 
+the sink side of the cut belonged to John A.'s faction (or no faction) and 
+joined the club founded by the officers. Person number 9 was a weak 
+supporter of John but joined Mr. Hi's club after the split. This can be 
+explained by noting that he was only three weeks away from a test for 
+black belt (master status) when the split in the club occurred. Had he 
+CONFLICT AND FISSION IN SMALL GROUPS 465 
+TABLE 1 
+RESULTS OF INITIAL NETFLOW RUN 
+INDIVIDUAL 
+NUMBER 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+8 
+9 
+10 
+11 
+12 
+13 
+14 
+15 
+16 
+17 
+18 
+19 
+20 
+21 
+22 
+23 
+24 
+25 
+26 
+27 
+28 
+29 
+30 
+31 
+32 
+33 
+34 
+SIDE OF CUT 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+Sink 
+Sink 
+Source 
+Source 
+Source 
+Source 
+Sink 
+Sink 
+Source 
+Source 
+Sink 
+Source 
+Sink 
+Source 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+FACTION 
+Mr. Hi - Strong 
+Mr. Hi - Strong 
+Mr. Hi - Strong 
+Mr. Hi - Strong 
+Mr. Hi - Strong 
+Mr. Hi - Strong 
+Mr. Hi - Strong 
+Mr. Hi - Strong 
+John - Weak 
+None 
+Mr. Hi - Strong 
+Mr. Hi - Strong 
+Mr. Hi - Weak 
+Mr. Hi - Weak 
+John - Strong 
+John - Weak 
+None 
+Mr. Hi - Weak 
+None 
+Mr. Hi - Weak 
+John - Strong 
+Mr. Hi - Weak 
+John - Strong 
+John - Weak 
+John - Weak 
+John - Strong 
+John - Strong 
+John - Strong 
+John - Strong 
+John - Strong 
+John - Strong 
+John - Strong 
+John - Strong 
+John - Strong 
+CLUB AFTER 
+FISSION 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi 's 
+Mr. Hi's 
+Mr. Hi's 
+Officers' 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Officers' 
+Officers' 
+Mr. Hi's 
+Mr. Hi's 
+Officers' 
+Mr. Hi's 
+Officers' 
+Mr. Hi's 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+This table summarizes the results of the first run of NETFLOW, using matrices E and 
+C as input. "Individual Number" identifies the individual with the corresponding 
+row/column in the matrices. "Side of Cut" refers to the subset of V to which the 
+individual was assigned by NETFLOW, either the source side or the sink side. "Fac-
+tion" gives the factional affiliation of the individual, either with that of John A., 
+that of Mr. Hi, or none. The strong/weak designations in this column indicate 
+whether the individual was a strong or a weak supporter of the faction's ideological 
+position. Finally, "club after fission" indicates which club was joined after the fis-
+sion, either that formed by Mr. Hi, or that formed by the officers of the original 
+club. 
+466 JOURNAL OF ANTHROPOLOGICAL RESEARCH 
+joined the officers' club he would have had to give up his rank and 
+begin again in a new style of karate with a white (beginner's) belt, since 
+the officers had decided to change the style of karate practiced in their 
+new club. Having four years of study invested in the style of Mr. Hi, the 
+individual could not bring himself to repudiate his rank and start again. 
+In fact, the inclusion of individual 9 in the sink side of the cut is 
+supportive of both hypotheses. He was a weak political supporter of 
+John A., and during the crises preceding the fission, he became 
+increasingly associated with the members of John 's faction to the 
+exclusion of those of Mr. Hi's. He was clearly a structural part of John 's 
+faction and should have been assigned to the sink side of the cut by the 
+labeling procedure. Tha t he did not follow the factional affiliation and 
+join the officers' club resulted from an overriding interest, not shared by 
+other club members, in remaining with Mr. Hi—his black belt. It is 
+important that all individuals with no factional alliance joined the club 
+founded by the faction to which they were assigned by the labeling 
+procedure. This is the faction to which they structurally, though not 
+necessarily ideologically, belonged. 
+The results of N E T F L O W verify the first hypothesis by demonstra-
+ting that the factions in the club could be represented by the minimal 
+cut in the network model. The second hypothesis is validated by 
+demonstrating that the membership of the clubs could be predicted by 
+the minimal cut in the network model. These results are not mathemati-
+cally conclusive, however, unless the uniqueness of the minimal cut can 
+be established. There could be several possible cuts in the network 
+having the same minimal capacity. It must be proven that the cut 
+chosen by N E T F L O W is the only minimal cut in the network. 
+Fortunately, Ford and Fulkerson (1962:ch. 2) also established a pro-
+cedure by which the uniqueness of a minimum cut can be proven. 
+In this procedure, the entire original network is reversed, so that the 
+source becomes the sink, and the sink, the source. The labeling 
+procedure is then applied to the reversed network; if the same minimum 
+cut is found, then it is unique. This procedure can be accomplished by 
+reversing the row/column ordering of matrices E and C, (so that 
+row/column 1 becomes row/column 34, row/column 2 becomes row/ 
+column 33, etc.), and then running the N E T F L O W program on these 
+reversed matrices.4 The results of this run are summarized in Table 2. 
+As can be seen from Table 2, the same cut is found in the reversed 
+network as in the original network. The minimum cut is then unique, in 
+that there is no other cut in the network with the minimum capacity. 
+The two hypotheses can be formally accepted on the basis of this 
+uniqueness. The test of the two hypotheses is summarized in Table 3. 
+4 Note that the matrix reversal operation used here bears no similarity or relation to either 
+the matrix inversion or the matrix transposition operations frequently used in matrix algebra. 
+CONFLICT AND FISSION IN SMALL GROUPS 
+TABLE 2 
+RESULTS OF SECOND NETFLOW RUN 
+467 
+INDIVIDUAL NUMBER 
+IN ORIGINAL 
+MATRIX C 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+8 
+9 
+10 
+11 
+12 
+13 
+14 
+15 
+16 
+17 
+18 
+19 
+20 
+21 
+22 
+23 
+24 
+25 
+26 
+27 
+28 
+29 
+30 
+31 
+32 
+33 
+34 
+INDIVIDUAL NUMBER 
+IN REVERSED 
+MATRIX C* 
+34 
+33 
+32 
+31 
+30 
+29 
+28 
+27 
+26 
+25 
+24 
+23 
+22 
+21 
+20 
+19 
+18 
+17 
+16 
+15 
+14 
+13 
+12 
+11 
+10 
+9 
+8 
+7 
+6 
+5 
+4 
+3 
+2 
+1 
+SIDE OF CUT 
+IN ORIGINAL 
+MATRIX C 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Source 
+Sink 
+Source 
+Sink 
+Source 
+Source 
+Sink 
+Sink 
+Source 
+Source 
+Source 
+Source 
+Sink 
+Sink 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+SIDE OF CUT 
+IN ORIGINAL 
+MATRIX C* 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+Source 
+Sink 
+Source 
+Sink 
+Source 
+Sink 
+Sink 
+Source 
+Source 
+Sink 
+Sink 
+Sink 
+Sink 
+Source 
+Source 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+Sink 
+This table summarizes the results of the second run of the program NETFLOW, this 
+time using the reversed matrices as input. Column 1 of the table gives the order of 
+the individuals as used in Table 1 and in matrices E and C. Column 2 gives the indi-
+vidual numbers in the reversed matrices. Column 3 indicates the side of the cut to 
+which the individual was assigned by the first run of NETFLOW (from Table 1), and 
+column 4 lists the side of the cut to which the individual was assigned by the second 
+run, using the reversed matrices as input. In each case, the entry in column 3 is the 
+opposite the entry in column 4. Thus, the same cut is defined by both runs, and the 
+minimum cut is unique. 
+CONCLUSIONS 
+It has been shown how the flow of political information through the 
+club interacts with the political strategy of the factions to pull apart, or 
+bottleneck, the network at the factional boundary. This boundary 
+corresponds to an ideological as well as an organizational division in the 
+468 JOURNAL OF ANTHROPOLOGICAL RESEARCH 
+TABLE 3 
+EVALUATION OF THE HYPOTHESES 
+INDIVIDUAL 
+NUMBER IN 
+MATRIX C 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+8 
+9 
+10 
+11 
+12 
+13 
+14 
+15 
+16 
+17 
+18 
+19 
+20 
+21 
+22 
+23 
+24 
+25 
+26 
+27 
+28 
+29 
+30 
+31 
+32 
+33 
+34 
+FACTION 
+MEMBERSHIP 
+FROM DATA 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+J o h n 
+J o h n 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+John 
+John 
+Mr. Hi 
+Mr. Hi 
+John 
+Mr. Hi 
+J o h n 
+Mr. Hi 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+FACTION 
+MEMBERSHIP 
+AS MODELED 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+J o h n 
+J o h n 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+Mr. Hi 
+J o h n 
+J o h n 
+Mr. Hi 
+Mr. Hi 
+J o h n 
+Mr. Hi 
+J o h n 
+Mr. Hi 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+John 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+J o h n 
+TOTALS 34 hits, 0 misses 
+100% hits, 0% misses 
+HIT/ 
+MISS 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+CLUB AFTER 
+SPLIT 
+FROM DATA 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Officers' 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Officers' 
+Officers' 
+Mr. Hi's 
+Mr. Hi's 
+Officers' 
+Mr. Hi's 
+Officers' 
+Mr. Hi's 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+CLUB A F T E R 
+SPLIT AS 
+MODELED 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Officers' 
+Officers' 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Mr. Hi's 
+Officers' 
+Officers' 
+Mr. Hi's 
+Mr. Hi's 
+Officers' 
+Mr. Hi's 
+Officers' 
+Mr. Hi's 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+Officers' 
+33 hits, 1 miss 
+97% hits, 3% misses 
+HIT/ 
+MISS 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Miss 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+Hit 
+This table gives the results of the NETFLOW runs used to test the two hypotheses 
+(see pp. 462 ff.). The faction membership (column 2) and the club joined after the 
+fission (column 5) entries were taken from the ethnographic data. These columns 
+merely state what the individuals actually did. Column 3 gives the faction member-
+ship as predicted by the model (based on which side of the minimum cut the individ-
+ual was placed). Column 4 gives the accuracy of each of these predictions. The model 
+was 100% accurate in predicting faction membership. Column 6 gives the member-
+ship in the two clubs formed after the fission, again as predicted by the model (based 
+on which side of the minimum cut the individual was placed). Column 7 gives the re-
+sults of these predictions. The model was 97% accurate in predicting club member-
+ship after the split. Thus, both hypotheses can be accepted. 
+CONFLICT AND FISSION IN SMALL GROUPS 469 
+club. It is possible to extend the argument used in the description of the 
+fission process to include the ideological division in the same feedback 
+framework used to describe the development of the organizational 
+division. 
+Conflict in any setting must be bounded by some sharing of rules 
+which allows the combatants or contestants to know what and how they 
+are contesting. This knowledge can be at any level, from the rules of a 
+game, to the shared meanings of ritual items for the gumsa and gumlao 
+Kachin (Leach 1954). Whatever the level, these rules must continue to 
+be understood by both players of the game, or the conflict ceases as the 
+activity becomes undefined for the players. 
+In the karate club, both factions shared an ideological position 
+toward the club in the early stages of the conflict, but followed 
+increasingly divergent positions. Their divergent positions made the 
+basis for conflict increasingly unclear to the participants. It also became 
+more and more difficult for members of the two factions to understand 
+how the opposing side could even consider themselves as part of the 
+same club. Jus t as a faction tended to know less and less about the 
+political activity of its opposition, it tended to understand less and less 
+its common ground with the opposition, until even the existence of the 
+club ceased to serve as a basis for unity. 
+It can be concluded, then, that not just political information about 
+club meetings was communicated in the friendship network outside the 
+club. In these contexts, club members communicated their perceptions 
+and understandings of the nature of the club in various conscious and 
+unconscious ways, as well. If the bottlenecking of the network prevented 
+the flow of political information between factions, it also prevented the 
+sharing of perceptions of the club held by various club members. In 
+particular, it tended to allow sharing of these items to a greater extent 
+within the factions than across the factional boundary. 
+A feedback relationship, then operated in two directions, one 
+organizational and one ideological. The strategy of the factions (whose 
+membership was based on ideology) acted to strengthen the cut in the 
+network, which itself was the organizational basis for the factions' 
+existence. The cut in the network acted to intensify the ideological 
+divisions on which club members based their factional affiliation. These 
+feedback relationships constituted a vicious cycle, acting as a mechan-
+ism which virtually assured the fission in the club. While the content 
+of this mechanism was specific to the karate club, its form is a general 
+feature of communication patterns in small groups, and corresponds to 
+a feature inherent in the type of model used. 
+This conclusion has broad implications for the anthropological 
+study of small groups. The positive feedback process can be formally 
+470 JOURNAL OF ANTHROPOLOGICAL RESEARCH 
+represented as a feature of a model of the group, the minimum cut in a 
+capacitated network. This type of model can be constructed for any 
+group, and the existence and the significance of the minimum cut, or 
+bottleneck, can be tested. The results of this study certainly suggest that 
+whenever a unique minimum cut exists in a capacitated network 
+representation of a small group, it will act as a barrier to group unity, 
+and under certain conditions, will act as a selective factor for group 
+fission. 
+As suggested above, the model can be generalized to include other 
+types of social relationships than that used here, effective friendship. 
+Moreover, the method used to generate values for the edge capacities 
+can also easily be described generally as constructing a nominal scale, 
+choosing subsets of elements from the nominal scale, and assigning the 
+number denoting the size of the subset to the edge in question. This 
+method places minimal restrictions on both ethnographers and infor-
+mants. Other equally simple procedures could also be devised. 
+The capacitated network model constructed here is mathematically 
+much more powerful than the usual social network model. There are 
+two reasons for this increased power, one mathematical and one 
+anthropological. Mathematically, more information is included in the 
+capacitated network model, in the form of the strengths/weaknesses of 
+the edges given in matrix C. Models containing more information are 
+always more powerful than those containing less, the example of the 
+increased power of known-distribution statistics as compared to 
+distribution-free statistics being perhaps the best-known to anthropolo-
+gists. 
+Anthropologically, the approach used to build the model is proces-
+sual rather than static. The network model is constructed from a view of 
+the social system as a processor of information—a cybernetic 
+machine—rather than as a static set of relationships. While the 
+structural features of the network are investigated, it is the structure of a 
+cybernetic process that is really being studied. It is from this informa-
+tion processing approach that such things as feedback and information 
+flow can be discussed and included in the model. 
+Further refinement of the mathematical assumptions built into the 
+model is possible. The most plausible of the assumptions made is that 
+the relationship between the amount of information and the number of 
+contexts is monotone increasing. While any monotonic function which 
+preserves addition may be used, the present assumption of linearity can 
+be justified both ethnographically and as a standard computational 
+device. While this approximation has proven sufficient for this study, 
+further ethnographic methods must be developed for specifying the 
+relationship accurately in other cases. 
+CONFLICT AND FISSION IN SMALL GROUPS 471 
+Final ly , t he m e t h o d used to b u i l d t h e n e t w o r k f low m o d e l differs 
+from tha t used in m u c h of t h e c u r r e n t m o d e l - b u i l d i n g work in ne twork 
+theory (e.g. H u n t e r 1974; K i l l w o r t h a n d B e r n a r d 1975) in t h a t i t b e g a n 
+wi th an exis t ing set of d a t a r a t h e r t h a n a set of p u r e l y theore t ica l 
+proposi t ions . T h e m o d e l bu i l t he r e is a fo rmal iza t ion of e t h n o g r a p h i c 
+descr ip t ion o f the c lub , a n d all a s s u m p t i o n s m a d e a re e t h n o g r a p h i c a l l y 
+justif ied. O n l y after i t h a d been fully cons t ruc t ed was the m o d e l 
+genera l ized , a n d t h e a c c u r a c y o f t h e p r e d i c t i o n s m a d e b y t h e m o d e l a r e 
+cer ta in ly d e p e n d e n t on this d a t a - b a s e d aspect . M a n y o f the m a t h e m a t i -
+cally m o r e soph is t i ca ted mode l s ( K i l l w o r t h a n d B e r n a r d 1975, for 
+e x a m p l e ) a r e cons t ruc t ed solely from theory a n d in tu i t ion , a n d i t i s 
+open ly a d m i t t e d t h a t t h e resul ts m a y n o t b e close a p p r o x i m a t i o n s o f 
+social rea l i ty (K i l lwor th a n d B e r n a r d 1975: ch. l ) . Because of its d a t a 
+o r i en ta t ion , t h e n e t w o r k f l ow m o d e l h a s t h e a d v a n t a g e s o f s impl ic i ty 
+a n d accu racy of r ep re sen ta t ion . 
+BIBLIOGRAPHY 
+BARNES, J. A. 
+1968 Networks and Political Processes. Pp. 107-30 in Local-Level Politics 
+(ed. by Marc Swartz). Chicago: Aldine Publishing Company. 
+BOTT, ELIZABETH 
+1971 Family and Social Networks. 2d ed. London: Tavistock. 
+DOUGHTY, PAUL 
+1970 Behind the Back of the City. Pp. 30-46 in Peasants in Cities (ed. by 
+W. Mangin). Boston: Houghton-Mifflin Co. 
+EVANS-PRITCHARD, E. E. 
+1940 The Nuer. London: Oxford University Press. 
+FLAMENT, CLAUDE 
+1963 Applications of Graph Theory to Group Structure. Englewood-Cliffs, 
+N . J . : Prentice-Hall. 
+FORD, L. AND D. FULKERSON 
+1962 Flows in Networks. Princeton: Princeton University Press. 
+FORDE, DARYLL 
+1964 Fission and Accretion in the Patrician. Pp. 49-84 in Yako Studies, (ed. 
+by Daryll Forde). London: Oxford University Press. 
+GOODE, JUDITH 
+1970 Latin American Urbanism and Corporate Groups. Anthropological 
+Quarterly 43:146-67. 
+HOLLAND, PAUL AND SAMUEL LEINHARDT 
+1970 A Method for Detecting Structure in Sociometric Data. American 
+Journal of Sociology 75:492-513. 
+Hu, T. C. 
+1969 Interger Programming and Network Flows. Reading, Mass.: 
+Addison-Wesley. 
+472 JOURNAL OF ANTHROPOLOGICAL RESEARCH 
+HUNTER, JACK 
+1974 Dynamic Sociometry. Paper presented at Mathematical Social 
+Science Board Conference on Social Networks at Cheat Lake, W. Va., 
+May 1974. 
+KELLY, RAYMOND 
+1968 Demographic Pressure and Descent Group Structure in the New 
+Guinea Highlands. Oceania 39:36-63. 
+KILLWORTH, PETER AND RUSSELL BERNARD 
+1975 A Model of H u m a n Group Dynamics. Office of Naval Research, 
+Interim Report number BK-108-75. 
+LEACH, EDMUND 
+1954 Political Systems of Highland Burma. Boston: Beacon Press. 
+LORRAINE, FRANCOIS AND HARRISON W H I T E 
+1971 Structural Equivalence of Individuals in Social Networks. Journal of 
+Mathematical Sociology 1:49-80. 
+M A K I , DANIEL AND MAYNARD THOMPSON 
+1974 Mathematical Models and Applications. Englewood-Cliffs, N.J.: 
+Prentice-Hall. 
+MANGIN, WILLIAM 
+1965 The Role of Regional Associations in the Adaptat ion of Rural 
+Migrants to Cities in Peru. Pp. 311-23 in Contemporary Cultures and 
+Societies of Latin America (ed. by D. B. Heath and R. N. Adams). 
+New York: Random House. 
+1970 Peasants in Cities. Boston: Houghton-Mifflin Co. 
+MIDDLETON, J O H N AND DAVID T A I T 
+1958 Tribes Without Rulers. New York: Humanities Press. 
+MITCHELL, CLYDE 
+1969 Social Networks in Urban Situations. Manchester: Manchester 
+University Press. 
+NELSON, H. E. 
+1971 Disease Demography and Evolution of the Social Structure in 
+Highland New Guinea. Journal of the Polynesia Society 80:204-16. 
+PETERS, EMERY 
+1960 The Proliferations of Segments in the Lineages of the Bedouin of 
+Cyrenaica. Journa l of the Royal Anthropological Institute 90:29-53. 
+RAPPAPORT, R O Y 
+1969 Population Dispersal and Land Redistribution Among the Maring of 
+New Guinea. Pp. 113-27 in Ecological Essays, National Museum of 
+Canada Bulletin 230 (ed. by D. Damus) Ottowa: National Museum 
+of Canada. 
+REAY, M A R I E 
+1967 Structural Co-variance of Land Shortages Among Patrilineal 
+Peoples. Anthropological Forum 2:4-19. 
+SMILLIE, K. W. 
+1969 STATPACK 2: An APL Statistical Package. University of Alberta 
+Dept. of Comput ing Sciences publication 17, Edmonton, Alberta. 
+CONFLICT AND FISSION IN SMALL GROUPS 473 
+W O L F E , ALVIN AND NORMAN WHITTEN 
+1974 Network Analysis. Pp. 717-46 in Handbook of Social and Cultural 
+Anthropology (ed. by J. Honnigman). New York: Rand McNally. 
+ZACHARY, WAYNE 
+1977 Elements of Network Flow Theory: A Review. In Mathematics of 
+the Cultural Sciences (ed. by Paul BallonofF). In press. 
+DEPARTMENT OF ANTHROPOLOGY 
+T E M P L E UNIVERSITY 
+PHILADELPHIA, PA. 19122 

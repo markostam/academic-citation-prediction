@@ -1,0 +1,1159 @@
+Production of cosmogenic 7Be isotope
+in the atmosphere: Full 3-D modeling
+Ilya G. Usoskin1 and Gennady A. Kovaltsov2
+Received 18 December 2007; revised 11 February 2008; accepted 22 February 2008; published 21 June 2008.
+[1] We present a physical model to calculate production of cosmogenic isotope 7Be in the
+atmosphere. The model is based on a full Monte Carlo simulation of an electromagnetic-
+muon-nucleonic cascade in the atmosphere, using CORSIKA and FLUKA packages.
+The present results are in broad agreement with earlier empirical and semiempirical models
+but predict higher production rate than some recent theoretical models. A comparison to
+direct and indirect measurements of the 7Be production rate in the atmosphere
+confirms the validity of the model in the whole range of geographical latitudes and
+altitudes. Results of the full Monte Carlo simulation are tabulated in a form of the
+yield function. These tables are given together with a detailed recipe, which allows a
+user to compute easily the isotope production for given location, altitude, and the
+spectrum of cosmic rays. An effect of a severe solar energetic particle event of January
+2005 is estimated, providing a new tool for tracing of mass transport.
+Citation: Usoskin, I. G., and G. A. Kovaltsov (2008), Production of cosmogenic 7Be isotope in the atmosphere: Full 3-D modeling,
+J. Geophys. Res., 113, D12107, doi:10.1029/2007JD009725.
+1. Introduction
+[2] Cosmogenic isotopes with a relatively short lifetime
+have been long recognized as useful tools to study atmo-
+spheric transport of air masses [e.g., Lal and Peters, 1962;
+Raisbeck et al., 1981]. Particularly suitable for this purpose
+is the cosmogenic isotope 7Be (the half-life time of
+53.6 days), which is produced through interactions of
+atmospheric O and N nuclei and the nucleonic component
+of the atmospheric cascade induced by galactic cosmic rays
+(GCR) [see, e.g., Dorman, 2004, chapter 10.6]. Shortly after
+formation 7Be atoms become attached to atmospheric aero-
+sols and thus their fate is related to the aerosol transport.
+Therefore, 7Be appears to be an excellent tracer for the
+atmospheric circulation, and is often used to constraint
+atmospheric circulation models [e.g., Koch et al., 1996;
+Liu et al., 2001; Jordan et al., 2003], when the data on
+measurements of the isotope concentration in stratospheric
+or tropospheric air is confronted with predictions of modern
+sophisticated 3-D models of the air mass transport.
+[3] For this purpose one needs to know precisely features
+of its production in the atmosphere, including altitude and
+latitude profiles. A number of models have been developed
+to compute the 7Be production in the atmosphere, as
+presented in Table 1. The first consistent model was
+developed by D. Lal and coworkers [Bhandari et al.,
+1966; Lal and Peters, 1967; Lal and Suess, 1968], called
+henceforth LP67. The LP67 model uses an empirical
+approach based on fitting simplified model calculations to
+measurements of the isotope concentrations and ‘‘star’’
+(inelastic nuclear collisions) formations in the atmosphere.
+Accordingly, the LP67 model yields the best agreement
+with measurements of stratospheric 7Be (see discussion by
+Liu et al. [2001]). Next was an analytical model by O’Brien
+[1979] (hereinafter referred to as OB79), who solved the
+problem of GCR-induced cascade in the atmosphere using
+an analytical stationary approximation in the form of
+Boltzman equation, which has been also normalized per
+‘‘star’’ formation. Those models were based on calculating
+the rate of inelastic collisions or ‘‘stars’’ and then applied
+the mean spallation yield per ‘‘star.’’ This approach has
+been further developed by Nagai et al. [2000] (called N00
+henceforth) who calculated the isotope production using
+secondary neutron spectra obtained by Armstrong et al.
+[1973] for the solar activity minimum conditions, and recent
+cross sections instead of the mean yield of a ‘‘star.’’ The
+N00 model is semiempirical and contains essential simpli-
+fications; for example, its proton spectrum was obtained by
+scaling from neutron spectra and applied in the same shape
+to all depths. Moreover, it is valid only for the solar
+minimum conditions. A new step in modeling of the isotope
+production has been made by Masarik and Beer [1999]
+(hereinafter referred to as MB99), who performed a full
+Monte Carlo simulation of the GCR-initiated cascade of the
+atmosphere and directly used cross sections of spallation
+reactions instead of the average ‘‘star’’ efficiency. Since
+Masarik and Beer [1999] were interested in the total
+production rather than in its altitude profile, they used an
+approximation of the flat atmosphere. The models described
+above compute isotope production by galactic cosmic rays
+and do not consider production by solar energetic particles
+(SEP). A recent model by Webber and Higbie [2003] and
+JOURNAL OF GEOPHYSICAL RESEARCH, VOL. 113, D12107, doi:10.1029/2007JD009725, 2008
+Click
+Here
+for
+Full
+Article
+1Oulu Unit, Sodankyla¨ Geophysical Observatory, University of Oulu,
+Oulu, Finland.
+2Ioffe Physical-Technical Institute, St. Petersburg, Russia.
+Copyright 2008 by the American Geophysical Union.
+0148-0227/08/2007JD009725$09.00
+D12107 1 of 12
+Webber et al. [2007] (hereinafter referred to as WH03/07) is
+also based on a full Monte Carlo simulation of the atmo-
+spheric cascade. The WH03/07 model uses improved cross
+sections and is advanced with respect to MB99 in the sense
+that it first computes the yield function (see section 2.4) for
+a fixed energy of GCR. This approach allows much more
+flexibility with the model application, in particular comput-
+ing an effect of SEP, whose energy spectrum is totally
+different from that of GCR (see section 4). However, the
+WH03/07 model is simplified in the sense that it assumes a
+flat atmosphere and a vertical beam of primary GCR
+particles. With little effect on the total 7Be production, this
+assumption is crucial for the results in the stratosphere.
+Main properties of the earlier models have been summarized
+in Table 1. It is important to mention that most of the earlier
+models do not provide information on the altitudinal pro-
+files of the isotope production and are not able to deal with
+the effect of solar energetic particles, which, as argued in
+section 4, can be quite important for a severe SEP event.
+[4] Accordingly, there is a need for a calibrated model
+that is able to compute a full 3-D pattern of the 7Be
+production in the atmosphere, including detailed simulation
+of the SEP effect. Here we present such a model, which can
+compute production of 7Be isotope in the atmosphere,
+including altitude and geographical profiles. Flexibility of
+the model allows a direct computation of the effect of SEP
+or other transient events. A special emphasis is given to
+comparison of the present model results with direct and
+indirect measurements and with other models. We provide a
+full numerical recipe so that everyone interested can com-
+pute the 7Be production in any prescribed solar and geo-
+physical conditions.
+2. Modeling the Isotope Production in the
+Atmosphere
+2.1. Monte Carlo Simulations of the Atmospheric
+Cascade
+[5] The isotope 7Be is produced in the atmosphere mainly
+as a result of spallation of oxygen and nitrogen by energetic
+protons, neutrons and a nuclei. These energetic particles
+can be either primary cosmic rays in the upper atmosphere
+or secondary nucleonic components of the cascade initiated
+by interactions of cosmic rays in the atmosphere. We have
+modeled development of the atmospheric cascade by means
+of a Monte Carlo simulation tool CORSIKA (Cosmic Ray
+Simulations for Kascade, version 6.617, August 2007)
+[Heck et al., 1998]. Interactions between low-energy (below
+80 GeV of total energy) hadrons were treated with the
+FLUKA tool (version 2006.3b, March 2007) [Fasso` et al.,
+2001]. We used a realistic curved atmosphere, in contrast to
+flat atmospheres used in most earlier models, also allowing
+for upward moving secondary particles. Using the curved
+atmosphere is important for the stratosphere. The chemical
+composition of the atmosphere was taken as N2, O2 and Ar
+in the volume fractions of 78.1%, 21% and 0.9%, respec-
+tively. The atmosphere’s density profile was modeled
+according to the standard U.S. atmosphere parameterized
+by Keilhauer et al. [2004].
+[6] The flux of primary cosmic rays corresponding to
+their CR intensity with isotropic angular distribution, J
+given in (cm2 s sr GeV)1, has been modeled as follows.
+The corresponding particle flux, F in (cm2 s GeV)1,
+impinging on the top of the atmosphere is defined as [see,
+e.g., Grieder, 2001, equation (1.35)]
+F ¼ 2p
+Z 1
+0
+J cos q d cos qð Þ; ð1Þ
+where q is the incident zenith angle. We note that the unit
+flux, i.e., F = 1, corresponds to the CR intensity J = 1/p.
+Therefore, the distribution (over the zenith angle q) of the
+primary CR particles impinging on the atmosphere is
+proportional to cos q:
+dF
+d cos q
+¼ 2 cos q; ð2Þ
+for the unit flux. Accordingly, when simulating the cascade,
+we threw primary CR particles with a fixed kinetic energy
+on the top of the atmosphere with the zenith angle
+distribution proportional to cosine of the zenith angle
+(equation (2)) and with the even azimuthal distribution.
+Cascade simulations have been done separately for two
+Table 1. Comparison of the Parameters of Models for 7Be Production in the Atmospherea
+Model LP67 OB79 MB99 N00 WH03/07 This Model
+Method empirical analytical MCb GEANT Semiempirical MCb FLUKA MCb CORSIKA
+Atmosphere N/Ac spherical shell flat N/A flat realistic curved
+CR flux N/A isotropic flux isotropic flux N/A vertical beam isotropic flux
+Heavier CR N/A a, scaling a, scaling N/A scaling a, explicitly
+Altitude profiles yes N/A N/A yes N/A yes
+Latitude profiles yes N/A yes yes yes yes
+Production function no no no no yes yes
+CR type GCR GCR GCR GCR, solar min GCR + SEP GCR + SEP
+Global productiond 0.08 0.063 0.035 0.055–0.062e 0.035f 0.062g
+aLP67 [Lal and Peters, 1967; Lal and Suess, 1968], OB79 [O’Brien, 1979; O’Brien et al., 1991], MB99 [Masarik and Beer, 1999], N00 [Nagai et al.,
+2000], and WH03/07 [Webber and Higbie, 2003; Webber et al., 2007], as well as the present model.
+bMonte Carlo simulations.
+cNot available (N/A).
+dGlobal production (in atoms cm2 s1), averaged over a solar cycle.
+eThe value 0.068 (atoms cm2 s1) originally given for the solar activity minimum has been reduced by 10–20% for the averaged solar cycle
+[Nagai et al., 2000].
+fW. R. Webber (personal communication, 2007).
+gCalculated for f = 0.7 GV and geomagnetic field for the epoch 2005.
+D12107 USOSKIN AND KOVALTSOV: COSMOGENIC BE-7 IN ATMOSPHERE
+2 of 12
+D12107
+types of primary cosmic rays, protons and a particles. The
+number of simulated cascades N was chosen depending on
+the energy of primary CR particle Eo so that the statistical
+uncertainty of the final result is below 1%, which is much
+better than uncertainties in the used cross sections. We have
+performed 3  106 cascade simulation runs for each fixed
+value of Eo below 1 GeV/nucleon, 10
+6 runs for 1  Eo <
+10 GeV/nucleon, 3  105 runs for 10  Eo < 100 GeV/
+nucleon, and 105 runs for higher energies.
+[7] For each cascade simulation we have fixed all the
+secondary and primary particles of the following types
+(protons p, neutrons n and a particles) that cross a fixed
+observation level h in the atmosphere. For each such
+particle we have recorded three components of its momen-
+tum, Px, Py, Pz, in the Cartesian coordinate system with the z
+axis pointing to nadir. Then the angle y between the nadir
+and the direction of the particle’s momentum is defined as
+cosy ¼ Pzﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+P2x þ P2y þ P2z
+q ð3Þ
+[8] This information has been collected over all simula-
+tion runs with a given energy Eo of primary CR particles
+and for fixed atmospheric depth h, and used in forthcoming
+computations.
+2.2. Isotope Production Function
+[9] Since the development of atmospheric cascade is
+defined mostly by the amount of matter traversed, we
+express altitude in units of the atmospheric depth, i.e., the
+amount of the atmospheric matter in g/cm2 overburden at a
+given level in the atmosphere. It is directly related to the
+barometric pressure so that the sea level (1013 mbar
+barometric pressure) corresponds to the atmospheric depth
+of 1033 g/cm2. Average (per one primary particle of type A
+with energy Eo) production of
+7Be, in units of atoms g1
+cm2, at the atmospheric depth h can be defined as a sum of
+productions by all secondaries
+dq
+dh
+Eo; h;Að Þ ¼ 1
+N Eoð Þ
+X
+i
+Sp Eið Þ
+cosyij j
+þ
+X
+j
+Sn Ej
+ 
+cosyj
+ 
+þ
+X
+k
+Sa Ekð Þ
+cosykj j
+	
+; ð4Þ
+where N(Eo) is the number of the simulated cascades with
+the primary particle’s energy Eo and type A (protons or a
+particles), and the three items correspond to sums over all
+secondary protons, neutrons and a particles, respectively,
+recorded as crossing the observational level h. Numerators
+of the sums represent the efficiency of the isotope
+production in air by a particle (p, n or a) with the kinetic
+energy E:
+Sp Eð Þ ¼ kO  spO Eð Þ þ kN  spN Eð Þ;
+Sn Eð Þ ¼ kO  snO Eð Þ þ kN  snN Eð Þ;
+Sa Eð Þ ¼ kO  saO Eð Þ þ kN  saN Eð Þ;
+ð5Þ
+where sxY is the cross section of
+7Be production by particle
+of type x on target Y, kO = 8.672  1021 g1 and kN = 3.225 
+1022 g1 are the numbers of oxygen and nitrogen nuclei,
+respectively, in gram of air. Cross sections have been
+adopted from Lange et al. [1994], Tatischeff et al. [2006],
+Webber and Higbie [2003], and Webber et al. [2007]. The
+resultant efficiency curves are shown in Figure 1.
+2.3. Production in the Upper Atmosphere
+[10] The CORSIKA code is not well suited for simula-
+tions of the upper atmosphere (h  10 g/cm2) before the
+first nuclear interaction. Therefore, we have also performed
+an analytical calculation of the 7Be production in the upper
+10 g/cm2 atmospheric layer, using a thin target approxima-
+tion. In this thin layer, secondaries can be neglected, and the
+isotope is produced by reactions between primary CR
+particles and the target nuclei. Let us consider a primary
+proton with energy Eo penetrating to the atmosphere at
+zenith angle q. We neglect elastic scattering and assume that
+the particle moves straight, but loses its energy due to
+ionization of the ambient air or is lost due to nuclear
+inelastic processes. The probability of a particle of type A
+with initial energy Eo to survive, against inelastic process,
+until its energy becomes E0 is given as
+W Eo;E
+0;Að Þ ¼ exp 
+Z Eo
+E0
+dE
+dE
+dx
+E;Að Þ  lin E;Að Þ
+ !
+; ð6Þ
+where dE
+dx
+(E, A) and lin(E, A) are the stopping power due to
+ionization losses and the path length for inelastic nuclear
+collisions, respectively, as tabulated by Janni [1982]. The
+energy E0 is related to the distance x traversed by the particle
+along its trajectory as
+x ¼ R Eoð Þ  R E0ð Þ; ð7Þ
+where R(E) is the path length of a particle with energy E due
+to ionization losses [Janni, 1982]. Then the isotope
+production at a distance x is given as
+dq
+dx
+x;Eo;Að Þ ¼ SA E0ð Þ W Eo;E0;Að Þ; ð8Þ
+where SA is taken from equation (5) and E
+0 is defined from
+the equation (7).
+Figure 1. Efficiency of 7Be production in air (see text).
+D12107 USOSKIN AND KOVALTSOV: COSMOGENIC BE-7 IN ATMOSPHERE
+3 of 12
+D12107
+[11] For a particle with the incident zenith angle q, the
+relation between the distance traversed by the particle x and
+the atmospheric depth h is
+x ¼ h
+cos q
+ð9Þ
+[12] The above consideration was derived for a single
+primary particle with energy Eo entering the atmosphere at
+the zenith angle q. Assuming isotropically impinging par-
+ticles and a flat atmosphere, one can obtain the expected
+isotope production in a thin upper layer dh
+dq
+dh
+h;Eo;Að Þ ¼
+Z 1
+0
+dq
+dx
+ dx
+dh
+ dF
+d cos qð Þ  d cos q ¼ 2
+Z 1
+0
+dq
+dx
+ d cos q
+ð10Þ
+[13] Note that at the top of the atmosphere (h = 0) this
+integral is reduced to
+dq
+dh
+Eo; h ¼ 0;Að Þ ¼ 2SA Eoð Þ ð11Þ
+[14] The results obtained by CORSIKA appear quite
+close to the analytical approximation, described above,
+for the atmospheric depth h between 0 and 20 g/cm2
+(altitude above 25 km). For the atmospheric layers above
+h = 10 g/cm2 (about 30 km) we used the analytical results
+of 7Be production (equation (11)).
+2.4. Yield Function
+[15] The column production of 7Be in the atmosphere by
+one primary particle of type Awith energy Eo is an integral
+over the entire atmospheric column
+q Eoð Þ ¼
+Z hs:l:
+0
+dq
+dh
+dh; ð12Þ
+where hs.l. = 1033 g/cm
+2 is the atmospheric depth at the sea
+level. The dependence of q on the primary particle’s energy
+is shown in Figure 2 for primary protons and a particles.
+For comparison, a similar result of the WH03/07 model for
+primary protons is also shown. The overall agreement is
+quite good, taking into account the different models used.
+[16] However, since we are interested in both the total
+production and in its altitudinal profile, we present here a
+concept of the yield function of 7Be at a given atmospheric
+depth. The yield function is defined as the production of the
+isotope by primary particles of type Awith the unit intensity
+J (i.e., one primary particle with energy Eo in the interplan-
+etary space per steradian per second per cm2) and is related
+to the production function dq/dh (which is the isotope
+production per unit flux F, i.e., one particle crossing a
+horizontal 1 cm2 area at the top of the atmosphere per
+second) as
+Y Eo; h;Að Þ ¼ p dq
+dh
+Eo; h;Að Þ; ð13Þ
+where the units of Y are atoms g1 cm2 sr. The factor p
+appears as conversion between the flux on the top of the
+atmosphere and CR intensity in the interplanetary space (see
+equation (1)).
+[17] The tabulated yield function is presented in Tables 2
+and 3 for primary cosmic protons and a particles, respec-
+tively. Throughout the paper we discuss the isotope pro-
+duction per nucleon of the incident primary particle; that is,
+the production by one a particle is four times that shown
+here.
+[18] As an additional test for the correctness of our
+computations of the nucleonic component of the cascade
+and the yield function, we computed the yield function of
+a standard NM64 sea-level neutron monitor in a way
+similar to equation (13), but using the NM64 efficiency
+SNM64 [Hatton, 1971; Clem and Dorman, 2000] instead
+of the 7Be production efficiency (equation (5)). A ground-
+based neutron monitor detects, with the known efficiency,
+superthermal secondary neutrons which are also the main
+source of the 7Be isotope in the troposphere. The neutron
+monitor yield function has been thoroughly studied earlier
+by different groups and methods, including Monte Carlo
+simulations and confronting the obtained results with
+direct measurements in a wide range of conditions [see
+Clem and Dorman, 2000; and references therein]. Thus
+computed NM yield function is shown in Figure 3
+together with the yield function computed by Clem and
+Dorman [2000], and one can see a close agreement
+between them, including both the shape and the absolute
+values. This confirms correctness of our computations of
+the flux of secondary neutrons in our approach.
+2.5. Galactic Cosmic Rays Spectrum
+[19] The spectrum of GCR at the Earth’s orbit is often
+parameterized by the so-called force field model [Gleeson
+and Axford, 1968; Caballero-Lopez and Moraal, 2004],
+where the spectrum of ith specie (with the charge number
+Zi and the mass number Ai) of CR at Earth’s orbit, Ji, is
+related to an unmodulated local interstellar spectrum (LIS)
+Figure 2. Total production of 7Be in the atmosphere as
+function of the energy of primary cosmic ray particle. Solid
+and dotted curves depict the results of this work for primary
+protons and a particles (the latter is shown per nucleon).
+Open circles correspond to the computations byWebber and
+Higbie [2003] for primary protons.
+D12107 USOSKIN AND KOVALTSOV: COSMOGENIC BE-7 IN ATMOSPHERE
+4 of 12
+D12107
+of the same specie, JLIS,i via the modulation potential f
+(given in GV) as:
+Ji T ;fð Þ ¼ JLIS;i T þ Fið Þ Tð Þ T þ 2Trð Þ
+T þ Fið Þ T þ Fi þ 2Trð Þ ; ð14Þ
+where T is the particle’s kinetic energy per nucleon, Fi =
+(eZi/Ai)f, and Tr is the proton’s rest energy. The modulation
+potential provides a good single-parameter approximation
+of the observed shape of the CR spectrum near Earth [e.g.,
+Usoskin et al., 2005]. The value of f varies between about
+0.4 GV (solar minimum) and 1.2 GV (solar maximum) but
+may reach up to 2 GV during strong transient GCR
+suppressions, such as Forbush decreases. An implicit
+parameter of the force field approximation is the shape of
+the LIS, which is not well known. Here we use the LIS for
+protons according to Burger et al. [2000] in parameteriza-
+tions by Usoskin et al. [2005]
+JLIS;p Tð Þ ¼ 1:9  P Tð Þ
+2:78
+1þ 0:4866P Tð Þ2:51 ; ð15Þ
+where J is expressed in units of nucleons/(cm2 sr s GeV/
+nucleon), and
+P Tð Þ ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+T T þ 2  Trð Þ
+p
+; ð16Þ
+where T is given in GeV/nucleon, and Tr = 0.938 GeV/
+nucleon. As an example, Figure 4 shows the daily fluence of
+galactic protons for solar maximum and minimum. The
+solar cycle variations of the lower part of the spectrum are
+as large as an order of magnitude.
+[20] The LIS of the heavier species has been taken of the
+same shape as the LIS of protons (equation (15)) but scaled
+to match the abundance ratios in the interstellar space in
+high energy [Alcaraz et al., 2000; Usoskin et al., 2005].
+Note that the Zi/Ai ratio for a particles is half of that for
+hydrogen with the same energy per nucleon, hence the
+fraction of a particles in the overall CR flux near Earth is
+increasing with decreasing particle’s energy and increasing
+modulation potential (see equation (14)). Since the heavier
+species are approximately identical to a particles in the
+sense of the heliospheric modulation (Zi/Ai 
+ 1/2) as well as
+in the 7Be production, we consider all the nuclei, heavier
+than protons, as a particles with the corresponding number
+of nucleons. The nucleonic ratio of heavier nuclei (including
+a particles) to protons is chosen to be 0.3 in the interstellar
+space [e.g., Gaisser and Stanev, 2004], i.e. (compare
+equation (15)),
+JLIS;a Tð Þ ¼ 0:57  P Tð Þ
+2:78
+1þ 0:4866P Tð Þ2:51 ; ð17Þ
+where P is defined by equation (16).
+2.6. Final Step in Computing the Isotope Production
+[21] Production of 7Be can be computed using the yield
+function in a way similar to computation of the cosmic ray
+induced ionization in the atmosphere [Usoskin and
+Kovaltsov, 2006].
+Table 2. Normalized Yield Function Yp/p of
+7Be Production by Primary Cosmic Protonsa
+h/E0 0.02 0.03 0.05 0.1 0.15 0.4 0.76 1.9 4.6 10.0 21.5 46.4 100
+0 2.6E-3 1.1E-3 6.2E-4 5.6E-4 5.6E-4 6.0E-4 6.0E-4 6.0E-4 6.0E-4 6.0E-4 6.0E-4 6.0E-4 6.0E-4
+10 0 1.0E-10 4.0E-6 1.4E-4 2.4E-4 5.0E-4 6.3E-4 7.0E-4 8.5E-4 9.0E-4 9.5E-4 9.9E-4 1.0E-3
+20 0 0 0 0 7.4E-5 4.5E-4 6.5E-4 7.6E-4 9.2E-4 1.1E-3 1.2E-3 1.2E-3 1.3E-3
+45 0 0 0 0 6.8E-6 2.9E-4 4.8E-4 7.3E-4 9.4E-4 1.2E-3 1.4E-3 1.6E-3 1.5E-3
+100 0 0 0 0 9.7E-7 6.2E-5 2.2E-4 5.4E-4 8.5E-4 1.2E-3 1.4E-3 1.8E-3 2.0E-3
+200 0 0 0 0 2.3E-7 1.3E-5 6.5E-5 2.9E-4 5.6E-4 8.4E-4 1.1E-3 1.6E-3 1.8E-3
+300 0 0 0 0 7.0E-8 5.0E-6 2.5E-5 1.5E-4 3.3E-4 5.3E-4 7.5E-4 1.1E-3 1.4E-3
+400 0 0 0 0 1.0E-8 2.0E-6 1.0E-5 6.4E-5 1.8E-4 2.9E-4 4.6E-4 7.0E-4 9.3E-4
+500 0 0 0 0 0 7.5E-7 4.0E-6 2.7E-5 9.0E-5 1.5E-4 2.5E-4 4.0E-4 5.8E-4
+700 0 0 0 0 0 1.9E-7 8.6E-7 5.8E-6 2.4E-5 4.3E-5 7.6E-5 1.3E-4 2.0E-4
+850 0 0 0 0 0 1.1E-7 3.6E-7 2.2E-6 8.0E-6 1.7E-5 3.0E-5 5.5E-5 8.0E-5
+1000 0 0 0 0 0 7.6E-8 2.1E-7 8.5E-7 3.2E-6 6.1E-6 1.1E-5 2.1E-5 3.5E-5
+aUnit of 7Be production is atoms g1 cm2. Column 1 depicts the atmospheric depth h in g/cm2. Columns 2–14 depict the energy in GeV/nucleon.
+Table 3. Normalized Yield Function Ya/p
+7Be Production by Primary Cosmic a Particlesa
+h/E0 0.02 0.03 0.05 0.1 0.15 0.4 0.76 1.9 4.6 10.0 21.5 46.4 100
+1 5.0E-4 5.5E-4 6.0E-4 3.0E-4 2.0E-4 2.0E-4 2.3E-4 2.3E-4 2.3E-4 2.3E-4 2.3E-4 2.3E-4 2.3E-4
+10 0 0 1.0E-7 1.3E-4 1.9E-4 2.9E-4 3.8E-4 4.8E-4 5.6E-4 6.8E-4 7.6E-4 8.0E-4 8.5E-4
+20 0 0 0 0 4.6E-5 3.2E-4 4.1E-4 5.5E-4 7.0E-4 8.5E-4 1.0E-3 1.1E-3 1.2E-3
+45 0 0 0 0 5.0E-6 2.3E-4 4.0E-4 6.4E-4 9.0E-4 1.2E-3 1.4E-3 1.6E-3 1.8E-3
+100 0 0 0 0 6.0E-7 9.0E-5 2.2E-4 5.0E-4 8.7E-4 1.2E-3 1.5E-3 1.8E-3 2.0E-3
+200 0 0 0 0 6.0E-8 2.8E-5 1.1E-4 2.9E-4 5.5E-4 8.2E-4 1.2E-3 1.5E-3 1.8E-3
+300 0 0 0 0 0 1.0E-5 4.0E-5 1.5E-4 3.3E-4 5.0E-4 7.5E-4 1.1E-3 1.3E-3
+400 0 0 0 0 0 4.5E-6 1.7E-5 6.7E-5 1.7E-4 2.8E-4 4.4E-4 6.6E-4 9.3E-4
+500 0 0 0 0 0 1.7E-6 6.5E-6 3.0E-5 9.0E-5 1.5E-4 2.4E-4 3.7E-4 6.0E-4
+700 0 0 0 0 0 3.9E-7 1.6E-6 6.7E-6 2.3E-5 4.0E-5 7.1E-5 1.2E-4 2.0E-4
+850 0 0 0 0 0 2.0E-7 6.0E-7 2.5E-6 8.0E-6 1.5E-5 2.5E-5 5.0E-5 9.0E-5
+1000 0 0 0 0 0 1.4E-7 3.0E-7 1.1E-6 3.0E-6 5.4E-6 9.4E-6 1.8E-5 3.2E-5
+aUnit of 7Be production is atoms g1 cm2. Column 1 depicts the atmospheric depth h in g/cm2. Columns 2–14 depict the energy in GeV/nucleon.
+D12107 USOSKIN AND KOVALTSOV: COSMOGENIC BE-7 IN ATMOSPHERE
+5 of 12
+D12107
+[22] A product of the yield function Y and spectrum J is
+the differential production function of 7Be:
+D h;Eo;f;Að Þ ¼ Y h;Eo;Að Þ  J Eo;f;Að Þ: ð18Þ
+[23] An example of the production function D for protons
+is shown in Figure 5, for f = 0.7 GV and several values of
+the atmospheric depth. One can see that the most effective
+energy of cosmic rays for the isotope production depends on
+the atmospheric depth. The maximum production in the
+stratosphere is due to particles with an energy of about
+1 GeV/nucleon. The peak, corresponding to the effective
+energy, moves toward higher energies with decreasing
+altitude, being about 3 GeV/nucleon for lower troposphere.
+Once the production function D(Eo, h, A, f) is known, the
+production of the isotope at a given atmospheric level h and
+geomagnetic cutoff rigidity Pc can be computed as a sum
+(over different species of cosmic rays) of integrals of D over
+the energy of primary cosmic rays:
+Q h;f;Pcð Þ ¼
+X
+i
+Qi ¼
+X
+i
+Z 1
+Tc;i
+Ji T ;fð ÞYi h;Tð ÞdT ; ð19Þ
+where Yi is the yield function and Ji is the differential energy
+spectrum of the ith specie of GCR (protons and a particles
+here). Integration is over the kinetic energy above Tc,i,
+which is the kinetic energy corresponding to the local
+vertical geomagnetic rigidity cutoff Pc. This cutoff energy
+(per nucleon) depends on the Zi/Ai ratio of the cosmic ray
+specie and is given as
+Tc;i ¼ Tr 
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+Zi  Pc
+Ai  Tr
+ 	2
+þ1
+s
+ 1
+0
+@
+1
+A: ð20Þ
+[24] This implies that particles with the ratio of Zi/Ai < 1
+are less deflected by the geomagnetic field, which, in
+combination with their weaker heliospheric modulation,
+makes them crucially important in the isotope production.
+Therefore, contribution of heavier species cannot be
+neglected in realistic models of the isotope production.
+[25] We note that using the vertical geomagnetic cutoff Pc
+does not account for realistic directional geomagnetic cut-
+offs but it provides a reasonable first-order approximation
+[e.g., Cooke, 1983; O’Brien, 2005] to the effective cutoff for
+isotropically impinging flux. Although this approach is
+supported by the agreement between our results and the
+measurements, it may be a source of uncertainties, and
+detailed computations of cosmic ray transport in the mag-
+netosphere are planned for the future. A question of the
+Figure 3. The yield function of a standard NM64 sea-level
+neutron monitor. Solid and dotted curves present the results
+from Clem and Dorman [2000] and from the present work,
+respectively.
+Figure 4. Daily differential energy fluence of cosmic
+protons. Dashed and dotted curves correspond to galactic
+protons for the minimum (f = 0.4 GV) and maximum (f =
+1.2 GV) of solar activity, respectively. The traditional
+spectrum can be obtained by dividing these values by
+86400, the number of seconds in 1 day. Open dots and solid
+line represent the spaceborne measurements of solar
+energetic particles [Mewaldt et al., 2005] and our best fit
+(see equation (21)), respectively.
+Figure 5. The differential production function D for
+primary protons at different atmospheric depths as denoted
+in the legend in units of g/cm2. The proton spectrum
+corresponds to f = 0.7 GV.
+D12107 USOSKIN AND KOVALTSOV: COSMOGENIC BE-7 IN ATMOSPHERE
+6 of 12
+D12107
+precise determination of Pc for a given location and time is a
+separate problem [Cooke et al., 1991; Kudela and Bobik,
+2004], which is left beyond the scope of the present study.
+2.7. Recipe
+[26] By means of the above formalism one can easily
+compute the 7Be production rate for a given altitude h,
+location Pc and time (or actually, the modulation potential
+f), using the following recipe:
+[27] 1. Tabulated values of the yield function Y(Eo, h)/p
+are given in Tables 2 and 3 for protons and a particles,
+respectively.
+[28] 2. The value of the modulation potential f can be
+obtained for a given period from Usoskin et al. [2005] or
+from a continuously updated list at http://cosmicrays.oulu.fi/
+phi. The shape of the differential energy spectrum J(T, f) is
+then calculated using equations (14)–(17) for both protons
+and a particles.
+[29] 3. The final production rate is computed using
+equation (19), where the integration bounds are different
+for the two species of GCR (see equation (20)).
+[30] The authors have also computed and tabulated the
+production rate Q (equation (19)) for a 3-D grid of h (0–
+1030 g/cm2 with the grid size of 10 g/cm2), Pc (0–20 GV
+with the grid size of 0.5 GV) and f(0–1.5 GV with the grid
+size of 0.05 GV). These digital tables are available in the
+auxiliary material1 or can be requested directly from the
+authors. The authors would be also happy to provide, upon
+requests, computation of 7Be production rate for any spe-
+cific location and/or time, including contribution from solar
+energetic particles (see section 4).
+2.8. Results
+[31] The main result of this model is a three-dimensional
+(h, Pc and f) matrix of the
+7Be production rate Q, which can
+be found in the auxiliary material or requested from the
+authors. Since a 3-D function cannot be plotted, we show in
+Figure 6 its 2-D projection for a fixed medium cosmic ray
+modulation.
+[32] One can see that the strongest dependence is over the
+atmospheric depth (altitude), being two–three orders of
+magnitude between the maximum at 20–30 km and the
+minimum at the sea level. Dependence on the geomagnetic
+cutoff rigidity is moderate, being a factor of 3–20 (depending
+on the altitude) between geomagnetic poles and equator. The
+range of production variations due to the 11-year solar cycle is
+from15% (sea level at the equator) to a factor of 3 (polar upper
+stratosphere). Four curves bounding geographical (between
+the geomagnetic pole and equator) and solar cycle variations
+of the production rate are shown in Figure 7.
+[33] We note that the total or column production (i.e.,
+production within the atmospheric column of unit area) of
+7Be is not representative because of the isotope’s short
+lifetime, comparable to or shorter than the residence time.
+Therefore, a more local production should be considered,
+especially in the stratosphere. However, for the sake of
+comparison with other models, we have computed the
+column production as a function of the geomagnetic latitude
+as shown in Figure 8. The global average production of 7Be
+in the atmosphere is evaluated as 0.078 and 0.05 (at cm2
+s1) for the solar minimum (f = 0.4 GV) and maximum (f =
+1.2 GV), respectively. The global production for the medi-
+um solar activity (f = 0.7 GV) is 0.062 (at cm2 s1), which
+can be compared with the results of other models in Table 1.
+These values are computed for the geomagnetic field,
+corresponding to the epoch 2005. Keeping in mind that
+the geomagnetic field strength keeps steadily decreasing
+Figure 6. Production rate of 7Be in the atmosphere as
+function of the atmospheric depth and geomagnetic cutoff
+rigidity Pc. The modulation potential is fixed at the value
+f = 0.7 GV, corresponding to a medium modulation of
+cosmic rays.
+Figure 7. Production rate of 7Be in the atmosphere as a
+function of the atmospheric depth. Different dashed curves
+correspond to the geomagnetic pole and equator and to solar
+cycle minimum (f = 0.4 GV) and maximum (f = 1.2 GV)
+conditions as denoted in the legend. Solid curve and open
+circles correspond to the global production for the solar
+minimum conditions, as results of this model and N00,
+respectively.
+1Auxiliary materials are available at ftp://ftp.agu.org/apend/jd/
+2007jd009725.
+D12107 USOSKIN AND KOVALTSOV: COSMOGENIC BE-7 IN ATMOSPHERE
+7 of 12
+D12107
+during the last centuries, the estimated 7Be global produc-
+tion was about 0.067 (at cm2 s1), i.e., 8% higher, for the
+epoch 1955.
+3. Testing the Model
+3.1. Comparison With 7Be Measurements
+[34] Because of the wide diversity of model results (as
+discussed in the forthcoming subsection), we first compare
+our simulation results with direct measurements as the most
+robust test.
+3.1.1. Production Rate
+[35] The most direct comparison would be with measure-
+ments of the production rate of the isotope in the atmo-
+sphere. We know one such experiment [Lal et al., 1960],
+when a sealed tank filled with oxygen target was exposed
+during two months (July–August 1959) at Echo Lake
+(Colorado) site at the atmospheric depth 685 g/cm2. The
+average (corrected for decay) production rate of 7Be in this
+oxygen tank was 9  106 at [g target O]1 s1. Using the
+appropriate parameters (only oxygen target, h = 685 g/cm2,
+Pc = 3 GV, f 
+ 1.3 GV for July–August 1959 [Usoskin et
+al., 2005]) we have obtained the expected production rate of
+8  106 at [g target O]1 s1. Thus, the model result agrees
+well with the direct measurement of 7Be production rate in
+the troposphere.
+3.1.2. Concentration in Stratospheric Air
+[36] There have been numerous measurements of the 7Be
+concentration in the atmosphere, from surface to the strato-
+sphere. We show in Figure 9 some results of airborne
+measurements of the 7Be concentrations compared with
+the model prediction for the same conditions (h, Pc and
+f) taken individually for each measurement. The measured
+concentrations have been converted into the production rate
+assuming equilibrium between decay and production. The
+agreement is quite good (within 20%) in the stratosphere
+(values above 104 at g1 s1), but a large disagreement is
+observed in the troposphere. Such a pattern is quite clear
+since the concentration of 7Be is expected to be close to the
+equilibrium one in the stratosphere, where the isotope’s
+residence time is longer than the decay time. In the
+troposphere, however, 7Be is quickly washed out leading
+to the residence time shorter than the decay time. Accord-
+ingly, the measured concentration is different from the
+equilibrium one, and the difference depends on location
+and season [e.g., Kulan et al., 2006].
+[37] Thus, our model depicts a fairly good agreement
+with fragmentary data on stratospheric measurements of 7Be
+concentration, assuming equilibrium conditions. This is a
+rough method, and a detailed comparison can be performed
+only taking into account realistic 3-D transport of air masses
+[e.g., Koch et al., 1996; Liu et al., 2001; Field et al., 2006].
+Such a comparison is beyond the scope of this study, but is
+planned for further work.
+3.1.3. Concentration in Rain Water as Estimate for
+Tropospheric Production
+[38] As discussed earlier, concentration of 7Be measured
+in tropospheric air cannot give an easy estimate of the
+production rate. However, there are measurements of 7Be
+concentration in rain water in different regions. Of special
+interest are regions with high level of precipitation, which
+washes out almost all isotope atoms produced in the
+troposphere. Particularly interesting is Indian region, with
+heavy rains during the monsoon season, where the wet
+deposition dominates [Field et al., 2006]. This data is not
+expected to be affected by the seasonal (spring and fall)
+breaks of 7Be-rich stratospheric air into the troposphere,
+because first the monsoon season does not usually overlap
+Figure 8. Column (integral over atmospheric column)
+production of 7Be for a medium solar activity as function of
+geomagnetic latitude, according to different models (results
+for WH07 model are obtained as scaling of the 10Be results),
+as indicated in the legend. Results are shown in log scale in
+order to compare the shape of curves.
+Figure 9. Scatterplot of modeled versus computed from
+measurements, assuming the equilibrium conditions, 7Be
+production rate in the atmosphere. Different symbols
+correspond to data from Kritz et al. [1991], Dibb et al.
+[1994], and Jordan et al. [2003], as denoted in the legend.
+D12107 USOSKIN AND KOVALTSOV: COSMOGENIC BE-7 IN ATMOSPHERE
+8 of 12
+D12107
+with the seasonal breaks and second the air mixing effect is
+smaller in tropics compared to the midlatitudes [Field et al.,
+2006]. Several measurements of 7Be content in the rain
+water have been performed during the period 1956–1959 in
+two Indian sites: Kodaikanal (Pc 
+ 16 GV, about 175 cm
+rainfall) and Bombay (Pc 
+ 15 GV, about 100 cm rainfall)
+[Rama, 1960]. The corresponding averaged measured 7Be
+flux was found to be 1  102 and 9  103 (at cm2 s1),
+respectively. These values are close to the modeled isotope’s
+production rate, 8.5  103 (at cm2 s1), computed for f =
+1 GV (mean modulation for 1956–1959) in the atmospheric
+layer 240–1030 g/cm2 (0–11 km) for Pc = 15 GV. This
+assumes that all the 7Be atoms produced in the troposphere
+are quickly, within 30 days [Shapiro and Forbes-Resha,
+1976] (correction for decay has been applied [see Rama,
+1960]), scavenged and eventually appear in the rain water.
+[39] Thus, prediction of our model is in a reasonable
+agreement with the 7Be fallout flux evaluated from meas-
+urements in rain water collected in India monsoon regions.
+[40] Concluding this section we note that, while a direct
+comparison of model results with measurements is only
+indicative and cannot prove, in this simple form, the
+exactness of the model, it provides a solid ground to suggest
+that our model is broadly consistent with observations in the
+whole range: from ground level up to the stratosphere, and
+from equatorial to polar regions. Moreover, the fact that our
+model result agrees with an experiment of direct measure-
+ments of the cosmogenic 7Be production rate in oxygen
+target (section 3.1.1) implies the correct overall normaliza-
+tion of the model.
+3.2. Comparison With Other Models
+[41] In this subsection we make an intercomparison
+between different models for 7Be production. First we can
+compare the predicted total production of 7Be in the
+atmosphere. It is noteworthy that the overall global produc-
+tion figures for an average solar cycle are quite controversial
+as given by different models (see the last row in Table 1).
+Our present model yields the global production rate close to
+those given by empirical and semi empirical models (LP67,
+OB79, N00) but higher than other Monte Carlo models. The
+present results are significantly (by a factor of 2) higher than
+the predictions by MB99 and WH03/07 models, and this
+difference is too high to be ascribed to different approaches
+and assumptions used. The difference is most likely related to
+an overall normalization rather than to modeling nuances. On
+the contrary, Monte Carlo models (MB99, WH03/07 and the
+present one) operate with pure simulations without direct
+fitting to the observed data, and thus are not guaranteed against
+a normalization error.
+[42] All earlier models, except of OB79 one, provide
+latitudinal dependence of the column isotope production,
+as shown in Figure 8. One can see that the latitudinal
+dependence is similar for all the models, implying a similar
+treatment of the geomagnetic shielding. The polar-to-
+equatorial production ratio is about 6 for most of the
+models, only LP67 and N00 models yield a slightly weaker
+latitudinal dependence, with the polar-to-equatorial produc-
+tion ratio being about 5.
+[43] Among earlier models only the LP67 one provides
+altitude profiles of 7Be production, and we compare those
+for the polar and equatorial conditions, as shown in
+Figure 10. While the overall level is slightly different
+(compare Figure 8), shapes of the profiles are close to each
+other in the troposphere. Although MB99 model does not
+provide an altitudinal dependence of the isotope production,
+it estimates the relative stratospheric production as 53.5% of
+the entire atmospheric production, using a realistic latitude-
+dependent height of the tropopause. When using the same
+relative thickness of the troposphere as function of latitude
+(Figure 7 in MB99), we obtain with our model that 55% of
+the global 7Be production can be ascribed to stratosphere.
+Both LP67 and N00 models yield that about 60–70% of
+7Be is produced in the stratosphere globally, which is
+consistent with the results of our model, 68%, assuming
+the constant heights of the tropopause at about 11 km. Note
+that WH03/07 model does not provide results of the relative
+stratospheric production.
+[44] Thus, we can conclude that the present model does
+not contradict with earlier models in the relative variations
+of 7Be production in both latitude and altitude. However,
+absolute values of the production rate differ from some
+earlier computations:
+[45] 1. Our model results broadly agree with those by the
+semiempirical LP67 model, yielding however slightly lower
+(about 25%) global production rate.
+[46] 2. Our model agrees with the analytical OB79 model
+in the global production similar, however the latter does not
+provide enough results for detailed investigation.
+[47] 3. Our model predicts the global production by a
+factor 2 higher than the results of the MB99 model. This
+discrepancy is too large to be ascribed to some technical
+Figure 10. Altitude profile of 7Be production rate for the
+medium solar modulation (f = 0.6 GV), for geomagnetic
+polar and equatorial regions. Curves and symbols corre-
+spond to the results of the present and LP67 models,
+respectively. The present results have been converted from
+the atmospheric depth to the altitude using the US standard
+atmosphere model. The results of LP67, originally given in
+atoms per min per m3 STP, have been scaled to the present
+units of Y axis.
+D12107 USOSKIN AND KOVALTSOV: COSMOGENIC BE-7 IN ATMOSPHERE
+9 of 12
+D12107
+differences in the model treatment, and is most likely caused
+by an overall normalization.
+[48] 4. Our model broadly agrees with a semiempirical
+N00 model, including the altitudinal profile.
+[49] 5. Our model is similar to the results of a recent
+WH03/07 model in many respects, but predicts higher (by a
+factor of 2) absolute production rate. The fact that the
+differential column production of 7Be by cosmic protons,
+computed by the two models, is very close to each other
+(see Figure 2) implies that cascade simulations were done
+consistently in the two models. Additionally, treatment of
+the geomagnetic shielding was also done mutually consis-
+tently (Figure 8). Therefore, we suppose that the difference
+in the total production between WH03/07 and our model
+can be due to the different treatment of primary cosmic rays
+(see Table 1) or the integration.
+[50] More important is that the results of our model are in
+good agreement with actual measurements, including the
+direct measurement of 7Be production rate in a special target
+(section 3.1.1). Because of the large diversity of the mod-
+eling results in the total production rate, we mostly rely
+upon comparison with measurements. Therefore, we have
+good reasons to believe that the overall normalization of our
+model is correct.
+4. Effect of Solar Energetic Particles
+[51] While galactic CR are always present in the Earth’s
+environment, additional sporadic fluxes of solar energetic
+particles (SEPs) can occur related to solar eruptive phe-
+nomenon (solar flares or coronal mass ejections), leading to
+transient changes in the 7Be production in the atmosphere.
+As an example, we consider here the effect of a severe SEP
+event of 20 January 2005, which was one of the strongest
+events ever observed. Time profile of the neutron monitor
+count rate for this event is shown in Figure 11a, with a clear
+ground level enhancement (GLE) of a few hours duration. It
+is important that the GLE occurred during the continuing
+effect of a strong Forbush decrease caused by the interplan-
+etary shock, when the CR level was reduced by 10–15% for
+a week (Figure 11a). The net effect of the sequence of
+events is negative in the neutron monitor count rate (i.e., the
+long-lasting Forbush decrease overcompensates the CR
+increase during the transient GLE). Figure 11b shows the
+calculated relative effect of the studied event, which is
+defined as follows. First, we have computed the production
+of 7Be by GCR during the day of 20 January 2005, when
+the GLE occurred, and during a quite day of 15 January,
+using the values of f = 1.3 and 0.69 GV, respectively
+(calculated using the method described by Usoskin et al.
+[2005]). Next we evaluated the spectrum (daily fluence) of
+SEP during the day of 20 January, using the spaceborne data
+fitted by a power law (power index 2.15) in energy up to
+0.5 GeV [Mewaldt et al., 2005], and applying an exponen-
+tial energy cutoff in higher energy range to fit the data from
+the world neutron monitor network. The resultant daily
+fluence
+I ¼ 6  105E2:15o exp
+Eo
+0:6
+ 	
+; ð21Þ
+where Eo and I are expressed in GeV and (cm
+2 sr GeV)1,
+respectively, is shown in Figure 4.
+[52] Applying this spectrum to equation (19), one can
+evaluate the additional production of 7Be due to SEPs. Let
+us consider the ratio of the total (GCR + SEP) production
+during the day of 20 January 2005 to the GCR 7Be
+production during a quite day of 15 January 2005. This
+ratio (or a relative effect of the SEP event in the isotope
+production) is shown in Figure 11 as function of geomag-
+netic latitude. One can see a greatly enhanced production of
+7Be in the (geomagnetic) high-latitude region (geomagnetic
+latitude above 60) at all altitudes. The enhancement of the
+Figure 11. Combined effect of solar and galactic CR for the event of January 2005. (a) Count rate of the
+Oulu NM in January 2005, normalized to the period 12–17 January 2005. Note break in the Y axis. (b)
+Relative effect of solar energetic particles for the day of 20 January 2005 (see text) as a function of the
+atmospheric depth (different curves as denoted in the legend in g/cm2) and geomagnetic latitude (X axis).
+D12107 USOSKIN AND KOVALTSOV: COSMOGENIC BE-7 IN ATMOSPHERE
+10 of 12
+D12107
+daily production was a factor of 2 at the sea level up to a
+factor of 15 in the stratosphere. On the contrary, the isotope
+production was reduced by 15–20% at lower geomagnetic
+latitudes, because of the transient GCR suppression
+(Forbush decrease) started 18 January. Therefore, a strong,
+almost instantaneous, ‘‘injection’’ of 7Be isotope took place
+in a limited geographical area during the extreme SEP event
+of January 2005. Taking into account the fact that param-
+eters (altitude, latitude and time profiles) of this ‘‘injection’’
+can be modeled, this provides a unique opportunity to trace
+the atmospheric transport on both global and local scales.
+5. Conclusions
+[53] We have presented a new model of production of
+cosmogenic 7Be isotope in the atmosphere. The model,
+based on full Monte Carlo simulation of the cosmic ray
+induced nucleonic cascade in the atmosphere, is able to
+compute 3-D (altitude and geographical location) produc-
+tion rate of the isotope in realistic conditions. The validity of
+the model has been verified by quantitative agreement with
+different kinds of observations, including direct measure-
+ments of 7Be production rate in a dedicated experiment. The
+present model is in qualitative agreement with earlier
+models, but deviates from some of them in the absolute
+values.
+[54] We provide a detailed recipe and a set of precalcu-
+lated digital tables (Tables 2 and 3 and the auxiliary
+material) for the yield function. Using this ‘‘do-it-yourself’’
+kit everyone interested can compute the 7Be production for
+given location, altitude and the spectrum of cosmic rays,
+including solar energetic particles. This provides a new
+opportunity in studying details of the atmospheric transport,
+since it allows, e.g., computing the isotope production along
+the specific trajectory of a traced air volume.
+[55] We have computed the effect of a severe solar
+energetic particle event of 20 January 2005 and shown that
+it resulted in greatly enhanced production of 7Be in (geo-
+magnetic) polar regions, accompanied by suppression in all
+other regions. This very unusual distribution of the isotope
+production pattern provides a unique opportunity to study
+details of the atmospheric (particularly tropospheric) circu-
+lation and transport.
+[56] Acknowledgments. We acknowledge the support from the
+Academy of Finland and the Finnish Academy of Science and Letters
+(Vilho, Yrjo¨ and Kalle Va¨isa¨la¨ Foundation). We thank the CORSIKA
+(http://www-ik.fzk.de/corsika/) and FLUKA (http://www.fluka.org/) teams
+for continuous updates and improvements of their codes. We are grateful to
+the Department of Physical Sciences (Astronomy Division and Space
+Physics group) of the University of Oulu for providing us with the
+computing facilities for Monte Carlo calculations.
+References
+Alcaraz, J., et al. (2000), Helium in near Earth orbit, Phys. Lett. B, 494,
+193–202.
+Armstrong, T. W., K. C. Chandler, and J. Barish (1973), Calculations of
+neutron flux spectra induced in the Earth’s atmosphere by galactic cosmic
+rays, J. Geophys. Res., 78, 2715–2726.
+Bhandari, P. A., D. Lal, and Rama (1966), Stratospheric circulation studies
+based on natural and artificail radioactive tracer elements, Tellus, 18,
+391–406.
+Burger, R. A., M. S. Potgieter, and B. Heber (2000), Rigidity dependence of
+cosmic ray proton latitudinal gradients measured by the Ulysses space-
+craft: Implications for the diffusion tensor, J. Geophys. Res., 105,
+27,447–27,456.
+Caballero-Lopez, R. A., and H. Moraal (2004), Limitations of the force
+field equation to describe cosmic ray modulation, J. Geophys. Res., 109,
+A01101, doi:10.1029/2003JA010098.
+Clem, J. M., and L. I. Dorman (2000), Neutron monitor response functions,
+Space Sci. Rev., 93, 335–359, doi:10.1023/A:1026508915269.
+Cooke, D. J. (1983), Geomagnetic-cutoff distribution functions for use in
+estimating detector response to neutrinos of atmospheric origin, Phys.
+Rev. Lett., 51, 320–323.
+Cooke, D. J., J. E. Humble, M. A. Shea, D. F. Smart, N. Lund, I. L.
+Rasmussen, B. Byrnak, P. Goret, and N. Petrou (1991), On cosmic-ray
+cut-off terminology, Nuovo Cimento C, 14, 213–234.
+Dibb, J. E., L. D. Meeker, R. C. Finkel, J. R. Southon, M. W. Caffee, and
+L. A. Barrie (1994), Estimation of stratospheric input to the Arctic tropo-
+sphere: 7Be and 10Be in aerosols at Alert, Canada, J. Geophys. Res., 99,
+12,855–12,864.
+Dorman, L. (2004), Cosmic Rays in the Earth’s Atmosphere and Under-
+ground, Kluwer Acad., Dordrecht, Netherlands.
+Fasso`, A., A. Ferrari, J. Ranft, and P. Sala (2001), Fluka: Status and pro-
+spective of hadronic applications, in Proceedings of the Monte Carlo
+2000 Conference, edited by A. Kling et al., pp. 955–960, Springer,
+Berlin.
+Field, C. V., G. A. Schmidt, D. Koch, and C. Salyk (2006), Modeling
+production and climate-related impacts on 10Be concentration in ice
+cores, J. Geophys. Res., 111, D15107, doi:10.1029/2005JD006410.
+Gaisser, T. K., and T. Stanev (2004), Review of particle physics, Phys. Lett.
+B, 592, 228–234.
+Gleeson, L. J., and W. I. Axford (1968), Solar modulation of galactic
+cosmic rays, Astrophys. J., 154, 1011–1026.
+Grieder, P. K. F. (2001), Cosmic Rays at Earth, Elsevier, Amsterdam.
+Hatton, C. (1971), The neutron monitor, in Progress in Elementary Particle
+and Cosmic Ray Physics, vol. 10, edited by J. Wilson and S. Wouthuysen,
+pp. 1–100, North Holland, Amsterdam.
+Heck, D., J. Knapp, J. Capdevielle, G. Schatz, and T. Thouw (1998),
+Corsika: A Monte Carlo code to simulate extensive air showers, FZKA
+6019, Forschungszent. Karlsruhe, Karlsruhe, Germany.
+Janni, J. F. (1982), Proton range-energy tables, 1 keV–10 GeV, energy loss,
+range, path length, time-of-flight, straggling, multiple scattering, and
+nuclear interaction probability. Part I. For 63 compounds, At. Data Nucl.
+Data Tables, 27, 147–339.
+Jordan, C. E., J. E. Dibb, and R. C. Finkel (2003), 10Be/7Be tracer of
+atmospheric transport and stratosphere-troposphere exchange, J. Geo-
+phys. Res., 108(D8), 4234, doi:10.1029/2002JD002395.
+Keilhauer, B., J. Blu¨mer, R. Engel, H. O. Klages, and M. Risse (2004),
+Impact of varying atmospheric profiles on extensive air shower observa-
+tion: Atmospheric density and primary mass reconstruction, Astropart.
+Phys., 22, 249–261.
+Koch, D. M., D. J. Jacob, and W. C. Graustein (1996), Vertical transport of
+tropospheric aerosols as indicated by 7Be and 210Pb in a chemical tracer
+model, J. Geophys. Res., 101, 18,651–18,666.
+Kritz, M. A., S. W. Rosner, E. F. Danielsen, and H. B. Selkirk (1991), Air
+mass origins and troposphere-to-stratosphere exchange associated with
+mid-latitude cyclogenesis and tropopause folding inferred from Be-7
+measurements, J. Geophys. Res., 96, 17,405–17,414.
+Kudela, K., and P. Bobik (2004), Long-term variations of geomagnetic
+rigidity cutoffs, Sol. Phys., 224, 423–431.
+Kulan, A., A. Aldahan, G. Possnert, and I. Vintersved (2006), Distribution
+of 7Be in surface air of Europe, Atmos. Environ., 40, 3855–3868.
+Lal, D., and B. Peters (1962), Cosmic ray produced isotopes and their
+application to problems in geophysics, in Progress in Elementary Particle
+and Cosmic Ray Physics, vol. 6, edited by J. Wilson and S. Wouthuysen,
+pp. 77–243, North Holland, Amsterdam.
+Lal, D., and B. Peters (1967), Cosmic ray produced radioactivity on the
+Earth, in Handbuch der Physik, vol. 46/2, edited by K. Sittle, pp. 551–
+612, Springer, Berlin.
+Lal, D., and H. Suess (1968), The radioactivity of the atmosphere and
+hydrosphere, Annu. Rev. Nucl. Sci., 18, 407–434.
+Lal, D., J. R. Arnold, and M. Honda (1960), Cosmic-ray production rates of
+Be7 in oxygen, and P32, P33, S35 in argon at mountain altitudes, Phys.
+Rev., 118, 1626–1632.
+Lange, H.-J., et al. (1994), Production of residual nuclei by a-induced
+reactions on C, N, O, Mg, Al and Si up to 170 meV, Appl. Radiat.
+Isotopes, 46, 93–112.
+Liu, H., D. J. Jacob, I. Bey, and R. M. Yantosca (2001), Constraints from
+210Pb and 7Be on wet deposition and transport in a global three-dimen-
+sional chemical tracer model driven by assimilated meteorological fields,
+J. Geophys. Res., 106, 12,109–12,128.
+Masarik, J., and J. Beer (1999), Simulation of particle fluxes and cosmo-
+genic nuclide production in the Earth’s atmosphere, J. Geophys. Res.,
+104, 12,099–12,111.
+D12107 USOSKIN AND KOVALTSOV: COSMOGENIC BE-7 IN ATMOSPHERE
+11 of 12
+D12107
+Mewaldt, R. A., M. Looper, C. Cohen, G. Mason, D. Haggerty, M. Desai,
+A. Labrador, R. Leske, and J. Mazur (2005), Solar-particle energy spectra
+during the large events of October–November 2003 and January 2005,
+Proc. Int. Cosmic Ray Conf., 1, 111–114.
+Nagai, H., W. Tada, and T. Kobayashi (2000), Production rates of 7Be and
+10Be in the atmosphere, Nucl. Instrum. Methods Phys. Res. B, 172, 796–
+801.
+O’Brien, K. (1979), Secular variations in the production of cosmogenic
+isotopes in the Earth’s atmosphere, J. Geophys. Res., 84, 423–431.
+O’Brien, K. (2005), The theory of cosmic-ray and high-energy solar-parti-
+cle transport in the atmosphere, in Proceedings of the 7th International
+Symposium on the Natural Radiation Environment, edited by
+J. McLaughlin, S. Simopoulos, and F. Steinhusler, pp. 29–44, Elsevier,
+Amsterdam.
+O’Brien, K., A. de La Zerda Lerner, M. Shea, and D. Smart (1991), The
+production of cosmogenic isotopes in the Earth’s atmosphere and their
+inventories, in The Sun in Time, edited by C. P. Sonett, M. S. Giampapa,
+and M. S. Matthews, pp. 317–342, Univ. of Ariz. Press, Tucson.
+Raisbeck, G. M., F. Yiou, M. Fruneau, J. M. Loiseaux, M. Lieuvin, and J. C.
+Ravel (1981), Cosmogenic Be-10/Be-7 as a probe of atmospheric trans-
+port processes, Geophys. Res. Lett., 8, 1015–1018.
+Rama, (1960), Investigations of the radioisotopes Be7, P32 and S35 in rain
+water, J. Geophys. Res., 65, 3773–3776.
+Shapiro, M. H., and J. L. Forbes-Resha (1976), Mean residence time of
+7Be-bearing aerosols in the troposphere, J. Geophys. Res., 81, 2647–
+2649.
+Tatischeff, V., B. Kozlovsky, J. Kiener, and R. J. Murphy (2006), Delayed
+X- and gamma-ray line emission from solar flare radioactivity, Astrophys.
+J. Suppl. Ser., 165, 606–617, doi:10.1086/505112.
+Usoskin, I. G., and G. A. Kovaltsov (2006), Cosmic ray induced ionization
+in the atmosphere: Full modeling and practical applications, J. Geophys.
+Res., 111, D21206, doi:10.1029/2006JD007150.
+Usoskin, I. G., K. Alanko-Huotari, G. A. Kovaltsov, and K. Mursula
+(2005), Heliospheric modulation of cosmic rays: Monthly reconstruction
+for 1951 – 2004, J. Geophys. Res., 110, A12108, doi:10.1029/
+2005JA011250.
+Webber, W. R., and P. R. Higbie (2003), Production of cosmogenic Be
+nuclei in the Earth’s atmosphere by cosmic rays: Its dependence on solar
+modulation and the interstellar cosmic ray spectrum, J. Geophys. Res.,
+108(A9), 1355, doi:10.1029/2003JA009863.
+Webber, W. R., P. R. Higbie, and K. G. McCracken (2007), Production of
+the cosmogenic isotopes 3H, 7Be, 10Be, and 36Cl in the Earth’s atmo-
+sphere by solar and galactic cosmic rays, J. Geophys. Res., 112, A10106,
+doi:10.1029/2007JA012499.
+
+G. A. Kovaltsov, Ioffe Physical-Technical Institute, Politekhnicheskaya
+26, RU-194021 St. Petersburg, Russia.
+I. G. Usoskin, Oulu Unit, Sodankyla¨ Geophysical Observatory,
+University of Oulu, P.O. Box 3000, FIN-90014 Oulu, Finland. (ilya.
+usoskin@oulu.fi)
+D12107 USOSKIN AND KOVALTSOV: COSMOGENIC BE-7 IN ATMOSPHERE
+12 of 12
+D12107

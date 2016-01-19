@@ -1,0 +1,270 @@
+ProTherm and ProNIT: thermodynamic databases for
+proteins and protein–nucleic acid interactions
+M. D. Shaji Kumar1, K. Abdulla Bava1, M. Michael Gromiha2, Ponraj Prabakaran3,
+Koji Kitajima1, Hatsuho Uedaira4 and Akinori Sarai*
+5 Department of Bioscience and Bioinformatics, Kyushu Institute of Technology (KIT) 680-4 Kawazu, Iizuka,
+820-8502 Japan, 1Advanced Technology Institute, Inc. (ATI), 2-3-13-103 Tate, Shiki, Saitama 353-0006, Japan,
+2Computational Biology Research Center (CBRC), National Institute of Advanced Industrial Science and Technology
+(AIST), AIST TokyoWaterfront Bio-IT Research Building, 2-42 Aomi, Koto-ku, Tokyo 135-0064, Japan, 3Laboratory of
+Experimental and Computational Biology, NCI, NIH, Frederick, MD 21702, USA and 4Tsukuba Materials Information
+10 Laboratory, 3-23-4, Ninomiya, Tsukuba, 305-0051 Japan
+Received September 15, 2005; Revised and Accepted October 14, 2005
+ABSTRACT
+ProTherm and ProNIT are two thermodynamic data-
+bases that contain experimentally determined ther-
+15 modynamic parameters of protein stability and
+protein–nucleic acid interactions, respectively. The
+current versions of both the databases have consid-
+erably increased the total number of entries and
+enhanced search interface with added new fields,
+20 improved search, display and sorting options. As
+on September 2005, ProTherm release 5.0 contains
+17 113 entries from 771 proteins, retrieved from
+1497 scientific articles (20% increase in data from
+the previous version). ProNIT release 2.0 contains
+25 4900 entries from 273 research articles, representing
+158 proteins. Both databases can be queried using
+WWW interfaces. Both quick search and advanced
+search are provided on this web page to facilitate
+easy retrieval and display of the data from these
+30 databases. ProTherm is freely available online
+at http://gibk26.bse.kyutech.ac.jp/jouhou/Protherm/
+protherm.html and ProNIT at http://gibk26.bse.
+kyutech.ac.jp/jouhou/pronit/pronit.html.
+INTRODUCTION
+35 Thermodynamic database for proteins and mutants (Pro-
+Therm) and thermodynamic database for protein–nucleic
+acid interactions (ProNIT) are two comprehensive, integrated
+databases that document experimentally determined thermo-
+dynamic parameters published in the literature. Both ProTherm
+40 (1–4) and ProNIT (5) include several thermodynamic
+parameters along with sequence and structural information,
+experimental methods and conditions, and literature informa-
+tion. Recent years have seen tremendous progress in studies
+on proteins owing to the development of various experimental
+45methods to analyze proteins at the genome scale. The correla-
+tion between structure and thermodynamics of these key
+molecules provides valuable insights into the way in which
+they function. Even though the information is available in
+scientific journals, books (6,7) and literature databases,
+50retrieving useful, specific data from these resources is time
+consuming and laborious. Our major goal in developing these
+databases is to provide the scientific community a single,
+comprehensive data repository, where all the thermodynamic
+data related to protein stability and protein–nucleic acid
+55interactions are available. The availability of such thermodyn-
+amic databases would be a valuable resource for understand-
+ing the protein folding mechanism, protein stability, molecular
+recognition and gene expressions. This can lead to a wide
+spectrum of applications such as developing algorithms/
+60methods for prediction systems, protein engineering and
+quantitative simulation of gene regulatory networks. The ther-
+modynamic data available in ProTherm and ProNIT are
+widely used by researchers to study the underlying mechan-
+isms of protein stability upon mutations and protein–nucleic
+65acid interactions (see the reference sections on both the web-
+sites). This paper describes the major updates and enhance-
+ments to these databases for the last few years.
+CONTENT, ORGANIZATION AND DATA
+COLLECTION
+70Both the databases contain information on protein, mutational
+information, experimental methods and conditions, several
+thermodynamic parameters and literature information.
+*To whom correspondence should be addressed. Tel: +81 948 29 7811; Fax: +81 948 29 7841; Email: sarai@bse.kyutech.ac.jp
+ The Author 2006. Published by Oxford University Press. All rights reserved.
+The online version of this article has been published under an open access model. Users are entitled to use, reproduce, disseminate, or display the open access
+version of this article for non-commercial purposes provided that: the original authorship is properly and fully attributed; the Journal and Oxford University Press
+are attributed as the original place of publication with the correct citation details given; if an article is subsequently reproduced or disseminated not in its entirety but
+only in part or as a derivative work this must be clearly indicated. For commercial re-use, please contact journals.permissions@oxfordjournals.org
+D204–D206 Nucleic Acids Research, 2006, Vol. 34, Database issue
+doi:10.1093/nar/gkj103
+Previous publications (1–5) explain in detail the content and
+organization of the databases. Table 1 summarizes the contents
+of ProTherm and ProNIT. ProTherm and ProNIT are imple-
+mented in 3DinSight (8), a relational database system for
+5 structure, function and property of biomolecules. This facil-
+itates more efficient search and retrieval of data by flexible
+queries, and enables users to gain insight into the relationship
+among structure, thermodynamics and function of proteins.
+We have been collecting the thermodynamic data from pub-
+10 lished original articles, by searching the PubMed literature
+database with a combination of specific terms, as well as
+by searching online journals probably containing thermodyn-
+amic data. The database does not contain any predicted or
+computational interaction data. Researchers then extract the
+15 relevant data from the selected articles. The input data are
+checked automatically by checking programs and also manu-
+ally to avoid errors. Then, we upload the data first to a test site,
+where expert curators check and verify the data. After this
+checking, we upload the data to the public site for users.
+20 Furthermore, an email notification for each input entry is sent
+to the corresponding author, which enables the authors to
+check their own data and thereby improve the data validation.
+DATABASE STATISTICS
+We update both the databases frequently. The current release,
+25 ProTherm 5.0 contains 17 113 entries from 771 proteins,
+retrieved from 1497 scientific articles, which is20% increase
+in data from the last version (4). Currently, the numbers of data
+for wild-type proteins, single, double and multiple mutants are
+7014, 8202, 1277 and 620, respectively. Based on the solvent
+30accessibility of mutants, 4426 mutations are buried, 2687 par-
+tially buried and 2751 exposed. In terms of secondary struc-
+tures, 3993 mutations are in helix, 2622 in strand, 1227 in turn
+and 2467 in coil regions. Majority of data are obtained from
+CD (6825) and DSC (5294) experiments followed by fluores-
+35cence (3628). Further, 10 154 data are obtained by thermal
+denaturation, 3890 and 2796 data from GdnHCl and urea
+denaturation, respectively.
+Currently, ProNIT 2.0 contains 4900 entries from 273
+research papers. There are 158 different DNA-binding pro-
+40teins with 3489 wild-type entries and 1411 mutant entries.
+Majority of data are obtained by gel shift (1316), fluorescence
+(1143) and filter binding (1053), followed by calorimetry
+(727), surface plasmon resonance (185) and footprinting
+(168). Although proteins from a variety of organisms are
+45present in ProNIT, majority of interaction data are from
+Escherichia coli proteins (1625) followed by Mus musculus
+(637) and Homo sapiens (569).
+NEW FEATURES
+There is a growing interest in the relationship between struc-
+50ture and thermodynamics of proteins. Thus, we try to provide
+link from thermodynamic data in ProTherm to structural
+information. So far, ProTherm data are connected to sequence
+and structural information of proteins through 3DinSight. We
+have added a new cross-link between ProTherm and STING
+55(9), a comprehensive analysis tool for proteins with many
+structural descriptors. For given protein mutations searched
+within STING, each entry in STING report is connected to
+available thermodynamic data in ProTherm. Conversely, all
+the ProTherm data with available protein structure have
+60pointers to the corresponding STING entry with detailed struc-
+tural information. This cross-link will greatly facilitate the
+analysis of structure–thermodynamic relationship of proteins.
+The ProTherm page also provides cross-reference tables
+necessary for creating cross-links with PDB (10), PIR (11)
+65and Swiss-Prot (12) databases. We have also added several
+new features in the search interface to make the search more
+efficient and convenient.
+In the current release of ProNIT 2.0, we have included200
+protein–RNA interaction data. To facilitate the retrieval of
+70data based on DNA and RNA separately, we have added a
+new field called TYPE_NUC, where we provide the informa-
+tion about whether the nucleic acid sequence is DNA (single-
+stranded DNA, ssDNA, or double-stranded DNA, dsDNA) or
+RNA. Furthermore, a search option is added to retrieve data
+75based on ssDNA, dsDNA or RNA. The protein nomenclature
+in the literature is not necessarily uniform. Hence, we have
+added a new field, SYNONYMS, in order to address this
+problem. Other additions of field are the SwissProt ID of
+the protein and ‘RELATED_ENTRIES’, which provides the
+80list of entries that contain data from the same paper (the ori-
+ginal paper usually contains multiple data and they are entered
+in different entries). We also provide a link to all homologous
+PDB codes with sequence identity of >95%. Also, display
+Table 1. Contents of ProTherm and ProNIT
+Contents of the databases ProNIT
+ProTherm
+Protein information Protein information
+Name, Source Name, Synonyms
+PIR, SWISSPROT Source, Sequence
+PDB code EC, PIR, SWISSPROT
+EC, PMD number PDB code
+Mutation details Biological unit
+Secondary structure Mutation details
+Accessible surface area (ASA) Secondary structure
+Experimental condition: ASA
+Temperature Nucleic acid information:
+pH Name
+Buffer, Ion Source
+Protein concentration Type (DNA or RNA)
+Measure (DSC, CD and so on) Sequence (wild and mutant)
+Method of denaturation Mutation details
+Thermodynamic data: GenBank Number
+Denaturant denaturation: Complex information:
+Free energy of unfolding: DGH2O PDB code, NDB code
+Difference in DGH2O : DDGH2O Conformation of protein
+Denaturation concentration: Cm Conformation of Nucleic Acid
+Slope of denaturation curve: m ASA
+Temperature: T Experimental condition:
+Thermal denaturation: T, pH, Buffer, Ion, Additives
+Free energy of unfolding: DG Experimental method
+Difference in DG: DDG Binding data:
+Transition temperature: Tm Dissociation constant: Kd
+Change in Tm: DTm Association constant: Ka
+Enthalpy change: DHcal, DHvH Free energy change: DG
+Heat capacity change: DCp Enthalpy change: DH
+Literature: Heat capacity change: DCp
+Reference, Author Literature:
+Keywords, Remarks Reference, Author
+Related entries Keywords, Remarks
+Related entries
+Nucleic Acids Research, 2006, Vol. 34, Database issue D205
+options and sorting options are significantly improved. We
+have supplied the lists of ProNIT entries, protein names, pro-
+tein sources, PDB code, NDB codes (13), authors and refer-
+ences in the advanced search page, along with a new query
+5 help page to help users for easy retrieval of the data. Several
+entries are deleted because of duplication, co-operative bind-
+ing and so on, and the database entries are now renumbered. A
+mapping table, which relates the old and new entry numbers,
+is provided to help old users of ProNIT.
+10 CITATION AND AVAILABILITY
+The URLs for ProTherm and ProNIT are http://gibk26.bse.
+kyutech.ac.jp/jouhou/Protherm/protherm.html and http://
+gibk26.bse.kyutech.ac.jp/jouhou/pronit/pronit.html, respect-
+ively. The users of ProTherm and ProNIT are requested to
+15 cite the references (4) and (5), respectively, in their publication
+including the above URLs. Users who use both the databases
+for their work may cite this article in their publications. Sug-
+gestions and other materials for inclusion in the databases are
+welcome and should be sent to either protherm@rtcmain.bse.
+20 kyutech.ac.jp or pronit@rtcmain.bse.kyutech.ac.jp.
+ACKNOWLEDGEMENTS
+The database development is partially supported by a Grant-in-
+Aid for Publication Scientific Research Results from the Japan
+Society for the Promotion of Sciences (JSPS). We also thank
+25 Advanced Technology Institute Inc. (ATI) for support. Funding
+to pay the Open Access publication charges for this article was
+provided by JSPS.
+Conflict of interest statement. None declared.
+3535 REFERENCES
+1. Gromiha,M.M., An,J., Kono,H., Oobatake,M., Uedaira,H. and Sarai,A.
+(1999) ProTherm: Thermodynamic database for proteins and mutants.
+Nucleic Acids Res., 27, 286–288.
+2. Gromiha,M.M., Uedaira,H., An,J., Selvaraj,S., Prabakaran,P. and
+40Sarai,A. (2002) ProTherm: thermodynamic database for proteins and
+mutants: developments in version 3.0. Nucleic Acids Res., 30, 301–302.
+3. Sarai,A., Gromiha,M.M., An,J., Prabakaran,P., Selvaraj,S., Kono,H.,
+Oobatake,M. and Uedaira,H. (2002) Thermodynamic databases for
+proteins and protein–nucleic acid interactions.Biopolymers,61, 121–126.
+454. Abdulla Bava,K., Gromiha,M.M., Uedaira,H., Kitajima,K. and Sarai,A.
+(2004) ProTherm, version 4.0: thermodynamic database for proteins and
+mutants. Nucleic Acids Res., 32, D120–D121.
+5. Prabakaran,P., An,J., Gromiha,M., Selvaraj,S., Uedaira,H., Kono,H. and
+Sarai,A. (2001) Thermodynamic database for protein–nucleic acid
+50interactions (ProNIT). Bioinformatics, 17, 1027–1034.
+6. Pfeil,W. (1998) Protein Stability and Folding: A Collection of
+Thermodynamic Data. Springer, NY.
+7. Pfeil,W. (2001)Protein Stability andFolding, Supplement1:ACollection
+of Thermodynamic Data. Springer, NY.
+558. An,J., Nakama,T., Kubota,Y. and Sarai,A. (1998) 3DinSight: an
+integrated relational database and search tool for structure, function and
+property of biomolecules. Bioinformatics, 14, 188–195.
+9. Neshich,G., Borro,L.C., Higa,R.H., Kuser,P.R., Yamagishi,M.E.,
+Franco,E.H., Krauchenco,J.N., Fileto,R., Ribeiro,A.A., Bezerra,G.B.
+60et al. (2005) The Diamond STING server. Nucleic Acids Res., 33,
+W29–W35.
+10. Berman,H.M., Westbrook,J., Feng,Z., Gilliland,G., Bhat,T.N.,
+Weissig,H., Shindyalov,I.N. and Bourne,P.E. (2000) The Protein Data
+bank. Nucleic Acids Res., 28, 235–242.
+6511. Cathy,H.W., Yeh,L.L., Huang,H., Arminski,L., Jorge,C.A., Chen,Y.,
+Hu,Z.Z., Ledley,R.S., Kourtesis,P., Suzek,B.E. et al. (2003) The Protein
+Information Resource. Nucleic Acids Res., 31, 345–347.
+12. Boeckmann,B., Bairoch,A., Apweiler,R., Blatter,M.-C., Estreicher,A.,
+Gasteiger,E., Martin,M.J., Michoud,K., O’Donovan,C., Phan,I. et al.
+70(2003) The SWISS-PROT protein knowledgebase and its supplement
+TrEMBL in 2003. Nucleic Acids Res., 31, 365–370.
+13. Berman,H.M., Zardecki,C. and Westbrook,J. (1998) The Nucleic Acid
+Database: a resource for nucleic acid science. Acta Crystallogr. D Biol.
+Crystallogr., D54, 1095–1104.
+D206 Nucleic Acids Research, 2006, Vol. 34, Database issue

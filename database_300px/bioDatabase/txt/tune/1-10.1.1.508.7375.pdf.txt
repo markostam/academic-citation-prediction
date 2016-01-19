@@ -1,0 +1,1129 @@
+Retrieval of ozone and nitrogen dioxide concentrations from
+Stratospheric Aerosol and Gas Experiment III (SAGE III)
+measurements using a new algorithm
+A. V. Polyakov, Y. M. Timofeyev, D. V. Ionov, and Y. A. Virolainen
+Department of Atmospheric Physics, St. Petersburg State University, St. Petersburg, Russia
+H. M. Steele1
+Department of Geography, California State University, Northridge, California, USA
+M. J. Newchurch
+National Space Science and Technology Center, Atmospheric Science Department, University of Alabama in Huntsville,
+Huntsville, Alabama, USA
+Received 25 May 2004; revised 24 November 2004; accepted 13 January 2005; published 31 March 2005.
+[1] We describe a new inversion algorithm developed for the retrieval of atmospheric
+constituents from Stratospheric Aerosol and Gas Experiment III (SAGE III) solar
+occultation measurements. The methodology differs from the operational (NASA)
+algorithm in several important ways. Our algorithm takes account of the finite altitude
+and spectral resolution of the measurements by integrating over the viewing window
+spectrally and spatially. We solve the problem nonlinearly by using optimal estimation
+theory, and we use an aerosol parameterization scheme based on eigenvectors
+derived from existing empirical and modeled information about their microphysical
+properties. The first four of these eigenvectors are employed in the retrieval algorithm to
+describe the spectral variation of the aerosol extinction. We retrieve ozone and nitrogen
+dioxide number densities and aerosol extinction from transmission measurements at
+41 channels from 0.29 to 1.55 mm. In this paper we describe the results of the gas
+retrievals. Numerical simulations test the accuracy of the scheme, and subsequent
+retrievals from SAGE III transmission data for the period between May and October 2002
+produce profiles of O3 and NO2. Comparisons of the O3 and NO2 profiles with those
+obtained using the SAGE III operational algorithm and with those from independent
+measurements made by satellites, ozonesondes, and lidar indicate agreement in ozone
+measurements in the middle and upper stratosphere significantly closer than the natural
+variability and agreement in the lower stratosphere and upper troposphere approximately
+equal to the natural variability.
+Citation: Polyakov, A. V., Y. M. Timofeyev, D. V. Ionov, Y. A. Virolainen, H. M. Steele, and M. J. Newchurch (2005), Retrieval of
+ozone and nitrogen dioxide concentrations from Stratospheric Aerosol and Gas Experiment III (SAGE III) measurements using a new
+algorithm, J. Geophys. Res., 110, D06303, doi:10.1029/2004JD005060.
+1. Introduction
+[2] In solar occultation experiments, the attenuation of
+the sun’s radiation is recorded by satellite instruments as
+the satellite orbits the earth and views the sun during
+each orbital sunrise and sunset. Transmission can be
+recorded at many wavelengths in the ultraviolet through
+the infrared. In this work we consider the Stratospheric
+Aerosol and Gas Experiment III (SAGE III) instrument
+in particular, in which solar transmission is measured in
+87 spectral channels between 290 nm and 1.55 mm
+[SAGE III ATBD Team, 2002b]. Because the satellite
+views the sun along a slant path through the atmosphere,
+the problem of retrieving vertical profiles of the atmo-
+spheric constituents is twofold. Slant path measurements
+at different tangent heights (during a sunrise or sunset)
+can be used together with geometrical considerations to
+give information on the vertical distribution of constitu-
+ents, and, with knowledge of the absorption cross section
+of the atmospheric gases in each spectral channel, the
+Rayleigh contribution to scattering from the air molecules,
+and some information regarding the spectral dependence of
+the aerosol attenuation, spectral information from the array
+of channels can be used to separate the contributions from
+JOURNAL OF GEOPHYSICAL RESEARCH, VOL. 110, D06303, doi:10.1029/2004JD005060, 2005
+1Also at Department of Atmospheric Sciences, University of California,
+Los Angeles, California, USA.
+Copyright 2005 by the American Geophysical Union.
+0148-0227/05/2004JD005060$09.00
+D06303 1 of 15
+each constituent. Thus both spatial and spectral inversions
+must be carried out.
+[3] The errors in the retrieval of these atmospheric con-
+stituents are the result of a variety of factors including
+imperfect knowledge of instrument characteristics (e.g.,
+signal noise, aperture shape, and location of measurement
+channels), imperfect information regarding satellite location
+and measurement time, errors in the a priori information
+(e.g., absorption coefficients of different gases), and the
+inversion method employed (e.g., algorithms for inverting
+the measured transmission data, and methods for determin-
+ing the tangent height and accounting for the Sun’s ‘‘dark-
+ening’’ toward the disk edge). Many of these aspects depend
+on the particular instrument, and those that can be are
+quantified as far as possible before launch.
+[4] In order to separate the contributions of the various
+gases and the aerosols from the total attenuation in each
+channel, some assumption must be made about the optical
+characteristics of the aerosols. In earlier work, an optimal
+parameterization scheme for describing the spectral depen-
+dence of the aerosol extinction was developed and tested in
+a series of simulations in which a wide range of strato-
+spheric aerosol conditions was modeled [Timofeyev et al.,
+2003]. This paper describes the algorithm developed for the
+retrieval of atmospheric gas concentrations, in particular for
+NO2 and ozone. The algorithm is based on work developed
+for and applied to the Ozone-Mir spectrometer on board the
+Mir space station [Poberovskii et al., 1999; Polyakov et al.,
+1999, 2001a].
+[5] We describe our application of this scheme to the
+inversion of transmittance measurements made by the
+SAGE III spectrometer between May and October 2002
+and present vertical profiles of ozone and nitrogen dioxide
+obtained with our algorithm. These retrievals are compared
+with those obtained from the operational (NASA) SAGE III
+algorithm and with independent measurements made by
+other satellite instruments, ozonesondes and lidar.
+2. Retrieval Algorithm
+[6] In a solar occultation experiment, the sun’s radiance,
+J(li, hj), at spectral channel i with wavelength li, is
+recorded as a function of tangent height, hj and given by
+J li; hj
+  ¼
+ZhjþDhj=2
+hjDhj=2
+y J hð Þð Þ
+ZliþDli=2
+liDli=2
+j lð ÞI l;J hð Þð Þ
+ exp t l; hð Þð Þdldh; ð1Þ
+where j and y are the spectral and angular slit functions
+of the device, and Dh and Dl are the altitude and spectral
+resolutions of the device. I(l, J) is the intensity of solar
+radiation at the observation angle, J, and t(l, h) is the
+atmospheric optical depth. The exoatmospheric radiance,
+J0(li), is then given by
+J0 lið Þ ¼
+ZhjþDhj=2
+hjDhj=2
+y J hð Þð Þ
+ZliþDli=2
+liDli=2
+j lð ÞI l;J hð Þð Þdldh: ð2Þ
+The ratio of these two functions gives the slant path
+transmittance of the atmosphere. Assuming that the
+intensity of the solar radiation I(l, J), is constant within
+the width of each channel, this is given by
+T li; hj
+  ¼ J li; hj =J0 lið Þ
+¼
+ZhjþDh=2
+hjDh=2
+y J hð Þð Þ
+ZliþDli=2
+liDli=2
+j lð Þ exp t l; hð Þð Þdldh:
+ð3Þ
+The atmospheric optical depth, t, is given by
+t l; hð Þ ¼
+Z
+S
+k l; z sð Þð Þds
+¼
+Z
+S
+ko3N
+O3dsþ
+Z
+S
+kNO2N
+NO2dsþ
+Z
+S
+aRayleighds
+þ
+Z
+S
+aaerosolds; ð4Þ
+where S is the slant path through the atmosphere at tangent
+height h, ds is an element of this path, z(s) is the altitude of
+the slant path, and k(l, z) is the total coefficient of
+extinction and attenuation due to all gases and aerosols and
+comprises the O3 and NO2 absorption coefficients, ko3 and
+kNO2, and Rayleigh and aerosol extinction coefficients,
+aRayleigh and aaerosol. Equations (3) and (4) are the basis for
+formulating and solving the nonlinear inverse problem with
+respect to retrieving vertical profiles of ozone concentration,
+NO3(z), nitrogen dioxide, NNO2(z), and aerosol extinction,
+aaerosol(z). This method is slow because of the necessity of
+carrying out both spectral and angular integration, and
+differs from the method used for routine processing of the
+SAGE III measurements [SAGE III ATBD Team, 2002b] in
+which it is assumed that the atmospheric transmittance
+function can be approximated by the exponential depen-
+dence from the atmospheric optical depth t(li, hj) averaged
+over discrete spectral intervals li,
+T li; hj
+   exp t li; hj  ; ð5Þ
+so that
+t li; hj
+  ¼  ln T li; hj   ¼
+Z
+S
+k li; z sð Þð Þds; ð6Þ
+where k(li, z) is the mean effective absorption coefficient
+for the spectral interval under consideration at the relevant
+tangent height. Another difference between our inversion
+algorithm (referred to as the SPbSU algorithm) and the
+SAGE III operational (NASA) algorithm is in the treatment
+of aerosols. In our method, the aerosol extinction
+coefficient is approximated by a linear expansion in terms
+of basis functions which were derived from numerical
+modeling using a large database of aerosol size and
+composition. These basis functions are optimal in the sense
+that the fewest number of terms are required to model the
+greatest part of the expected variability in the measured
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+2 of 15
+D06303
+aerosols [Polyakov et al., 2001b; Timofeyev et al., 2003;
+Virolainen et al., 2004] The aerosol extinction coefficient,
+aaerosol(l, z), is thence approximated by the expansion,
+aaerosol l; zð Þ ¼ aaerosol lð Þ þ
+X
+k¼1;4
+ak zð ÞWk lð Þ; ð7Þ
+where aaerosol(l) is the mean function of the spectral
+dependence of aerosol extinction averaged over all
+altitudes, and Wk(l), k = 1, 4 are the first four eigenvectors
+of the spectral covariance matrix. Statistical aerosol models
+were used to define these. These models are based on a
+large database that includes volcanic and background
+aerosols, and aerosols of many different sizes and
+compositions. For a full description see Timofeyev et al.
+[2003]. Thus four parameters, ak(z), must be retrieved to
+describe aerosol extinction at each altitude.
+[7] The Rayleigh contribution to the extinction is calcu-
+lated using well-known formulae on the basis of the tem-
+perature and pressure profiles given in the SAGE III level 1b
+data [SAGE III ATBD Team, 2002a]. The temperature-
+dependent contributions to the total optical depth from
+ozone and NO2 are derived from the O3 and NO2 absorption
+cross sections given by Bass and Paur [1984], Burkholder
+and Talukdar [1994], and Schneider et al. [1987].
+[8] In order to solve the set of equations we discretize the
+continuous altitude functions to a finite dimensional repre-
+sentation using the SAGE III altitude grid (0–100 km with a
+0.5 km step) and combine all (p = 6) parameters to be
+determined in a vector x. This vector thus comprises the gas
+number density vectors, NO3 and NNO2, giving gas concen-
+tration at each altitude, and the four aerosol expansion
+coefficients, ak(z), at each altitude,
+x1; x2; . . . ; x1200ð Þ ¼ NO31 ; . . . ;NO3200;NNO21 ; . . . ;NNO2200 ; a11; . . . ;
+
+a1200; a
+2
+1; . . . ; a
+2
+200; . . . ; . . . ; a
+4
+1; . . . ; a
+4
+200Þ:
+Subscripts refer to the 200 altitude grid points between 0
+and 100 km.
+[9] We solve the retrieval problem through optimal esti-
+mation [Rodgers, 2000]. For this nonlinear problem the nth
+iteration of the solution vector x^n is obtained by iterating
+from the a priori vector xa according to Rodgers [2000],
+Polyakov [1996], and Lumpe et al. [1997],
+x^nþ1 ¼ xa þ S1a þ KTn S1y Kn
+ 1
+KTn S
+1
+y y yn þ Kn x^n  xað Þ½ 
+;
+ð8Þ
+where y = [T(l1, h1), T(l2, h1),. . .., T(lm, h1), T(l1, h2),. . ..,
+T(lm, h2), T(l1, hl),. . .., T(lm, hl)] is the vector of
+transmission measurements at m wavelengths and l altitude
+values. These transmission data have associated with them
+an (ml x ml) covariance matrix Sy, with diagonal elements
+set to be the assumed error variances at each wavelength-
+altitude combination. Off-diagonal elements of Sy are
+assumed to be zero.
+[10] The a priori vector xa was derived from climatolog-
+ical mean profiles [Anderson et al., 1986]. In the case of O3
+a midlatitude summer profile was used, and for NO2, the
+global mean profile. Sa is the (1200  1200) a priori
+covariance matrix, used to constrain the retrieval. Cross
+correlations between components (O3, NO2 and aerosol) are
+assumed to be absent. The a priori covariance matrix, Sa,
+was thus constructed from three diagonal square cells—one
+for each of O3, NO2 and aerosol. For the gases the elements
+of Sa are given by
+S hi; hj
+  ¼ s hið ÞN hið Þs hj N hj  exp  hi  hj
+ 
+r
+ 	
+; ð9Þ
+where N (h) is the mean profile of the gas number density
+and s(h) is its standard deviation (set to be 0.6 N (h) for O3
+and 1.0 N (h) for NO2). r is the correlation radius, which we
+set to 5 km. A priori information for the aerosols (mean
+profiles and the covariance matrix of ak(z)) and the quasi-
+empirical orthogonal basis set, Wk(l), were determined by
+numerical simulation of the aerosol variability [Polyakov et
+al., 2001a; Timofeyev et al., 2003; Virolainen et al., 2004].
+The (ml  pl) kernel (or Jacobian) matrix Kn is the
+derivative of the transmission with respect to the (pl)
+retrieval parameters, x:
+Kn ¼ @T
+@x
+
+x¼xn
+: ð10Þ
+These elements are derived from the forward model (3)
+which relates the transmission, T, to the gas concentrations
+through (4). Kn was calculated numerically at each iteration
+using exact analytical expressions. Iteration is allowed to
+proceed until a convergence criterion is met based upon the
+smallness of the difference xk+1  xk. According to theory
+(assuming normally distributed random errors) the uncer-
+tainty in the retrieval parameters is then given by the
+covariance matrix of the solution errors, S^:
+S^ ¼ S1a þ KTS1y K
+ 1
+: ð11Þ
+[11] In reality convergence is difficult to achieve as the
+steps tend to oscillate around the solution. Thus an extra term
+was added to the function to be minimized on the basis of
+the difference, xk+1  xk, to help in reaching convergence.
+The details of this are described in Appendix A. The retrieval
+of vertical profiles of ozone, nitrogen dioxide, and aerosol
+extinction was carried out as described above using 41
+channels of the SAGE III measurements. We omitted the
+290 nm and 384 nm channels, which we believe may
+overestimate transmittance below 55 km and below 30 km
+respectively, and also omit from consideration the oxygen
+and water vapor bands at 758–770 nm and 933–960 nm.
+[12] One of the important characteristics of remote sens-
+ing measurements is the vertical resolution of the retrieved
+atmospheric constituents. This vertical resolution is deter-
+mined not so much by the altitude grid applied in the
+retrieval as by the peculiarities of radiation transfer through
+the atmosphere in the region of interest—in our case, by the
+spatial distribution in altitude of the attenuating atmospheric
+layers. The algorithm for solving the inverse problem also
+influences to some degree the vertical resolution of the
+retrievals. To determine the vertical resolution in our case,
+we calculated the widths of the averaging kernels [see, e.g.,
+Rodgers, 2000] for the inverse operator of our retrieval
+algorithm. These values were close to 1.5 km, even though
+we use an altitude step of 0.5 km in the retrievals. Thus
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+3 of 15
+D06303
+laminated structures with a width of less than about 1.5 km,
+which might occur in the gas profiles, will not be seen in
+our retrieved profiles since such fine structured oscillations
+will be smoothed out with a sliding average over a width of
+about 1.5 km.
+3. Numerical Simulations
+[13] In order to study the potential errors associated with
+using our algorithm to retrieve the gaseous and aerosol
+composition of the atmosphere from SAGE III transmission
+data [SAGE III ATBD Team, 2002a], we carried out a
+number of closed-loop numerical simulations as described
+in detail by Polyakov and Timofeyev [2003a, 2003b]. A base
+model of the atmosphere was generated from three different
+mean climatic ozone profiles, one for each of the tropics, the
+middle latitude winter, and the subarctic winter. A mean
+global profile was used for NO2, and a background aerosol
+extinction profile was generated from an ensemble of
+aerosol size distributions [Polyakov et al., 2001b; Timofeyev
+et al., 2003]. Typical profiles of temperature and pressure
+were taken from SAGE III data. Atmospheric transmittance
+functions for this base model at the SAGE III measurement
+channels were then generated using our forward model, and
+measurement error estimates from a typical SAGE III event
+added to these using a random number generator. These
+transmittance functions were then used as input to the
+inverse problem and the retrieved O3, NO2 and aerosol
+extinction profiles compared with the exact (known) values
+to estimate retrieval errors. This cycle of calculating the
+forward model and performing the inverse task was repeated
+with a variety of atmospheric conditions to evaluate the
+performance of our scheme and the propagation of experi-
+mental error into the results.
+[14] Table 1 lists the different atmospheric conditions
+used in the numerical experiments and the corresponding
+retrieval errors. The last column of the table gives the chi-
+square statistic which measure the goodness of the fit, and is
+given by
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+1
+ml
+X
+i;j
+Tmeas li; hj
+  Tcalc li; hj 
+si;j
+ 	2vuut , where Tmeas and
+Tcalc are the measured and modeled transmittances, and sij
+are the estimated errors in the measured transmittances. For
+retrievals which meet the error criteria exactly, the chi-
+square statistic has the value 1.
+[15] Row 0 corresponds to the base model described
+above. For this case, the O3 retrieval errors are approxi-
+mately 5% throughout the stratosphere and mesosphere, and
+for NO2 the errors are 6% between 20 and 45 km. The next
+simulation shows the result of doubling the NO2 content.
+This change leads to a decrease in the NO2 relative retrieval
+error from 6 to 3.4% and no change in the O3 retrieval error.
+Subsequent rows show the influence of varying the noise
+realization from the standard used in the base model,
+changing the aerosol loading and parameterization, and
+introducing an error in the altitude. Row 2 shows the
+influence of a different noise assignment to the measure-
+ments; row 3 uses a more turbid atmosphere—which affects
+not only the aerosol extinction error but also increases gas
+retrieval errors to 12% for stratospheric ozone and 8.6% for
+NO2 as a result of the decrease in atmospheric transmit-
+tance. Row 4 shows the case of a different background
+aerosol, and produces similar errors to the base model.
+Rows 5 and 6 show the effect on the retrieval errors, of
+reducing the number of independent parameters describing
+the aerosol extinction (the number of terms in equation (7)).
+In row 5, the solution of the inverse problem is performed
+using only three rather than four parameters, in row 6 this is
+further reduced to just two parameters. It is seen that
+decreasing the number of parameters to three has little
+effect on the retrieval errors, but the tightening of the
+constraint increases the systematic errors (or relative resid-
+ual). The fit is still relatively good with three parameters,
+but with only two parameters, the fit is much worse.
+Retrieval errors have increased for all the constituents,
+and in addition, the normalized residual in the fit is very
+large, some nine times larger than the other cases presented
+here. These analyses testify to the inadequacy of a two-
+parameter model in describing aerosol extinction. In rows 7
+and 8, the influence of measurement accuracy on retrieval
+errors is analyzed. Transmittance errors at all wavelengths
+were increased (in row 7) and decreased (in row 8) by a
+factor of two relative to those of the base model (which
+were taken from a sample SAGE III measurement and are
+applied in all cases unless otherwise specified). Such error
+changes affect the retrieval errors in the atmospheric con-
+Table 1. Errors Associated With Retrieving the Atmospheric Constituents and the Chi-Square Statistic in the Fits
+Model Number Atmospheric Model
+Retrieval Errors
+Chi-Square
+Statisticb
+Aerosol Extinction
+Coefficient,a km1
+Ozone (12–40 km),
+Relative Error, %
+Ozone (40–70 km),
+Relative Error, %
+NO2 (20–45 km),
+Relative Error, %
+0 Base model 0.64E-4 5.4 4.9 6.0 0.96
+1 NO2*2, 0.65E-4 5.4 4.9 3.4 0.96
+2 NO2*2, noise
+c 0.65E-4 5.4 4.9 3.4 0.96
+3 Aerosol 42d 0.14E-3 12 5.4 8.6 0.98
+4 Aerosol 48d 0.69E-4 5.6 5.0 8.3 0.97
+5 Aerosol 48,d three vectors 0.66E-4 5.6 6.1 7.8 1.07
+6 Aerosol 48,d two vectors 0.13E-3 9.1 15 60 9.0
+7 Measurement error*2 0.84E-4 7.4 5.9 6.8 0.97
+8 Measurement error/2 0.44–4 3.9 4.0 5.0 0.96
+9 He 0.5 0.18–3 9.6 12.4 16.8 1.01
+aRead 0.64E-4 as 0.64  104.
+bChi-square statistic is given by
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+1
+ml
+X
+i;j
+Tmeas li ; hj
+  Tcalc li ; hj 
+si;j
+ 	2vuut . (See text.)
+cThis is a different noise assignment (covariance matrix Sy) than the standard one used.
+dThese are model numbers taken from Polyakov et al. [2001b]. Model 42 corresponds to a heavy aerosol loading and model 48 to background aerosol.
+eAll heights have been increased by 0.5 km.
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+4 of 15
+D06303
+stituents, but not unreasonably. In the last row, the influence
+of an error introduced into the measurement referencing
+height is tested by increasing all tangent heights by 0.5 km.
+Such an error leads to a dramatic and potentially serious
+increase in the errors associated with solving the inverse
+problem.
+4. SAGE III Retrievals
+[16] In this section we describe retrievals of O3 and NO2
+from SAGE III measurements made between May and
+October 2002. In the mesosphere, our ozone retrievals are
+compared with measurements made by the CRISTA [Kostsov
+et al., 2004] and HALOE [Bruhl et al., 1996] (data from
+http://haloedata.larc.nasa.gov/) satellite instruments, clima-
+tological model profiles, and SAGE III ozone retrievals
+obtained via NASA’s operational algorithm. In the strato-
+sphere, we compare our retrievals with those of the SAGE III
+operational algorithm and with independent measurements
+made by ozonesondes, lidar, and HALOE. SAGE III
+retrievals yield number density, so this unit is employed in
+comparisons with independent measurements wherever
+these also employ number density. Where comparison data
+are available only in mixing ratio, the SAGE III data are
+converted using the meteorological data supplied for each
+occultation.
+[17] For the period between May and October 2002, for
+which we obtained the SAGE III transmission data, we
+located independent measurements within 550 km and
+24 hours. This search yielded some 52 O3 profiles from
+11 ozonesonde stations (WMO World Data Center for
+Ozone and Ultraviolet Radiation, ftp://ftp.tor.ec.gc.ca),
+23 O3 profiles from 5 lidar stations (http://nadir.nilu.no)
+and 147 HALOE O3 and NO2 profiles [Bruhl et al., 1996].
+Because the SAGE III inversion algorithms do not account
+for spatial inhomogeneity resulting from diurnal changes,
+we restricted our comparisons with HALOE data to local
+sunset only cases. This significantly reduced the number of
+coincidences from 147 to 43. In addition, CRISTA measure-
+ments [Kostsov et al., 2004] were obtained for validation of
+mesospheric ozone. These independent measurements are
+listed in Table 2.
+4.1. Ozone Retrievals
+[18] In the SAGE III spectral range, ozone absorbs in two
+diapasons—in the shortwave range between 290 and 330 nm
+and in the visible, with a maximum at 600 nm. The UV
+absorption band can be used to obtain ozone concentrations
+at tangent heights of 100–40 km. Below this, the atmosphere
+becomes opaque as a result of molecular scattering and
+ozone absorption. The Chappuis band (600 nm) is weaker
+and can be used below 50–60 km. As distinct from the
+SAGE III operational algorithm, in which the shortwave
+range is used for altitudes above 50 km, and the longwave
+range, for altitudes below 50 km, in our algorithm all
+wavelengths are considered simultaneously—with the
+exception of the 290 nm channel which is included only at
+altitudes above 55 km.
+[19] Figure 1 shows examples of the ozone profiles
+retrieved from the SAGE III data using our inversion
+scheme and demonstrates the spatial-temporal variability
+of O3 profiles from 54S to 79N between May and
+October. Fine structure is seen in the profiles, as is a
+secondary maximum in the polar profile, and the meso-
+spheric minimum at 70–80 km.
+[20] In Figure 2 we show a comparison of the mean
+retrieved profile obtained from 16 SAGE III events taken in
+July 2002 between 43N and 47N using the SPbSU
+algorithm, with July models at latitudes of 40N and
+50N [Keating et al., 1989]. The models give very close
+agreement with our retrievals.
+[21] In the mesosphere, we used CRISTA profiles derived
+from infrared limb spectra between 4 and 12 November
+1994 for comparison with our retrievals. The CRISTA O3
+profiles at 50–100 km were derived using a special algo-
+rithm which does not assume local thermodynamic equilib-
+rium [Kostsov et al., 2004]. Because of the large temporal
+differences in the measurements we can compare only mean
+profiles and their variances. To make the geometrical
+configuration as close as possible, we used only those
+CRISTA measurements taken during sunrises and sunsets
+at zenith angles of 80–100. These measurements were
+made at latitudes of 41N–63N and 16S–53S. The mean
+Table 2. Independent Measurements by Month and Latitude Zone
+Number of Measurements
+Sondes Lidars HALOE
+HALOE
+Local Sunset
+Latitude Zone
+42.94N–53.30N 40 14 0 0
+65.55N–79.47N 4 6 87 0
+46.83S–54.54S 8 3 60 43
+Month
+May 10 3 0 0
+June 13 3 0 0
+July 17 7 0 0
+Aug. 4 1 35 31
+Sept. 0 5 99 12
+Oct. 8 4 13 0
+Figure 1. Some example ozone profiles retrieved from
+SAGE III transmission data using the SPbSU algorithm.
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+5 of 15
+D06303
+of these profiles was compared with SAGE III data for the
+May–October 2002 time period at latitudes of 43N–69N,
+47S–54S. In Figure 3 we show the comparison. Both
+profiles show a minimum in the ozone number density at
+80 km, and coincide very closely at 55–65 km. At all
+altitudes, the mean profiles overlap within the standard
+deviation of the data but there are some differences between
+them. Above 65 km, SAGE III gives lower values of O3
+number density. Below 65 km, the opposite holds. There is
+also a small difference in the altitude of the O3 minimum at
+8085 km. Bearing in mind the natural O3 variability and
+the large temporal measurement difference (8 years), the
+measurements are in reasonable agreement.
+[22] HALOE mesospheric ozone measurements were also
+compared with SAGE III. As mentioned above, 147 HALOE
+profiles collocated in time and space with SAGE III
+data were obtained. However, this comparison includes both
+sunrise and sunset occultations. Because the SAGE III
+algorithms assume horizontal homogeneity and do not
+account for the inhomogeneity introduced by diurnal varia-
+tions, we chose to compare only those local sunset obser-
+vations, which reduces the number of comparisons to 43.
+Figure 4 shows a comparison of the mean of these profiles
+with the mean O3 profiles retrieved from SAGE III mea-
+surements by the two algorithms, SPbSU and the opera-
+tional (NASA) algorithm (SAGE III level 2 data). The
+horizontal lines show the standard deviation in the HALOE
+data. These data agree well in the lower mesosphere where
+RMS differences between the SAGE III algorithms and
+HALOE are less than 20%. Above 65 km, the differences
+increase, reaching as much as 100% in the middle meso-
+sphere, but then dropping off slightly at higher altitudes. At
+70–80 km there is a minimum in the ozone and although
+the difference in the means of the three profiles is quite
+small (Figure 4 (left)), the relative RMS deviation between
+SPbSU and HALOE shown in Figure 4 (right) reaches a
+maximum value of over 100% here. This discrepancy
+indicates significant differences between individual profiles
+at this altitude. However, the smallness of the absolute value
+serves to increase the relative error significantly. At 80–
+90 km the RMS relative differences decrease to around 40–
+80% as a result of the increase in the absolute value of the
+ozone mixing ratio. Comparing SPbSU retrievals with the
+SAGE III algorithm, differences are small below 65 km, but
+increase significantly in the upper mesosphere above 75 km.
+The SPbSU algorithm gives better agreement with HALOE
+than the SAGE III operational algorithm at these high
+altitudes. Differences arise for a variety of reasons, but
+most notably because retrieval errors increase with altitude.
+Also, diurnal effects which are treated in the HALOE
+algorithm, but not in the SAGE III algorithms are more
+important at higher altitudes.
+[23] There are more opportunities for comparisons of
+SAGE III ozone data in the stratosphere. In addition to
+satellites, there are networks of ozonesonde and lidar
+stations. These stations are part of the World Ozone and
+Ultraviolet Radiation Data Center (WOUDC) and the data
+are accessible online (http://www.msc-smc.ec.gc.ca/woudc).
+Fifty-two ozonesonde profiles were chosen for validation of
+our SAGE III retrievals. These measurements provide
+ozone partial pressure and the corresponding air pressure
+and temperature profiles, which allow for conversion to
+ozone number density. An example comparison of a single
+SAGE III profile with an ozonesonde measurement is given
+in Figure 5. The fine structure in the ozone profile (in
+particular, a secondary maximum at 13–14 km, and a step
+near 21–23 km) is well resolved. At altitudes above 16 km
+the difference in the profiles is less than 10%, but increases
+significantly below this altitude because of the smaller
+ozone concentration in the lowest part of the stratosphere.
+Figure 2. Comparison of mean model profiles for July at
+40N and 50N with the mean SPbSU profile for July for 16
+events between 43N and 47N.
+Figure 3. Comparison of mean profiles of ozone number
+density retrieved from CRISTA and SAGE III data.
+Horizontal segments show the standard deviation in the
+measurements.
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+6 of 15
+D06303
+[24] In Figure 6 we show a comparison between a lidar
+profile from Hohenpeissenberg and retrievals performed by
+the SPbSU and operational (NASA) algorithms from
+SAGE III data. The lidar and SAGE data locations are only
+18 km and 1 hour apart. The two satellite retrievals agree
+closely in magnitude and in fine structure and differ by
+±10% from the lidar for most of the stratosphere. The largest
+difference with the lidar profile, of 30%, occurs at an altitude
+of 17 km. Because of the similarity in the two SAGE III
+retrievals this suggests some real differences between the
+ozone profiles measured by the two instruments. It is
+possible that the averaging of the SAGE III data over the
+slant path through the atmosphere and horizontal ozone
+variations produce some differences between the ozone
+measurements.
+[25] In Figure 7, we show the statistical summary of our
+comparisons between all the ozonesonde profiles, and the
+SAGE III data retrieved via the SPbSU and operational
+algorithms. The natural variability of the ozonesonde mea-
+surements (standard deviation in profiles), together with the
+Figure 4. (left) Comparison of ozone mean mixing ratio profiles from local sunset-coincident
+measurements of HALOE and SAGE III (operational and SPbSU algorithms). Horizontal segments show
+the standard deviation of HALOE profiles. (right) RMS difference between the SAGE III and HALOE
+profiles.
+Figure 5. Comparison of an ozonesonde profile from Payerne and the SPbSU and the operational
+algorithms profile retrieved from the closest SAGE III event (ID 302420, taken on 19 July 2002 at 1911,
+location 44.56N, 5.87E). The distance between measurements is 220 km, and the time difference is
+8 hours.
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+7 of 15
+D06303
+mean and RMS differences between the SAGE III data and
+these measurements are shown. Because of the differences in
+time and space between sets of measurements, differences
+between the ozone profiles have at least two sources—
+natural spatial-temporal variability within the limits of our
+collocation criteria, and the difference between the observa-
+tion methods. The relative importance of these two factors
+changes with altitude.
+[26] At 10–35 km, there is an overestimate of the ozone
+number density by the SAGE III retrieved profiles in
+Figure 6. Comparison of a SAGE III ozone profile (ID 221720, on 21 May 2002 at 1849, location
+47.69N, 10.83E) from the SPbSU and the operational algorithms with a lidar profile from
+Hohenpeissenberg. Profiles were measured 18 km and 1 hour apart.
+Figure 7. Statistics of the differences between the SAGE III ozone profiles retrieved by the SPbSU
+algorithm and ozonesonde data.
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+8 of 15
+D06303
+comparison with the ozonesonde data. There is little differ-
+ence between the random component (RMS) of the differ-
+ence at 25–35 km and the mean difference, which suggests
+that most of the difference arises from a real systematic
+difference between the profiles in this altitude region. In the
+15–35 km altitude range, the natural profile variability is
+significantly greater than the RMS difference between the
+retrieved and measured profiles. Thus the SAGE III satellite
+measurements provide new information on the ozone con-
+tent at these altitudes. Below 15 km, the RMS difference
+increases and approaches the natural variability of the
+ozonesonde measurements, so SAGE III contributes com-
+parable accuracy at these low altitudes. The retrievals
+obtained via the two different SAGE III algorithms show
+very similar statistics in comparison to the ozonesonde data.
+[27] Ozone number density profiles obtained from 23
+lidar soundings are compared with collocated SAGE III
+events in Figure 8. Presented here are the statistics of this set
+of comparisons showing the mean and RMS differences
+between the lidar data and those obtained for the SPbSU
+algorithm and the operational algorithm applied to the same
+SAGE III data. Also shown is the standard deviation (RMS
+variability) of the lidar data. At 20–40 km, there is a
+systematic overestimation of ozone values by both algo-
+rithms using SAGE III data in comparison with lidar data,
+but the overestimate is only about half of what it was for
+ozonesondes. No systematic difference exists between the
+satellite and lidar profiles at 15–20 km but below 15 km
+the satellite data again exceed the lidar data. In general, the
+patterns of mean and RMS difference are very similar for
+the two SAGE III retrieval algorithms, but below 15 km the
+biases in the two algorithms are opposite from each other.
+The altitude dependence of the RMS differences is similar
+for lidar and the ozonesondes above 15 km and these
+differences are smaller than the natural variability of the
+data. At 20–35 km the RMS differences are a factor of 2–
+3 smaller than the standard deviation of the data.
+[28] It is instructive to see how well the ozonesonde and
+lidar data agree with each other. When data from seven
+collocated ozonesonde and lidar measurements were com-
+pared (Figure 9), no systematic differences were found
+between them between 20 and 33 km. In this altitude range,
+the RMS difference between profiles was also small—less
+than 10%. However, below 15 km both systematic and
+RMS differences became much larger, increasing to 60
+and 80% respectively at 12 km. This level of agreement
+suggests that a real part of differences seen between
+measurements at these altitudes in the lowest part of the
+stratosphere is a result of natural (spatial and temporal)
+ozone variability at these altitudes, and does not occur only
+in satellite experiments as a result of the problem of
+separating aerosol and ozone contributions to extinction.
+Satellite measurements give average values over a horizon-
+tal path of 200–400 km depending on the measurement
+altitude. Ozonesonde measurements are made in situ with a
+vertical resolution of approximately 100 m and can deviate
+from their launch location by 100–200 km. Lidar measure-
+ments are normally performed looking vertically upward
+and thus have very high spatial resolution in the horizontal.
+If the ozone field is horizontally homogeneous then the
+effect of differences in the exact location and the spatial
+resolution for the different methods is very small, and one
+would expect the comparisons to be good—as is the case for
+the middle and upper stratosphere. However, in the lower
+Figure 8. Statistics of the differences between the SAGE III ozone profiles retrieved by the SPbSU
+algorithm, the SAGE III operational algorithm, and the lidar measurements.
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+9 of 15
+D06303
+stratosphere the ozone field is highly variable and often
+horizontally inhomogeneous. This variability leads to dif-
+ferent ozone values derived from different measurement
+methods. This problem causes serious difficulties in vali-
+dating satellite measurements in the lower stratosphere
+under conditions of horizontal inhomogeneity of the ozone
+field. Similar effects would also be expected in the middle
+stratosphere if ‘‘ozone holes’’ are present. For a true
+validation of the SAGE III ozone measurements in the
+lower atmosphere, it is necessary to tighten the collocation
+criteria applied, or schedule specific ground truth missions.
+[29] SAGE III ozone profiles retrieved using the SPbSU
+algorithm have also been compared with HALOE strato-
+spheric ozone profiles for SAGE III local sunset events
+collocated in time (within 24 hrs.) and space (550 km) with
+43 HALOE measurements. HALOE employs solar occulta-
+tion in the infrared to infer atmospheric gas and aerosol
+loadings. The results of the comparisons are shown in
+Figure 10. Mean differences between the two data sets are
+less than 10% in the wide range of altitudes between 16 and
+45 km, with SPbSU retrievals from the SAGE III measure-
+ments giving the larger values. The RMS differences
+between 20 and 45 km are less than 20%. Below 20 km,
+the differences increase significantly because of the higher
+ozone variability and the higher aerosol content which leads
+to a smaller signal-to-noise ratio for ozone.
+[30] It is instructive to examine the degree to which the
+ozone retrievals are influenced by the inversion algorithm.
+In Figure 11, we present the mean SAGE III stratospheric
+ozone profiles obtained from the SPbSU and NASA algo-
+rithms for the complete set of 157 events available between
+May and October 2002, the absolute and relative RMS
+differences between the retrievals and the mean difference
+between them. Between 15 and 50 km the RMS difference is
+less than 8% and is only 4–5% between 20 and 40 km. There
+is a small (about 2%) systematic difference between them
+throughout most of the stratosphere, with the SPbSU algo-
+rithm retrieving slightly lower values. At 10–13 km the
+RMS difference increases greatly, and, as can be seen in
+Figure 11 (left), exceeds 100% at low altitudes. Differences
+between the retrievals may be accounted for by the differ-
+ence in the ozone absorption coefficients used, and at lower
+altitudes the differences are likely attributable to the differ-
+ence in the way that aerosols are accounted for in the two
+algorithms, because aerosols dominate the extinction at these
+low altitudes. In the operational algorithm, the atmospheric
+transmittance function is approximated from the optical
+depth averaged over the spectral intervals (equations (5)
+and (6)) as opposed to the SPbSU method in which
+the integration is performed within each spectral interval
+(equations (3) and (4)).
+4.2. Nitrogen Dioxide
+[31] To validate the NO2 retrievals, we compared our
+retrievals with those profiles of coincident HALOE local
+sunset events using the same set of measurements (43
+SAGE III and HALOE occultation events) as we used for
+the ozone validation. As in the case of ozone we restricted
+our comparisons with HALOE measurements to local
+sunset only events to limit differences which might arise
+as a result of differing treatment of diurnal effects in the
+SAGE III and HALOE algorithms. In Figure 12 we show an
+example comparison of a single retrieval. Figure 12 shows
+the NO2 profile measured by HALOE and one retrieved
+Figure 9. Statistics of the differences between ozonesonde and lidar measurements.
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+10 of 15
+D06303
+Figure 10. Comparison of SAGE III SPbSU ozone retrievals with HALOE.
+Figure 11. Comparison of SAGE III ozone profiles retrieved from the operational algorithm with those
+from the SPbSU algorithm.
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+11 of 15
+D06303
+from the same SAGE III transmission data for the opera-
+tional SAGE III algorithm and for our (SPbSU) algorithm.
+The forms of the three retrievals are similar at all altitudes
+but there are large differences between the magnitudes of
+the NO2 mixing ratios at most altitudes. Horizontal line
+segments in Figure 12 show the estimated errors in our
+retrieval. (For clarity, estimated errors from SAGE III and
+HALOE are not shown, but errors from HALOE are similar
+to those shown, and for SAGE III they are significantly
+larger.) The differences between the profiles exceed the
+combined estimated errors at many altitudes. The SPbSU
+algorithm retrieves lower NO2 concentrations than HALOE
+and SAGE III throughout most of the stratosphere. This
+result holds for the intercomparisons in general, and is
+evident in Figure 13, where we show the mean differences
+between HALOE and the SPbSU algorithm for all the
+coincident local sunset events. In Figure 13, we have
+compared only local sunset events in order to minimize
+differences which may be caused by the different (or lack
+of) treatment of diurnal effects in the algorithms
+[Newchurch et al., 1996]. Note, however, that these diurnal
+corrections are unimportant above 25 km and maximize at
+only 20% at about 20 km. In the statistics of the NO2
+intercomparisons between SPbSU and HALOE shown in
+Figure 13 it is clear that the shapes of the mean profiles are
+in good general agreement. In the NO2 layer between 25
+and 40 km the mean difference is mostly less than 20%,
+peaking at around 40% close to 30 km. The RMS differ-
+ence between the two is similar but a little larger, 20–35%,
+and mimics the variance in the HALOE and SPbSU
+retrievals.
+[32] Going back to the single event shown in Figure 12,
+the SAGE III operational algorithm produces higher con-
+centrations than the SPbSU algorithm. This result appears to
+be systematic and carries over to the mean of all the profiles
+we compared (addressed in Figure 14.) In Figure 14, we
+show a comparison of the SAGE III NO2 profiles retrieved
+by the SPbSU and by the operational algorithm for the set of
+coincident profiles. This comparison suggests a systematic
+difference in the retrievals, with the operational algorithm
+producing values consistently higher. Mean differences in
+NO2 between SAGE III and SPbSU retrievals are 20–30%
+throughout the main stratospheric layer (Figure 14 (right)).
+RMS differences are close to the mean differences and
+exceed them by less than 5%.
+[33] The agreement between the NO2 profiles obtained
+from HALOE and from SAGE III shows significant sensi-
+tivity to the retrieval algorithm employed. This will be
+examined in more detail in future investigations that will
+include the extension of our algorithm to the treatment of
+diurnal effects and thus allow for a closer comparison of the
+HALOE and SAGE III data.
+5. Summary
+[34] A new algorithm has been independently developed
+for the retrieval of atmospheric gas concentrations and
+aerosol extinction from the SAGE III transmission data.
+This new algorithm differs from the NASA operational
+algorithm in several key aspects—(1) the algorithm takes
+into account the finite altitude and spectral resolution of
+measurements by integrating over the width of the viewing
+window spatially and spectrally; (2) the inverse problem is
+solved nonlinearly using the optimal estimation algorithm;
+and (3) the aerosol extinction is parameterized by an
+optimal expansion using the eigenvectors of the aerosol
+extinction correlation matrix. This matrix was constructed
+via numerical simulation for a large database of models of
+Figure 12. Comparison of the retrieved NO2 profiles from the SPbSU algorithm, the SAGE III
+operational algorithm, and HALOE. The SAGE III data corresponds to event 373510, taken on
+9 September 2002, at 55S, 29W. SAGE III and HALOE measurements were 463 km and 17 min apart.
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+12 of 15
+D06303
+Figure 13. (left) Comparison of SAGE III NO2 local sunset retrievals using the SPbSU algorithm with
+NO2 retrievals from HALOE and (right) mean and RMS difference between the SPbSU SAGE III and
+HALOE profiles.
+Figure 14. Comparisons of NO2 profiles retrieved from SAGE III measurements using the SPbSU
+algorithm with those using the operational algorithm.
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+13 of 15
+D06303
+stratospheric and tropospheric aerosol [see Timofeyev et al.,
+2003].
+[35] In order to assess the potential accuracy of the
+retrieval of atmospheric parameters by our algorithm,
+closed-loop numerical experiments were performed taking
+into account the SAGE III random measurement noise.
+These simulations produced errors in retrieving ozone of
+5% on average in the altitude range of 12–70 km,
+increasing outside this range. The mean errors in retrieving
+NO2 concentration were 6–8% at altitudes of 20–45 km.
+The optimal number of eigenvectors in the expansion of the
+aerosol extinction coefficient was determined to be 4. Errors
+in the assignment of tangent height have a strong influence
+on the errors in retrieving the atmospheric parameters, and
+can increase the error by two to three times for a height error
+of 0.5 km.
+[36] Extensive comparisons of our retrievals with those
+from other satellites, ozonesondes, and lidar were made. In
+addition, the results from our algorithm were compared with
+those of the SAGE III operational algorithm. Comparison of
+ozone profiles with ozonesonde measurements (collocated
+in time (within 24 hours) and space (within 550 km))
+demonstrated good agreement (better than 10–20%) in the
+middle and upper stratosphere. In the lower stratosphere and
+upper troposphere, the disagreement was greater and could
+be 40% or more. At altitudes of 25–35 km the RMS
+differences between the satellite and the ozonesonde mea-
+surements were two to three times less than ozone natural
+variability. However, in the lower stratosphere and upper
+troposphere, the RMS difference was almost as great as the
+natural variability.
+[37] In most cases, our retrieved ozone data were found to
+be in good agreement with the lidar measurements (within
+5–20% at altitudes of 17–40 km). Below 17 km, the
+differences increased. Satellite measurements recovered
+the fine structure in the ozone vertical profiles well. At
+altitudes of 15–35 km the RMS satellite-lidar differences
+were 1.5 to 3 times the natural ozone variability. At lower
+altitudes these values were essentially equal.
+[38] Comparisons of retrieved ozone with the HALOE
+data demonstrated good agreement. On average, differences
+between individual retrievals did not exceed 10–20%.
+Typical differences were less than 10%, well within the
+sum of the estimated errors in both measurements.
+[39] Because ozone concentrations from SAGE III showed
+large differences from ozonesonde and lidar measurements
+in the lowest part of the stratosphere, it was instructive to
+investigate howwell these independent lidar and ozonesonde
+measurements agreed with each other. We compared these
+using the same collocation criteria (within 550 km and
+24 hours) and found that mean and RMS differences were
+3–6% at 17–32 km. Below 17 km differences increased up
+to 20–60% for the mean and 80% for the RMS. Thus it
+appears that large differences in ozone observed below 15–
+17 km are not necessarily due to the satellite retrieval but
+exist between other sets of measurements also.
+[40] SPbSU retrievals of NO2 vertical profiles demon-
+strated spatial-temporal variations that are in good agree-
+ment with NO2 seasonal and latitudinal models. Comparison
+of SPbSU NO2 retrievals with HALOE measurements
+showed good agreement in general, but in a number of cases
+the differences are considerable. Mean differences between
+the two satellite measurements were 520% and RMS
+differences, less than 20% above 18 km. In the lower
+stratosphere, mean and RMS differences increased up to
+30% and 45%, respectively. SAGE III NO2 retrievals using
+the operational algorithm differ systematically from those
+using the SPbSU algorithm (see Figure 14) with mean and
+RMS differences of 2040%.
+Appendix A: Convergence in the Solution of the
+Optimal Estimation Problem
+[41] The solution of the inverse problem through optimal
+estimation, generalized to nonlinear problems, is that of
+finding x^ to minimize the function F(x^),
+F x^ð Þ ¼ B x^ð Þ  yk k2S1y þ x^ xak k
+2
+S1a
+; ðA1Þ
+where B is the forward operator acting on parameters, x^, and
+y is the set of measurements. To avoid problems in
+achieving convergence (due to the nonlinearity), we used
+the minimization of F1(xk+1) [Polyakov, 1996],
+F1 xkþ1ð Þ ¼ B xkþ1ð Þ  yk k2S1y þ xkþ1  xak k
+2
+S1a
+þ xkþ1  xkk k2L1 :
+ðA2Þ
+Here xk and xk+1 are consecutive approximations to the
+solution. L is any positive determined matrix. The notation,
+~J
+ 
+C1 , in equations (A1) and (A2) above denotes the scalar
+product (~J , C1~J ). When the iterative process converges,
+the last term in (A2) is equal to zero and the solution of (A2)
+coincides with that of (A1).
+[42] To choose the matrix L, we used the following
+algorithm. Matrix L is represented as the product L = l 
+L0, where l is a positive number and L0 is the diagonal
+matrix with the diagonal set equal to the diagonal of the a
+priori uncertainty matrix, Sa. The number l is chosen at each
+step of the iteration process so that the condition F(x^k+1) 
+F(x^k) is accomplished. If this condition is not accomplished,
+l is halved and ~xk+1 is calculated afresh. This procedure is
+repeated until the condition is met. To accelerate this
+process, the parameter l is doubled if its value does not
+decrease in the two previous steps. In this manner we
+achieve the optimal change in the solution at each step
+corresponding to the nonlinear problem.
+[43] Acknowledgments. This research was supported by NASA grant
+NAG 5-11248 and Russian Foundation for Basic Research grant 03-05-
+64626, ‘‘Universities of Russia’’ UR.01.01.063. SAGE III data level 1B
+and 2 were obtained from the NASA Langley Research Center Atmospheric
+Sciences Data Center. The authors are grateful to P. DeCola, W. Chu, and
+the SAGE III team for the experimental data and useful discussions.
+References
+Anderson, G. P., S. A. Clough, F. X. Kneizys, J. H. Chetwynd, and E. P.
+Shettle (1986), AFGL atmospheric constituent profiles (0–120 km),
+Environ. Res. Pap., 954, 43 pp., Air Force Geophys. Lab., Hanscom
+Air Force Base, Mass.
+Bass, A. M., and R. J. Paur (1984), The ultraviolet cross sections of ozone,
+in The Measurements of Atmospheric Ozone, edited by C. S. Zerefos and
+A. D. Ghazi, pp. 606–610, Springer, New York.
+Bruhl, C., et al. (1996), Halogen Occultation Experiment ozone channel
+validation, J. Geophys. Res., 101, 10,217–10,240.
+Burkholder, J. B., and R. K. Talukdar (1994), Temperature dependence of
+the ozone absorption spectrum over the wavelength range 410 to 760 nm,
+Geophys. Res. Lett., 21(4), 581–584.
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+14 of 15
+D06303
+Keating, G. M., M. C. Pitts, and D. F. Young (1989), Ozone reference
+models for the middle atmosphere (new CIRA), in Reference Models of
+Trace Species for the COSPAR International Reference Atmosphere,
+Handbook for MAP, vol. 31, edited by G. M. Keating, pp. 1–36, SCO-
+STEP Secr., Univ. of Ill., Urbana.
+Kostsov, V. S., Y. M. Timofeyev, and R. O. Manuilova (2004), Global dis-
+tributions of temperature, carbon dioxide, ozone, and non-LTE parameters
+in mesosphere and lower thermosphere (CRISTA-1 experiment), Proc.
+SPIE Int. Soc. Opt. Eng., 5235, 208–219.
+Lumpe, J. D., et al. (1997), POAM II retrieval algorithm and error analysis,
+J. Geophys. Res., 102, 23,593–23,614.
+Newchurch, M. J., et al. (1996), Stratospheric NO and NO2 abundances
+from ATMOS solar-occultation measurements, Geophys. Res. Lett.,
+23(17), 2373–2376.
+Poberovskii, A. V., et al. (1999), Ozone profile determination by occultation
+sounding from the Mir space station: 1. Instrumentation and data proces-
+sing method, Izv. Russ. Acad. Sci. Atmos. Oceanic Phys., Engl. Transl.,
+35(3), 282–290.
+Polyakov, A. V. (1996), To the question of using statistical information, a
+priori, in solving nonlinear inversed problems of atmospheric optics,
+Earth Res. Space, 3, 11–15.
+Polyakov, A. V., and Y. M. Timofeyev (2003a), Potential accuracies of
+retrieving the vertical profiles of atmospheric parameters (satellite-based
+transmittance method): 1. Ozone and nitrogen dioxide contents, Izv. Russ.
+Acad. Sci. Atmos. Oceanic Phys., Engl. Transl., 39(2), 227–233.
+Polyakov, A. V., and Y. M. Timofeyev (2003b), Potential accuracies of
+retrieving the vertical profiles of atmospheric parameters (satellite-based
+transmittance method): 2. Spectral coefficient of aerosol extinction, Izv.
+Russ. Acad. Sci. Atmos. Oceanic Phys., Engl. Transl., 39(2), 234–239.
+Polyakov, A. V., A. V. Poberovskii, and Y. M. Timofeyev (1999), Ozone
+profile determination by occultation sounding from the Mir space station:
+2. Comparison of the observational results with independent data, Izv.
+Russ. Acad. Sci. Atmos. Oceanic Phys., Engl. Transl., 35(3), 322–328.
+Polyakov, A. V., Y. M. Timofeev, A. V. Poberovskii, and A. V. Vasil’ev
+(2001a), Retrieval of stratospheric vertical profiles of aerosol extinction
+coefficient from the Ozon-Mir measurements (Mir space station), Izv.
+Russ. Acad. Sci. Atmos. Oceanic Phys., Engl. Transl., 37(2), 213–222.
+Polyakov, A. V., A. V. Vasil’ev, and Y. M. Timofeev (2001b), Parameter-
+ization of the spectral dependence of the aerosol attenuation coefficient in
+problems of atmospheric occultation sounding from space, Izv. Russ.
+Acad. Sci. Atmos. Oceanic Phys., Engl. Transl., 37(5), 599–609.
+Rodgers, C. D. (2000), Inverse Methods for Atmospheric Sounding:
+Theory and Practice, Ser. Atmos. Oceanic Planet. Phys., vol. 2, 238 pp.,
+World Sci. Press, Hackensack, N. J.
+SAGE III ATBD Team (2002a), SAGE III algorithm theoretical basis docu-
+ment (ATBD) transmission level 1B products, version 2.1, LaRC 475-00-
+108, NASA Langley Res. Cent., Hampton, Va., 26 March. (Available at
+www-sage3.larc.nasa.gov/library)
+SAGE III ATBD Team (2002b), SAGE III algorithm theoretical basis docu-
+ment (ATBD) solar and lunar algorithm, version 2.1, LaRC Rep. 4750-
+00-109, NASA Langley Res. Cent., Hampton, Va., 26 March. (Available
+at www-sage3.larc.nasa.gov)
+Schneider, W., G. K. Moortgat, G. S. Tyndall, and J. P. Burrows (1987),
+Absorption cross-section of NO2 in the UV and visible region (200–
+700 nm) at 298 K, J. Photochem. Photobiol. A0, 40, 195–217.
+Timofeyev, Y. M., A. V. Polyakov, H. M. Steele, and M. J. Newchurch
+(2003), Optimal eigenanalysis for the treatment of aerosols in the
+retrieval of atmospheric composition from transmission measurements,
+Appl. Optics, 42(15), 2635–2646.
+Virolainen, Y. A., A. V. Polyakov, and Y. M. Timofeyev (2004), Statistical
+models of tropospheric aerosol, Izv. Russ. Acad. Sci. Atmos. Oceanic
+Phys., Engl. Transl., 40(2), 216–227.
+
+D. V. Ionov, A. V. Polyakov, Y. M. Timofeyev, and Y. A. Virolainen,
+Department of Atmospheric Physics, St. Petersburg State University,
+1 Ulyanovskaya, St. Petersburg 1985504, Russia.
+M. J. Newchurch, National Space Science and Technology Center,
+Atmospheric Science Department, University of Alabama in Huntsville,
+320 Sparkman Dr., Huntsville, AL 35805, USA.
+H. M. Steele, Department of Geography, California State University,
+Northridge, CA 91330-8249, USA. (helen.m.cox@csun.edu)
+D06303 POLYAKOV ET AL.: OZONE AND NITROGEN DIOXIDE FROM SAGE III
+15 of 15
+D06303

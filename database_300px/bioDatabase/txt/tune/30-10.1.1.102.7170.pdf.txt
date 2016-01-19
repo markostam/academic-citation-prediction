@@ -1,0 +1,462 @@
+Learning Minimum Volume Sets
+Clayton Scott
+Statistics Department
+Rice University
+Houston, TX 77005
+cscott@rice.edu
+Robert Nowak
+Electrical and Computer Engineering
+University of Wisconsin
+Madison, WI 53706
+nowak@engr.wisc.edu
+Abstract
+Given a probability measure P and a reference measure µ, one is
+often interested in the minimum µ-measure set with P -measure at
+least α. Minimum volume sets of this type summarize the regions of
+greatest probability mass of P , and are useful for detecting anoma-
+lies and constructing confidence regions. This paper addresses the
+problem of estimating minimum volume sets based on independent
+samples distributed according to P . Other than these samples, no
+other information is available regarding P , but the reference mea-
+sure µ is assumed to be known. We introduce rules for estimating
+minimum volume sets that parallel the empirical risk minimization
+and structural risk minimization principles in classification. As
+in classification, we show that the performances of our estimators
+are controlled by the rate of uniform convergence of empirical to
+true probabilities over the class from which the estimator is drawn.
+Thus we obtain finite sample size performance bounds in terms of
+VC dimension and related quantities. We also demonstrate strong
+universal consistency and an oracle inequality. Estimators based
+on histograms and dyadic partitions illustrate the proposed rules.
+1 Introduction
+Given a probability measure P and a reference measure µ, the minimum volume
+set (MV-set) with mass at least 0 < α < 1 is
+G∗α = arg min{µ(G) : P (G) ≥ α,G measurable}.
+MV-sets summarize regions where the mass of P is most concentrated. For example,
+if P is a multivariate Gaussian distribution and µ is the Lebesgue measure, then the
+MV-sets are ellipsoids (see also Figure 1). Applications of minimum volume sets
+include outlier/anomaly detection, determining highest posterior density or multi-
+variate confidence regions, tests for multimodality, and clustering. In comparison
+to the closely related problem of density level set estimation [1, 2], the minimum
+volume approach seems preferable in practice because the mass α is more easily
+specified than a level of a density. See [3, 4, 5] for further discussion of MV-sets.
+This paper considers the problem of MV-set estimation using a training sample
+drawn from P , which in most practical settings is the only information one has
+Figure 1: Gaussian mixture data, 500 samples, α = 0.9. (Left and Middle) Mini-
+mum volume set estimates based on recursive dyadic partitions, discussed in Section
+6. (Right) True MV set.
+about P . The specifications to the estimation process are the significance level α,
+the reference measure µ, and a collection of candidate sets G. All proofs, as well as
+additional results and discussion, may be found in [6] . To our knowledge, ours is
+the first work to establish finite sample bounds, an oracle inequality, and universal
+consistency for the MV-set estimation problem.
+The methods proposed herein are primarily of theoretical interest, although they
+may be implemented effeciently for certain partition-based estimators as discussed
+later. As a more practical alternative, the MV-set problem may be reduced to
+Neyman-Pearson classification [7, 8] by simulating realizations from.
+1.1 Notation
+Let (X ,B) be a measure space with X ⊂ Rd. Let X be a random variable taking
+values in X with distribution P . Let S = (X1, . . . ,Xn) be an independent and
+identically distributed (IID) sample drawn according to P . Let G denote a subset
+of X , and let G be a collection of such subsets. Let P̂ denote the empirical measure
+based on S: P̂ (G) = (1/n)
+∑n
+i=1 I(Xi ∈ G). Here I(·) is the indicator function. Set
+µ∗α = inf
+G
+{µ(G) : P (G) ≥ α}, (1)
+where the inf is over all measurable sets. A minimum volume set, G∗α, is a minimizer
+of (1), when it exists. Let G be a class of sets. Given α ∈ (0, 1), denote Gα = {G ∈
+G : P (G) ≥ α}, the collection of all sets in G with mass at least alpha. Define
+µG,α = inf{µ(G) : G ∈ Gα} and GG,α = arg min{µ(G) : G ∈ Gα} when it exists.
+Thus GG,α is the best approximation to the MV-set G
+∗
+α from G. Existence and
+uniqueness of these and related quantities are discussed in [6] .
+2 Minimum Volume Sets and Empirical Risk Minimization
+In this section we introduce a procedure inspired by the empirical risk minimization
+(ERM) principle for classification. In classification, ERM selects a classifier from a
+fixed set of classifiers by minimizing the empirical error (risk) of a training sample.
+Vapnik and Chervonenkis established the basic theoretical properties of ERM (see
+[9, 10]), and we find similar properties in the minimum volume setting. In this and
+the next section we do not assume P has a density with respect to µ.
+Let φ(G,S, δ) be a function of G ∈ G, the training sample S, and a confidence
+parameter δ ∈ (0, 1). Set Ĝα = {G ∈ G : P̂ (G) ≥ α− φ(G,S, δ)/2} and
+ĜG,α = arg min{µ(G) : G ∈ Ĝα}. (2)
+We refer to the rule in (2) as MV-ERM because of the analogy with empirical risk
+minimization in classification. The quantity φ acts as a kind of “tolerance” by which
+the empirical mass estimate may deviate from the targeted value of α. Throughout
+this paper we assume that φ satisfies the following.
+Definition 1. We say φ is a (distribution free) complexity penalty for G if and
+only if for all distributions P and all δ ∈ (0, 1),
+Pn
+({
+S : sup
+G∈G
+(∣∣∣P (G)− P̂ (G)∣∣∣− 1
+2
+φ(G,S, δ)
+)
+> 0
+})
+≤ δ.
+Thus, φ controls the rate of uniform convergence of P̂ (G) to P (G) for G ∈ G. It
+is well known that the performance of ERM (for binary classification) relative to
+the performance of the best classifier in the given class is controlled by the uniform
+convergence of true to empirical probabilities. A similar result holds for MV-ERM.
+Theorem 1. If φ is a complexity penalty for G, then
+Pn
+((
+P (ĜG,α) < α− φ(ĜG,α, S, δ)
+)
+or
+(
+µ(ĜG,α) > µG,α
+))
+≤ δ.
+Proof. Consider the sets
+ΘP = {S : P (ĜG,α) < α− φ(ĜG,α, S, δ)},
+Θµ = {S : µ(ĜG,α) > µ(GG,α)},
+ΩP =
+{
+S : sup
+G∈G
+(∣∣∣P (G)− P̂ (G)∣∣∣− 1
+2
+φ(G,S, δ)
+)
+> 0
+}
+.
+The result follows easily from the following lemma.
+Lemma 1. With ΘP ,Θµ, and ΩP defined as above and ĜG,α as defined in (2) we
+have ΘP ∪Θµ ⊂ ΩP .
+The proof of this lemma (see [6] ) follows closely the proof of Lemma 1 in [7]. This
+result may be understood by analogy with the result from classification that says
+R(f̂)− inff∈F R(f) ≤ 2 supf∈F |R(f)− R̂(f)| (see [10], Ch. 8). Here R and R̂ are
+the true and empirical risks, f̂ is the empirical risk minimizer, and F is a set of
+classifiers. Just as this result relates uniform convergence bounds to empirical risk
+minimization in classification, so does Lemma 1 relate uniform convergence to the
+performance of MV-ERM.
+The theorem above allows direct translation of uniform convergence results into
+performance guarantees for MV-ERM. Fortunately, many penalties (uniform con-
+vergence results) are known. We now give to important examples, although many
+others, such as the Rademacher penalty, are possible.
+2.1 Example: VC Classes
+Let G be a class of sets with VC dimension V , and define
+φ(G,S, δ) =
+√
+128
+V log n+ log(8/δ)
+n
+. (3)
+By a version of the VC inequality [10], we know that φ is a complexity penalty
+for G, and therefore Theorem 1 applies. To view this result in perhaps a more
+recognizable way, let  > 0 and set φ(G,S, δ) =  for all G ∈ G and all S. By
+inverting the relationship between δ and , we have the following.
+Corollary 1. With the notation defined above,
+Pn
+((
+P (ĜG,α) < α− 
+)
+or
+(
+µ(ĜG,α) > µG,α
+))
+≤ 8nV e−n
+2/128.
+Thus, for any fixed  > 0, the probability of being within  of the target mass α
+and being less than the target volume µG,α approaches one exponentially fast as
+the sample size increases. This result may also be used to calculate a distribution
+free upper bound on the sample size needed to be within a given tolerance  of α
+and with a given confidence 1− δ. In particular, the sample size will grow no faster
+than a polynomial in 1/ and 1/δ, paralleling results for classification.
+2.2 Example: Countable Classes
+Suppose G is a countable class of sets. Assume that to every G ∈ G a number JGK
+is assigned such that
+∑
+G∈G 2
+−JGK ≤ 1. In light of the Kraft inequality for prefix
+codes, JGK may be defined as the codelength of a codeword for G in a prefix code
+for G. Let δ > 0 and define
+φ(G,S, δ) =
+√
+2
+JGK log 2 + log(2/δ)
+n
+. (4)
+By Chernoff’s bound together with the union bound, φ is a penalty for G. Therefore
+Theorem 1 applies and we have obtained a result analogous to the Occam’s Razor
+bound for classification.
+As a special case, suppose G is finite and take JGK = log2 |G|. Setting  = φ(G,S, δ)
+and inverting the relationship between δ and , we have
+Corollary 2. For the MV-ERM estimate ĜG,α from a finite class G
+Pn
+((
+P (ĜG,α) < α− 
+)
+or
+(
+µ(ĜG,α) > µG,α
+))
+≤ 2|G|e−n
+2/2.
+3 Consistency
+A minimum volume set estimator is consistent if its volume and mass tend to the
+optimal values µ∗α and α as n→∞. Formally, define the error quantity
+E(G) := (µ(G)− µ∗α)+ + (α− P (G))+ ,
+where (x)
++
+= max(x, 0). (Note that without the (·)
++
+operator, this would not be a
+meaningful error since one term could be negative and cause E to tend to zero, even
+if the other error term does not go to zero.) We are interested in MV-set estimators
+such that E(ĜG,α) tends to zero as n→∞.
+Definition 2. A learning rule ĜG,α is strongly consistent if limn→∞ E(ĜG,α) = 0
+with probability 1. If ĜG,α is strongly consistent for every possible distribution of
+X, then ĜG,α is strongly universally consistent.
+To see how consistency might result from MV-ERM, it helps to rewrite Theorem
+1 as follows. Let G be fixed and let φ(G,S, δ) be a penalty for G. Then with
+probability at least 1− δ, both
+µ(ĜG,α)− µ
+∗
+α ≤ µ(GG,α)− µ
+∗
+α (5)
+and
+α− P (ĜG,α) ≤ φ(ĜG,α, S, δ) (6)
+hold. We refer to the left-hand side of (5) as the excess volume of the class G and
+the left-hand side of (6) as the missing mass of ĜG,α. The upper bounds on the
+right-hand sides are an approximation error and a stochastic error, respectively.
+The idea is to let G grow with n so that both errors tend to zero as n → ∞. If G
+does not change with n, universal consistency is impossible.
+To have both stochastic and approximation errors tend to zero, we apply MV-ERM
+to a class Gk from a sequence of classes G1,G2, . . ., where k = k(n) grows with the
+sample size. Consider the estimator ĜGk,α.
+Theorem 2. Choose k = k(n) and δ = δ(n) such that k(n) → ∞ as n → ∞ and∑∞
+n=1 δ(n) <∞. Assume the sequence of sets G
+k and penalties φk satisfy
+lim
+k→∞
+inf
+G∈Gk
+α
+µ(G) = µ∗α (7)
+and
+lim
+n→∞
+sup
+G∈Gk
+α
+φk(G,S, δ(n)) = o(1). (8)
+Then ĜGk,α is strongly universally consistent.
+The proof combines the Borel-Cantelli lemma and the distribution-free result of
+Theorem 1 with the stated assumptions. Examples satisfying the hypotheses of the
+theorem include families of VC classes with arbitrary approximating power (e.g.,
+generalized linear discriminant rules with appropriately chosen basis functions and
+neural networks), and histogram rules. See [6] for further discussion.
+4 Structural Risk Minimization and an Oracle Inequality
+In the previous section the rate of convergence of the two errors to zero is determined
+by the choice of k = k(n), which must be chosen a priori. Hence it is possible that
+the excess volume decays much more quickly than the missing mass, or vice versa.
+In this section we introduce a new rule called MV-SRM, inspired by the principle of
+structural risk minimization (SRM) from the theory of classification [11, 12], that
+automatically balances the two errors.
+The result in this section is not distribution free. We assume
+A1 P has a density f with respect to µ.
+A2 G∗α exists and P (G
+∗
+α) = α.
+Under these assumptions (see [6] ) there exists γα > 0 such that for any MV-set
+G∗α, {x : f(x) > γα} ⊂ G
+∗
+α ⊂ {x : f(x) ≥ γα}.
+Let G be a class of sets. Conceptualize G as a collection of sets of varying capacities,
+such as a union of VC classes or a union of finite classes. Let φ(G,S, δ) be a penalty
+for G. The MV-SRM principle selects the set
+ĜG,α = arg min
+G∈G
+{
+µ(G) + φ(G,S, δ) : P̂ (G) ≥ α−
+1
+2
+φ(G,S, δ)
+}
+. (9)
+Note that MV-SRM is different from MV-ERM because it minimizes a complexity
+penalized volume instead of simply the volume. We have the following.1
+1Although the value of 1/γα is in practice unknown, it can be bounded by 1/γα ≤
+(1 − µ∗
+α
+)/(1 − α) ≤ 1/(1 − α). This follows from the bound 1 − α ≤ γα · (1 − µ
+∗
+α
+) on the
+mass outside the minimum volume set.
+Theorem 3. Let ĜG,α be the MV-set estimator in (9). With probability at least
+1− δ over the training sample S,
+E(ĜG,α) ≤
+(
+1 +
+1
+γα
+)
+inf
+G∈Gα
+{
+µ(G)− µ∗α + φ(G,S, δ)
+}
+. (10)
+Sketch of proof: The proof is similar in some respects to oracle inequalities for clas-
+sification. The key difference is in the form of the error term E(G) = (µ(G)− µ∗α)++
+(α− P (G))
++
+. In classification both approximation and stochastic errors are posi-
+tive, whereas with MV-sets the excess volume µ(G)−µ∗α or missing mass α−P (G)
+could be negative. This necessitates the (·)
++
+operators, without which the error
+would not be meaningful as mentioned earlier. The proof considers three cases sep-
+arately: (1) µ(ĜG,α) ≥ µ
+∗
+α and P (ĜG,α) < α, (2) µ(ĜG,α) ≥ µ
+∗
+α and P (ĜG,α) ≥ α,
+and (3) µ(ĜG,α) < µ
+∗
+α and P (ĜG,α) < α. In the first case, both volume and mass
+errors are positive and the argument follows standard lines. The second case can be
+seen to follow easily from the first. The third case (which occurs most frequently
+in practice) is most involved and requires use of the fact that µ∗α−µ
+∗
+α− ≤ /γα for
+ > 0, which can be deduced from basic properties of MV and density level sets.
+The oracle inequality says that MV-SRM performs about as well as the set chosen
+by an oracle to optimize the tradeoff between the stochastic and approximation
+errors. To illustrate the power of the oracle inequality, in [6] we demonstrate that
+MV-SRM applied to recursive dyadic partition-based estimators adapts optimally
+to the number of relevant features (unknown a priori).
+5 Damping the Penalty
+In Theorem 1, the reader may have noticed that MV-ERM does not equitably bal-
+ance the volume error with the mass error. Indeed, with high probability, µ(ĜG,α)
+is less than µ(GG,α), while P (ĜG,α) is only guaranteed to be within φ(ĜG,α) of
+α. The net effect is that MV-ERM (and MV-SRM) underestimates the MV-set.
+Experimental comparisons have confirmed this to be the case [6] .
+A minor modification of MV-ERM and MV-SRM leads to a more equitable distribu-
+tion of error between the volume and mass, instead of having all the error reside in
+the mass term. The idea is simple: scale the penalty in the constraint by a damping
+factor ν < 1. In the case of MV-SRM, the penalty in the objective function also
+needs to be scaled by (1 + ν)/2. Moreover, the theoretical properties of these esti-
+mators stated above are retained (the statements, omitted here, are slightly more
+involved [6] ). Notice that in the case ν = 1 we recover the original estimators. Also
+note that the above theorem encompasses the generalized quantile estimate of [3],
+which corresponds to ν = 0. Thus we have finite sample size guarantees for that
+estimator to match Polonik’s asymptotic analysis.
+6 Experiments: Histograms and Trees
+To gain some insight into the basic properties of our estimators, we devised some
+simple numerical experiments. In the case of histograms, MV-SRM can be imple-
+mented in a two step process. First, compute the MV-ERM estimate (a very simple
+procedure) for each Gk, k = 1, . . . ,K, where 1/k is the bin-width. Second, choose
+the final estimate by minimizing the penalized volume of the MV-ERM estimates.
+We consider two penalties: one based on an Occam style bound, the other on the
+(conditional) Rademacher average. As a data set we consider X = [0, 1]2, the unit
+n = 10000, k = 20, ν=0
+100 1000 10000 100000 1000000
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+Error as a function of sample size
+occam
+rademacher
+Figure 2: Results for histograms. (Left) A typical MV-ERM estimate with bin-
+width 1/20, ν = 0, and based on 10000 points. True MV-set indicated by solid line.
+(Right) The error of the MV-SRM estimate E(ĜG,α) as a function of sample size
+when ν = 0. The results indicated that the Occam’s Razor bound is tighter and
+yields better performance than Rademacher.
+square, and data generated by a two-dimensional truncated Gaussian distribution,
+centered at the point (1/2, 1/2) and having spherical variance with parameter σ =
+0.15. Other parameter settings are α = 0.8, K = 40, and δ = 0.05. All experiments
+were conducted at nine different sample sizes, logarithmically spaced from 100 to
+1000000, and repeated 100 times. Results are summarized in Figure 2.
+To illustrate the potential improvement offered by spatially adaptive partitioning
+methods, we consider a minimum volume set estimator based on recursive dyadic
+(quadsplit) partitions. We employ a penalty that is additive over the cells A of the
+partition. The precise form of the penalty φ(A) for each cell is given in [6] , but
+loosely speaking it is proportional to the square-root of the ratio of the empirical
+mass of the cell to the sample size n. In this case, MV-SRM with ν = 0 is
+min
+G∈GL
+∑
+A
+[
+µ(A)`(A) +
+1
+2
+φ(A)
+]
+subject to
+∑
+A
+P̂ (A)`(A) ≥ α (11)
+where GL is the collection of all partitions with dyadic cell sidelengths no smaller
+than 2−L and `(A) = 1 if A belongs to the candidate set and `(A) = 0 otherwise
+(see [6] for further details). Although directly optimization appears formidable, an
+efficient alternative is to consider the Lagrangian and conduct a bisection search over
+the Lagrange multiplier until the mass constraint is nearly achieved with equality
+(10 iterations is sufficient in practice). For each iteration, minimization of the
+Lagrangian can be performed very rapidly using standard tree pruning techniques.
+An experimental demonstration of the dyadic partition estimator is depicted in Fig-
+ure 1. In the experiments we employed a dyadic quadtree structure with L = 8 (i.e.,
+cell sidelengths no smaller than 2−8) and pruned according to the theoretical penalty
+φ(A) formally defined in [6] weighted by a factor of 1/30 (in practice the optimal
+weight could be found via cross-validation or other techniques). Figure 1 shows
+the results with data distributed according to a two-component Gaussian mixture
+distribution. This figure (middle image) additionally illustrates the improvement
+possible by “voting” over shifted partitions, which in principle is equivalent to con-
+structing 2L × 2L different trees, each based on a partition offset by an integer
+multiple of the base sidelength 2−L, and taking a majority vote over all the result-
+ing set estimates to form the final estimate. This strategy mitigates the “blocky”
+structure due to the underlying dyadic partitions, and can be computed almost as
+rapidly as a single tree estimate (within a factor of L) due to the large amount of
+redundancy among trees. The actual running time was one to two seconds.
+7 Conclusions
+In this paper we propose two rules, MV-ERM and MV-SRM, for estimation of
+minimum volume sets. Our theoretical analysis is made possible by relating the
+performance of these rules to the uniform convergence properties of the class of sets
+from which the estimate is taken. Ours are the first known results to feature finite
+sample bounds, an oracle inequality, and universal consistency.
+Acknowledgements
+The authors thank Ercan Yildiz and Rebecca Willett for their assistance with the experi-
+ments involving dyadic trees.
+References
+[1] I. Steinwart, D. Hush, and C. Scovel, “A classification framework for anomaly detec-
+tion,” J. Machine Learning Research, vol. 6, pp. 211–232, 2005.
+[2] S. Ben-David and M. Lindenbaum, “Learning distributions by their density levels – a
+paradigm for learning without a teacher,” Journal of Computer and Systems Sciences,
+vol. 55, no. 1, pp. 171–182, 1997.
+[3] W. Polonik, “Minimum volume sets and generalized quantile processes,” Stochastic
+Processes and their Applications, vol. 69, pp. 1–24, 1997.
+[4] G. Walther, “Granulometric smoothing,” Ann. Stat., vol. 25, pp. 2273–2299, 1997.
+[5] B. Scho¨lkopf, J. Platt, J. Shawe-Taylor, A. Smola, and R. Williamson, “Estimating
+the support of a high-dimensional distribution,” Neural Computation, vol. 13, no. 7,
+pp. 1443–1472, 2001.
+[6] C. Scott and R. Nowak, “Learning minimum volume sets,” UW-Madison, Tech. Rep.
+ECE-05-2, 2005. [Online]. Available: http://www.stat.rice.edu/∼cscott
+[7] A. Cannon, J. Howse, D. Hush, and C. Scovel, “Learning with the Neyman-Pearson
+and min-max criteria,” Los Alamos National Laboratory, Tech. Rep. LA-UR 02-2951,
+2002. [Online]. Available: http://www.c3.lanl.gov/∼kelly/ml/pubs/2002 minmax/
+paper.pdf
+[8] C. Scott and R. Nowak, “A Neyman-Pearson approach to statistical learning,” IEEE
+Trans. Inform. Theory, 2005, (in press).
+[9] V. Vapnik, Statistical Learning Theory. New York: Wiley, 1998.
+[10] L. Devroye, L. Gyo¨rfi, and G. Lugosi, A Probabilistic Theory of Pattern Recognition.
+New York: Springer, 1996.
+[11] V. Vapnik, Estimation of Dependencies Based on Empirical Data. New York:
+Springer-Verlag, 1982.
+[12] G. Lugosi and K. Zeger, “Concept learning using complexity regularization,” IEEE
+Trans. Inform. Theory, vol. 42, no. 1, pp. 48–54, 1996.

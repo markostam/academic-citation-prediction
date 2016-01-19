@@ -1,0 +1,1245 @@
+Underthrusting-accretion cycle: Work budget as revealed
+by the boundary element method
+Mario Del Castello1 and Michele L. Cooke1
+Received 16 February 2007; revised 3 August 2007; accepted 20 September 2007; published 29 December 2007.
+[1] Sandbox models of accretionary wedges have demonstrated that fault systems grow
+episodically via cycles of alternating wedge thickening, which is accommodated by slip
+along faults within the wedge (underthrusting), and wedge lengthening, which is
+accommodated by growth of new faults at the wedge toe (accretion). The transition
+between these two modes of deformation is controlled by the interplay of work against
+gravity, frictional heating, the work of deformation around faults, and the work of
+fault propagation and seismic/acoustic energy. Using numerical mechanical models based
+on the boundary element method, we have simulated the deformation observed in sandbox
+experiments, providing a mechanical analysis of the underthrusting/accretion
+transition. Our results show that the total work done by the contracting wedge increases
+during the underthrusting stage up to a critical value when the propagation of a new frontal
+thrust significantly reduces the work required for further deformation. The numerical
+models also predict the location of the maximum shear along the basal de´collement during
+underthrusting as well as the energetically most viable position and vergence for the
+nucleation of a new thrust. These locations do not coincide, and the match of the
+energetically most favorable position with the experimental results suggests that the new
+thrust ramps develop first ahead and then link down and backward to the propagating
+basal de´collement. The shear localization producing a new thrust ramp will occur
+where the energy spent by the deforming wedge is minimized due to an optimal
+combination of gravitational, frictional, internal, and propagation work terms.
+Citation: Del Castello, M., and M. L. Cooke (2007), Underthrusting-accretion cycle: Work budget as revealed by the boundary
+element method, J. Geophys. Res., 112, B12404, doi:10.1029/2007JB004997.
+1. Introduction
+1.1. Critical Taper Theory
+[2] Since the proposition of the critical taper theory
+[Dahlen et al., 1984; Dahlen, 1990], fold and thrust belts
+have been successfully analyzed with the assumption that
+they deform as a self-similar wedge of noncohesive brittle
+material such as in front of an advancing bulldozer. The
+theory states that the wedge deformation is ultimately
+controlled by the ratio between internal coefficient of
+friction (m) and the basal coefficient of friction (mb) and
+that the wedge must be on the verge of Coulomb failure
+everywhere and at every time. Only in this case can the
+taper angle be calculated as a function of m and mb [Dahlen,
+1990]. The requirements set in the analytical treatment
+produce a constant taper angle during wedge growth, i.e.,
+the wedge preserves a fixed length to height ratio through-
+out deformation. However, this reflects observations only to
+a first degree.
+[3] The critical taper theory has been largely applied to
+the evolution of fold and thrust belts since its proposition
+and systematically tested against both natural analogues
+[Lallemand et al., 1994; Ford, 2004; Bangs et al., 2004;
+Vannucchi et al., 2003; Saffer and Bekins, 2006; Wang and
+Hu, 2006] and experimental techniques [Bombolakis, 1994;
+Lohrmann et al., 2003; Adam et al., 2005]. The wide
+application of the theory of critical taper owes to its
+intuitively simple approach to interpret wedge mechanics
+in terms of m/mb ratio, despite the complexity of the
+analytical treatment. By simply reducing or increasing the
+aforementioned ratio, the equations derived for this theory
+successfully predict the complete sequence of faulting
+processes occurring at contractional margins (accretion,
+underthrusting, underplating and basal erosion). Neverthe-
+less, the current form of the critical taper theory provides an
+end-member scenario that neglects the importance of elastic
+processes and strain hardening/softening that might affect
+the temporal distribution of the state of stress and ultimately
+the wedge geometry [Wang and Hu, 2006]. For instance, the
+theory correctly envisages transition between accretion and
+underthrusting, but does not address why a wedge should
+activate a deeper de´collement level nor where shear stresses
+would localize in order to produce a new fore-thrust ramp.
+Furthermore, the predicted constant taper is seldom ob-
+served in natural case studies. Rather than growing self-
+similarly, new material is generally seen to be incorporated
+JOURNAL OF GEOPHYSICAL RESEARCH, VOL. 112, B12404, doi:10.1029/2007JB004997, 2007
+Click
+Here
+for
+Full
+Article
+1Geosciences Department, University of Massachusetts, Amherst,
+Massachusetts, USA.
+Copyright 2007 by the American Geophysical Union.
+0148-0227/07/2007JB004997$09.00
+B12404 1 of 14
+into the wedge episodically via processes that occur at
+distinct times.
+[4] Elastic effects related to subduction megathrust faults
+locking are well known to influence the large-scale geom-
+etry of the forearc. Zones of interseismic locking may act as
+boundaries between subsiding basins and accreting regions
+[Wells et al., 2003] and control variations in trench-parallel
+forearc topography [Song and Simons, 2003], such as
+steepening of the forearc slope [Bangs et al., 2004]. Also
+rotations of large-scale sectors of orogens have been attrib-
+uted to plate locking [McCaffrey et al., 2000]. However,
+how the role of local elastic processes that operate on single
+thrust fault might influence the wedge mechanics has not
+yet been investigated in detail.
+1.2. Overview of Sandbox Experiments of Wedge
+Growth
+[5] Sandbox models are a common technique to study
+wedge kinematics. Analysis of analogue experiments sug-
+gest that the wedge development is characterized by dis-
+continuous phases of alternating wedge thickening,
+accommodated by slip along thrust faults within the wedge,
+and wedge lengthening, accommodated by nucleation of
+new thrust faults in front of the wedge [e.g., Mulugeta and
+Koyi, 1992; Storti and McClay, 1995; Gutscher et al., 1996;
+McClay and Whitehouse, 2004; Konstantinovskaia and
+Malavieille, 2005]. These two processes are referred to as
+underthrusting and accretion. After an early phase of
+accretion (Figure 1a), an underthrusting stage begins, when
+a coherent sheet of undeformed material slides underneath
+the wedge via activation of a roof thrust. The roof thrust
+allows for the wedge to vertically thicken, increasing the
+taper angle (Figure 1b). By contrast, the accretionary stage
+predicts nucleation of new thrust ramps in front of the toe of
+the wedge by concentrating the slip along the basal de´colle-
+ment. New fore thrusts accrete at the wedge front and the
+wedge taper decreases accordingly (Figure 1c). Recent
+analyses showed the cyclic nature of this transition
+[Gutscher et al., 1998; Del Castello et al., 2004; Adam et
+al., 2005; Naylor et al., 2005]. As a result of these cyclic
+processes, the wedge may display a variety of slope angles
+during growth and does not obey the self-similar growth
+requirement of critical taper theory. What controls the
+duration in time and the persistence of the accretion and
+underthrusting stages? Observation of wedge growth in
+sand-box models suggests that the predominance of one
+mode over the other can be controlled by such factors as
+syntectonic erosion/sedimentation or temporarily unbal-
+anced topography [Storti and McClay, 1995; Del Castello
+et al., 2004], high basal friction [Gutscher et al., 1996;
+Kukowski et al., 2002; Konstantinovskaia and Malavieille,
+2005], wedge thickening and basal friction [Burbidge and
+Braun, 2002], mechanical interaction between prowedge
+and retrowedge [Del Castello et al., 2004; Naylor et al.,
+2005]. Yet, all these approaches envisage static m/mb ratio
+with faults in constant state of creep. In contrast, natural
+faulting processes incur friction drop during slip (i.e., slip
+weakening) that can change the mechanics of the system.
+Consequently, previous studies underestimate or totally
+neglect the effect of the phases of elastic loading predating
+episodes of frictional slip on faults.
+[6] Stick-slip behavior [e.g., Rabinowicz, 1958] has been,
+until recently, disregarded in analogue modeling of accre-
+tionary wedges, because of the general assumption that sand
+cannot preserve a ‘‘mechanical’’ memory on preexisting
+fractures. Because of the poor measurements of analog
+material properties, the elastic interval of deformation and
+strain hardening processes have been traditionally consid-
+ered as of secondary importance for noncohesive wedge
+growth. Recent refined laboratory analyses demonstrate that
+granular analogue materials show a significant departure
+from the Coulomb elastoperfectly plastic behavior, with a
+marked decrease in m at the transition between material peak
+strength and residual strength [Lohrmann et al., 2003; Ellis
+et al., 2004; Panien et al., 2006]. The strain hardening prior
+to peak strength and the strain softening post peak strength
+has been related to decompaction/compaction cycles affect-
+ing the sand during the compressional stress loading and
+subsequent rupturing [Lohrmann et al., 2003]. The stress-
+strain curves for the sand materials tested agree well with
+characteristic curves of rocks and soils [Jaeger and Cook,
+1969; Lambe andWhitman, 1969;Marone, 1998; Barnhoorn
+et al., 2004]. Adam et al. [2005] used particle imaging
+velocimetry (PIV) techniques within sandbox experiments
+of wedge growth to document how accretion and under-
+thrusting processes are not synchronous but cyclic and might
+be related to strain hardening/softening cycles occurring at
+the roof thrust and basal de´collement.
+[7] In this paper we use a boundary element method
+(BEM) code to numerically reproduce the sandbox exper-
+iment of wedge deformation published by Adam et al.
+[2005]. Analogue models based on noncohesive, Coulomb
+Figure 1. Schematic diagram illustrating two sequential
+cycles of underthrusting-accretion. (a) Initial accretion. (b)
+Episodic deactivation of the basal de´collement causes
+underthrusting under the roof thrust (white arrows). (c)
+Nucleation of a new fore thrust that steps the wedge toe
+forward. Continuous thick lines indicate active fault
+segments. Insets in Figures 1b and 1c show transitory
+increase/decrease of taper angle during underthrusting and
+accretion phases, respectively.
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+2 of 14
+B12404
+material are excellent tools to test the applicability of the
+critical taper theory, yet their information is limited to
+kinematics rather than a full mechanical deformation. We
+try to bridge this gap by constructing a numerical model that
+utilizes recently revisited strain hardening/softening proper-
+ties of sand within a fully elastic BEM code. The investi-
+gation is restricted to a single underthrusting/accretion
+transition for which we calculate the work balance and
+discriminate between different work terms, trying to assess
+both the trade-off mechanisms between the energy terms
+and the impact of each of them at the transition. The setup
+of our numerical models is based on the fault configurations
+and sequence of faulting revealed by PIV analysis of
+sandbox experiments by Adam et al. [2005]. This paper
+presents a systemic view of wedge growth using work
+budget assessments that are consistent with natural and
+sandbox observations, encompasses existing ideas of wedge
+growth and does not rely on temporal nor spatial variations
+in material properties to achieve cyclic transitions between
+underthrusting and accretion modes.
+2. Work Analysis by Boundary Element Method
+2.1. Description of Work Terms
+[8] Transitions between underthrusting and accretion
+modes may reflect adjustments to the balance between work
+against frictional slip along the basal and inner wedge faults,
+work of deformation within the host material and uplift
+work against gravity. Despite the lack of consensus on the
+applicability of the principle of work minimization to large-
+scale systems in nature [e.g., Bird and Yuen, 1979; Sleep et
+al., 1979], systemic analysis of the interaction between
+various work terms has yielded insights to the study of
+deformation mechanics of geological structures [Mitra and
+Boyer, 1986; Platt, 1988; Melosh and Williams, 1989;
+Gutscher et al., 1998; Masek and Duncan, 1998; Burbidge
+and Braun, 2002]. However, studies to date have not
+revealed the trade-off between the various work components
+as the system shifts between accretion and underthrusting
+modes. Within accretionary systems, faults are constantly
+growing, shutting down and initiating via a complex inter-
+play of different work terms as the system persistently seeks
+to minimize the total work. The total work in the
+fault system, Wtot, is the sum of work against gravity, Wgrav,
+work against frictional sliding, Wfric, work of internal
+deformation in the material around the fault, Wint, work of
+propagating new faults, Wprop, and work of seismic radiated
+energy, Wseis [Cooke and Murphy, 2004].
+Wtot ¼ Wgrav þWfric þWint þWprop þWseis ð1Þ
+Each of these work terms is calculated as the product of
+appropriate force times displacement. The work against
+gravity is positive for contractional systems and negative for
+extensional systems. Wgrav depends on the vertical uplift
+and vertical normal stress due to overburden weight
+integrated over the area of the system. In a two-dimensional
+system with horizontal position, x, and depth of burial, d, as
+a function of vertical position, z,
+Wgrav ¼
+ZZ
+rgd zð Þdxdz ð2Þ
+where g is gravitational acceleration and r is the average
+density of the overburden. When a fault slips, work is done
+resisting friction along the fault surface; this work is
+expressed as frictional heating. For example, weak faults
+(m = 0) produce no work against friction and do no exhibit
+frictional heating.Wfric depends on fault slip and shear stress
+integrated along the length of each fault in the system. Wfric
+is one of several forms of work that is path-dependent.
+Faults do not necessarily unslip when they are unloaded so
+that different loading paths may produce different Wfric.
+Consequently, this work is integrated over the loading path;
+in this case the path of applied horizontal strain, "hor. Wfric is
+also integrated over the fault length, l, along which normal
+stress, sn, slip, s, and frictional coefficient, m, may vary.
+Wfric ¼
+ZZ
+sn "hor;l
+ 
+m lð Þs "hor;l
+ 
+d"hor;dl ð3Þ
+The internal work is the stored strain energy density, a
+measure of mechanical work within the system. Wint is
+calculated as strain times stress at a point, integrated over the
+area of the system [e.g., Timoshenko and Goodier, 1934].
+Using Hooke’s law, the strains can be formulated as stresses
+to get
+Wint ¼
+ZZ
+1 n2ð Þ
+2E
+s2xx þ s2zz
+ þ 1þ nð Þ
+E
+s2xz þ nsxxszz
+  
+dzdx
+ð4Þ
+where E and v are the elastic properties Young’s modulus
+and Poisson’s ratio, respectively. The work of fault
+propagation, based on Gibb’s free energy, is the energy
+required to break intact rock and create new fault surface
+energy integrated over the length of new fault surfaces
+[Scholz, 2002]. Fault surfaces are often accompanied by
+abundant damage within the host rock so that the total new
+surface area created is far greater than the area of new fault
+surface. The seismic radiated energy, expressed as ground
+shaking or acoustic energy, is the energy released from the
+surrounding rock during fault slip. Wseis is path-dependent
+and depends on the shear stress drop, Dt, and slip along the
+sliding faults [Scholz, 2002].
+Wseis ¼
+ZZ
+Dt "hor;l
+ 
+s "hor;l
+ 
+d"hor;dl ð5Þ
+For finite models, such as that considered in this study, we
+can also calculate external work on the system, which should
+equal the sum of the individual work terms. This external
+work is the product of displacement along the boundaries of
+the system times the forces along that boundary.Wext is path-
+dependent and is integrated over the loading path. Within
+this study we are able to compare the Wext from our models
+to Wtot in order estimate the errors in our work calculations.
+[9] Whereas some forms of work are nonconservative
+and lost to the system such as Wfric, Wprop and Wseis, others
+serve to store work that can be later used to drive faulting,
+Wgrav and Wint. For example, thrust faulting may release
+stored internal strain within contracting systems, but this
+occurs at the expense of producing greater work against
+gravity. Cooke and Murphy [2004] expanded the theoretical
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+3 of 14
+B12404
+formulations of Mitra and Boyer [1986] to include a more
+rigorous internal work term (equation (4)) so that a com-
+pletely balanced work budget can be evaluated within
+numerical models to simulate the growth fault systems.
+We use this formulation (1) to evaluate the principle of
+work minimization theory for an accretion/underthrusting
+cycle, (2) to quantify the role of each work component
+within a cycle, and (3) to test the similarity of analog
+experiments to results obtained by the boundary element
+method (BEM) technique.
+2.2. BEM
+[10] The BEM uses the principle of continuum mechanics
+to calculate stress and strain throughout a faulted rock body
+[e.g., Crouch and Starfield, 1990]. All the data necessary
+for analysis of the work terms, including slip, traction,
+internal stress and strain and vertical displacements, are
+constrained by the governing differential equations of
+continuum mechanics. Unlike the Finite Element Method,
+which requires discretization of the entire body, the BEM
+only requires discretization of model boundaries and dis-
+continuities (i.e., faults). This is advantageous for modeling
+multiple interacting faults because BEM requires less effort
+for discretization, and errors due to discretization and
+approximation arise only on the boundaries and along fault
+surfaces [Crouch and Starfield, 1990]. The BEM code used
+in this study, FRIC2D, computes the two-dimensional
+elastic and inelastic deformation associated with frictional
+slip along faults using the displacement discontinuity for-
+mulation of Crouch and Starfield [1990] with special
+constitutive frictional-slip elements [Cooke and Pollard,
+1997]. The model boundaries and fault surfaces are dis-
+cretized into linear elements each with uniform shear and
+normal displacement discontinuities. Additionally, along
+fault surfaces FRIC2D requires prescription of constitutive
+properties such as cohesion and friction coefficient.
+FRIC2D has been used to investigate faulting [Cooke and
+Pollard, 1997; Roering et al., 1997; Cooke and Kameda,
+2002; Cooke and Murphy, 2004], bedding plane slip within
+folds [Cooke et al., 2000], joint propagation [Cooke and
+Underwood, 2001] and sediment compaction associated
+with buried craters [Buczkowski and Cooke, 2004]. FRIC2D
+assumes linear elastic, isotropic and homogeneous rheology,
+which may not appropriately simulate sand deformation at
+all scales or at all time intervals. Specifically, the code does
+not capture the details of individual grain movement and
+instead treats the entire sandbox as elastic for the short time
+periods simulated. Because loose sand accumulates a large
+amount inelastic deformation over the course of an analog
+experiment, infinitesimal snap shots of quasi-elastic defor-
+mation are simulated within each numerical experiments of
+this study. These snapshots allow us to investigate the first-
+order effects of fault geometry and growth on the work
+budget of the accretionary system.
+3. Model Setup
+[11] The shape and properties of the wedge in the model
+were designed to mimic the sandbox analog experiments
+analyzed by the particle image velocimetry technique (PIV)
+[Adam et al., 2005]. By comparing sequential high-resolu-
+tion images, PIV is able to track grain-by-grain dislocation
+and thus produce maps of shear strain within the wedge. In
+this way, it is possible to obtain a continuous recording of
+the activity of faults and their geometry.
+[12] The BEM model simulates a 0.6 m length of the
+sandbox experiment performed by Adam et al. [2005]. We
+follow the observations of Adam et al. [2005] and focus our
+investigation on the deformation within the toe of the wedge
+at the transition from underthrusting to accretion. The total
+length of the model is 1 m to ensure that the lateral sides of
+the model are sufficiently far from the region of investiga-
+tion to minimize boundary effects. The topography of the
+top of the model resembles the laboratory experiment, and
+in the model, the upper surface is prescribed to be stress free
+(Figure 2). A series of numerical models investigates small
+increments of deformation during the transition from un-
+derthrusting to accretion; in this manner, the models simu-
+late snapshots through this transition. Within each snapshot,
+only fault surfaces with activity detected by PIVof Adam et
+al. [2005] and the basal de´collement are included in the
+model. For each snapshot, the left side and base of the
+model are heaved to the right 0.5 cm (0.5% contraction)
+while the upper portion of the right side of the mode is
+horizontally fixed. The lower two elements of the right side
+heave to the right creating a discontinuity along a horizontal
+Figure 2. Conceptual diagram of model set up and boundary conditions. The deformation is modeled
+by heaving the left, bottom elements and bottommost two elements of the right end side toward the right.
+The residual and peak coefficients of friction are chosen for active and inactive segments of the basal
+de´collement, respectively. The underthrusting stage is modeled by progressively lengthen the roof thrusts
+to the right. Because of wedge geometry, the roof thrust will be loaded by increasing overburden as it
+lengthens.
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+4 of 14
+B12404
+frictional interface that simulates the base of the laboratory
+experiment. Where the shear stress is low (i.e., less than
+frictional strength) along this base, the overlying sand is
+transported to the right; where shear stresses are high, the
+sand may not be transported to the right creating a de´colle-
+ment surface. In addition to the frictional interface simulat-
+ing the basal de´collement, various roof thrust lengths and
+accretion fore thrusts are prescribed as frictional interfaces
+within the models.
+[13] The frictional properties assigned to the fault surfa-
+ces depend on whether they are slipping or not. For sliding
+surfaces (faults within the wedge and portions of the basal
+de´collement to the right of these faults) a friction coefficient
+of 0.5 is assigned to mimic frictional properties under
+dynamic slip conditions measured in laboratory tests of
+Adam et al. [2005]. The portion of the basal de´collement to
+the left of the thrust faults (in front of the thrust faults) is
+assigned higher friction (m = 0.7). This higher value
+corresponds to the coefficient of friction measured for the
+sand at peak strength, i.e., at the verge of failure [Adam et
+al., 2005]. The roof thrust and fore thrusts added in
+sequential models are assigned the lower-valued dynamic
+coefficient of friction (m = 0.5). The effective normal and
+shear stiffness are estimated from the material stiffness and
+the width of the fault zone observed in the experiments of
+Adam et al. [2005]. To establish the values of Young’s
+modulus and Poisson’s ratio for our models, we compared
+the frictional strength of the fine sand used by Adam et al.
+[2005] to physical properties compiled from soil engineer-
+ing studies of a uniform fine to medium sand [Lambe and
+Whitman, 1969]. Average values for the Poisson’s ratio
+(0.25–0.40) and Young’s modulus (10.35–17.25 MPa)
+were prescribed for our models (Turner-Fairbank Highway
+Research Center, http://www.tfhrc.gov/safety/pubs/04094/
+04.htm). The sand density was set at 1.732 g/cm3 [Adam
+et al., 2005].
+[14] Using the prescribed boundary conditions and mate-
+rial properties, the BEM solves for the displacements and
+stresses along external boundaries and faults within the
+model so that that Wfric and external work Wext can be
+calculated. For example, the only boundaries that produce
+external work are the left side and bottom two elements of
+the right side. The product of force times displacement is
+zero along the other model boundaries. Additionally, dis-
+placements and stresses can be sampled at specific points
+throughout the fault system to calculate Wgrav and Wint. The
+seismic and fault propagation energy are not directly
+assessed within the quasi-static models because they reflect
+a change in conditions over time. The seismic energy is the
+energy released during slip. This can be calculated by
+comparison of fault stresses within two models before and
+after the fault has slipped. Similarly, the propagation energy
+can be estimated by the length of new fault surface times the
+energy needed to create new fault surface area in models
+before and after the development of the new fault. The
+energy needed to create new fault surface has been mea-
+sured in the lab. Depending on different confining pressures
+and rock type, the fracture energy can vary greatly (between
+101 and 104 J/m2 [Wong, 1982, 1986; Cox and Scholz,
+1988]). Recent studies suggest that these values can be
+decreased by a factor of 3 to 5 if the dilation process before
+rupture is properly taken into account [Labuz and Dai,
+2000]. The sum of the seismic energy and the fault
+propagation should equal the change in external energy
+between models before and after fault slip or a new fault
+develops.
+4. Model Results
+[15] Progressive underthrusting is simulated by lengthen-
+ing the roof thrust. We examine five snapshots of under-
+thrusting at intervals or 2 cm thrust length measured along
+the upper horizontal portion of the roof thrust. The cumu-
+lative error of all the work terms can be assessed from the
+difference between the sum of all the work components
+(Wtot) and the work done on the external boundary of the
+system (Wext). Most models produce cumulative errors less
+than 1.5% of the Wext (Figure 3). Much of this error arises
+from the internal and gravitational work calculations, which
+are integrated over the area of the model. Because the
+stresses and displacements are numerically unreliable near
+the edges of individual fault elements, some critical points
+within regions of stress concentration near the faults are left
+out of the integrations, resulting in underestimation of Wint
+and Wgrav. Consequently, Wtot is consistently less than Wext
+and the external work, which is not hampered by data gaps,
+provides a reliable estimate of the total work in the system.
+4.1. Work Increase During the Underthrusting Mode
+[16] Numerical results show a systematic increase in Wext
+as the sheet is progressively underthrust (Figure 3). This
+suggests that with increasing underthrusting, continued
+deformation of the wedge requires greater work applied to
+the system. The largest portion of work goes into frictional
+heating (Wfric > 0.5 Wext), while uplift against gravity
+consumes only about 2% of Wext.
+Figure 3. Increase in Wgrav, Wfric, and Wint for each stage
+of roof thrust lengthening. This increase leads to systematic
+increase of total work during progressive underthrusting.
+The new fore thrust produces significantly less frictional
+heating and less total work in spite of increased Wint. The
+transition from underthrusting to accretion via the develop-
+ment of the new fore thrust follows total work minimization
+of the fault system.
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+5 of 14
+B12404
+[17] Within the underthrusting system, uplift against
+gravity only occurs near the dipping ramp section of the
+roof thrust (Figure 4). Although small, Wgrav increases with
+thrust sheet length due to increasing thickness of material
+uplifted above the ramp. The increase in Wfric with progres-
+sive underthrusting can be attributed to both increasing roof
+thrust length and increased weight of overburden, which
+resists frictional sliding and subsequently increases friction-
+al heating within the system. For similar reasons, Wint
+systematically increases as the roof thrust grows longer.
+As the active ramp is under deeper portions of the wedge,
+fault slip is inhibited and contraction instead is accommo-
+dated by greater internal deformation of the surrounding
+material. We see in the models a trade-off between the
+contraction accommodated by fault slip and that accommo-
+dated by deformation of the surrounding material.
+4.2. Work Decrease During Transition
+[18] We simulate the beginning of the accretionary stage
+documented in sandbox experiments by removing the
+inactive roof thrust and adding an active fault ramp at the
+front of the deforming wedge in the position of fore
+thrusting observed by Adam et al. [2005]. The transition
+from underthrusting to accretionary mode is associated with
+a significant decrease in the total work on the system
+(Figure 3). This suggests that deforming a wedge system
+with a ramp in front of the wedge takes less overall tectonic
+work than deforming a system with a mature underthrust
+sheet. The transition produces a net decrease in Wext via an
+increase in Wint and a correspondingly larger decrease in
+Wfric.
+[19] The work against gravity decreases upon the transi-
+tion to accretion because the active fault ramp has now less
+overburden to uplift than the mature roof thrust (Figure 2).
+The reduction of overburden weight on the active fault ramp
+also decreases the resistance of the ramp to frictional
+sliding. Thus, to accommodate the same amount of con-
+traction, the accretionary fault system produces less fric-
+tional heating than the long and mature underthrust fault
+system. In apparent contrast to the lesser resistance of the
+fore thrust to frictional slip, this fault has less slip than the
+roof thrust in the underthrust models just prior to transition
+to underthrusting (Figure 5). This is demonstrated by the
+significant increase in internal work within the accretionary
+model as the surrounding material accommodates deforma-
+tion in lieu of fore-thrust slip (Figure 3). Consequently, the
+accretion model that minimizes the overall contributions of
+Wgrav, Wint and Wfric is not the fault configuration that
+accommodates greatest slip.
+4.3. Position of the Maximum Shear Stress Along the
+Basal De´collement
+[20] The position of the maximum shear stress on the
+basal de´collement was calculated in the model with the
+longest roof thrust just before the transition to the accretion
+stage (based on the sandbox models of Adam et al. [2005]).
+The numerical model gives a left-lateral maximum shear
+stress located at 26 cm along the basal de´collement
+(Figure 6b) that is also associated with a high distortional
+strain energy (white arrow, Figure 6a) along the base of the
+numerical wedge. High levels of distortional strain energy
+density have been suggested to characterize the propagation
+path of deformation bands [Okubo and Schultz, 2005].
+Accordingly, we hypothesize that the localization of distor-
+tional strain energy in our model may mimic the incipient
+propagation of a new fore-thrust ramp at the wedge toe. A
+striking fit can be observed between the position of the
+maximum basal shear stress within the numerical model and
+the location of accumulating shear strain at the base of the
+Figure 4. Plot of vertical displacement within the wedge during shortening. The vertical uplift is
+concentrated on the ramp portion of the roof thrust. The total work against gravity integrated throughout
+the model is much smaller than other work terms.
+Figure 5. Slip distribution along the (1) roof thrust ramp
+and (2) fore-thrust ramp, respectively. The fore-thrust ramp
+has less slip despite the lesser vertical overburden acting on
+the fault compared to on the roof thrust ramp. The roof
+thrust is at its maximum length, prior to transition to
+accretion observed by Adam et al. [2005].
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+6 of 14
+B12404
+sandbox model of Adam et al. [2005] (black arrow pointing
+at yellow red patches in Figures 6d and 6e).
+4.4. Efficient New Ramp Location and Vergence
+[21] In the sandbox experiment, before the roof thrust is
+totally abandoned (turning pale green from red) an area of
+diffuse deformation can be observed ahead of the wedge toe
+(Figure 6d). Adam et al. [2005] interpreted this area as a
+dilational domain that produces strain hardening of the sand
+just prior to nucleation of a new fault, which eventually
+occurs toward the leftmost part of the dilational domain
+(Figure 6e). The new fore-thrust ramp location is expected
+to breach the dilational domain. On this premise, we tested
+the most efficient position for a new ramp to nucleate based
+on the principle of energy minimization. In our numerical
+model, we explored two likely locations for fore-thrust and
+back-thrust ramps for the accretionary stage: (1) the location
+of maximum shear stress along the basal de´collement
+(location 1, fore thrust 1 (FT1) and back thrust 1 (BT1);
+Figure 7) and (2) beyond the wedge toe in the location of
+faulting observed by Adam et al. [2005] (location 2, FT2
+and BT2; Figure 7). FT 2, in front of the wedge, requires the
+least external work to accommodate the same contraction as
+the other ramps. The Wfric and Wgrav show nearly equal
+values for both FT 1 and FT 2 (Figure 7); however, the Wint
+within the FT 1 model exceeds the Wint within the FT 2
+model. This reflects the resistance of FT 1 to slip (Figure 8)
+due to increased overburden weight. The reduced slip on the
+ramp increases the amount of local deformation (i.e., Wint)
+ahead of the wedge toe, as displayed by plots of Strain
+Energy Density (SED) (Figure 9b). Conversely, FT 2 more
+efficiently accommodates contraction via a greater slip
+(Figure 9a), resulting in a net decrease of the Wtot.
+[22] The mechanical efficiency of fore thrusts and back
+thrusts can also be compared. The wedge needs to expend a
+larger amount of energy in order to develop back thrusts
+rather than fore thrusts (Figure 7). Both BT1 and BT2 are
+characterized by a lesser slip than the fore thrusts (Figure 8),
+so that the Wfric is smaller than along the FTs, even where
+BT1 has greater overburden than FT1. However, the lesser
+slip yields disproportionably large increase in Wint. The
+distribution of strain energy density within the wedge
+indicates a higher level of wedge internal strain for back
+thrusts compared to the model with fore thrusts (Figures 9c
+and 9d). The overall effect is that of a larger Wtot that makes
+the wedge less efficient to deform with a back thrust rather
+than with a fore thrust. This is consistent with many
+analogue experimental observations in that back thrusts do
+not display prolonged activity. Consequently, the most
+efficient location for a new ramp is not at the point of
+maximum basal shear stress, as one would expect for a ramp
+branching off the basal de´collement. Instead new faults
+develop where the gravitational, frictional and internal
+mechanical work terms are optimally combined. As valida-
+tion of the work minimization principle, the fault configu-
+Figure 6. (a) Distortional strain energy (DSE) density within the wedge. (b) Greatest shear stress
+(negative is left lateral), which occurs at x = 26 cm along the base of the numerical sandbox, where the
+model also shows an area of relatively high distortional strain energy. (c) PIV image of sandbox
+experiment of Adam et al. [2005]. (d) Decrease of slip on the roof thrust that follows stress buildup at the
+base of the wedge and frontal dilation of sand. (e) Shear localization in the form of a fore-thrust–back-
+thrust couple. The numerical model is superimposed to show coincidence of numerically calculated
+maximum shear stress with area of maximum shear strain at the base of the sand-box experiment (black
+arrows in Figures 6d and 6e).
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+7 of 14
+B12404
+ration that minimizes the overall work of the system
+correlates with sandbox observations.
+5. Discussion
+5.1. Friction and Slip Evolution in Sandbox Models
+[23] We have implemented a numerical model in order to
+quantitatively study the work components of an underthrust-
+ing/accretion transition. The analysis was based on the idea
+that faults nucleate within sandbox models of wedge growth
+to minimize the system’s overall work. Our results indicate
+that gravity plays a fundamental role during deformation by
+controlling the balance between the shear resistance on fault
+surfaces (Wfric) and the overall strain around the fault (Wint).
+While the critical taper theory predicts uniform deformation
+within a growing wedge of constant taper angle, locally
+changing wedge slope has been proposed to alter the normal
+stress distribution along the basal de´collement to promote
+the development of distinct under thusting and accretion
+modes [Gutscher et al., 1998; Burbidge and Braun, 2002;
+Del Castello et al., 2004]. Our numerical experiments
+further verify that cycles of episodic cycles of underthrust-
+ing and accretion should be expected within growing
+accretionary wedges rather than monotonic growth pre-
+dicted by critical taper theory. The analysis in this paper
+offers an explanation of the trade-off mechanisms between
+different energy terms that force slip to jump from fault to
+fault across a sand wedge when a new fault propagates
+along the basal de´collement, which was fully disclosed by
+recent advances in visualization techniques of analogue
+models of Coulomb wedges (PIV [Adam et al., 2005]).
+5.2. Work Minimization
+[24] The principle of work minimization predicts that the
+fault system will evolve to a configuration that requires the
+least total work so that we can compare the energetic costs
+of various fault geometries to predict wedge system evolu-
+tion. If we neglect the acoustic energy released by slip
+(Wseis) and energy consumed in the formation of new fault
+surface (Wprop), we can predict that the accretionary mode is
+favored once the underthrust sheet is longer than 4.5 cm
+(Figure 10). At this length the total work of accommodating
+contraction by roof thrusting equals the work of accommo-
+dating contraction along a new fore thrust in front of the
+wedge. As the thrust sheet grows beyond 4.5 cm, the Wext
+(Wint + Wgrav + Wfric) of continued underthrusting requires
+greater energy than accretion (9.04 J). However, the system
+persists in the underthrusting stage. Why? The energy
+required to produce the new frontal ramp from the basal
+de´collement must also be taken into account. Underthrust-
+ing will be favored as long as the Wext is less than that
+necessary for accretion plus Wseis and Wprop for the accre-
+tionary model (equation (1)). The experiment of Adam et al.
+[2005] demonstrates that the transition from underthrusting
+to accretion occurs when the roof thrust is 10.5 cm long,
+when the model is expending 9.44 J to continue under-
+thrusting (Figure 10). The difference between theWext of the
+underthrust model at the transition and Wext of the new
+accretion model (0.4 J) reflects the energy lost during this
+transition to acoustic energy and development of new fault
+surface (Wseis + Wprop; Figure 10).
+Figure 8. Slip along different fault locations and ramp
+vergencemodeled. Fore thrust 2 shows the greatest amount of
+slip. Positive sign is for left-lateral motion (FT), and negative
+sign is for right-lateral motion along the ramp (BT).
+Figure 7. Weight of different work terms for under-
+thrusting phase (roof thrust length just prior to transition)
+and accretion. Fore thrust 2 is the most energetically
+efficient faulting geometry for this system setup as it
+displays the least amount of Wtot required for wedge
+deformation. In all other cases, the Wint increase overruns
+Wfric decrease, making these faults not favorably positioned
+in terms of work minimization.
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+8 of 14
+B12404
+[25] Although the energy required to propagate faults in
+sand is not available due to the difficulty of these measure-
+ments, laboratory tests on soft cemented sedimentary rocks
+at low confining pressure have shownWprop around 140 J/m
+2
+[Labuz and Dai, 2000]. If such sandstone grew a fault as
+long as the fore thrust in our accretionary models, the rock
+would consume 9.7 J. Of course, we expect loose sand to
+require much less energy than soft cemented sandstone
+because the unconfined compressive strength of soft,
+cemented sandstone is 100 times greater than that of sand.
+The order of magnitude of Wprop estimated by the model
+(<0.4 J) agrees with our expectations from available labora-
+tory data.
+[26] The values of the various work terms reported here
+reflect the specific fault geometry of and material properties
+within the numerical experiment. Although the values of the
+work components will vary with different fault configura-
+tions, the tradeoffs between the different work components
+within the overall work budget will remain the same. The
+transition from underthrusting to accretion occurs when the
+energetic benefit of slip along the new fore thrust exceeds
+the energetic cost of producing this surface.
+5.3. Is Work Against Gravity Not Important in
+Sandboxes?
+[27] The progressive increase of vertical overburden due
+to thickening by no doubts constitutes one of the main
+drivers to induce the wedge to switch from underthrusting to
+accretion during cycles observed in analogue experiments
+[Mulugeta and Koyi, 1992; Gutscher et al., 1996; Del
+Castello et al., 2004]. The BEM models have relatively
+small components of work against gravity (Wgrav ; Wint
+and Wfric). To some degree, this is due to the small scale of
+the sandbox, which produces small overburden pressures;
+larger scaled numerical models display a higher portion of
+work against gravity [Cooke and Murphy, 2004]. Adding a
+dip to the base of the sandbox model would increase the
+work against gravity slightly but not to the level of the other
+work components. Our gravitational work values are in the
+same order as the analytical estimates of Gutscher et al.
+Figure 9. Plots of strain energy density for different fore-thrust and back-thrust location. A progressive
+enlargement of wedge regions affected by high levels of strain (yellow, see scale for reference) can be
+observed from Figure 9a (fore thrust 2) to Figure 9d (back thrust 1). These cross sections confirm that
+fore thrust 2 accumulates the least internal strain within the wedge. The box in Figure 9a indicates the
+location of Figure 11.
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+9 of 14
+B12404
+[1998]. Does this mean that gravity is insignificant in
+sandbox experiments of accreting systems? No. While work
+against gravity is small (uplift against gravity occurs only
+on the ramp portion of each fault, Figure 4), overburden
+weight due to gravity critically influences changes in Wfric
+and Wint that govern the transition from underthursting to
+accretion. With increasing vertical overburden, the ramp
+will tend to slip less, decreasing the Wfric and eventually
+result in the clamping of the fault. However, at the same
+time, decreasing the slip means a larger fraction of energy is
+consumed in the form of internal strain of the host rock
+(Wint). The variation of Wint can be smaller or larger than
+that of Wfric (Figure 7). This trade-off will determine
+whether or not a fault is efficiently located such that the
+wedge minimizes the energy necessary for deformation.
+Yet, gravity will always be the driving variable. Neverthe-
+less, within natural systems that operate on larger scales, the
+work against gravity can also become significant compared
+to other work terms [Cooke and Murphy, 2004]. Conse-
+quently, the work budget for natural systems may differ
+from sandbox models, which are quite sensitive to changes
+in Wfric. Future work should explore the scales of models so
+that consideration can be given in extrapolating from
+sandbox interpretations.
+5.4. Fore Thrusts Are Energetically More Efficient
+Than Back Thrusts
+[28] The numerical model can also be used to evaluate
+whether the site for spontaneous shear localization in a new
+ramp observed in the models of Adam et al. [2005] responds
+to the work minimization principle. In principle, the new
+fore-thrust ramp could nucleate within the width of the
+dilation zone along the weakest grain boundaries or largest
+grains. A new imbricate splaying off at the basal de´colle-
+ment tip may develop where shear stress is maximum along
+the basal de´collement. The BTs consistently show a higher
+Wtot than FTs, suggesting that back thrusts are less efficient
+and may only be secondary features of the accretion process
+that allow for a partial accommodation of contraction during
+the folding process above the fault ramp. Even if our
+numerical experiments simulate a very small amount of
+contraction, we believe that work minimization can also
+explain why the back thrusts are generally observed to die
+out quite rapidly in sandbox models, immediately after their
+nucleation [Mulugeta and Koyi, 1992]. This may occur
+because these faults are steeper than fore thrusts and
+therefore are not optimally oriented to the horizontal con-
+traction [Cooke and Murphy, 2004]. This produces very
+high level of internal strain, possibly leading to strain
+hardening and clamping of the fault [Lohrmann et al.,
+2003]. Other mechanisms must be active to produce a
+long-lived BT, as in the case of weaker layers in the
+deforming section [Liu et al., 1992; Cotton and Koyi,
+2000; Bonini, 2001]. Another mechanism that may favor
+back thrusting is exceptionally high levels of fluid over-
+pressure, which produces micro fracturing, deformation
+bands and cataclastic. Our model results show that the
+stored internal work, Wint, controls the preference of fore
+thrusts over back thrusts. This suggests that weak layers
+and/or damage from fluid overpressures may serve to
+reduce Wint locally in order to favor back-thrust develop-
+ment. In nature, very few systems have back thrusts with
+larger slip than fore thrusts. In the Cascadia subduction zone
+accretionary complex, back thrusts seem to be favored
+where conspicuous and rapid sedimentation promotes fluid
+pressure build up [MacKay, 1995; Gutscher et al., 2001;
+Adam et al., 2004].
+[29] Panian and Wiltschko [2004, 2007] have suggested
+that back thrusts play a key role in forward propagation of
+fore thrusts. In their model, the initial back thrust develops
+at the toe of the wedge and propagates downdip to the
+de´collement. During propagation of the back thrust, a fore
+thrust develops that intersects the back thrust at the de´colle-
+ment. Within our model prior to fore thrusting, the area of
+greatest strain energy density and Navier-Coulomb stress,
+measures of propensity for fault development, occurs at the
+tip of the wedge (Figure 11) and at the same location of
+back-thrust initiation of Panian and Wiltschko [2004, 2007].
+While the stress distribution may promote the development
+of a back thrust, our models results show that for the overall
+system, a fore thrust requires less work than the back thrust
+to accommodate contraction; the fore thrust is more efficient
+and takes over.
+5.5. Downdip Propagation of the Fore-Thrust Ramp
+[30] The observation that the energetically most efficient
+fore thrust is located away from the position of the maxi-
+mum shear along the basal de´collement may raise some
+further questions. The position of maximum shear stress
+calculated by our model just beneath the wedge toe is
+consistent with previous mechanical analyses of frontal
+imbrication [Platt, 1988]. In the absence of the results
+Figure 10. (a) Models simulating successive thrust sheet
+growth. In this setup, the topography remains constant for
+each underthrust model. (b) External work (Wext) required
+for contraction increases with length of the underthrust
+sheet. The development of a fore thrust in front of the
+wedge is energetically favored when the Wext required for
+continued underthrusting exceeds the Wext for fore thrusting
+plus the work required to develop the new fault surface of
+the fore thrust (Wprop) and acoustic energy associated with
+slip (Wseis).
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+10 of 14
+B12404
+offered by our numerical model, one would normally expect
+that the branching would occur at the point of maximum
+shear along the basal de´collement or at the location of
+maximum distortional strain or positions of maximum
+Coulomb stress. The PIV experimental data of Adam et al.
+[2005] show an area of diffuse dilatation within the not yet
+faulted sand pack ahead of the maximum shear strain
+(equivalent to our maximum shear stress point) location
+on the basal de´collement. Within the dilatational domain,
+material may be on the verge of failure. Our numerical
+results show that it is mechanically more efficient to
+nucleate a new ramp at the outer frontal limit of the
+dilatational domain, which might then propagate downward
+to the basal de´collement, rather than propagating a new
+ramp from the basal de´collement at the point of maximum
+shear strain/stress. The nucleation of the new ramp at
+shallow depths is also supported by the shallow region of
+high Navier-Coulomb stress displayed by the numerical
+model in the area corresponding to the dilatational zone
+(Figure 11). Our results contrast the generally accepted
+paradigm that fault ramps propagate upward from the basal
+thrust de´collement tip [e.g., Suppe and Medwedeff, 1990]
+(Figure 12a) and concur with alternative models of ramp
+nucleation that evoke failure within the layer and propaga-
+tion of both fault tips toward upper and lower bedding plane
+de´collements. These models propose that, under horizontal
+compression, the more rigid layer fails first, creating the
+ramp, which later propagates into the less competent bed-
+ding planes [Eisenstadt and De Paor, 1987; McConnell et
+al., 1997; Morley, 1994] (Figure 12b). This outcrop-scale
+mechanical stratigraphy is analogous in the sandbox models
+to the sand layer, which acts as a single homogeneous layer
+bounded by a weaker basal de´collement and in the accre-
+tionary wedge to deforming rock sequence. In principle, the
+scale-invariant interaction between the various work terms
+analyzed in this study at the laboratory scale can be applied
+to the wedge scale to predict the nucleation of a shallow,
+large-scale ramp at the foot of a deforming accreting wedge.
+For example, initiation of a new frontal ramp was recently
+proposed at the outer Western Alps to explain unexpectedly
+high rates of local uplift [Nivie`re et al., 2006]. Unfortunate-
+ly, the initiation of a new thrust ramp is difficult to detect in
+nature as it is likely to be short-lived. Once the thrust ramp
+localizes, the concentrated stresses at the fault tips will
+facilitate propagation downward and the ramp will rapidly
+link to the basal de´collement tip.
+5.6. Coincidence Between BEM and Sandbox Model
+for Small Amounts of Contraction
+[31] A remarkable outcome of this paper is the coinci-
+dence between the position of the maximum shear stress on
+the basal de´collement calculated by our numerical model
+with the maximum shear strain observed in the sandbox
+experiment of Adam et al. [2005] (Figures 6d and 6e). We
+emphasize that the location of the maximum shear stress
+was neither set as a model boundary condition nor was it
+prescribed at the beginning of the modeling procedure. This
+is significant considering that although input parameters of
+the numerical wedge were the same as the mechanical
+properties of the noncohesive analogue material used in
+the sand-box experiment, the BEM code was implemented
+with the linear elastic continuum mechanics. It is certainly
+Figure 11. Plots of (a) strain energy density and (b) Navier-Coulomb stress. High values of strain/stress
+are visible at shallow depth in the vicinity of the wedge toe (outlined by the dashed line).
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+11 of 14
+B12404
+surprising that sand, which is generally thought as deform-
+ing plastically, can be modeled so well by a purely elastic
+numerical code along short timescales. In the recent past
+different models (FEM, DEM [Ellis et al., 2004; Burbidge
+and Braun, 2002; Yamada and Matsuoka, 2005; Naylor et
+al., 2005]) were used to numerically simulate deformation
+observed in experimental Coulomb wedges. Our BEM
+model, which underestimates the effects of plasticity, might
+not be able yet to capture the full continuous deformation
+process within a Coulomb wedge. Certainly, more detailed
+models are needed to further assess whether elasticity can
+be effective on a continuous timescale or to appraise the
+importance of elasticity over plasticity as the key rheology
+driving the wedge deformation. However, our model dem-
+onstrates that at least for small temporal scales elasticity
+contributes to the wedge mechanics. Indeed, if the wedge
+deformation is discretized into several snapshots, we can
+observe that important wedge characteristics such as (1) size
+and spacing of imbricates, (2) switching between different
+deformation modes, and (3) activation/deactivation of single
+fault due to strain hardening/weakening processes can be
+analyzed in the light of elastic models and that these
+respond to mechanical concepts of work minimization.
+6. Conclusions
+[32] Our BEM models have successfully reproduced the
+transitory deformation of accreting wedges during an accre-
+tion-underthrusting cycle observed in analog experiments.
+The modeling results confirm that the underthrusting to
+accretion transition is driven by a complex interaction
+between gravitational forces and shear resistance along
+fault surfaces such that a trade-off exists between the
+amount of energy dissipated as internal strain and that
+absorbed via frictional heating on the faults. Consideration
+of individual and total work of the accreting system
+demonstrates that the development of new fore thrusts
+reflects the overall tendency of the system to minimize
+total work even while individual work terms may increase.
+Because every new fore thrust will accumulate slip and
+mature to a progressively less efficient underthrusting stage,
+a repetitive cycle of underthrusting and accretion arises.
+The transition from underthrusting to accretion occurs when
+the increase in system efficiency associated with the devel-
+opment of a new fore thrust exceeds the energetic cost of
+growing the fore thrust (Wprop + Wseis). Our model results
+show distinct phases of underthrusting and accretion during
+wedge growth, such as observed in different segments of
+the Alaskan margin [Gutscher et al., 1998; Moore et al.,
+1991] that are not explained by critical taper theory. In the
+models, fore thrusts are characterized by higher efficiency
+compared to back thrusts. This is consistent with observa-
+tion from previous analogue and numerical models that slip
+along back thrusts rapidly lessens with increasing displace-
+ment. Furthermore, the position and vergence of a ramp that
+is most energetically efficient matches that produced in the
+analog experiments.
+[33] The work budget analysis offers results consistent
+with both observations of physical models [Adam et al.,
+2005] and analytical treatments of accretion [Platt, 1988].
+Our numerical approach fills in knowledge gaps from
+previous analyses of accreting systems that were limited
+to work against gravity and frictional sliding [Gutscher et
+al., 1998; Burbidge and Braun, 2002]. By considering the
+significant component of work accumulating as internal
+deformation within the wedge (Wint), we are able to paint
+a more complete picture of the dynamics of underthrusting-
+accretion transitions. During the transition from underthrust-
+ing to accretion, the decrease of work against friction
+accounts for all of the increase in fault system efficiency
+and overcomes associated increases in internal work.
+Consequently, we expect that even small changes in wedge
+slope and thickness, such as investigated by Gutscher et
+al. [1998] and Burbidge and Braun [2002], will have
+significant impact on slip distribution and mode of wedge
+deformation.
+[34] Acknowledgments. The work was funded by a grant from the
+National Science Foundation (EAR-0349070). N. Kukowski, M. A.
+Gutscher, and G. Moore are acknowledged for their fruitful comments.
+D. Wiltschko kindly offered suggestions and unpublished material as a
+useful comparison.
+References
+Adam, J., D. Klaeschen, N. Kukowski, and E. Flueh (2004), Upward
+delamination of Cascadia Basin sediment infill with landward frontal
+accretion thrusting caused by rapid glacial age material flux, Tectonics,
+23, TC3009, doi:10.1029/2002TC001475.
+Adam, J., J. L. Urai, B. Wieneke, O. Oncken, K. Pfeiffer, N. Kukowski,
+J. Lohrmann, S. Hoth, W. van der Zee, and J. Schmatz (2005), Shear
+localization and strain distribution during tectonic faulting-new insights
+from granular-flow experiments and high resolution optical image
+correlation techniques, J. Struct. Geol., 27, 283–301.
+Figure 12. Two alternative models for ramp generation. (a) Ramps growing upward from the tip of the
+propagating de´collement. (b) Ramps nucleating first within the rigid layer and then propagating
+downward to the tip of the sole thrust. (c) Two scenarios producing almost identical styles of ramp-related
+folding (see McConnell et al. [1997] and Morley [1994] for more details).
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+12 of 14
+B12404
+Bangs, N. L., T. H. Shipley, S. P. S. Gulick, G. F. Moore, S. Kuromoto, and
+Y. Nakamura (2004), Evolution of the Nankai Trough de´collement from
+the trench into the seismogenic zone: Inferences from three-dimensional
+seismic reflection imaging, Geology, 32, 273 – 276, doi:10.1130/
+G20211.2.
+Barnhoorn, A., M. Bystricky, L. Burlini, and K. Kunze (2004), The role of
+recrystallisation on the deformation behaviour of calcite rocks: Large
+strain torsion experiments on Carrara marble, J. Struct. Geol., 26,
+885–903.
+Bird, P., and D. A. Yuen (1979), The use of minimum dissipation principle
+in tectonophysics, Earth Planet. Sci. Lett., 45, 214–217.
+Bombolakis, E. G. (1994), Applicability of critical-wedge theories to
+foreland belts, Geology, 22, 535–538.
+Bonini, M. (2001), Passive roof thrusting and forelandward fold propaga-
+tion in scaled brittle-ductile physical models of thrust wedges, J. Geo-
+phys. Res., 106, 2291–2311.
+Buczkowski, D. L., and M. L. Cooke (2004), Formation of double-ring
+circular grabens due to volumetric compaction over buried impact craters:
+Implications for thickness and nature of cover material in Utopia Planitia,
+Mars, J. Geophys. Res., 109, E02006, doi:10.1029/2003JE002144.
+Burbidge, D. R., and J. Braun (2002), Numerical models of the evolution of
+accretionary wedges and fold-and-thrust belts using the distinct-element
+method, Geophys. J. Int., 148, 542–561.
+Cooke, M. L., and A. Kameda (2002), Mechanical fault interaction within
+the Los Angeles Basin: A two-dimensional analysis using mechanical
+efficiency, J. Geophys. Res., 107(B7), 2146, doi:10.1029/2001JB000542.
+Cooke, M. L., and S. Murphy (2004), Assessing the work budget and
+efficiency of fault systems using mechanical models, J. Geophys. Res.,
+109, B10408, doi:10.1029/2004JB002968.
+Cooke, M. L., and D. D. Pollard (1997), Bedding-plane slip in initial stages
+of fault-related folding, J. Struct. Geol., 19, 567–581.
+Cooke, M. L., and C. A. Underwood (2001), Fracture termination and step-
+over at bedding interfaces due to frictional slip and interface opening,
+J. Struct. Geol., 23, 223–238.
+Cooke, M. L., D. Mollema, D. D. Pollard, and A. Aydin (2000), Interlayer
+slip and joint localization in East Kaibab Monocline, Utah: Field
+evidence and results from numerical modeling, in Forced Folds and
+Fractures, edited by J. W. Cosgrove and M. S. Ameen, Geol. Soc. Spec.
+Publ., 169, 23–49.
+Cotton, J. T., and E. Koyi (2000), Modeling of thrust fronts above ductile
+and frictional detachments: Application to structures in the Salt Range
+and Potwar Plateau, Pakistan, Geol. Soc. Am. Bull., 112, 351–363.
+Cox, S. J. D., and C. H. Scholz (1988), Rupture initiation in shear fracture
+of rocks: An experimental study, J. Geophys. Res., 93, 3307–3320.
+Crouch, S. L. and A. M. Starfield (1990), Boundary Element Methods in
+Solid Mechanics, Unwin Hyman, Boston, Mass.
+Dahlen, F. A. (1990), Critical taper model of fold-and-thrust belts and
+accretionary wedges, Annu. Rev. Earth Planet. Sci. Lett., 18, 55–99.
+Dahlen, F. A., J. Suppe, and D. Davis (1984), Mechanics of fold-and-thrust
+belts and accretionary wedges: Cohesive Coulomb theory, J. Geophys.
+Res., 89, 87–101.
+Del Castello, M., G. A. Pini, and K. R. McClay (2004), Effect of unbalanced
+topography and overloading on Coulomb wedge kinematics: Insights
+from sandbox modeling, J. Geophys. Res., 109, B05405, doi:10.1029/
+2003JB002709.
+Eisenstadt, G., and D. G. De Paor (1987), Alternative model of thrust-fault
+propagation, Geology, 15, 630–633.
+Ellis, S., G. Schreurs, and M. Panien (2004), Comparisons between
+analogue and numerical models of thrust wedge development, J. Struct.
+Geol., 26, 1659–1675.
+Ford, M. (2004), Depositional wedge tops: Interaction between low basal
+friction external orogenic wedges and flexural foreland basins, Basin
+Res., 16, 361–375.
+Gutscher, M. A., N. Kukowski, J. Malavieille, and S. Lallemand (1996),
+Cyclic behavior of thrust wedges: Insights from high basal friction
+sandbox experiments, Geology, 24, 135–138.
+Gutscher, M. A., N. Kukowski, J. Malavieille, and S. Lallemand (1998),
+Episodic imbricate thrusting and underthrusting: Analog experiments and
+mechanical analysis applied to the Alaskan Accretionary Wedge, J. Geo-
+phys. Res., 103, 10,161–10,176.
+Gutscher, M. A., D. Klaeschen, E. Flueh, and J. Malavieille (2001), Non-
+Coulomb wedges, wrong-way thrusting, and the natural hazards in
+Cascadia, Geology, 29, 379–382.
+Jaeger, J. C. and N. G. Cook (1969), Fundamentals of Rock Mechanics, 513
+pp., Methuen, London.
+Konstantinovskaia, E., and J. Malavieille (2005), Erosion and exhumation
+in accretionary orogens: Experimental and geological approaches,
+Geochem. Geophys. Geosyst., 6, Q02006, doi:10.1029/2004GC000794.
+Kukowski, N., S. E. Lallemand, J. Malavieille, M. A. Gutscher, and T. J.
+Reston (2002), Mechanical decoupling and basal duplex formation
+observed in sandbox experiments with application to the Western
+Mediterranean Ridge accretionary complex, Mar. Geol., 186, 29–42.
+Labuz, J. F., and S. T. Dai (2000), Residual strength and fracture energy
+from plane-strain testing, J. Geotech. Geoenviron. Eng., 126, 882–889.
+Lallemand, S. E., P. Schnurle, and J. Malavieille (1994), Coulomb theory
+applied to accretionary and non-accretionary wedges: Possible causes for
+tectonic erosion and/or frontal accretion, J. Geophys. Res., 99, 12,033–
+12,055.
+Lambe, T. W. and R. V. Whitman (1969), Soil Mechanics, 553 pp., John
+Wiley, New York.
+Liu, H., K. R. McClay, and D. Powell (1992), Physical models of thrust
+wedges, in Thrust Tectonics, edited by K. R. McClay, pp. 71 –81,
+Chapman and Hall, New York.
+Lohrmann, J., N. Kukowski, J. Adam, and O. Oncken (2003), The impact
+of analogue material properties on the geometry, kinematics, and
+dynamics of convergent sand wedges, J. Struct. Geol., 25, 1691–1711.
+MacKay, M. E. (1995), Structural variation and landward vergence at the
+toe of the Oregon accretionary prism, Tectonics, 14, 1309–1320.
+Marone, C. (1998), Laboratory-derived friction laws and their application to
+seismic faulting, Annu. Rev. Earth Planet. Sci. Lett., 26, 643–696.
+Masek, J. G., and C. C. Duncan (1998), Minimum-work mountain building,
+J. Geophys. Res., 103, 907–917.
+McCaffrey, R., M. D. Long, C. Goldfinger, P. C. Zwick, J. L. Nabelek, C. K.
+Johnson, and C. Smith (2000), Rotation and plate locking at the southern
+Cascadia subduction zone, Geophys. Res. Lett., 27, 3117–3120.
+McClay, K. R. and P. S. Whitehouse (2004), Analog modeling of doubly
+vergent thrust wedges, in Thrust Tectonics and Hydrocarbon Systems,
+edited by K. R. McClay, AAPG Mem., 82, 187–209.
+McConnell, D. A., S. A. Kattenhorn, and L. M. Benner (1997), Distribution
+of fault slip in outcrop-scale fault-related folds, Appalachian Mountains,
+J. Struct. Geol., 19, 257–267.
+Melosh, H. J., and C. A. Williams Jr. (1989), Mechanics of graben
+formation in crustal rocks: A finite element analysis, J. Geophys. Res.,
+94, 13,961–13,973.
+Mitra, G., and S. E. Boyer (1986), Energy balance and deformation
+mechanisms of duplexes, J. Struct. Geol., 8, 291–304.
+Moore, J. C., et al. (1991), Edge deep seismic-reflection transect of the
+eastern Aleutian arc-trench layered lower crust reveals underplating and
+continental growth, Geology, 19, 420–424.
+Morley, C. K. (1994), Fold-generated imbricates: Examples from the
+Caledonides of southern Norway, J. Struct. Geol., 16, 619–631.
+Mulugeta, G., and H. Koyi (1992), Episodic accretion and strain partition-
+ing in a model sand wedge, Tectonophysics, 202, 319–333.
+Naylor, M., H. D. Sinclair, S. Willett, and P. A. Cowie (2005), A discrete
+element model for orogenesis and accretionary wedge growth, J. Geo-
+phys. Res., 110, B12403, doi:10.1029/2003JB002940.
+Nivie`re, B., M. Giamboni, I. Christophe, and T. Winter (2006), Kinematic
+evolution of a tectonic wedge above a flat-lying de´collement: The Alpine
+foreland at the interface between the Jura Mountains (Northern Alps) and
+the Upper Rhine Graben, Geology, 34, 469–472.
+Okubo, C. H., and R. A. Schultz (2005), Evolution of damage zone
+geometry and intensity in porous sandstone: Insight gained from strain
+energy density, J. Geol. Soc. London, 162, 939–949.
+Panian, J., and D. Wiltschko (2004), Ramp initiation in a thrust wedge,
+Nature, 427, 624–627.
+Panian, J., and D. Wiltschko (2007), Ramp initiation and spacing in a
+homogeneous thrust wedge, J. Geophys. Res., 112, B05417,
+doi:10.1029/2004JB003596.
+Panien, M., G. Schreurs, and A. Pfiffner (2006), Mechanical behaviour of
+granular materials used in analogue modelling: Insights from grain
+characterisation, ring-shear tests and analogue experiments, J. Struct.
+Geol., 28, 1710–1724.
+Platt, J. P. (1988), The mechanics of frontal imbrication: A first order
+analysis, Geol. Rundsch., 77, 577–589.
+Rabinowicz, E. (1958), The intrinsic variables affecting the stick-slip
+process, Proc. Phys. Soc., 71, 668–675.
+Roering, J. J., M. L. Cooke, and D. D. Pollard (1997), Why blind thrust
+faults do not propagate to the Earth’s surface: Numerical modeling of
+coseismic deformation associated with thrust-related anticlines, J. Geo-
+phys. Res., 102, 11,901–11,912.
+Saffer, D. M., and B. A. Bekins (2006), An evaluation of factors
+influencing pore pressure in accretionary complexes: Implications for
+taper angle and wedge mechanics, J. Geophys. Res., 111, B04101,
+doi:10.1029/2005JB003990.
+Scholz, C. H. (2002), The Mechanics of Earthquakes and Faulting, 472 pp.,
+Cambridge Univ. Press, New York.
+Sleep, N. H., S. Stein, R. J. Geller, and R. G. Gordon (1979), Comment on
+‘‘The use of the minimum-dissipation principle in tectonophysics’’ by
+P. Bird and D. A. Yuen, Earth Planet. Sci. Lett., 45, 218–220.
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+13 of 14
+B12404
+Song, T. A., and M. Simons (2003), Large trench-parallel gravity variations
+predict seismogenic behavior in subduction zones, Science, 301, 630–
+633.
+Storti, F., and K. McClay (1995), Influence of syntectonic sedimentation on
+thrust wedges in analog models, Geology, 23, 999–1002.
+Suppe, J., and D. A. Medwedeff (1990), Geometry and kinematics of fault-
+propagation folding, Eclogae Geol. Helv., 83, 409–454.
+Timoshenko, S. P. and J. N. Goodier (1934), Theory of Elasticity,
+McGraw-Hill, New York.
+Vannucchi, P., C. R. Ranero, S. Galeotti, S. M. Straub, D. W. Scholl, and
+K. McDougall-Reid (2003), Fast rates of subduction erosion along the
+Costa Rica Pacific margin: Implications for nonsteady rates of crustal
+recycling at subduction zones, J. Geophys. Res., 108(B11), 2511,
+doi:10.1029/2002JB002207.
+Wang, K., and Y. Hu (2006), Accretionary prisms in subduction earthquake
+cycles: The theory of dynamic Coulomb wedge, J. Geophys. Res., 111,
+B06410, doi:10.1029/2005JB004094.
+Wells, R. E., R. J. Blakely, Y. Sugiyama, D. W. Scholl, and P. A. Dinterman
+(2003), Basin-centered asperities in great subduction zone earthquakes:
+A link between slip, subsidence, and subduction erosion?, J. Geophys.
+Res., 108(B10), 2507, doi:10.1029/2002JB002072.
+Wong, T. F. (1982), Shear fracture energy of Westerly granite from post-
+failure behavior, J. Geophys. Res., 87, 990–1000.
+Wong, T. F. (1986), On the normal stress dependence of the shear fracture
+energy, in Earthquake Source Mechanics, Geophys. Monogr. Ser.,
+vol. 37, edited by S. Das, J. Boatwright, and C. H. Scholz, pp. 1–12,
+AGU, Washington, D. C.
+Yamada, Y. and T. Matsuoka (2005), Digital sandbox modeling using
+distinct element method: Applications to fault tectonics, in Faults, fluid
+flow, and Petroleum Traps, edited by R. Sorkhabi and Y. Tsuji, AAPG
+Mem., 85, 107–123.
+
+M. L. Cooke and M. Del Castello, Geosciences Department, University
+of Massachusetts, 611 North Pleasant Street, Amherst, MA 01003, USA.
+(mariod@geo.umass.edu)
+B12404 DEL CASTELLO AND COOKE: UNDERTHRUSTING-ACCRETION WORK BUDGET
+14 of 14
+B12404

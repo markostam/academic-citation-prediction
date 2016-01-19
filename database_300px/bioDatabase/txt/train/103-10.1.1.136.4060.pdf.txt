@@ -1,0 +1,809 @@
+ 10.1101/gr.757503Access the most recent version at doi:
+ 2003 13: 37-45; originally published online Dec 30, 2002; Genome Res.
+  
+Pavel Pevzner and Glenn Tesler 
+  
+ Human and Mouse Genomes
+Genome Rearrangements in Mammalian Evolution: Lessons From
+ 
+ 
+ data
+Supplementary
+ http://www.genome.org/cgi/content/full/13/1/37/DC1
+ "Supplemental Research Data"
+ References
+ http://www.genome.org/cgi/content/full/13/1/37#otherarticles
+Article cited in: 
+  
+ http://www.genome.org/cgi/content/full/13/1/37#References
+This article cites 37 articles, 21 of which can be accessed free at: 
+ service
+Email alerting
+ click heretop right corner of the article or 
+Receive free email alerts when new articles cite this article - sign up in the box at the
+ Notes   
+ http://www.genome.org/subscriptions/
+ go to: Genome ResearchTo subscribe to 
+© 2003 Cold Spring Harbor Laboratory Press 
+ on November 8, 2006 www.genome.orgDownloaded from 
+Genome Rearrangements in Mammalian Evolution:
+Lessons From Human and Mouse Genomes
+Pavel Pevzner1 and Glenn Tesler
+Department of Computer Science and Engineering, University of California, San Diego, La Jolla, CA 92093-0114, USA
+Although analysis of genome rearrangements was pioneered by Dobzhansky and Sturtevant 65 years ago, we
+still know very little about the rearrangement events that produced the existing varieties of genomic
+architectures. The genomic sequences of human and mouse provide evidence for a larger number of
+rearrangements than previously thought and shed some light on previously unknown features of mammalian
+evolution. In particular, they reveal that a large number of microrearrangements is required to explain the
+differences in draft human and mouse sequences. Here we describe a new algorithm for constructing synteny
+blocks, study arrangements of synteny blocks in human and mouse, derive a most parsimonious human–mouse
+rearrangement scenario, and provide evidence that intrachromosomal rearrangements are more frequent than
+interchromosomal rearrangements. Our analysis is based on the human–mouse breakpoint graph, which reveals
+related breakpoints and allows one to find a most parsimonious scenario. Because these graphs provide
+important insights into rearrangement scenarios, we introduce a new visualization tool that allows one to view
+breakpoint graphs superimposed with genomic dot-plots.
+[Supplemental material is available online at www.genome.org.]
+Analysis of genome rearrangements in molecular evolution
+was pioneered by Dobzhansky and Sturtevant (1938), who
+published a milestone paper with an evolutionary tree pre-
+senting a rearrangement scenario with 17 inversions for the
+species Drosophila pseudoobscura and Drosophila miranda. Ev-
+ery genome rearrangement study involves solving a combina-
+torial puzzle to find a series of genome rearrangements to
+transform one genome into another. Palmer and co-authors
+(Palmer and Herbon 1988) pioneered studies of the shortest
+(most parsimonious) rearrangement scenarios and applied
+this approach to plant mtDNA and cpDNA. Since then, the
+analysis of the most parsimonious scenarios has become the
+dominant approach in genome rearrangement studies. For
+unichromosomal genomes, it usually amounts to analysis of
+inversions (also known as reversals), which are the most com-
+mon rearrangement events. The problem of finding the mini-
+mum number of reversals to transform one unichromosomal
+genome into another is known as the “reversal distance prob-
+lem.” For multichromosomal genomes, the most common re-
+arrangements are reversals, translocations, fusions, and fis-
+sions, and the number of such rearrangements in a most par-
+simonious scenario is known as the “genomic distance”
+between multichromosomal genomes.
+Finding the reversal distance is a difficult combinatorial
+problem. In the very first computational studies of genome
+rearrangements, Watterson et al. (1982) and Nadeau and Tay-
+lor (1984) introduced the notion of a breakpoint (disruption
+of gene order) and noticed some correlations between the
+reversal distance and the number of breakpoints (in fact, Stur-
+tevant and Dobzhansky [1936] implicitly discussed these cor-
+relations 65 years ago!). The shortcoming of early genome
+rearrangement studies is that they considered breakpoints in-
+dependently without revealing combinatorial dependencies
+between related breakpoints. The simplest example of related
+breakpoints are two breakpoints formed by a single reversal.
+Kececioglu and Sankoff (1995) were the first to recognize the
+importance of dependencies between breakpoints and to
+come up with an approximation algorithm for the reversal
+distance problem. The important result of Bafna and Pevzner
+(1993, 1996) is the construction of the “breakpoint graph,”
+which reveals related breakpoints and allows one to find the
+most parsimonious scenarios.
+Based on the concept of the breakpoint graph, Hannen-
+halli and Pevzner (1995a) developed a polynomial algorithm
+for the reversal distance problem, that is, for computing a
+most parsimonious scenario to transform one unichromo-
+somal genome into another. This approach was further ex-
+tended to the genomic distance problem, that is, finding a
+most parsimonious scenario for multichromosomal genomes
+under inversions, translocations, fusions, and fissions of chro-
+mosomes (Hannenhalli and Pevzner 1995a; Tesler 2002b).
+However, these results, although useful, do not yet yield a
+meaningful estimate of the number of the rearrangement
+events on the evolutionary path from mouse to human. The
+problem is that the genomic sequences provide evidence for
+both microrearrangements (e.g., intrachromosomal rear-
+rangements with a span <1 Mb) and macrorearrangements
+(e.g., intrachromosomal rearrangements of larger span as well
+as interchromosomal rearrangements). The existing rear-
+rangement algorithms do not distinguish between these two
+types of rearrangements. Because some microrearrangements
+may be caused by fragment assembly errors, mixing microre-
+arrangements and macrorearrangements within one rear-
+rangement scenario may produce a distorted picture greatly
+influenced by the sequencing errors in draft genomic se-
+quences. Another difficulty is an unreliable assignment of or-
+thologs (false orthologs), which may create an impression of
+1Corresponding author.
+E-MAIL ppevzner@cs.ucsd.edu
+Article and publication are at http://www.genome.org/cgi/doi/10.1101/
+gr.757503. Article published online before print in December 2002.
+Article
+13:37–45 ©2003 by Cold Spring Harbor Laboratory Press ISSN 1088-9051/03 $5.00; www.genome.org Genome Research 37
+www.genome.org
+ on November 8, 2006 www.genome.orgDownloaded from 
+a rearrangement that never happened (Tatusov et al. 1997).
+The conserved gene order can also be disrupted by recent
+duplications and insertions (Hardison et al. 1997).
+To address these complications, we first describe a new
+approach to synteny block generation that separates microre-
+arrangements from macrorearrangements. It allows one to
+study microrearrangements and macrorearrangements sepa-
+rately and to arrive at a new estimate of the number of mac-
+rorearrangements that cover ∼170 Myr (million years) of evo-
+lutionary distance between human and mouse. We also esti-
+mate the number of microrearrangements (but it remains to
+be seen to what extent this estimate is influenced by the frag-
+ment assembly errors) on the evolutionary path between
+mouse and human.
+RESULTS
+Synteny Blocks
+In a pioneering paper, Nadeau and Taylor (1984) introduced
+the notion of “conserved segments” (i.e., segments with pre-
+served gene orders without disruption by rearrangements)
+and estimated that there are roughly 180 conserved segments
+in human and mouse. Later, Copeland et al. (1993), DeBry
+and Seldin (1996), Waterston et al. (2002), and Gregory et al.
+(2002) confirmed these estimates. In the past decade, the
+progress in understanding the evolutionary history of entire
+genomes was mainly based on comparative genetic maps
+(O’Brien et al. 1999). However, these estimates suffer from low
+resolution of comparative maps in certain genomic areas. Pre-
+sent genomic sequences provide evidence that the human
+and mouse genomes are significantly more rearranged than
+previously thought. Moreover, they indicate that a large pro-
+portion of previously identified conserved segments are not
+really conserved because there is evidence of multiple mi-
+crorearrangements in many of them (Mural et al. 2002). These
+microrearrangements were not visible in the comparative ge-
+netic maps that were used for defining ≈180 conserved seg-
+ments in the past. We study “synteny blocks” instead of con-
+served segments. Intuitively, the synteny blocks are segments
+that can be converted into conserved segments by microrear-
+rangements (see the GRIMM-Synteny algorithm below for a
+formal definition). The synteny blocks do not necessarily rep-
+resent areas of continuous similarity between two genomes.
+Instead, they usually consist of short regions of similarity that
+may be interrupted by dissimilar regions and gaps. Most syn-
+teny blocks are subject to microrearrangements within these
+blocks.
+We demonstrate that human and mouse genomes share
+281 synteny blocks of size at least 1 Mb (shown in Fig. 1a) and
+that at least 245 rearrangements of these blocks occurred since
+the divergence of human and mouse. The positions of these
+blocks in the human and mouse genomes are given in Supple-
+mentary Materials (available online at http://www.genome.
+org). The largest synteny block in the human genome is 79.6
+Mb, and the average block size is 9.6 Mb. The largest synteny
+block in the mouse genome is 64.8 Mb, and the average block
+size is 8.5 Mb.
+The overall size of syntenic blocks is ∼2707 Mb in human
+and ∼2397 Mb in mouse. The breakpoint regions (i.e., inter-
+vals between consecutive syntenic blocks) vary and may be as
+large as 23.2 Mb in human and 6.7 Mb in mouse. The average
+size of breakpoint regions is 668 kb in human and 458 kb in
+mouse. The overall size of the breakpoint regions equals 172
+Mb in human and 119 MB in mouse (although some of these
+breakpoint regions may host shorter synteny blocks). There is
+evidence of at least 3170 microrearrangements (reversals) that
+happened within the synteny blocks (although many of them
+may be artifacts of incorrect assemblies). This very high esti-
+mate of the number of microrearrangements further confirms
+the conjecture that microrearrangements are more common
+than previously thought (Carver and Stubbs 1997; Puttagunta
+et al. 2000; Thomas et al. 2000; Kumar et al. 2001). In fact, this
+number does not even include the microrearrangements
+within synteny blocks shorter than 1 Mb.
+From Local Alignments to Synteny Blocks
+Given two genomic sequences, how one can construct syn-
+teny blocks? False ortholog assignments and microrearrange-
+ments make it nontrivial to find the analogs of synteny blocks
+(conserved gene clusters) even in shorter bacterial genomes
+(Fujibuchi et al. 2000; Lathe et al. 2000; Wolf et al. 2001;
+Rogozin et al. 2002). In addition, human–mouse sequence
+similarities in noncoding regions (Koop and Hood 1994; Tho-
+mas et al. 2000) may further complicate ortholog assignments
+and make it difficult to apply the methods developed in bac-
+terial genomics to construction of human–mouse synteny
+blocks.
+Sankoff and Blanchette (1997) were the first to come up
+with an algorithm for synteny block generation. However,
+their approach was mainly intended for comparative map-
+ping data. Below we describe a different approach that is
+geared toward genomic sequences. To construct the human–
+mouse synteny blocks, we start with bidirectional best local
+similarities (also called anchors) between human and mouse
+genomic sequences (Tatusov et al. 1997; Mural et al. 2002).
+Several software tools have recently become available to gen-
+erate such anchors for entire mammalian genomes (Mayor et
+al. 2000; Schwartz et al. 2000; Kent 2002; Ma et al. 2002). We
+assume that a set of nonoverlapping anchors (local align-
+ments between two genomes) is given and the goal is to con-
+struct the synteny blocks based on these anchors. We study
+the same versions of draft human and mouse sequences and
+the same set of anchors that were used in Waterston et al.
+(2002). This set of anchors was provided by Michael Kamal at
+the Whitehead Institute and was generated by PatternHunter
+(Ma et al. 2002). The set consists of 558,678 anchors with
+alignment lengths ranging from 40–9647 nt (the mean is
+340). We emphasize that these anchors do not necessarily
+represent similarities within human and mouse genes but
+may also represent similarities between noncoding regions.
+This is a departure from the previous “gene order compari-
+son” approach of genome rearrangement studies. It allows us
+to bypass the difficult issues of gene annotation and ortholog
+identification, which are not necessary for genome rearrange-
+ment studies. This approach may miss similarities between
+some genes at evolutionary distances where protein similarity
+still exists but DNA similarity has faded away. However, this is
+not a serious concern for the rather similar human and mouse
+genomes. Moreover, our approach can be generalized to
+handle both DNA and protein similarities in a unified frame-
+work.
+We assume that human and mouse chromosomes are
+concatenated to form a single coordinate system. An anchor
+that starts at position h in the human genome and at position
+m in the mouse genome is described by its starting point (h,m)
+in two dimensions (2D). We remark that in reality the an-
+Pevzner and Tesler
+38 Genome Research
+www.genome.org
+ on November 8, 2006 www.genome.orgDownloaded from 
+chors are not points (h,m) but di-
+agonals in 2D described by the co-
+ordinates (h,m) of an alignment
+start and the length of the align-
+ment. Such a coordinate system is
+shown in Figure 1a, with chromo-
+somes dividing the plane into rect-
+angles. We define the distance be-
+tween two points (h1,m1) and
+(h2,m2) from the same chromosome
+pair (the same rectangle) as the
+Manhattan distance |h2  h1| +
+|m2  m1|. The distance between
+points from different chromosome
+pairs is defined as infinity. The dis-
+tance between two anchors is de-
+fined as the distance between their
+closest ends.
+Although the number of an-
+chors may be very large (hundreds
+of thousands), one still can apply
+fast genome rearrangement algo-
+rithms (Tesler 2002b) to find a most
+parsimonious scenario to transform
+the order of anchors in human into
+an order of anchors in mouse. How-
+ever, this scenario will likely be un-
+realistic because many anchors may
+correspond to false orthologs.
+Therefore, a technique to filter out
+false orthologs (even at the expense
+of filtering some real orthologs) is
+needed. False orthologs will often
+look like isolated points (or “small
+clusters”) in a genomic dot-plot,
+whereas synteny blocks will be
+formed from clusters consisting of a
+larger number of points. Figure 2a
+presents the genomic dot-plots for
+anchors from the X chromosomes
+(a blowup of the X–X rectangle
+from Fig. 1a). A brief look at Figure
+2a reveals 16 clusters (Fig. 2b). Fig-
+ure 2c presents rectified clusters
+that ignore the details of the inter-
+nal anchor arrangements in the
+clusters and represent every cluster
+as a diagonal. These rectified clus-
+ters are further combined into di-
+agonals that correspond to 11 syn-
+teny blocks (Fig. 2d). Although the
+synteny blocks in Figure 2d differ in
+size, the sizes of synteny blocks are
+irrelevant for genome rearrange-
+ment algorithms. Figure 2e is a sym-
+bolic representation of synteny
+blocks as units of the same size,
+used in the construction of the
+breakpoint graph.
+The above description hides
+many important details, and in
+many cases the choice of synteny
+blocks is less obvious. Below we de-
+scribe the GRIMM-Synteny algo-
+Figure 1 (a) Human and mouse synteny blocks. Every block corresponds to a rectangle, with a
+diagonal showing whether the arrangements of anchors in human and mouse (within the synteny
+block) are the same or reversed. (b) Combining anchors into clusters by the GRIMM-Synteny algorithm
+at G = 100 kb. The edges in the anchor graph connect the closest ends of the anchors. The anchors are
+color-coded by the resulting clusters. At G = 1 Mb, this forms a single cluster, which in turn forms a
+synteny block (the lower right block in the human 18/mouse 17 rectangle in a).
+Genome Rearrangements in Mammalian Evolution
+Genome Research 39
+www.genome.org
+ on November 8, 2006 www.genome.orgDownloaded from 
+rithm for synteny block generation from a collection of an-
+chors. The algorithm uses the gap threshold G and minimum
+cluster size C as parameters and works as follows:
+GRIMM-Synteny Algorithm
+1. Form an anchor graph whose vertex set is the set of an-
+chors.
+2. Connect vertices in the anchor graph by an edge if the
+distance between them is smaller than the gap size G.
+3. Determine the connected components of the anchor
+graph. Each connected component is called a cluster.
+4. Delete “small” clusters (shorter than the minimum cluster
+size C in length).
+5. Determine the cluster order and signs for each genome.
+Figure 2 X-chromosome: from local similarities, to synteny blocks, to breakpoint graph, to rearrangement scenario. (a) Dot-plot of anchors.
+Anchors are enlarged for visibility. (b) Clusters of anchors. (c) Rectified clusters. (d) Synteny blocks. (e) Synteny blocks (symbolic representation as
+genome rearrangement units). (f) 2D breakpoint graph superimposed on synteny blocks. The projections of the 2D graph onto the human and
+mouse axes form the conventional breakpoint graphs. (g) 2D breakpoint graph. The four cycles in the breakpoint graph are shown by different
+colors. (h) A most parsimonious rearrangement scenario for human and mouse X-chromosomes.
+Pevzner and Tesler
+40 Genome Research
+www.genome.org
+ on November 8, 2006 www.genome.orgDownloaded from 
+6. Output the strips in the resulting cluster order as synteny
+blocks.
+GRIMM-Synteny finds 319 clusters in the human genome
+that are longer than 1 Mb. In addition to these clusters, we
+identified a number of smaller clusters; for example, in the
+human genome there are 36 clusters whose length varies from
+0.5 Mb–1 Mb, 21 clusters whose length varies from 250 kb–
+500 kb, and 774 clusters with lengths from 50 kb–250 kb.
+However, smaller syntenic block assignments are less reliable
+because they may be caused by false orthologs and sequenc-
+ing errors.
+Figure 1b presents examples of some highly rearranged
+clusters from human Chromosome 18/mouse Chromosome
+17 and the corresponding anchor graph. After constructing
+the cluster graph and deleting small clusters (steps 1–4), one
+has to determine the cluster order and signs (step 5). We de-
+fine the span of a cluster in human (mouse) as the interval
+between its minimum and maximum coordinates in human
+(mouse). Similarly to Mural et al. (2002) and Gregory et al.
+(2002), we found that the cluster spans in human often sig-
+nificantly differ from cluster spans in mouse (the span may
+include gaps and unaligned regions that contribute to these
+differences). Note that although different clusters are not sup-
+posed to overlap in 2D, they often overlap in 1D (i.e., their
+span intervals may overlap in human or mouse). Therefore,
+defining the cluster order for intermingled clusters should be
+done with caution. We compute the center of mass of all
+anchors forming the cluster and order clusters in human by
+the coordinates of their centers of masses. We assign the clus-
+ters numbers according to their order on the human genome.
+This lets us read off a cluster order in the mouse genome in
+terms of these labels.
+Signs (orientations) of the resulting clusters are usually
+well-defined but in some cases are not obvious. The algorithm
+for sign assignments in GRIMM-Synteny and the theorem jus-
+tifying this algorithm will be described elsewhere.
+The number of clusters found depends on the value of
+the gap threshold G. Figure 1b shows clusters in a region of
+the genome for the gap threshold G = 100 kb. Increasing the
+gap threshold will typically merge some clusters; in this case,
+this region forms a single cluster at G = 1 Mb. The human and
+mouse genomes include some gaps and regions without an-
+chors that may be longer than G. Such regions break a single
+synteny block into a few clusters. To combine such clusters
+into a single synteny block, we define the notion of a strip. A
+strip is a sequence of consecutive signed clusters i1, , in in the
+first genome that either appears consecutively in the same
+way or in the reverse order in, ,i1 in the other genome.
+For example, for G = 1 Mb and C = 1 Mb, the number of clus-
+ters in the human and mouse genomes is 319 whereas the
+number of strips (synteny blocks) is 281. Most synteny blocks
+correspond to a single cluster, but some synteny blocks con-
+tain as many as 5 clusters.
+On the X-chromosome, comparing Figures 2, a–b, most
+discarded material is very small, but there is a region near the
+red cluster, at human 84.6–88.6 Mb, mouse 94.3–99.7 Mb,
+which forms three clusters. Each has length <C = 1 Mb in
+human, so they are discarded. Increasing G or lowering C
+sufficiently would retain these clusters and possibly merge
+them with the red cluster. If they were the only addition, the
+red block would be larger, but the synteny block order in
+Figure 2e would not be affected, thus the rearrangement
+analysis described below would remain the same. If distinct
+blocks were added, it would affect the rearrangement analysis.
+The chosen values of G and C result in a classification of the
+anchor arrangements into microrearrangements, macrorear-
+rangements, and noise. Rearrangements of anchors within a
+synteny block are called microrearrangements. Rearrange-
+ments of the order and orientation of synteny blocks are
+called macrorearrangements.
+From Synteny Blocks to the Breakpoint Graph
+We illustrate the notion of the breakpoint graph using the
+X-chromosome as an example. The signed permutation de-
+scribing synteny block order on the X-chromosome in mouse
+is4,5, 3, 11,2, 8,9, 10,6, 7,1. For our goals, we
+shall use 1,7, 6,10, 9,8, 2,11,3, 5, 4 (a “flip” of the
+entire chromosome). We may transform this permutation
+into the “identity” permutation representing the human X-
+chromosome, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, by 7 reversals (Fig.
+2h) via the Hannenhalli–Pevzner algorithm (Hannenhalli and
+Pevzner 1995b, 1999). This algorithm uses the breakpoint
+graph (Fig. 2g) to construct a most parsimonious evolutionary
+scenario (Fig. 2h) in polynomial time. We now show a new
+way to construct the breakpoint graph.
+Figure 3a presents the genomic dot-plot (with added
+“start” and “end” elements) and the “human” path (shown
+with solid edges) traversing the synteny blocks in human or-
+der. The projection of this path on the human genome is
+shown below the human axis. Similarly, Figure 3b presents
+the same genomic dot-plot and the “mouse” path (shown
+with dotted edges) traversing the synteny blocks in mouse
+order. The two-dimensional breakpoint graph is obtained by
+superimposing these solid and dotted paths (Fig. 3c) and fur-
+ther deleting the synteny blocks (Fig. 3d). One can prove that
+the breakpoint graph is a collection of alternating solid-
+dotted cycles. Figure 3d consists of a cycle of length 2 (con-
+taining the start vertex), two cycles of length 4, a cycle of
+length 6, and a cycle of length 8. After constructing the cycles,
+we usually color the edges so that each cycle has its own color
+(Fig. 2g). At this point, we apply the Hannenhalli–Pevzner
+algorithm to obtain a most parsimonious scenario. Note that
+the breakpoint graphs in Figures 2 and 3 are different because
+of the X-chromosome flip.
+Hannenhalli and Pevzner (1995a) demonstrated that the
+cycles and their interleaving structure are the “fossil records”
+of rearrangement events and showed how to use them for
+solving reversal distance and genomic distance problems. The
+2D representation of breakpoint graphs shown in Figure 3 is
+different from the representation used by Hannenhalli and
+Pevzner (1995a; they used the 1D projections of this graph
+shown along the axis in Fig. 3). We believe that the 2D break-
+point graph is a better visualization than the 1D one, in ad-
+dition to being independent of the choice of the axis. There-
+fore, it provides better geometrical intuition for the Hannen-
+halli–Pevzner theory.
+Because every reversal creates at most two new break-
+points, the reversal distance is at most half the number of the
+breakpoints in the genome. If there is no breakpoint reuse,
+then the reversal distance is exactly half the number of break-
+points. Moreover, in this case the real evolutionary scenario is
+a most parsimonious one, thus implying that the reversal dis-
+tance equals the real distance in this case. However, the esti-
+mate of reversal distance as half the number of breakpoints is
+inaccurate because it assumes that the breakpoints are not
+reused in evolution. In most genome rearrangement studies,
+Genome Rearrangements in Mammalian Evolution
+Genome Research 41
+www.genome.org
+ on November 8, 2006 www.genome.orgDownloaded from 
+there are breakpoint reuses (at least at a certain level of syn-
+teny block resolution), thus indicating that breakpoint reuse
+is the rule rather than the exception. For example, Palmer and
+Herbon (1988) describe an evolutionary scenario with one
+breakpoint reuse for cabbage and turnip mtDNA, whereas
+Bafna and Pevzner (1995) describe an evolutionary scenario
+with four breakpoint reuses in the rearrangement scenario for
+human and mouse X-chromosomes.
+Given an evolutionary scenario, we call two breakpoints,
+B1 and B2, siblings if they are endpoints of a reversal R from
+this scenario. Two breakpoints are related if there is a series of
+breakpoints B1,B2,  ,Bn such that every two consecutive
+breakpoints in this series are siblings. In addition, reconstruct-
+ing a most parsimonious scenario and identification of related
+breakpoints are nontrivial tasks, even in the absence of break-
+point reuse. The breakpoint graph reveals related breakpoints
+and allows one to find the most parsimonious scenarios. In
+the scenario shown in Figure 2h, the breakpoint at the start
+(flat end) of block 4 is used twice. We emphasize that by
+reusing breakpoints we do not mean multiple use of exactly
+the same genomic position as an endpoint of rearrangements,
+but rather the fact that between synteny blocks, there are
+regions that host endpoints for multiple rearrangement
+events.
+Figure 3 Construction of the breakpoint graph from synteny blocks. (a) Solid path through human. (b) Dotted path through mouse. (c)
+Superposition of paths. (d) Remove blocks to obtain cycles.
+Pevzner and Tesler
+42 Genome Research
+www.genome.org
+ on November 8, 2006 www.genome.orgDownloaded from 
+In contrast to unichromosomal breakpoint graphs (con-
+sisting of cycles), the multichromosomal breakpoint graph
+consists of both cycles and paths (such paths correspond to
+breaking the cycles at the chromosome endpoints). The
+breakpoint graph for the entire human and mouse genomes is
+very complicated (Fig. 4).
+From the Breakpoint Graph to Rearrangement
+Scenarios
+A previous analysis of comparative maps of human and
+mouse X-chromosomes revealed 8 syntenic blocks and postu-
+lated a most parsimonious rearrangement scenario with 6 in-
+versions (Bafna and Pevzner 1995). The genomic sequences
+reveal 11 synteny blocks of 1 Mb and longer and provide
+evidence for at least 7 inversions (Fig. 2h). Moreover, there are
+177 microrearrangements within the X-chromosome that
+were beyond the resolution of previous comparative mapping
+studies (some of them may be artifacts of assembly errors).
+Two out of 11 synteny blocks on the X-chromosome show
+evidence of extensive microrearrangements.
+These estimates are based on the Hannenhalli and Pevz-
+ner (1995a) theorem that expresses the reversal distance be-
+Figure 4 Multichromosomal breakpoint graph of the whole human and mouse genomes. The conventional chromosome order and orientation
+are not suitable for such graphs; an optimal chromosome order and orientation were determined by the algorithm in Tesler (2002b). Three “null
+chromosomes,” N1, N2, N3, were added to mouse to equalize the number of chromosomes in the two genomes.
+Genome Rearrangements in Mammalian Evolution
+Genome Research 43
+www.genome.org
+ on November 8, 2006 www.genome.orgDownloaded from 
+tween two genomes as n + 1 c + h, where n is the number of
+synteny blocks, c is the number of cycles in the breakpoint
+graph, and h is another easily computable combinatorial pa-
+rameter of the breakpoint graph. Because h equals zero for
+many biological data sets, n + 1 c is usually a good approxi-
+mation for reversal distance. For the X-chromosome as de-
+picted in Figure 2g, we have n = 11, c = 4, h = 0, and we obtain
+a reversal distance of 8. However, flipping the whole mouse
+X-chromosome results in the breakpoint graph of Figure 3d,
+with n = 11, c = 5, h = 0, and reversal distance 7. Flipping a
+whole chromosome does not count as a rearrangement event,
+thus the genomic distance on the X-chromosome between
+human and mouse is 7.
+A similar theorem (Hannenhalli and Pevzner 1995b,
+1999; Tesler 2002b) holds for multichromosomal genomes,
+and automatically takes into account whole chromosome
+flips. We used a fast implementation of the Hannenhalli–
+Pevzner algorithm (Tesler 2002a) to analyze the human–
+mouse rearrangement scenario (available via the GRIMMWeb
+server at http://www-cse.ucsd.edu/groups/bioinformatics/
+GRIMM/index.html). Although the algorithm finds a most
+parsimonious scenario, the real scenario is not necessarily a
+most parsimonious one (Blanchette et al. 1996), and the order
+of rearrangement events within a most parsimonious scenario
+often remains uncertain. Availability of three or more mam-
+malian genomes could remedy some of these limitations and
+provide a means to infer the gene order in the mammalian
+ancestor (Bourque and Pevzner 2002).
+The GRIMM algorithm constructs a most parsimonious
+evolutionary scenario between human and mouse genomes
+with 245 rearrangements. With at least 245 rearrangements
+between human and mouse and an estimated 83 Myr
+(Huchon et al. 2002) of evolution from their common ances-
+tor, we obtain an estimated rate of 1.5 chromosomal rear-
+rangements per Myr, which is higher than the previous esti-
+mate of 1.0 (Lander et al. 2001). However, this estimate
+should not be viewed as typical for mammalian evolution
+because rodents may have unusually rapid chromosome al-
+terations. The comparative mapping data for cat and cowmay
+soon shed further light on the comparative rates of rearrange-
+ments in different branches of the mammalian evolutionary
+tree.
+The human–mouse breakpoint graph provides insights
+into rearrangements that may have occurred in the course of
+evolution. Some of these rearrangements are almost “obvi-
+ous” (they correspond to short cycles in the breakpoint
+graph), whereas others involve long series of interacting
+breakpoints. Such complicated rearrangement events are de-
+scribed by long cycles/paths in the breakpoint graph. The
+longest path in the human–mouse breakpoint graph involves
+26 breakpoints. The human–mouse breakpoint graph has 6
+other long paths with more than 10 breakpoints.
+The analysis of microrearrangements within the synteny
+blocks demonstrates a large variation in the rate of microre-
+arrangements (reversals) along the genomes. In particular, 41
+out of 281 synteny blocks do not show any evidence of mi-
+crorearrangements, whereas 10 synteny blocks are extremely
+rearranged (40 or more rearrangements within a block). For
+example, a long synteny block on human Chromosome 13/
+mouse Chromosome 8 (nucleotides 101,902,085 to
+113,413,125 on human Chromosome 13) consists of 65 re-
+gions of local similarity whose order is perfectly conserved in
+human and mouse. On the other hand, a long synteny block
+on human Chromosome 18/mouse Chromosome 17 (posi-
+tions 2,789,316 to 10,083,804 on human Chromosome 18)
+consists of 143 regions of local similarity and has a large num-
+ber of microrearrangement breakpoints, indicating that there
+were at least 85 inversions within this block (Fig. 1b). The
+length of this synteny block in mouse is smaller than in hu-
+man (6.0 Mb vs. 7.3 Mb). Of course, some of the breakpoints
+within this synteny block may be caused by assembly errors.
+There is evidence of at least 3170microrearrangements within
+all the synteny blocks, some of which may be due to assembly
+errors.
+Every breakpoint defines two synteny blocks A and B
+that are adjacent in one genome but separated in the second
+one. We distinguish between unichromosomal breakpoints (A
+and B belong to the same chromosome in the second ge-
+nome) and multichromosomal breakpoints (A and B are on
+different chromosomes). Most breakpoints in the human and
+mouse genomes are unichromosomal breakpoints, thus indi-
+cating that most rearrangements that happened in the course
+of human–mouse evolution are intrachromosomal inver-
+sions. In particular, one can come up with a most parsimoni-
+ous rearrangement scenario that includes 134 reversals in the
+human and mouse genomes before any translocations/
+fusions/fissions happen. After performing these reversals, the
+number of synteny blocks is reduced from 281 to 144. The
+breakpoint graph of these human and mouse “preancestors”
+allows one to infer which pairs of chromosomes were in-
+volved in multiple translocations/fusions/fissions. The long-
+est cycle in this graph involves 8 breakpoints located on 8
+different chromosomes in human. The resulting rearrange-
+ment scenario from the mouse to human preancestor has 15
+inversions, 93 translocations, and 3 fissions. The complete
+scenario from mouse to human has 149 inversions, 93 trans-
+locations, and 3 fissions. (There are other combinations of
+245 steps consistent with the breakpoint graph; this is the one
+we found with the most inversions.)
+DISCUSSION
+Molecular evolution studies are usually based on the analysis
+of individual genes rather than entire genomes. However,
+such widespread phenomena as horizontal gene transfer, dif-
+ferential gene loss, and the like, often lead to situations in
+which evolutionary trees for different genes tell different sto-
+ries. An alternative approach is to infer the evolutionary his-
+tory of entire genomes, rather than individual genes, based on
+the analysis of gene orders. Although this approach is success-
+ful in bacterial genomics (for a recent review, see Wolf et al.
+2002), its applications in mammalian genomics are somewhat
+limited owing to incompleteness of gene order data derived
+from comparative maps. Human and mouse genomic se-
+quences, for the first time, provide a possibility to accurately
+estimate the extent of rearrangement events. However, the
+“original synteny” problem (Nadeau and Sankoff 1997) re-
+mains unsolved because at least three mammalian gene orders
+are required to derive the ancestral mammalian karyotype.
+The ongoing mammalian sequencing projects and recently
+developed algorithms for reconstructing ancestral gene orders
+(Bourque and Pevzner 2002) provide hope that the “original
+synteny” problem will finally be resolved.
+ACKNOWLEDGMENTS
+We are grateful to Ewan Birney, Guillaume Bourque, and Bill
+Murphy for many helpful suggestions; and to Bernard Moret
+for providing his group’s genome rearrangement programs.
+Pevzner and Tesler
+44 Genome Research
+www.genome.org
+ on November 8, 2006 www.genome.orgDownloaded from 
+We are also indebted to Michael Kamal, Kerstin Linblad-Toh,
+and Jade Vinson for their advice on synteny blocks and rear-
+rangements in human and mouse genomes.
+The publication costs of this article were defrayed in part
+by payment of page charges. This article must therefore be
+hereby marked “advertisement” in accordance with 18 USC
+section 1734 solely to indicate this fact.
+REFERENCES
+Bafna, V. and Pevzner, P.A. 1993. Genome rearrangements and
+sorting by reversals. In Proceedings of the 34th Annual IEEE
+Symposium on Foundations of Computer Science, pp. 148–157.
+———. 1995. Sorting by reversals: Genome rearrangements in plant
+organelles and evolutionary history of X chromosome. Mol. Biol.
+Evol. 12: 239–246.
+———. 1996. Genome rearrangements and sorting by reversals. SIAM
+J. Comput. 25: 272–289.
+Blanchette, M., Kunisawa, T., and Sankoff, D. 1996. Parametric
+genome rearrangements. Gene 172: GC11–GC17.
+Bourque, G. and Pevzner, P.A. 2002. Genome-scale evolution:
+Reconstructing gene orders in the ancestral species. Genome Res.
+12: 9748–9753.
+Carver, E.A. and Stubbs, L. 1997. Zooming in on the human–mouse
+comparative map: Genome conservation re-examined on a
+high-resolution scale. Genome Res. 7: 1123–1137.
+Copeland, N., Jenkins, N.A., Gilbert, D.J., Eppig, J.T., Maltais, L.J.,
+Miller, J.C., Dietrich, W.F., Weaver, A., Lincoln, S.E., Steen, R.G.,
+et al. 1993. A genetic linkage map of the mouse: Current
+applications and future prospects. Science 262: 57–66.
+DeBry, R.W. and Seldin, M.F. 1996. Human/mouse homology
+relationships. Genomics 33: 337–351.
+Dobzhansky, T. and Sturtevant, A.H. 1938. Inversions in the
+chromosomes of Drosophila pseudoobscura. Genetics 23: 28–64.
+Fujibuchi, W., Ogata, H., Matsuda, H., and Kanehisa, M. 2000.
+Automatic detection of conserved gene clusters in multiple
+genomes by graph comparison and p-quasi grouping. Nucleic
+Acids Res. 28: 4029–4036.
+Gregory, S.G., Sekhon, M., Schein, J., Zhao, S., Osoegawa, K., Scott,
+C.E., Evans, R.S., Burridge, P.W., Cox, T.V., Fox, C.A., et al. 2002.
+A physical map of the mouse genome. Nature 418: 743–750.
+Hannenhalli, S. and Pevzner, P.A. 1995a. Transforming men into
+mice (polynomial algorithm for genomic distance problem). In
+Proceedings of the 36th Annual IEEE Symposium on Foundations of
+Computer Science, pp. 581–592. IEEE, Milwaukee, Wisconsin.
+———. 1995b. Transforming cabbage into turnip (polynomial
+algorithm for sorting signed permutations by reversals). In
+Proceedings of the 27th Annual ACM Symposium on the Theory of
+Computing, pp. 178–189.
+———. 1999. Transforming cabbage into turnip (polynomial
+algorithm for sorting signed permutations by reversals). J. ACM
+46: 1–27.
+Hardison, R.C., Oeltjen, J., and Miller, W. 1997. Long human–mouse
+sequence alignments reveal novel regulatory elements: A reason
+to sequence the mouse genome. Genome Res. 7: 959–966.
+Huchon, D., Madsen, O., Sibbald, M.J., Ament, K., Stanhope, M.J.,
+Catzeflis, F., de Jong, W.W., and Douzery, E.J. 2002. Rodent
+phylogeny and a timescale for the evolution of glires: Evidence
+from an extensive taxon sampling using three nuclear genes.
+Mol. Biol. Evol. 19: 1053–1065.
+Kececioglu, J. and Sankoff, D. 1995. Exact and approximation
+algorithms for the inversion distance between two permutations.
+Algorithmica 13: 180–210.
+Kent, W.J. 2002. BLAT—The BLAST-like alignment tool. Genome Res.
+12: 656–664.
+Koop, B.F. and Hood, L. 1994. Striking sequence similarity over
+almost 100 kilobases of human and mouse T-cell receptor DNA.
+Nat. Genet. 7: 48–53.
+Kumar, S., Gadagkar, S.R., Filipski, A., and Gu, X. 2001.
+Determination of the number of conserved chromosomal
+segments between species. Genetics 157: 1387–1395.
+Lander, E.S., Linton, L.M., Birren, B., Nusbaum, C., Zody, M.C.,
+Baldwin, J., Devon, K., Dewar, K., Doyle, M., FitzHugh, W., et al.
+2001. Initial sequencing and analysis of the human genome.
+Nature 409: 860–921.
+Lathe, W.C., Snel, B., and Bork, P. 2000. Gene context conservation
+of a higher order than operons. Trends Biochem Sci. 25: 474–479.
+Ma, B., Tromp, J., and Li, M. 2002. PatternHunter: Faster and more
+sensitive homology search. Bioinformatics 18: 440–445.
+Mayor, C., Brudno, M., Schwartz, J.R., Poliakov, A., Rubin, E.M.,
+Frazer, K.A., Pachter, L., and Dubchak, I. 2000. VISTA:
+Visualizing global DNA sequence alignments of arbitrary length.
+Bioinformatics 16: 1046–1047.
+Mural, R.J., Adams, M.D., Myers, E.W., Smith, H.O., Miklos, G.L.,
+Wides, R., Halpern, A., Li, P.W., Sutton, G.G., Nadeau, J., et al.
+2002. A comparison of whole-genome shotgun-derived mouse
+chromosome 16 and the human genome. Science
+296: 1661–1671.
+Nadeau, J.H. and Sankoff, D. 1997. Landmarks in the Rosetta Stone
+of mammalian comparative maps. Nat. Genet. 15: 6–7.
+Nadeau, J.H. and Taylor, B.A. 1984. Lengths of chromosomal
+segments conserved since divergence of man and mouse. Proc.
+Natl. Acad. Sci. 81: 814–818.
+O’Brien, S.J., Menotti-Raymond, M., Murphy, W.J., Nash, W.G.,
+Wienberg, J., Stanyon, R., Copeland, N.J., Jenkins, N.A.,
+Womack, J.E., and Graves, J.A. 1999. The promise of comparative
+genomics in mammals. Science 286: 458–481.
+Palmer, J.D. and Herbon, L.A. 1988. Plant mitochondrial DNA
+evolves rapidly in structure, but slowly in sequence. J. Mol. Evol.
+27: 87–97.
+Puttagunta, R., Gordon, L.A., Meyer, G.E., Kapfhamer, D., Lamerdin,
+J.E., Kantheti, P., Portman, K.M., Chung, W.K., Jenne, D.E.,
+Olsen, A.S., et al. 2000. Comparative maps of human 19p13.3
+and mouse chromosome 10 allow identification of sequences at
+evolutionary breakpoints. Genome Res. 10: 1369–1380.
+Rogozin, I.B., Makarova, K.S., Murvai, J., Czabarka, E., Wolf, Y.I.,
+Tatusov, R.L., Szekely, L.A., and Koonin, E.V. 2002. Connected
+gene neighborhoods in prokaryotic genomes. Nucleic Acids Res.
+30: 2212–2223.
+Sankoff, D. and Blanchette, M. 1997. The median problem for
+breakpoints in comparative genomics. In Computing and
+Combinatorics, Proceedings of COCOON ’97, Lecture notes in
+computer science, pp. 251–263. Springer Verlag, New York.
+Schwartz, S., Zhang, Z., Frazer, K.A., Smit, A., Riemer, C., Bouck, J.,
+Gibbs, R., Hardison, R., and Miller, W. 2000. PipMaker—A Web
+server for aligning two genomic DNA sequences. Genome Res.
+10: 577–586.
+Sturtevant, A.H. and Dobzhansky, T. 1936. Inversions in the third
+chromosome of wild races of Drosophila pseudoobscura, and their
+use in the study of the history of the species. Proc. Natl. Acad. Sci.
+22: 448–450.
+Tatusov, R.L., Koonin, E.V., and Lipman, D.J. 1997. A genomic
+perspective on protein families. Science 278: 631–637.
+Tesler, G. 2002a. GRIMM: Genome rearrangements Web server.
+Bioinformatics 18: 492–493.
+———. 2002b. Efficient algorithms for multichromosomal genome
+rearrangements. J. Comp. Sys. Sci. (in press).
+Thomas, J.W., Summers, T.J., Lee-Lin, S.Q., Maduro, V.V., Idol, J.R.,
+Mastrian, S.D., Ryan, J.F., Jamison, D.C., and Green, E.D. 2000.
+Comparative genome mapping in the sequence-based era: Early
+experience with human Chromosome 7. Genome Res.
+10: 624–633.
+Waterston, R.H., Lindblad-Toh, K., Birney, E., Rogers, J., Abril, J.F.,
+Agarwal, P., Agarwala, R., Ainscough, R., Alexandersson, M., An,
+P., et al. 2002. Initial sequencing and comparative analysis of the
+mouse genome. Nature 420: 520–562.
+Watterson, G.A., Ewens, W.J., Hall, T.E., and Morgan, A. 1982. The
+chromosome inversion problem. J. Theor. Biol. 99: 1–7.
+Wolf, Y.I., Rogozin, I.B., Kondrashov, A.S., and Koonin, E.V. 2001.
+Genome alignment, evolution of prokaryotic genome
+organization, and prediction of gene function using genomic
+context. Genome Res. 11: 356–372.
+Wolf, Y., Rogozin, I., Grishin, N., and Koonin, E. 2002. Genome
+trees and the tree of life. Trends Genet. 18: 472.
+WEB SITE REFERENCES
+http://www-cse.ucsd.edu/groups/bioinformatics/GRIMM/index.html;
+GRIMM Web server.
+Received September 2, 2002; accepted in revised form November 4, 2002.
+Genome Rearrangements in Mammalian Evolution
+Genome Research 45
+www.genome.org
+ on November 8, 2006 www.genome.orgDownloaded from 

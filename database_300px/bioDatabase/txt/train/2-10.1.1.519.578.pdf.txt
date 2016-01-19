@@ -1,0 +1,772 @@
+ABSOLUTELY CONTINUOUS SPECTRUM OF A CLASS OF
+RANDOM NON-ERGODIC SCHR ¨ODINGER OPERATORS
+R. L. FRANK AND O. SAFRONOV
+ABSTRACT. We consider a class of random Schro¨dinger operators with
+non-decaying potentials and prove that their absolutely continuous spec-
+trum almost surely fills the positive half-line. We establish the existence
+of the wave operators using the trace class scattering theory.
+1. INTRODUCTION
+We consider a class of random Schro¨dinger operators
+(1.1) −∆ + Vω, Vω(x) =
+∑
+j∈J
+ωjfj(x)
+in L2(Rd), d ≥ 2. Here the ωj are bounded, independent and identically
+distributed random variables, the fj are functions with disjoint supports and
+J is an index set. In the usual, ergodic case the fj are translates along the
+lattice J = Zd, say, of a fixed bump function. Note that in this case the
+number of bumps inside the spherical layer {x ∈ Rd : n − 1 ≤ |x| < n}
+increases like nd−1 as n → ∞. In the present paper we consider models
+where this number grows like ns(d−1) for some parameter s > 1. Hence our
+potentials are non-ergodic and the parameter s shows how close they are to
+ergodic ones. Note that we do not assume our potentials to decay.
+Strong efforts have been devoted to the study of the point spectrum of the
+operator (1.1) in the ergodic case. It has been shown in [14], [21] that one-
+dimensional ergodic operators have purely point spectra (see also [20], [27],
+[9] and, for the case of a discrete distribution of random variables, [8], [25]).
+In higher dimensions ergodic Schro¨dinger operators have regions covered
+by purely point spectrum. The papers [12], [3] represent two different ap-
+proaches to localization (see also [11], [2], [4]). We do not try to list all
+the important contributions but refer to the surveys [28], [26], [18] and the
+monograph [29]. Moreover, we would like to mention the recent develop-
+ments [13], [1], [7]. On the other hand, it is expected that in the ergodic,
+1991 Mathematics Subject Classification. Primary 82B44 ; Secondary 60H25.
+O.S. would like to thank S. Naboko for useful discussions. The authors are grateful to
+A. Laptev for his remarks and suggestions.
+1
+2 R. L. FRANK AND O. SAFRONOV
+multi-dimensional case the operator (1.1) has absolutely continuous spec-
+trum for low disorder and away from the edge of the spectrum. Note that
+for dimension d = 2 the claims change from time to time. This conjecture
+is not proven.
+However, there are other, non-ergodic models for which the existence of
+absolutely continuous spectrum has been established. First of all we would
+like to mention the papers by Bourgain [5] (see also [6]) and Denisov [10].
+In their (discrete and continuous, respectively) models the supports of the
+functions fj in (1.1) are constant as in the ergodic case, but the height of
+the bumps is assumed to decay so that |Vω(x)| ≤ C(1 + |x|)−1/2−². In
+[5] the almost sure existence and completeness of local wave operators is
+proven, whereas the approach of [10] is in the spirit of trace formulae. In
+the paper by Rodnianski, Schlag [24] operators of the form (1.1) are con-
+sidered where the size of the bumps increases and the heights of the bumps
+decreases so that |Vω(x)| ≤ C(1+ |x|)−3/4. The existence of modified wave
+operators is proven there. We would also like to mention the works by Kr-
+ishna [19], Kirsch, Krishna, Obermeit [17] and Hundertmark, Kirsch [15]
+who essentially assume that (E[Vω(x)2])1/2 ≤ C(1 + |x|)−1−².
+In contrast to the preceeding results the absolute value of Vω in our model
+can be constant for all x and for all values of the random parameter ω. We
+assume that E[ωj] = 0 in our model, which for certain choices of func-
+tions fj is only a normalization. Then Vω changes its sign almost surely,
+and we will prove that this implies that the interval [0,∞) is covered by
+absolutely continuous spectrum. The arguments in our proof depend on the
+dimension. In particular, they break down in dimension d = 1, when the
+potential becomes the same as in the continuous Anderson model for which
+the spectrum is known to be purely point.
+We will not describe the details of our model in this introduction but give
+an intuitive picture of what is happening. Divide the plane into spherical
+layers {x ∈ R2 : n − 1 ≤ |x| < n}, n ∈ N, and divide each layer in
+(approximately) ns pieces with some fixed s > 1. Now paint these pieces
+randomly in yellow and blue colors. With the growth of n the pieces become
+finer and finer and, outside of a large sphere, the plane will look green!
+In one of our models (see Section 2) something similar happens to an
+electron: Yellow and blue colors correspond to positive and negative bumps
+of the potential. At infinity they average to zero and allow the electron to
+propagate.
+Let us note, however, that this picture is rather naive and is not in relation
+with the difficulty of the problem. For example in the ergodic case s = 1 the
+average of the potential over the sphere {|x| = r} decreases as a negative
+power (presumably as r−(d−1)/2), which means that an observer running
+ABSOLUTELY CONTINUOUS SPECTRUM 3
+around such a sphere will see the green colour, but to prove existence of the
+absolutely continuous spectrum for ergodic potentials seems to be a very
+hard problem.
+We show also that the higher order operator
+(−∆)l + Vω, l > d/4,
+has absolutely continuous spectrum all over the positive real line under the
+condition that
+s > 1 + 2/(d− 1).
+Thus in this model s → 1 as d → ∞, which gives the proper (ergodic)
+limit.
+In Section 3 we prove an abstract result which is also applicable to op-
+erators having essential spectrum below zero. Our approach is based on a
+thorough use of the trace class scattering theory. In this paper we employ it
+in a way which is adjusted to cancelations due to the random nature of the
+potential.
+The authors acknowledge the stimulating role of the paper [10] by
+S. Denisov who first applied trace formulae in the study of random oper-
+ators.
+2. A MODEL WITHOUT DECAY
+For each n ∈ N = {1, 2, . . . } we introduce the characteristic function
+χn of the interval [n − 1, n) ⊂ R and for each j ∈ Zd we introduce the
+characteristic function ξj of the cube j + [0, 1)d ⊂ Rd. We put
+fn,j(x) := χn(|x|)ξj(nsx/|x|), n ∈ N, j ∈ Zd,
+with a parameter s > 1 to be specified later. Note that
+∑
+n,j fn,j ≡ 1.
+Suppose that ωn,j , n ∈ N, j ∈ Zd, are bounded, independent and identically
+distributed random variables with zero expectations,
+E[ωn,j] = 0,
+and consider the (bounded) random potential
+Vω(x) =
+∑
+n,j
+ωn,jfn,j(x), x ∈ Rd.
+A typical result of our method is
+Theorem 2.1. Let d = 2, 3 and let s > 1 + 2/(d− 1). Then the absolutely
+continuous spectrum of the operator−∆+Vω contains [0,∞) almost surely.
+Actually, we will prove that the wave operators
+W±(−∆ + Vω,−∆) = s− lim
+t→±∞
+exp(it(−∆ + Vω)) exp(−it(−∆))
+4 R. L. FRANK AND O. SAFRONOV
+exist almost surely. This implies also that the absolutely continuous spec-
+trum of −∆ + Vω is almost surely of infinite multiplicity on [0,∞).
+Note that this is indeed a non-deterministic result: If ωn,j = c for all but
+finitely many n, j, and some constant c > 0 then the essential spectrum of
+−∆ + Vω coincides with [c,∞).
+The proof of Theorem 2.1 as well as an extension to higher dimensions will
+be given in Section 4.
+3. A MORE GENERAL MODEL
+3.1. The abstract result. Let V0 ∈ L∞(R+) and introduce the self-adjoint
+operators
+H0 := H00 + V0(|x|), H00 := −∆
+in L2(Rd) with domains
+(3.1) D(H0) = D(H00) = H2(Rd).
+We denote by P (ac)0 the projection onto the absolutely continuous subspace
+of H0. We will consider Schro¨dinger operators
+Hω := H0 + Vω
+with random electric potential Vω of the form
+(3.2) Vω(x) =
+∑
+j∈J
+ωjfj(x), x ∈ Rd.
+Assumption 3.1. ω = (ωj)j∈J is a countable family of independent, uni-
+formly bounded random variables with
+(3.3) E[ωj] = 0, j ∈ J.
+Assumption 3.2. (fj)j∈J is a family of real-valued functions such that∑
+j∈J |fj| is bounded and for some ρ > 1/2
+∑
+j∈J
+E[ω2j ]
+∫ ∞
+0
+(∫
+Sd−1
+|fj(rθ)| dθ
+)2
+(1 + r)2ρrd−1 dr <∞.
+It follows from Assumptions 3.1 and 3.2 that Vω is bounded,
+(3.4) ‖Vω‖∞ ≤ C,
+uniformly in ω. Theorem 2.1 will be deduced from the following
+Theorem 3.3. Let d = 2, 3. Under Assumptions 3.1, 3.2 the wave operators
+W±(Hω, H0) := s− lim
+t→±∞
+exp(itHω) exp(−itH0)P (ac)0
+exist almost surely.
+By general principle (see [30]) we deduce
+ABSOLUTELY CONTINUOUS SPECTRUM 5
+Corollary 3.4. Under the assumptions of Theorem 3.3 one has
+σac(H0) ⊂ σac(Hω) a.s.
+3.2. Preliminary material. In this subsection we recall a simple result
+needed in the proof of Theorem 3.3.
+For κ ≥ −1
+4
+we define the operator Aκ in L2(R+) as the Friedrichs ex-
+tension of − d2
+dr2
++ κ
+r2
+on C∞0 (R+). Moreover, denote by Λ the operator
+of multiplication by (1 + r). We are interested in compactness properties
+of Λ−ρ(Aκ + I)−1. As usual, S1 and S2 denote the trace class and the
+Hilbert-Schmidt class, respectively.
+Lemma 3.5. Let κ ≥ − 1
+4
+. If ρ > 1
+2
+then
+Λ−ρ(Aκ + I)−1 ∈ S2,
+and if ρ > 1 then
+Λ−ρ(Aκ + I)−1 ∈ S1.
+Indeed, the operator Aκ can be diagonalized explicitly in terms of Bessel
+functions. The second part of the assertion follows then from Lemma 2 in
+[31]. By a direct estimate of the integral kernel we obtain the first part of
+the assertion.
+3.3. Proof of Theorem 3.3. We denote by Ym, m ∈ N, a complete or-
+thonormal system of real-valued eigenfunctions of the Laplace-Beltrami
+operator in L2(Sd−1) and introduce the projections Pm in L2(Rd),
+(Pmu)(x) := Ym(x/|x|)
+∫
+Sd−1
+u(|x|θ)Ym(θ) dθ, x ∈ Rd.
+Since
+∑
+m∈N Pm = I in the sense of strong convergence it suffices to prove
+the almost sure existence of the wave operators
+W±(Hω, H0, Pm) := s− lim
+t→±∞
+exp(itHω) exp(−itH0)P (ac)0 Pm =
+= s− lim
+t→±∞
+exp(itHω)Pm exp(−itH0)P (ac)0 .
+(3.5)
+For this we will prove that for every bounded interval (a, b) ⊂ R
+(3.6) Eω(a, b)VωPmE0(a, b) ∈ S1 a.s.,
+where Eω, E0 denotes the spectral families of Hω, H0, respectively. Since
+Pn maps D(H0) = H2(Rd) into D(H) = H2(Rd) the existence of the
+limits (3.5) will then follow from Theorem 6.4.9 in [30].
+In view of (3.1), (3.4) the operators
+(H00 + I)E0(a, b) =
+(
+(H00 + I)(H0 + γI)
+−1) ((H0 + γI)E0(a, b))
+6 R. L. FRANK AND O. SAFRONOV
+(for γ sufficiently large) and similarly Eω(a, b)(H00 + I) are bounded.
+Hence the relation (3.6) is a consequence of
+(H00 + I)
+−1VωPm(H00 + I)−1 ∈ S1 a.s.
+Similarly as before, we will denote by Λ the operator of multiplication by
+(1 + |x|). With ρ > 1
+2
+from Assumption 3.2 we factorize
+(H00 + I)
+−1VωPm(H00 + I)−1 = B∗ωC
+where
+Bω := Λ
+ρPmVω(H00 + I)
+−1,
+C := Λ−ρPm(H00 + I)−1.
+One easily finds that the non-trivial part of the operator PmH00 is unitarily
+equivalent to the operator Aκ defined in the previous subsection with some
+κ ≥ 1/4 depending on m and d. From Lemma 3.5 we conclude that
+C ∈ S2,
+and so it remains to show that
+(3.7) Bω ∈ S2 a.s.
+It follows from Assumption 3.1 that
+(3.8) E[‖Bω‖22] =
+∑
+j∈J
+E[ω2j ]‖ΛρPmfj(H00 + I)−1‖22.
+Now the kernel of ΛρPmfj(H00 + I)−1F∗, F being the Fourier transform,
+is
+(2pi)−d/2(1 + |x|)ρ(1 + |ξ|2)−1Ym(x/|x|)
+∫
+Sd−1
+fj(|x|θ)Ym(θ)ei|x|〈θ,ξ〉 dθ.
+Since Ym is a bounded function, the absolute value of this kernel can be
+estimated by
+C1(1 + |x|)ρ(1 + |ξ|2)−1
+∫
+Sd−1
+|fj(|x|θ)| dθ,
+and we find
+‖ΛρPmfj(H00 + I)−1‖22 ≤ C2
+∫ ∞
+0
+(∫
+Sd−1
+|fj(rθ)| dθ
+)2
+(1 + r)2ρrd−1 dr
+with a finite constant C2 (since d ≤ 3), independent of j. Combining this
+with (3.8) and Assumption 3.2 we conclude that
+E[‖Bω‖22] <∞.
+This implies (3.7) and finishes the proof of Theorem 3.3.
+ABSOLUTELY CONTINUOUS SPECTRUM 7
+Remark 3.6. The previous proof can be easily generalized to the case of the
+polyharmonic operator. Indeed, if H00 = (−∆)l and Assumptions 3.1, 3.2
+continue to hold, then the assertion of Theorem 3.3 remains true for d < 4l.
+Remark 3.7. Note that we do not claim that the wave operators are com-
+plete. Indeed, it follows easily from Theorem 5.4.5 in [30] that u ∈
+R(W±(Hω, H0)) iff for all m ∈ N
+Pm exp(−itHω)P (ac)ω u→ 0 as t→ ±∞.
+Here P (ac)ω denotes the projection onto the absolutely continuous subspace
+of Hω. We can conclude the completeness of the wave operators provided
+this convergence is uniform in m.
+3.4. Cone condition. Here we would like to give a ‘local’ version of The-
+orem 3.3, which involves assumptions on the random potential only inside
+a cone.
+We fix a smooth (H2, say) real-valued function φ on the unit sphere Sd−1 of
+norm one and introduce the cone
+C := {x ∈ Rd : x/|x| ∈ supp(φ)}.
+Again we define Vω by (3.2) and but now we subject the ωj and fj only to
+Assumption 3.8. ω = (ωj)j∈J is a countable family of independent, uni-
+formly bounded random variables with
+E[ωj] = 0, ∀j ∈ J such that supp(fj) ∩ C 6= ∅.
+Assumption 3.9. (fj)j∈J is a family of real-valued functions such that∑
+j∈J |fj| is bounded and for some ρ > 1/2
+∑
+j∈J
+E[ω2j ]
+∫ ∞
+0
+(∫
+Sd−1
+|φ(θ)fj(rθ)| dθ
+)2
+(1 + r)2ρrd−1 dr <∞.
+Note that Assumptions 3.8, 3.9 impose essential conditions on Vω only
+inside the cone C.
+We choose a real-valued function ζ ∈ C∞(R+) which vanishes near zero
+and equals one in {r > 1}. Put
+ψ(x) := c(|x|)
+(
+ζ(|x|)φ(x/|x|) + (1− ζ(|x|))
+)
+, x ∈ Rd,
+where c(r) is chosen so that the norm of ψ(r·) in L2(Sd−1) is one,∫
+Sd−1
+|ψ(rθ)|2dθ = 1, r > 0.
+8 R. L. FRANK AND O. SAFRONOV
+We introduce the projection P in L2(Rd),
+(Pu)(x) := ψ(x)
+∫
+Sd−1
+ψ(|x|θ)u(|x|θ) dθ, x ∈ Rd,
+and put P1 := I − P . We consider the operator
+H⊕ := PH0P + P1H0P1.
+Below we shall see that H⊕ is well-defined on D(H0). We denote by P (ac)⊕
+the projection onto its absolutely continuous subspace. Then the analogue
+of Theorem 3.3 is
+Theorem 3.10. Let d = 2, 3. Under Assumptions 3.8, 3.9 the wave opera-
+tors
+W±(Hω, H⊕, P ) := s− lim
+t→±∞
+exp(itHω)P exp(−itH⊕)P (ac)0
+exist almost surely.
+Before we pass to the proof we would like to deduce information about
+the absolutely continuous spectrum of the operator Hω. As is well-
+known, if the wave operators exist then the part of Hω on the range
+R(W±(Hω, H⊕, P )) of the wave operators is unitarily equivalent to the part
+of H⊕ on
+N (W±(Hω, H⊕, P ))⊥ = R(P (ac)⊕ P ).
+This implies
+Corollary 3.11. Under the assumptions of Theorem 3.10 one has
+σac(PH⊕P ) ⊂ σac(Hω) a.s.
+Note that if V0 ≡ 0, i.e., H0 = H00 = −∆ then the absolutely continuous
+spectrum of PH⊕P coincides with [0,∞).
+Proof of Theorem 3.10. First of all we will prove that
+(3.9) (H0 + γI)(H⊕ + γI)−1 ∈ B, (H⊕ + γI)(H0 + γI)−1 ∈ B
+for all sufficiently large γ > 0. To this end we calculate
+(3.10) H0 −H⊕ = 2 Re PH0P1 = 2 Re PH00P1 = −2 Re [H00, P ]P1
+and note that [H00, P ] contains only combinations of projections and first
+order differentiation. In particular, on {|x| > 1} one has
+(3.11) [H00, P ] = |x|−2
+(
+(·,∆θφ)L2(Sd−1)φ− (·, φ)L2(Sd−1)∆θφ
+)
+,
+where ∆θ denotes the Laplace-Beltrami operator in L2(Sd−1). We deduce
+thatH⊕−H0 isH0-bounded with relative bound 0. This implies that the do-
+mains of the operators H0 and H⊕ coincide and (3.9) follows by the closed
+ABSOLUTELY CONTINUOUS SPECTRUM 9
+graph theorem.
+In order to prove Theorem 3.10 we will establish now that
+(H⊕ + γI)−1P − P (Hω + γI)−1 =
+= (H⊕ + γI)−1P (Hω −H⊕)(Hω + γI)−1 ∈ S1,
+for sufficiently large γ > 0. Similar as in (3.10) we find that
+P (Hω −H⊕) = PVω − P [H00, P ]P1,
+so in view of (3.1), (3.4), (3.9) it suffices to establish the two inclusions
+(3.12) (H⊕ + I)−1PVω(H00 + I)−1 ∈ S1,
+(3.13) (H⊕ + I)−1P [H00, P ]P1(H⊕ + I)−1 ∈ S1.
+We begin with the proof of (3.12) which is similar to the proof of Theorem
+3.3. We will factorize the operator on the left hand side of (3.12) as a prod-
+uct of operators from the Hilbert-Schmidt class. Replacing Assumptions
+3.1, 3.2 above by Assumptions 3.8, 3.9 one verifies that
+ΛρPVω(H00 + I)
+−1 ∈ S2
+with ρ > 1/2 from Assumption 3.9.
+Now the non-trivial part of the operator PH⊕P is unitarily equivalent to a
+second-order differential operator in L2(R+) with smooth coefficients. In a
+neighborhood of zero it coincides with − d2
+dr2
++κr−2, κ = (d− 1)(d− 3)/4,
+and in {r > 1} with − d2
+dr2
++ r−2(κ+ ‖∇φ‖2
+L2(Sd−1)
+). Thus it follows easily
+from Lemma 3.5 that
+Λ−ρP (H⊕ + I)−1 ∈ S2,
+which concludes the proof of (3.12).
+The proof of (3.13) uses similar ideas, but now we factorize the operator
+on the left hand side as a product of a trace class and a bounded operator.
+Indeed, one can use Lemma 3.5 again to prove that
+Λ−αP (H⊕ + I)−1 ∈ S1
+provided α > 1. Moreover, a simple analysis of the commutator [H00, P ]
+(noting in particular (3.11)) shows that
+ΛαP [H00, P ]P1(H⊕ + I)−1 ∈ B
+provided α ≤ 2. This proves (3.13) and completes the proof of the theorem.
+¤
+10 R. L. FRANK AND O. SAFRONOV
+4. BACK TO THE MODEL FROM SECTION 2
+4.1. Proof of Theorem 2.1. We are in the situation of Section 3 with V0 ≡
+0 and J = N × Zd and have to verify Assumption 3.2. Then Theorem 2.1
+will follow from Corollary 3.4.
+It is elementary to see that there is a constant C1 > 0 such that for all
+j ∈ Zd, ρ ≥ 1
+(4.1)
+∫
+Sd−1
+ξj(ρ θ) dθ ≤ C1ρ−(d−1)χ[|j|−√d,|j|+√d](ρ),
+where χ[a,b] denotes the characteristic function of the interval [a, b]. Hence
+∑
+n∈N,j∈Zd
+∫ ∞
+0
+(∫
+Sd−1
+|fn,j(rθ)| dθ
+)2
+(1 + r)2ρrd−1 dr ≤
+≤ C21
+∑
+n∈N,j∈Zd
+n−2s(d−1)χ[|j|−
+√
+d,|j|+
+√
+d](n
+s)
+∫ n
+n−1
+(1 + r)2ρrd−1 dr ≤
+≤ C2
+∑
+n∈N,j∈Zd
+n−(2s−1)(d−1)+2ρχ[|j|−
+√
+d,|j|+
+√
+d](n
+s).
+Now the number of j ∈ Zd for which χ[|j|−√d,|j|+√d](ns) 6= 0 coincides
+with the number of integer points in the spherical layer {ns −√d ≤ |x| ≤
+ns +
+√
+d} and is hence bounded by C3ns(d−1). We conclude that the above
+sum can be estimated by
+C2C3
+∑
+n∈N
+n−(s−1)(d−1)+2ρ.
+Since s > 1 + 2/(d− 1) we can choose ρ > 1/2 such that (s− 1)(d− 1)−
+2ρ > 1 and so Assumption 3.2 holds. This completes the proof of Theorem
+2.1.
+Before we move on we would like to mention some obvious general-
+izations of the above proof. First, note that the assumption that the ωn,j
+are identically distributed was not used. It suffices that they are uniformly
+bounded (see Example 5.3 below). Second, the precise form of the func-
+tions fn,j is not essential. We only used the estimate (4.1) and a bound on
+the number of functions supported inside a given spherical layer.
+4.2. Extension to higher dimensions. It turns out that the conclusion of
+Theorem 2.1 holds also for dimensions d ≥ 4. We give the proof only in
+the setting of Section 2 but remark that various generalizations are possible.
+Finally, we believe that the critical value on s can be improved.
+ABSOLUTELY CONTINUOUS SPECTRUM 11
+Theorem 4.1. Let d ≥ 4 and let s > 1 + d/(d − 1). Then the absolutely
+continuous spectrum of the operator−∆+Vω contains [0,∞) almost surely.
+Proof. We proceed as in the proof of Theorem 3.3 and factorize again
+(−∆ + I)−1VωPm(−∆ + I)−1 = B∗ωC
+where
+Bω := Λ
+ρPmVω(−∆ + I)−1,
+C := Λ−ρPm(−∆ + I)−1.
+However, now we choose
+(4.2) ρ > 1,
+so that Lemma 3.5 yields C ∈ S1. Hence it remains to show that
+(4.3) Bω ∈ B a.s.
+We will localize in the configuration and in the momentum space. Recall
+that χn is the characteristic function of the spherical layer {n−1 ≤ |x| < n}
+and put Jn := E00(0, n2ρ) where E00 is the spectral family of−∆. We have
+(4.4) E[‖Bω‖] ≤
+∑
+n∈N
+E[‖χnBω(I − Jn)‖] +
+∑
+n∈N
+E[‖χnBωJn‖].
+For high energies we use that
+‖(−∆ + I)−1(I − Jn)‖ ≤ n−2ρ
+and obtain the deterministic estimate
+‖χnBω(I − Jn)‖ ≤ C1n−ρ.
+Hence the first sum in (4.4) is finite in view of (4.2).
+For low energies we calculate similarly as in the proof of Theorem 3.3 that
+(4.5)
+(E[‖χnBωJn‖])2 ≤ E[‖χnBωJn‖22] = C2
+∑
+j∈Zd
+‖ΛρPmfn,j(−∆ + I)−1Jn‖22,
+where C2 is the (common) variance of the ωn,j . Since Ym is a bounded
+function, the absolute value of the kernel of ΛρPmfn,j(−∆+ I)−1JnF∗ can
+be estimated by
+C3(1 + |x|)ρ(1 + |ξ|2)−1χ[n−1,n)(|x|)χ(0,nρ)(|ξ|)
+∫
+Sd−1
+ξj(n
+sθ) dθ.
+Obviously, one has∫
+n−1<|x|<n
+(1 + |x|)2ρ dx ≤ C4n2ρ+d−1
+12 R. L. FRANK AND O. SAFRONOV
+and, provided d ≥ 5, ∫
+|ξ|<nρ
+dξ
+(1 + |ξ|2)2 ≤ C5n
+(d−4)ρ.
+(If d = 4 the argument is similar, so we restrict ourselves henceforth to the
+case d ≥ 5.) Combining this with the estimate (4.1) we find
+‖ΛρPmfn,j(−∆ + I)−1Jn‖22 ≤ C6n−(2s−1)(d−1)+(d−2)ρχ[|j|−√d,|j|+√d](ns).
+As in the previous subsection we estimate the number of j ∈ Zd for which
+χ[|j|−
+√
+d,|j|+
+√
+d](n
+s) 6= 0 by C7ns(d−1), and obtain so from (4.5) the bound
+(E[‖χnBωJn‖])2 ≤ C8n−(s−1)(d−1)+(d−2)ρ.
+Hence the second sum in (4.4) is finite if we choose ρ > 1 such that
+(s− 1)(d− 1)− (d− 2)ρ > 2,
+(which is possible since s > 1 + d/(d− 1)). We conclude that
+E[‖Bω‖] <∞.
+This implies (4.3) and finishes the proof of Theorem 4.1. ¤
+5. FURTHER EXAMPLES
+Finally, we would like to show that our method is not restricted to the
+model from Section 2 but yields the existence of absolutely continuous
+spectrum also in other situations, e.g., with sparse potentials or decaying
+randomness. In each case the proof reduces to the verification of Assump-
+tion 3.2. We emphasize that this assumption allows to combine different
+mechanisms for absolutely continuous spectrum and that their influence is
+essentially additive.
+Example 5.1 (Additional decay). Let d = 2, 3 and define fn,j as in Section
+2, depending on the parameter s > 1. Moreover, let (αn,j) be a deterministic
+sequence of real numbers satisfying
+|αn,j| ≤ Cn−t, n ∈ N, j ∈ Zd,
+with some parameter t ≥ 0. We define now
+Vω(x) =
+∑
+n,j
+ωn,jαn,jfn,j(x), x ∈ Rd,
+where ωn,j are as in Section 2.
+If t > 1 this is a short-range potential and standard deterministic results are
+applicable. If t > 1/2 the almost sure existence of absolutely continuous
+spectrum is proven in [5], [10] for s = 1. We will show that absolutely
+continuous spectrum exists almost surely for all t ≥ 0 at the expense of
+ABSOLUTELY CONTINUOUS SPECTRUM 13
+increasing s. Put differently, decay (i.e., t > 0) helps to decrease the lower
+bound on s in Theorem 2.1. Indeed, a straightforward generalization of the
+proof in Subsection 4.1 shows that [0,∞) is almost surely contained in the
+absolutely continuous spectrum of −∆ + Vω provided
+s > 1 + 2(1− t)/(d− 1).
+Example 5.2 (Sparse potentials). Let d = 3 and f ∈ L∞(R3) with compact
+support. Let (xm)m∈N be a sequence of points in R3 such that |xm| → ∞
+but ∑
+m∈N
+|xm|−σ <∞
+for some σ < 1 and put
+Wω˜(x) :=
+∑
+m∈N
+ω˜mf(x− xm), x ∈ R3,
+where ω˜m, m ∈ N, are bounded, independent and identically distributed
+random variables with E[ω˜m] = 0.
+We claim that [0,∞) is almost surely contained in the absolutely continuous
+spectrum of −∆ +Wω. Indeed, proceeding as in Subsection 4.1 and using
+an analogue of the estimate (4.1) we find that
+∑
+m∈N
+∫ ∞
+0
+(∫
+S2
+|f(rθ − xm)| dθ
+)2
+(1 + r)2ρr2 dr ≤ C
+∑
+m∈N
+|xm|−2+2ρ,
+which is finite for ρ = 1 − σ/2 > 1/2. We note that −∆ + Wω˜ has non-
+empty essential spectrum below zero whenever f is sufficiently negative.
+The same idea can be used to construct negative essential spectrum for the
+operator from Section 2. Let Vω be of the same form as there with ωn,j
+independent from ω˜m. Since Vω and Wω˜ satisfy Assumption 3.2 their sum
+does so as well. We conclude that −∆ + Vω +Wω˜ has almost surely abso-
+lutely continuous spectrum in [0,∞) and also, if f is sufficiently negative,
+essential spectrum below zero.
+Example 5.3 (Decaying randomness). We return once more to the model
+from Section 2. Let d = 2, 3 and let fn,j and Vω be defined as before, but
+assume now that the ωn,j are not identically distributed. For the sake of
+definiteness assume that they are independent random variables assuming
+only the values −1, 0, 1 with
+P[ωn,j = 1] = P[ωn,j = −1] =: pn,j/2, n ∈ N, j ∈ Zd.
+We assume that
+(5.1) |pn,j| ≤ Cn−τ , n ∈ N, j ∈ Zd,
+14 R. L. FRANK AND O. SAFRONOV
+with some parameter τ > 0. Then the set [0,∞) is almost surely contained
+in the absolutely continuous spectrum of the operator −∆ + αVω, α ∈ R,
+provided
+(5.2) s > 1 + (2− τ)/(d− 1).
+This follows as in Subsection 4.1 but taking now also into account that
+E[ω2n,j] = pn,j . Note that if
+(5.3)
+∑
+n∈N,j∈Zd
+pn,jχ[|j|−
+√
+d,|j|+
+√
+d](n
+s) <∞,
+then Vω is almost surely compactly supported by the Borel-Cantelli lemma,
+so the existence of absolutely continuous spectrum is trivial in this case.
+If, however, d = 3 one can choose pn,j such that (5.1) holds with τ > 2
+and simultaneously the sum in (5.3) is infinite. Then (5.2) guarantees the
+almost sure existence of absolutely continuous spectrum on [0,∞) in the
+case s = 1. At the same time the existence of a infinite sequence of variables
+ωn,j assuming the value −1 might yield the existence of negative essential
+spectrum for sufficiently large |α|. We refer to [15] for a more detailed
+analysis of the negative essential spectrum in related models (see also [23]).
+Finally, we remark that the cone condition from Subsection 3.4 allows
+to construct a lot of further examples having both positive absolutely con-
+tinuous and negative essential spectrum. In particular, one can consider the
+potential of the usual Anderson model and modify it in an arbitrary small
+cone in one of the described ways to produce absolutely continuous spec-
+trum on the positive half-line.
+As we mentioned before the main result of our paper does not have one-
+dimensional analogues simply because the unit sphere in d = 1 consists
+only of two points. However, one can consider the following elementary
+Example 5.4. Let χn,j be the characteristic function of the interval [n +
+jn−s, n+(j+1)n−s) where n ∈ Z, 0 ≤ j < [ns], and [ns] notes the integer
+part of ns. Let ωn,j be bounded, independent and identically distributed
+random variables with E[ωn,j] = 0 and define
+Vω(x) :=
+∑
+n
+∑
+0≤j<[ns]
+ωn,jn
+−1/4−²χn,j(x), x ∈ R.
+Now we prove the following result.
+Theorem 5.5. Let s ≥ 1/2. Then the absolutely continuous spectrum of the
+operator−d2/dx2+Vω is almost surely essentially supported by [0,∞), i.e.,
+the spectral measure has positive derivative almost everywhere on [0,∞).
+ABSOLUTELY CONTINUOUS SPECTRUM 15
+One might conjecture that for 0 < s < 1/2−² the operator−d2/dx2+Vω
+has almost surely dense purely point spectrum on [0,∞).
+Proof. We consider the Fourier transform
+Vˆω(ξ) = (2pi)
+−1/2
+∫
+R
+e−iξxVω(x) dx =
+∑
+n
+∑
+0≤j<[ns]
+ωn,jn
+−1/4−²χˆn,j(ξ)
+and note that |χˆn,j(ξ)| ≤ C1n−s for all ξ with a constant C1 independent of
+j, n. Hence for any finite interval (a, b)
+E
+[∫ b
+a
+|Vˆω(ξ)|2 dξ
+]
+= E[ω0,0]
+∑
+n
+n−1/2−2²
+∑
+0≤j<[ns]
+∫ b
+a
+|χˆn,j(ξ)|2 dξ ≤
+≤ C2(b− a)
+∑
+n
+∑
+0≤j<[ns]
+n−2s−1/2−2²,
+and the sum on the right hand side converges. Since the Fourier transform
+of Vω belongs almost surely to L2,loc and Vω ∈ L4, the assertion follows
+from the main result of [16]. (By the trick from [22] the L3-condition in
+[16] can be substituted by a L4-condition.) ¤
+REFERENCES
+[1] M. Aizenman, A. Elgart, S. Naboko, J. Schenker, G. Stolz, Moment Analysis for
+Localization in Random Schro¨dinger Operators, preprint, mp-arc 03-377.
+[2] M. Aizenman, G. Graf, Localization bounds for an electron gas. J. Phys. A 31, 6783–
+6806 (1998).
+[3] M. Aizenman, S. Molchanov, Localization at large disorder and at extreme energies:
+an elementary derivation. Comm. Math. Phys. 157 (1993), no. 2, 245–278.
+[4] M. Aizenman, J. H. Schenker, R. M. Friedrich, D. Hundertmark, Constructive
+fractional-moment criteria for localization in random operators. Physica A.
+[5] J. Bourgain, On random Schro¨dinger operators on Z2. Discrete Contin. Dynam. Sys-
+tems 8 (2002), no. 1, 1–15.
+[6] J. Bourgain, Random lattice Schro¨dinger operators with decaying potential: some
+multidimensional phenomena, Geometric Aspects of Functional Analysis: Israel
+Seminar 2001–2002 (V. D. Milman and G. Schechtman, Eds.), Lecture Notes in
+Mathematics, vol. 1807, Springer, Berlin, 2003, pp. 70–98.
+[7] J. Bourgain, C. Kenig, On localization in the continuous Anderson-Bernoulli model
+in higher dimension. Inv. Math., to appear.
+[8] R. Carmona, A. Klein, F. Martinelli, Anderson localization for Bernoulli and other
+singular potentials. Comm. Math. Phys. 108 (1987), no. 1, 41–66.
+[9] F. Delyon, Y.Levy, B. Souillard, Anderson localization for multidimensional systems
+at large disorder or large energy. Comm. Math. Phys. 100 (1985), no. 4, 463–470.
+[10] S. Denisov, Absolutely continuous spectrum of Schro¨dinger operators with slowly
+decaying potentials. Int. Math. Res. Not. 2004, no. 74, 3963–3982.
+[11] H. von Dreifus, A. Klein, A new proof of localization in the Anderson tight binding
+model. Comm. Math. Phys. 124 (1989), 285–299.
+16 R. L. FRANK AND O. SAFRONOV
+[12] J. Froelich, T. Spencer, Absence of diffusion in the Anderson tight binding model for
+large disorder or low energy. Comm. Math. Phys. 88 (1983), no. 2, 151–184. Phys.
+A 124 (1984), no. 1-3, 303–310.
+[13] F. Germinet, A. Klein, A characterization of the Anderson metal-insulator transport
+transition. Duke Math. J. 124 (2004), no. 2, 309–350.
+[14] I. Goldsheid, S. Molchanov, L. Pastur, A random homogeneous Schro¨dinger operator
+has a pure point spectrum. (Russian) Funkcional. Anal. i Prilozhen. 11 (1977), no. 1,
+1–10, 96.
+[15] D. Hundertmark, W. Kirsch, Spectral theory of sparse potentials. Stochastic pro-
+cesses, physics and geometry: new interplays, I (Leipzig, 1999), 213–238, CMS
+Conf. Proc., 28, Amer. Math. Soc., Providence, RI, 2000.
+[16] R. Killip, Perturbations of one-dimensional Schro¨dinger operators preserving the
+absolutely continuous spectrum. Int. Math. Res. Not. (2002), no. 38, 2029–2061.
+[17] W. Kirsch, M. Krishna, J. Obermeit, Anderson model with decaying randomness:
+mobility edge. Math. Z. 235 (2000), no. 3, 421–433.
+[18] A. Klein, Multiscale analysis and localization of random operators. Preprint, mp-arc
+04-1.
+[19] M. Krishna, Anderson model with decaying randomness existence of extended states.
+Proc. Indian Acad. Sci. Math Sci. 100 (1990), no 1, 195–213.
+[20] S. Kotani, Lyapunov exponents and spectra for one-dimensional random Schro¨dinger
+operators. Random matrices and their applications (Brunswick, Maine, 1984), 277–
+286, Contemp. Math., 50, Amer. Math. Soc., Providence, RI, 1986.
+[21] H.Kunz, B.Souillard, Sur le spectre des operateurs aux differences finies aleatoires.
+(French. English summary) [On the spectra of random finite difference operators]
+Comm. Math. Phys. 78 (1980/81), no. 2, 201–246.
+[22] A. Laptev, S. Naboko, O. Safronov, Absolutely continuous spectrum of Schro¨dinger
+operators with slowly decaying and oscillating potentials. Comm. Math. Phys. 253
+(2005), no. 3, 611–631.
+[23] A.B. de Monvel, P. Stollmann, G. Stolz, Absence of continuous spectral types for
+certain non-stationary random Schro¨dinger operators. Ann. Henri Poincar 6 (2005),
+no. 2, 309–326.
+[24] I. Rodnianski, W. Schlag, Classical and quantum scattering for a class of long range
+random potentials. Int. Math. Res. Not. 2003, no. 5, 243–300.
+[25] C. Shubin, R. Vakilian, T. Wolff, Some harmonic analysis questions suggested by
+Anderson-Bernoulli models. Geom. Funct. Anal. 8 (1998), no. 5, 932–964 for a dis-
+crete distribution),
+[26] B. Simon, Schro¨dinger operators in the twentieth century. J. Math. Phys. 41 (2000),
+no. 6, 3523–3555.
+[27] B. Simon, T. Wolff, Singular continuous spectrum under rank one perturbations and
+localization for random Hamiltonians. Comm. Pure Appl. Math. 39 (1986), no. 1,
+75–90.
+[28] T. Spencer, Ergodic Schro¨dinger operators. Analysis, et cetera. 623–637, Academic
+Press, Boston, MA, 1990.
+[29] P. Stollmann, Caught by disorder. Bound states in random media. Progress in Math-
+ematical Physics, 20. Birkha¨user Boston, Inc., Boston, MA, 2001.
+[30] D. R. Yafaev, Mathematical Scattering Theory, Amer. Math. Soc., Providence, RI,
+1992.
+ABSOLUTELY CONTINUOUS SPECTRUM 17
+[31] D. R. Yafaev, A model of perturbation theory, Mathematical results in quantum me-
+chanics (Prague, 1998), 373–378, Oper. Theory Adv. Appl., 108, Birkha¨user, Basel,
+1999.
+E-mail address: rupert@math.kth.se
+E-mail address: safronov@math.kth.se
