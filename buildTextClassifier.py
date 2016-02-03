@@ -3,6 +3,7 @@
 import sys
 import numpy as np
 import os
+import re
 from sklearn.svm import LinearSVC
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.externals import joblib
@@ -14,9 +15,12 @@ files=os.listdir(folder)
 classes=list()
 pattern=re.compile(r"([0-9]+)-")
 for f in files:
-	cites=pattern.find(f)
+	cites=pattern.search(f)
 	if cites:
-		if int(cites.group(1))>10: classes.append(True) else: classes.append(False)
+		if int(cites.group(1))>10: 
+			classes.append(True) 
+		else: 
+			classes.append(False)
 	else: 
 		print("WARNING: file name not formatted correctly. giving up.")
 		break
