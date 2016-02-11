@@ -18,7 +18,7 @@ from sklearn.externals import joblib
 from scipy.cluster.vq import *
 
 # Load the classifier, class names, scaler, number of clusters and vocabulary
-clf, classes_names, stdSlr, k, voc = joblib.load("bof.pkl")
+clf, classes_names, stdSlr, k, voc = joblib.load("visual.pkl")
 
 # Get the path of the testing set
 parser = ap.ArgumentParser()
@@ -32,15 +32,15 @@ image_paths = []
 if args["testingSet"]:
     test_path = args["testingSet"]
     try:
-        testing_names = os.listdir(test_path)
+        testing_names = [i for i in os.listdir(test_path) if not i.startswith('.')]
     except OSError:
         print "No such directory {}\nCheck if the file exists".format(test_path)
         exit()
     for testing_name in testing_names:
-        if not testing_name.startswith('.'):
-            dir = os.path.join(test_path, testing_name)
-            class_path = imutils.imlist(dir)
-            image_paths+=class_path
+        dir = os.path.join(test_path, testing_name)
+        class_path = imutils.imlist(dir)
+        image_paths+=class_path
+    image_paths.pop(0) # get rid of .DS_Store
 else:
     image_paths = [args["image"]]
     
@@ -49,9 +49,9 @@ fea_det = cv2.FeatureDetector_create("SIFT")
 des_ext = cv2.DescriptorExtractor_create("SIFT")
 
 # Extract features, combine with image storage location
-des_list = []
 print('extracting features')
 
+des_list = []
 for image_path in image_paths:
     if not image_path.startswith('.'):
         im = cv2.imread(image_path)
@@ -94,5 +94,34 @@ predictions =  [classes_names[i] for i in clf.predict(test_features)]
 for image_path, prediction in zip(image_paths, predictions):
     if not image_path.startswith('.'): #skip hidden files
         print(image_path,prediction,'\n')
+        
+
+#statistical analysis code:
+#!!!image_path and prediction indices must be updated
+#for different image paths and databases!!!
+
+tp=0
+fp=0
+tn=0
+fn=0
+for image_path, prediction in zip(image_paths, predictions):
+    if image_path[101:109] == 'all_high':
+        if prediction[:8] == 'all_high':
+            tp+=1
+        else:
+            fn+=1
+    if image_path[101:109] == 'all_low_':
+        if prediction[:8] == 'all_low_':
+            tn+=1
+        else:
+            fp+=1
+precision=tp/(tp+fp)
+recall=tp/(tp+fn)
+Fmeasure=2*(precision*recall)/(precision+recall)
+print('True positives;',tp)
+print('False positives;',fp)
+print('True negatives;',tn)
+print('False negatives;',fn)
+print('F-measure;',Fmeasure)
 
 
