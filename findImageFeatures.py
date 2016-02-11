@@ -6,7 +6,7 @@ CLASSIFIER SOMETIMES FAILS EVEN WITH
 ADDED CODE TO IGNORE HIDDEN FILES
 '''
 
-# to run: /classifier/location findFeatures.py -t /dataset
+# to run: /classifier/location findImageFeatures.py -t /dataset
 
 import argparse as ap
 import cv2
@@ -109,6 +109,6 @@ clf = LinearSVC()
 clf.fit(im_features, np.array(image_classes))
 
 # Save the SVM
-joblib.dump((clf, training_names, stdSlr, k, voc), "bof.pkl", compress=3)    
-print('saving classifier as "bof.pkl"')
+joblib.dump((clf, training_names, stdSlr, k, voc), "visual.pkl", compress=3)    
+print('saving classifier as "visual.pkl"')
 
