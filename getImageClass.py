@@ -90,11 +90,12 @@ print('Performing prediction')
 
 predictions =  [classes_names[i] for i in clf.predict(test_features)]
 
+'''
 #print predictions
 for image_path, prediction in zip(image_paths, predictions):
     if not image_path.startswith('.'): #skip hidden files
         print(image_path,prediction,'\n')
-        
+'''   
 
 #statistical analysis code:
 #!!!image_path and prediction indices must be updated
