@@ -6,24 +6,26 @@ from random import shuffle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC
 from matplotlib import pyplot
-def main(txtNames, imgNames):
+#for Marko
+import cv2
+import imutils
+from sklearn.externals import joblib
+from scipy.cluster.vq import *
+from sklearn.preprocessing import StandardScaler
+def main(txtName, imgName):
     #usage; python2 combine.py /path/to/text /path/to/images
     #pulls only files that have both an image and text for sanitization
-    removes=list()
-    for txt in txtNames:
-    	if txt not in imgNames:
-    		removes.append(txt)
-    for name in removes:
-    	txtNames.remove(name)
-    #txtNames is now the list of shared files. Divide into ten sublists for cross validation.
-    txtNames=shuffle(txtNames)
+    imgNames=os.listdir(imgName)
+    #txtNames is now the list of shared files(REMOVED FOR TESTING). Divide into ten sublists for cross validation.
+    shuffle(imgNames)
     names=list()
-    for section in range(1,10):
+    for section in range(0,10):
         current=list()
         names.append(current)
     counter=0
-    while txtNames:
-        names[counter].append(txtNames.pop())
+    while imgNames:
+
+        names[counter].append(os.path.splitext(imgNames.pop())[0])
         counter=(counter+1)%10
     #regex to find class, divided into the same sublistings
     pattern=re.compile(r"([0-9]+)-")
@@ -35,7 +37,7 @@ def main(txtNames, imgNames):
         img=list()
         cls=list()
         txtFiles.append(txt)
-        imgfiles.append(img)
+        imgFiles.append(img)
         classes.append(cls)
         for f in sublist:
             cites=pattern.search(f)
@@ -45,10 +47,11 @@ def main(txtNames, imgNames):
                 else: 
                     cls.append(False)
             else: 
+                print(f)
                 print("WARNING: file name not formatted correctly. giving up.")
                 exit()
-            txt.append(os.path.join(argv[1],f))
-            img.append(os.path.join(argv[2],f))
+            txt.append(os.path.join(txtName,f)+".pdf.txt")
+            img.append(os.path.join(imgName,f)+".jpg")
     #True is now good papers, False is bad; we have sublists of complete file paths
     txtRocs=list()
     imgRocs=list()
@@ -56,11 +59,11 @@ def main(txtNames, imgNames):
     fMeasures=list()
     #i will now be the held out subsection.
     for i in range(10):
-        print("constructing fold",i,"...")
+        print("constructing fold...")
         curTxtFiles=list()
         curImgFiles=list()
         curClasses=list()
-        for j in range(10):
+        for j in range(0,9):
             if j!=i:
                 curTxtFiles+=txtFiles[j]
                 curImgFiles+=imgFiles[j]
@@ -68,11 +71,12 @@ def main(txtNames, imgNames):
         txtExtract=TfidfVectorizer(input='filename',stop_words='english')
         txtData=txtExtract.fit_transform(curTxtFiles)
         txtClf=LinearSVC()
-        textClf.fit(txtData,curClasses)
+        txtClf.fit(txtData,curClasses)
         txtTune=txtExtract.fit_transform(txtFiles[i])
         imgClf=LinearSVC()
-        imgClf.fit(markoPrep(curImgFiles))
-        imgTune=markoPrep(imgFiles[i])
+        markoPrepped=markoPrep(curImgFiles,None)
+        imgClf.fit(markoPrepped[0])
+        imgTune=markoPrep(imgFiles[i],markoPrepped[1])[0]
         txtConfs=txtClf.decision_function(txtTune)
         txtRocs.append(buildRoc(txtConf,classes[i],100))
         imgConfs=imgClf.decision_function(imgTune)
@@ -108,8 +112,8 @@ def main(txtNames, imgNames):
     pyplot.xlabel("False Positive Rate")
     pyplot.ylabel("True Positive Rate")
     pyplot.show()
-#markoPrep is marko's code for taking a list of file names and transforming them into a feature matrix.
-def markoPrep(img_files):
+#markoPrep is marko's code for taking a list of file names and transforming them into a feature matrix. Returns tuple with the matrix first, vocab second.
+def markoPrep(image_paths, inVoc):
     # Create feature extraction and keypoint detector objects
     fea_det = cv2.FeatureDetector_create("SIFT")
     des_ext = cv2.DescriptorExtractor_create("SIFT")
@@ -119,9 +123,9 @@ def markoPrep(img_files):
     print('extracting features')
 
     for image_path in image_paths:
-        if not image_path.startswith('.'):
+        if ".jpg" in image_path:
             im = cv2.imread(image_path, cv2.IMREAD_COLOR)
-            print(im.shape)
+            #print(im.shape)
             kpts = fea_det.detect(im)
             kpts, des = des_ext.compute(im, kpts)
             des_list.append((image_path, des))
@@ -136,23 +140,25 @@ def markoPrep(img_files):
     print(descriptors.shape)
 
     for image_path, descriptor in des_list[1:]:
-        if not image_path.startswith('.') or descriptor.startswith('.'):
+        if ".jpg" in image_path:
         #descriptor = np.rot90(descriptor)
             descriptors = np.vstack((descriptors, descriptor))
 
     print(descriptors)
     print(descriptors.shape)
 
-    # build vocabulary with k-means clustering
-    k = 100
-    print('Performing clustering K=', k)
-    voc, variance = kmeans(descriptors, k, 1) #voc = visual vocabulary
+    if inVoc is None:#so that we can build vocab or not
+        # build vocabulary with k-means clustering
+        k = 100
+        print('Performing clustering K=', k)
+        voc, variance = kmeans(descriptors, k, 1) #voc = visual vocabulary
+    else: voc=inVoc
 
     # Calculate frequency vector
     print('creating frequency vector')
     im_features = np.zeros((len(image_paths), k), "float32")
     for i in xrange(len(image_paths)):
-        if not image_path.startswith('.') or descriptor.startswith('.'):
+        if ".jpg" in image_path:
             words, distance = vq(des_list[i][1],voc)
             for w in words:
                 im_features[i][w] += 1
@@ -165,7 +171,7 @@ def markoPrep(img_files):
     # Standardization for input ot linear classifier
     print('stanardizing input for classification')
     stdSlr = StandardScaler().fit(im_features)
-    return(stdSlr.transform(im_features))
+    return((stdSlr.transform(im_features),voc))
 #returns a pair of lists, x values and y values.
 def buildRoc(confidences, classes, res):
     threshold=max(confidences)
@@ -201,4 +207,4 @@ def avRoc(pairs):
     av=(x,y)
     return(av)
 
-main(argv[1], argv[2])
+main(sys.argv[1], sys.argv[2])
