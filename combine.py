@@ -15,18 +15,19 @@ from sklearn.preprocessing import StandardScaler
 def main(txtName, imgName):
     #usage; python2 combine.py /path/to/text /path/to/images
     #pulls only files that have both an image and text for sanitization
+    nFolds=5
     imgNames=os.listdir(imgName)
     #txtNames is now the list of shared files(REMOVED FOR TESTING). Divide into ten sublists for cross validation.
     shuffle(imgNames)
     names=list()
-    for section in range(0,10):
+    for section in range(0,nFolds):
         current=list()
         names.append(current)
     counter=0
     while imgNames:
 
         names[counter].append(os.path.splitext(imgNames.pop())[0])
-        counter=(counter+1)%10
+        counter=(counter+1)%nFolds
     #regex to find class, divided into the same sublistings
     pattern=re.compile(r"([0-9]+)-")
     classes=list()
@@ -42,7 +43,7 @@ def main(txtName, imgName):
         for f in sublist:
             cites=pattern.search(f)
             if cites:
-                if int(cites.group(1))>10: 
+                if int(cites.group(1))>nFolds: 
                     cls.append(True) 
                 else: 
                     cls.append(False)
@@ -58,12 +59,12 @@ def main(txtName, imgName):
     tiRocs=list()
     fMeasures=list()
     #i will now be the held out subsection.
-    for i in range(10):
+    for i in range(nFolds):
         print("constructing fold...")
         curTxtFiles=list()
         curImgFiles=list()
         curClasses=list()
-        for j in range(0,9):
+        for j in range(0,nFolds-1):
             if j!=i:
                 curTxtFiles+=txtFiles[j]
                 curImgFiles+=imgFiles[j]
@@ -72,26 +73,26 @@ def main(txtName, imgName):
         txtData=txtExtract.fit_transform(curTxtFiles)
         txtClf=LinearSVC()
         txtClf.fit(txtData,curClasses)
-        txtTune=txtExtract.fit_transform(txtFiles[i])
+        txtTune=txtExtract.transform(txtFiles[i])
         imgClf=LinearSVC()
         markoPrepped=markoPrep(curImgFiles,None)
-        imgClf.fit(markoPrepped[0])
+        imgClf.fit(markoPrepped[0],curClasses)
         imgTune=markoPrep(imgFiles[i],markoPrepped[1])[0]
         txtConfs=txtClf.decision_function(txtTune)
-        txtRocs.append(buildRoc(txtConf,classes[i],100))
+        txtRocs.append(buildRoc(txtConfs,classes[i],100))
         imgConfs=imgClf.decision_function(imgTune)
-        imgRocs.append(buildRoc(imgConf,classes[i],100))
+        imgRocs.append(buildRoc(imgConfs,classes[i],100))
         tiConfs=list()
         tp=0
         fp=0
         tn=0
         fn=0
-        for i in range(len(0,classes)):
+        for j in range(0,len(classes[i])):
             #combine classifications
-            tiConf=(txtConfs[i]+imgConfs[i])/2
+            tiConf=(txtConfs[j]+imgConfs[j])/2
             tiConfs.append(tiConf)
-            prediction=confidence>=0
-            if classes[i]:
+            prediction=tiConf>=0
+            if classes[i][j]:
                 if prediction:
                     tp+=1
                 else:
@@ -102,9 +103,14 @@ def main(txtName, imgName):
                 else:
                     tn+=1
         tiRocs.append(buildRoc(tiConfs,classes[i],100))
-        precision=tp/(tp+fp)
-        recall=tp/(tp+fn)
-        Fmeasure=2*(precision*recall)/(precision+recall)
+        if tp==0:
+            precision=0
+            recall=0
+            Fmeasure=0
+        else:
+            precision=tp/(tp+fp)
+            recall=tp/(tp+fn)
+            Fmeasure=2*(precision*recall)/(precision+recall)
         fMeasures.append(Fmeasure)
     avTiRoc=avRoc(tiRocs)
     pyplot.plot(avTiRoc[0],avTiRoc[1],color='green', marker='o', linestyle='solid')
@@ -147,9 +153,10 @@ def markoPrep(image_paths, inVoc):
     print(descriptors)
     print(descriptors.shape)
 
+    k=10
+
     if inVoc is None:#so that we can build vocab or not
         # build vocabulary with k-means clustering
-        k = 100
         print('Performing clustering K=', k)
         voc, variance = kmeans(descriptors, k, 1) #voc = visual vocabulary
     else: voc=inVoc
@@ -181,14 +188,19 @@ def buildRoc(confidences, classes, res):
     while threshold>0:
         tp=0
         fp=0
-        for i in len(confidences):
+        for i in range(len(confidences)):
             if classes[i]:
                 if confidences[i]>threshold:
                     tp+=1
                 else:
                     fp+=1
-        x.append(fp/(tp+fp))
-        y.append(tp/(tp+fp))
+        #normalization with control for potential zeroes.
+        if tp+fp==0:
+            x.append(0);
+            y.append(0);
+        else:
+            x.append(fp/(tp+fp))
+            y.append(tp/(tp+fp))
         threshold-=step
     pair=(x,y)
     return(pair)
