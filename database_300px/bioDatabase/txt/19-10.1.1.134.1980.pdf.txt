@@ -1,2342 +1,0 @@
-OPERATIONS RESEARCH
-Vol. 55, No. 3, May–June 2007, pp. 549–568
-issn 0030-364X eissn 1526-5463 07 5503 0549
-informs ®
-doi 10.1287/opre.1060.0367
-©2007 INFORMS
-A Model Reference Adaptive Search
-Method for Global Optimization
-Jiaqiao Hu
-Department of Applied Mathematics and Statistics, State University of New York at Stony Brook,
-Stony Brook, New York 11794, jqhu@ams.sunysb.edu
-Michael C. Fu
-Robert H. Smith School of Business, and Institute for Systems Research, University of Maryland,
-College Park, Maryland 20742, mfu@rhsmith.umd.edu
-Steven I. Marcus
-Department of Electrical and Computer Engineering, and Institute for Systems Research, University of Maryland,
-College Park, Maryland 20742, marcus@umd.edu
-Model reference adaptive search (MRAS) for solving global optimization problems works with a parameterized probabilistic
-model on the solution space and generates at each iteration a group of candidate solutions. These candidate solutions are
-then used to update the parameters associated with the probabilistic model in such a way that the future search will be
-biased toward the region containing high-quality solutions. The parameter updating procedure in MRAS is guided by a
-sequence of implicit probabilistic models we call reference models. We provide a particular algorithm instantiation of the
-MRAS method, where the sequence of reference models can be viewed as the generalized probability distribution models
-for estimation of distribution algorithms (EDAs) with proportional selection scheme. In addition, we show that the model
-reference framework can also be used to describe the recently proposed cross-entropy (CE) method for optimization and
-to study its properties. Hence, this paper can also be seen as a study on the effectiveness of combining CE and EDAs.
-We prove global convergence of the proposed algorithm in both continuous and combinatorial domains, and we carry out
-numerical studies to illustrate the performance of the algorithm.
-Subject classiﬁcations : programming: nondifferentiable, nonlinear.
-Area of review : Stochastic Models.
-History : Received March 2005; revisions received September 2005, May 2006; accepted May 2006.
-1. Introduction
-Global optimization problems arise in a wide range of
-applications and are often extremely difﬁcult to solve.
-Following Zlochin et al. (2004), we classify the solu-
-tion methods for both continuous and combinatorial prob-
-lems as being either instance-based or model-based. In
-instance-based methods, searches for new candidate solu-
-tions depend directly on previously generated solutions.
-Some well-known instance-based methods are simulated
-annealing (SA) (Kirkpatrick et al. 1983), genetic algorithms
-(GAs) (Srinivas and Patnaik 1994), tabu search (Glover
-1990), and the recently proposed nested partitions (NP)
-method (Shi and Ólafsson 2000). In model-based algo-
-rithms, new solutions are generated via an intermediate
-probabilistic model that is updated or induced from the
-previous solutions. The model-based search methods are a
-class of solution techniques introduced fairly recently. In
-general, most of the algorithms that fall in this category
-share a similar framework and usually involve the follow-
-ing two phases:
-(1) Generate candidate solutions (e.g., random samples)
-according to a speciﬁed probabilistic model.
-(2) Update the probabilistic model, on the basis of the
-data collected in the previous step, to bias the future search
-toward “better” solutions.
-Some examples of model-based methods are ant colony
-optimization (ACO) (Dorigo and Gambardella 1997), the
-cross-entropy (CE) method (Rubinstein and Kroese 2004,
-De Boer et al. 2005), and the estimation of distribution
-algorithms (EDAs) (Mühlenbein and Paaß 1996). Among
-the above approaches, those that are most relevant to our
-work are the CE method and the EDAs.
-The CE method was motivated by an adaptive algorithm
-for estimating probabilities of rare events (Rubinstein 1997)
-in stochastic networks. It was later realized (Rubinstein
-1999, 2001) that the method can be modiﬁed to solve com-
-binatorial and continuous optimization problems. The CE
-method starts with a family of parameterized probability
-distributions on the solution space and tries to ﬁnd the
-parameter of the distribution that assigns maximum prob-
-ability to the set of (near) optimal solutions. Implicit in
-CE is an optimal (importance sampling) distribution con-
-centrated only on the set of optimal solutions (i.e., zero
-variance), and the key idea is to use an iterative scheme
-549
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-550 Operations Research 55(3), pp. 549–568, © 2007 INFORMS
-to successively estimate the optimal parameter that mini-
-mizes the Kullback-Leibler (KL) divergence between the
-optimal distribution and the family of parameterized distri-
-butions. In the context of estimation of rare event probabili-
-ties, Homem-de-Mello (2007) shows the convergence of an
-adaptive version of CE to an estimate of the optimal (pos-
-sibly local) CE parameter with probability one. Rubinstein
-(1999) shows the probability one convergence of a modi-
-ﬁed version of the CE method to the optimal solution for
-combinatorial optimization problems.
-The EDAs were ﬁrst introduced in the ﬁeld of evolu-
-tionary computation in Mühlenbein and Paaß (1996). They
-inherit the spirit of the well-known GAs but eliminate the
-crossover and the mutation operators to avoid the disrup-
-tion of partial solutions. In EDAs, a new population of
-candidate solutions is generated according to the proba-
-bility distribution induced or estimated from the promis-
-ing solutions selected from the previous generation. Unlike
-CE, EDAs often take into account the interaction effects
-between the underlying decision variables needed to rep-
-resent the individual candidate solutions, which are often
-expressed explicitly through the use of different probabilis-
-tic models. We refer the reader to Larrañaga et al. (1999)
-for a review of the way in which different probabilistic
-models are used as EDAs instantiations. The convergence
-of a class of EDAs, under the inﬁnite population assump-
-tion, to the global optimum can be found in Zhang and
-Mühlenbein (2004).
-In this paper, we introduce a new randomized method,
-called model reference adaptive search (MRAS), for solv-
-ing both continuous and combinatorial optimization prob-
-lems. MRAS resembles CE in that it works with a family
-of parameterized distributions on the solution space. The
-motivation behind the method is to use a sequence of inter-
-mediate reference distributions to facilitate and guide the
-updating of the parameters associated with the family of
-parameterized distributions during the search process (see
-Wolpert 2004 for a similar “iterative focusing” idea in the
-context of ﬁnding bounded rational equilibria of common-
-interest games). At each iteration of MRAS, candidate
-solutions are generated from the distribution (among the
-prescribed family of distributions) that possesses the min-
-imum KL-divergence with respect to the reference model
-corresponding to the previous iteration. These candidate
-solutions are, in turn, used to construct the next distribution
-by minimizing the KL-divergence with respect to the cur-
-rent reference model, from which future candidate solutions
-will be generated. In contrast, as mentioned previously, the
-CE method targets a single optimal (importance sampling)
-distribution to direct its parameter updating, where new
-parameters are obtained as the solutions to the problems of
-estimating the optimal reference parameters.
-We propose an instantiation of the MRAS method, where
-the sequence of reference distributions can be viewed as
-the generalized probability distribution models for EDAs
-with proportional selection scheme (Zhang and Mühlenbein
-2004) and can be shown to converge to a degenerate distri-
-bution concentrated only on the set of optimal solutions. An
-attractive feature is that the sequence of reference distribu-
-tions depends directly on the performance of the candidate
-solutions; thus the method automatically takes into account
-the correlations between the underlying decision variables
-so that the random samples generated at each stage can be
-efﬁciently utilized. However, in EDAs (with proportional
-selection scheme), these distribution models are directly
-constructed to generate new candidate solutions, which is
-in general a difﬁcult and computationally intensive task,
-whereas in our approach, the sequence of reference models
-is only used implicitly to guide the parameter updating pro-
-cedure; thus there is no need to build them explicitly. We
-show that for a class of parameterized probability distribu-
-tions, the so-called natural exponential family (NEF), the
-proposed algorithm converges to an optimal solution with
-probability one.
-In sum, our main contributions in this paper include:
-(i) We introduce a new framework for global optimization,
-which allows considerable ﬂexibility in the choices of the
-reference models. Consequently, by carefully analyzing and
-selecting the sequence of reference models, one can design
-different (perhaps even more efﬁcient) versions of our pro-
-posed approach. (ii) We propose an instantiation of the
-MRAS method, which incorporates the key ideas of CE and
-EDAs. We analyze its convergence properties in both con-
-tinuous and combinatorial domains, and we test its perfor-
-mance on some widely used benchmark problems. (iii) We
-also explore the relationship between CE and MRAS. In
-particular, we show that the CE method can also be inter-
-preted as an instance of the model reference framework.
-Based on this observation, we establish and discuss some
-important properties of CE. (iv) In addition, we extend the
-recent results on the convergence of quantile estimates in
-Homem-de-Mello (2007) to the cases where the random
-samples are drawn from a sequence of distributions rather
-than a single ﬁxed distribution.
-The rest of this paper is organized as follows. In §2, we
-describe the MRAS method and motivate the use of a spe-
-ciﬁc sequence of distributions as the reference models. In
-§3, we describe the idealized version of MRAS and estab-
-lish its global convergence properties. In §4, we provide a
-uniﬁed view of CE and MRAS and study the properties of
-the CE method. In §5, we implement the Monte Carlo ver-
-sion of MRAS and prove its probability one convergence.
-Illustrative numerical studies on both continuous and com-
-binatorial optimization problems are given in §6. Some pos-
-sible future research topics are outlined in §7. The proofs
-of the main results are given in the appendix, and the proofs
-of all other intermediate results can be found in an online
-supplement to this paper at http://or.journal.informs.org.
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-Operations Research 55(3), pp. 549–568, © 2007 INFORMS 551
-2. The Model Reference Adaptive Search
-Method
-We consider the following global optimization problem:
-x∗ ∈ argmax
-x∈
-Hx  ⊆n (1)
-where the solution space  is a nonempty set in n, and
-H·  →  is a deterministic function that is bounded
-from below, i.e., ∃ > −	 such that Hx  ∀x ∈ .
-Throughout this paper, we assume that problem (1) has
-a unique global optimal solution, i.e., ∃x∗ ∈  such that
-Hx <Hx∗ ∀x = x∗, x ∈ .
-In addition to the general regularity conditions stated
-above, we also make the following assumptions on the
-objective function.
-Assumption A1. For any given constant 
- < Hx∗, the
-set x Hx 
-∩ has a strictly positive Lebesgue or
-discrete measure.
-Assumption A2. For any given constant  > 0,
-supx∈A Hx <Hx
-∗, where A = x x−x∗ ∩ ,
-and we deﬁne the supremum over the empty set to be −	.
-Intuitively, Assumption A1 ensures that any neighbor-
-hood of the optimal solution x∗ will have a positive proba-
-bility of being sampled. For ease of exposition, A1 restricts
-the class of problems under consideration to either con-
-tinuous or discrete problems; however, we remark that the
-work of this paper can be easily extended to problems with
-mixture of both continuous and discrete variables. Because
-H· has a unique global optimizer, Assumption A2 is sat-
-isﬁed by many functions encountered in practice. Note that
-both Assumptions A1 and A2 hold trivially when  is (dis-
-crete) ﬁnite and the counting measure is used.
-The MRAS method approaches the above problem as
-follows. It works with a family of parameterized distribu-
-tions f ·   ∈  on the solution space, where  is
-the parameter space. Assume that at the kth iteration of the
-method, we have a sampling distribution f · k. We gen-
-erate candidate solutions from this sampling distribution.
-The performances of these randomly generated solutions
-are then evaluated and used to calculate a new parameter
-vector k+1 ∈ according to a speciﬁed parameter updat-
-ing rule. The above steps are performed repeatedly until
-a termination criterion is satisﬁed. The idea is that if the
-parameter updating rule is chosen appropriately, the future
-sampling process will be more and more concentrated on
-regions containing high-quality solutions.
-In MRAS, the parameter updating is determined by
-another sequence of distributions gk·, called the ref-
-erence distribution. In particular, at each iteration k, we
-look at the projection of gk· on the family of distributions
-f ·   ∈  and compute the new parameter vector
-k+1 that minimizes the Kullback-Leibler (KL) divergence
-gk f ·  =Egk
-[
-ln
-gkX
-f X
-]
-=
-∫
-
-ln
-gkx
-f x 
-gkx dx
-where  is the Lebesgue/counting measure deﬁned on  ,
-X = X1    Xn is a random vector taking values in  ,
-and Egk · denotes the expectation taken with respect to
-gk·. Intuitively, f · k+1 can be viewed as a compact
-representation (approximation) of the reference distribution
-gk·; consequently, the feasibility and effectivenss of the
-method will, to some large extent, depend on the choices
-of reference distributions.
-There are many different ways to construct the sequence
-of reference distributions gk·. Here, we propose to
-use the following simple iterative scheme. Let g0x > 0
-∀x ∈  be an initial probability density/mass function
-(p.d.f./p.m.f.) on the solution space  . At each iteration
-k  1, we compute a new p.d.f./p.m.f. by tilting the old
-p.d.f./p.m.f. gk−1x with the performance function Hx
-(for simplicity, here we assume that Hx > 0 ∀x ∈), i.e.,
-gkx=
-Hxgk−1x∫
- Hxgk−1x dx
-∀x ∈  (2)
-By doing so, we are assigning more weight to the solu-
-tions that have better performance. One direct consequence
-of this is that each iteration of (2) improves the expected
-performance. To be precise,
-Egk HX=
-Egk−1 HX
-2
-Egk−1 HX
-Egk−1 HX
-Furthermore, it is possible to show that the sequence gk·
-k = 01    will converge to a distribution that concen-
-trates only on the optimal solution for arbitrary g0·. So,
-we will have limk→	Egk HX=Hx∗. The above idea
-has been used previously, for example, in EDAs with pro-
-portional selection schemes (cf. Zhang and Mühlenbein
-2004), and in randomized algorithms for solving Markov
-decision processes (Chang et al. 2007). However, in those
-approaches, the construction of gk· in (2) needs to be
-carried out explicitly to generate new samples; moreover,
-because gk· may not have any structure, sampling from it
-could be computationally expensive. In MRAS, these dif-
-ﬁculties are circumvented by projecting gk· on the fam-
-ily of parameterized distributions f · . On the one
-hand, f · k often has some special structure and there-
-fore could be much easier to handle; on the other hand, the
-sequence f · k+1 k = 01    may retain some nice
-properties of gk· and also converge to a degenerate dis-
-tribution concentrated on the optimal solution.
-3. The MRAS0 Algorithm (Exact Version)
-We now present a particular algorithm instantiation of
-MRAS that uses the reference distributions proposed in §2.
-Throughout the analysis, we use Pk· and Ek · to denote
-the probability and expectation taken with respect to the
-p.d.f./p.m.f. f · k, and I· to denote the indicator func-
-tion, i.e.,
-IA =
-
-
-1 if event A holds
-0 otherwise
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-552 Operations Research 55(3), pp. 549–568, © 2007 INFORMS
-Thus, under our notational convention,
-PkHX =
-∫
-
-IHxf x k dx and
-Ek HX=
-∫
-
-Hxf x k dx
-3.1. Algorithm Description
-Algorithm MRAS0—Exact Version
-• Initialization: Specify  ∈ 01, a small number
- 0, a strictly increasing function S· →+, and an
-initial p.d.f./p.m.f. f x 0 > 0 ∀x ∈  . Set the iteration
-counter k= 0.
-• Repeat until a speciﬁed stopping rule is satisﬁed:
-Step 1. Calculate the 1−-quantile
-k+1 = sup
-l
-l Pk HX l 
-Step 2. If k= 0, then set k+1 = k+1.
-elseif k 1
-if k+1  k+ , then set k+1 = k+1.
-else set k+1 = k.
-endif
-endif
-Step 3. Compute the parameter vector k+1 as
-k+1 =argmax
-∈
-Ek
-[
-SHXk
-f Xk
-IHX k+1 lnf X
-]
- (3)
-Step 4. Set k= k+ 1.
-The MRAS0 algorithm requires speciﬁcation of a param-
-eter , which determines the proportion of samples that will
-be used to update the probabilistic model. At successive
-iterations of the algorithm, a sequence k k = 12   ,
-i.e., the 1 − -quantiles with respect to the sequence
-of p.d.f.’s/p.m.f.’s f · k, are calculated at Step 1 of
-MRAS0. These quantile values are then used in Step 2 to
-construct a sequence of nondecreasing thresholds  k k=
-12   ; only those candidate solutions that have perfor-
-mances better than these thresholds will be used in param-
-eter updating (cf. (3)). As we will see, the theoretical
-convergence of MRAS0 is unaffected by the value of the
-parameter . We use  in our approach to concentrate the
-computational effort on the set of elite/promising samples,
-which is a standard technique employed in most of the
-population-based approaches, like GAs and EDAs.
-During the initialization step of MRAS0, a small num-
-ber  and a strictly increasing function S· →+ are
-also speciﬁed. The function S· is used to account for the
-cases where the values of Hx are negative for some x,
-and the parameter  ensures that each strict increment in
-the sequence  k is lower bounded, i.e.,
-inf
-k+1 = k
-k=12
- k+1− k 
-We require  to be strictly positive for continuous problems
-and nonnegative for discrete (ﬁnite) problems.
-In continuous domains, the division by f x k in the
-performance function in Step 3 is well deﬁned if f x k
-has inﬁnite support (e.g., normal p.d.f.), whereas in dis-
-crete/combinatorial domains, the division is still valid as
-long as each point x in the solution space has a positive
-probability of being sampled. Additional regularity condi-
-tions on f x k in §5 will ensure that Step 3 of MRAS0
-can be used interchangeably with the following equation:
-k+1 = argmax
-∈
-∫
-
-SHxkIHx k+1 ln f x  dx
-The following lemma shows that there is a sequence of
-reference models gk· k= 12    implicit in MRAS0,
-and the parameter k+1 computed at Step 3 indeed mini-
-mizes the KL-divergence gk+1 f · .
-Lemma 1. The parameter k+1 computed at the kth itera-
-tion of the MRAS0 algorithm minimizes the KL-divergence
-gk+1 f · , where
-gk+1x =
-SHxIHx k+1gkx
-Egk SHXIHX k+1
-∀x ∈ k= 12     and
-g1x =
-IHx 1
-E0
-[
-IHX 1/f X0
-] 
-Proof. The proof appears in the online appendix. 
-3.2. Global Convergence
-Global convergence of the MRAS0 algorithm clearly
-depends on the choice of the parameterized distribution
-family. Throughout this paper, we restrict our analysis and
-discussions to a particular family of distributions called the
-natural exponential family (NEF) (cf., e.g., Morris 1982)
-for which the global convergence properties can be estab-
-lished. We start by stating the deﬁnition of NEF and some
-regularity conditions.
-Deﬁnition 1. A parameterized family of p.d.f.’s/p.m.f.’s
-f ·   ∈ ⊆m on  is said to belong to the NEF
-if there exist functions h· n →, %· n →m, and
-K· m → such that
-f x = expT %x−Khx ∀ ∈ (4)
-where K = ln ∫
-x∈ exp
-T %xhxdx, and the
-superscript T denotes the vector transposition. For the case
-where f ·  is a p.d.f., we assume that %· is a continu-
-ous mapping.
-Many common p.d.f.’s/p.m.f.’s belong to the NEF, e.g.,
-Gaussian, Poisson, binomial, geometric, and certain multi-
-variate forms of them.
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-Operations Research 55(3), pp. 549–568, © 2007 INFORMS 553
-Assumption A3. There exists a compact set ( such that
-the level set x Hx  1 ∩  ⊆ (, where 1 =
-supll P0HX  l   is deﬁned as in the MRAS0
-algorithm.
-Assumption A4. The maximizer of Equation (3) is an
-interior point of  for all k.
-Assumption A5. sup∈  expT %x%xhx is inte-
-grable/summable with respect to x, where , %·, and h·
-are deﬁned as in Deﬁnition 1.
-Assumption A3 restricts the search of the MRAS0 algo-
-rithm to some compact set; it is satisﬁed if the function
-H· has compact level sets or the solution space  is
-compact. In actual implementation of the algorithm, Step 3
-of MRAS0 is often posed as an unconstrained optimiza-
-tion problem, i.e., =m, in which case Assumption A4
-is automatically satisﬁed. It is also easy to verify that
-Assumption A5 is satisﬁed by most NEFs.
-To show the convergence of MRAS0, we will need the
-following key observation.
-Lemma 2. If Assumptions A3–A5 hold, then we have
-Ek+1 %X=Egk+1 %X ∀k= 01    
-where Ek+1 · and Egk+1 · denote the expectations taken
-with respect to f · k+1 and gk+1·, respectively.
-Proof. The proof appears in the online appendix. 
-We have the following convergence result for the MRAS0
-algorithm.
-Theorem 1. Let k k = 12    be the sequence of
-parameters generated by MRAS0. If  > 0 and Assump-
-tions A1–A5 are satisﬁed, then
-lim
-k→	
-Ek %X= %x∗ (5)
-where the limit is component-wise.
-Proof. We prove Theorem 1 in the appendix. 
-Remark 1. Note that for many NEFs used in practice,
-%· is a one-to-one mapping, in which case the
-convergence result (5) can be equivalently written as
-%−1limk→	Ek %X= x∗. Also, note that for some par-
-ticular p.d.f.’s/p.m.f.’s, the solution vector x itself will be
-a component of %x (e.g., multivariate normal distribu-
-tion). Under these circumstances, we can interpret (5) as
-limk→	Ek X = x∗. Another special case of particular
-interest is when the components of the random vector X =
-X1    Xn are independent, i.e., each has a univariate
-p.d.f./p.m.f. of the form
-f xi*i=expxi*i−K*ihxi *i∈ ∀i=1n
-In this case, because the distribution of the random vec-
-tor X is simply the product of the marginal distributions,
-we will clearly have %x= x. Thus, (5) is again equiva-
-lent to limk→	Ek X= x∗, where k = *k1     *kn, and
-*ki is the value of *i at the kth iteration.
-Remark 2. Note that, as mentioned in §2, for problems
-with ﬁnite solution spaces, Assumptions A1 and A2 are
-automatically satisﬁed. Furthermore, if we take the input
-parameter  = 0, then Step 2 of MRAS0 is equivalent to
-k+1 =max1ik+1 i. Thus,  k is nondecreasing, and each
-strict increment in the sequence is bounded from below by
-min
-Hx=Hy
-x y∈
-Hx−Hy
-Therefore, the  > 0 assumption in Theorem 1 can be
-relaxed to  0.
-We now address some of the special cases discussed in
-Remark 1.
-Corollary 1 (Multivariate Normal). For continuous
-optimization problems in n, if multivariate normal p.d.f.’s
-are used in MRAS0, i.e.,
-f x k
-= 1√
-2,n-k
-exp
-(− 12 x−.kT -−1k x−.k) (6)
-where k = .k/-k,  > 0, and Assumptions A1–A4 are
-satisﬁed, then
-lim
-k→	
-.k = x∗ and lim
-k→	
--k = 0n×n
-where 0n×n represents an n-by-n zero matrix.
-Proof. By Lemma 2, it is easy to show that
-.k+1 =Egk+1X ∀k= 01    
-and
--k+1 =Egk+1 X−.k+1X−.k+1T  ∀k= 01    
-The rest of the proof amounts to showing that
-lim
-k→	
-EgkX= x∗ and
-lim
-k→	
-Egk X−.kX−.kT = 0n×n
-which is the same as the proof of Theorem 1. 
-Remark 3. Corollary 1 shows that in the multivariate nor-
-mal case, the sequence of parameterized p.d.f.’s will con-
-verge to a degenerate p.d.f. concentrated only on the
-optimal solution. In this case, the parameters are updated as
-.k+1 =
-Ek SHX
-k/f XkIHX k+1X
-Ek SHX
-k/f XkIHX k+1
-(7)
-and
--k+1=
-Ek SHX
-k/f XkIHX k+1X−.k+1X−.k+1T 
-Ek SHX
-k/f XkIHX k+1
-
-(8)
-where f x k is given by (6). Note that when the solu-
-tion space  is a (simple) constrained region in n, one
-straightforward approach is to use the acceptance-rejection
-method (cf. Kroese et al. 2006), and it is easy to verify that
-the parameter updating rules remain the same.
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-554 Operations Research 55(3), pp. 549–568, © 2007 INFORMS
-Corollary 2 (Independent Univariate). If the compo-
-nents of the random vector X = X1    Xn are indepen-
-dent, each has a univariate p.d.f./p.m.f. of the form
-f xi*i=expxi*i−K*ihxi *i∈ ∀i=1n
- > 0, and Assumptions A1–A5 are satisﬁed, then
-lim
-k→	
-Ek X= x∗ where k = *k1     *kn
-4. An Alternative View of
-the Cross-Entropy Method
-In this section, we give an alternative interpretation of the
-CE method for optimization and discuss its similarities and
-differences with the MRAS0 algorithm. Speciﬁcally, we
-show that the CE method can also be viewed as a search
-strategy guided by a sequence of reference models. From
-this particular point of view, we establish some important
-properties of the CE method.
-The deterministic version of the CE method for solv-
-ing (1) can be summarized as follows.
-Algorithm CE0: Deterministic Version of the CEMethod
-Step 1. Choose the initial p.d.f./p.m.f. f · 0, 0 ∈ .
-Specify the parameter  ∈ 01 and a nondecreasing func-
-tion 0· →+ ∪ 0. Set k= 0.
-Step 2. Calculate the 1−-quantile k+1 as
-k+1 = supl Pk HX l 
-Step 3. Compute the new parameter
-k+1 = argmax
-∈
-Ek 0HXIHXk+1 ln f X
-Step 4. If a stopping rule is satisﬁed, then terminate; oth-
-erwise set k= k+ 1 and go to Step 2.
-In CE0, choosing 0Hx = 1 gives the standard CE
-method, whereas choosing 0Hx = Hx (if Hx 0
-∀x ∈ ) gives an extended version of the standard CE
-method (cf. De Boer et al. 2005).
-One resemblance between CE and MRAS0 is the use
-of the parameter  and the 1− -quantile in both algo-
-rithms. However, the fundamental difference is that in CE,
-the problem of estimating the optimal value of the param-
-eter is broken down into a sequence of simple estima-
-tion problems, in which the parameter  assumes a crucial
-role. Because a small change in the values of  may dis-
-turb the whole estimation process and affect the quality of
-the resulting estimates, the convergence of CE cannot be
-always guaranteed unless the value of  is chosen sufﬁ-
-ciently small (cf. De Boer et al. 2005, Homem-de-Mello
-2007; also see Example 41 below), whereas the theoretical
-convergence of MRAS0 is unaffected by the parameter .
-The following lemma provides a uniﬁed view of MRAS
-and CE; it shows that by appropriately deﬁning a sequence
-of implicit reference models gcek · k= 12   , the CE
-method can be recovered, and the parameter updating in
-CE is guided by this sequence of models.
-Lemma 3. The parameter k+1 computed at the kth iter-
-ation of the CE0 algorithm minimizes the KL-divergence
-gcek+1 f · , where
-gcek+1x =
-0HxIHxk+1f x k
-Ek 0HXIHXk+1
-∀x ∈ k= 01     (9)
-Proof. Similar to the proof of Lemma 1. 
-The key observation to note is that in contrast to MRAS0,
-the sequence of reference models in CE depends explicitly
-on the family of parameterized p.d.f.’s/p.m.f.’s f · k
-used. Because gcek+1· is obtained by tilting f · k with
-the performance function, it improves the expected perfor-
-mance in the sense that
-Egcek+1 0HXIHXk+1=
-Ek 0HXIHXk+1
-2
-Ek 0HXIHXk+1
- Ek 0HXIHXk+1
-Thus, it is reasonable to expect that the projection of
-gcek+1· on f ·   ∈  (i.e., f · k+1) also improves
-the expected performance. This result is formalized in the
-following theorem, whose proof is given in the online
-appendix.
-Theorem 2. For the CE0 algorithm, we have
-Ek+1 0HXIHXk+1Ek 0HXIHXk+1
-∀k= 01    
-In the standard CE method, Theorem 2 implies the
-monotonicity of the sequence k k= 12   .
-Lemma 4. For the standard CE method (i.e., CE0 with
-0Hx= 1), we have
-k+2  k+1 ∀k= 01    
-Proof. By Theorem 2, we have
-Ek+1 IHXk+1Ek IHXk+1
-i.e.,
-Pk+1HX k+1 PkHX k+1 
-The result follows by the deﬁnition of k+2 (see Step 2 of
-the CE0 algorithm). 
-Note that because k Hx
-∗ for all k, Lemma 4 implies
-that the sequence k k= 12    generated by the stan-
-dard CE method converges. However, depending on the
-p.d.f.’s/p.m.f.’s and the parameter  used, the sequence k
-may not converge to Hx∗ or even to a small neighbor-
-hood of Hx∗ (cf. Examples 41 and 42 below).
-Similar to MRAS0, when f ·  belongs to the natu-
-ral exponential families, the following lemma relates the
-sequence f · k k = 12    to the sequence of refer-
-ence models gcek · k= 12   .
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-Operations Research 55(3), pp. 549–568, © 2007 INFORMS 555
-Lemma 5. Assume that:
-(1) There exists a compact set ( such that the level
-set x Hx  k ∩  ⊆ ( for all k = 12     where
-k = supll Pk−1HX l  is deﬁned as in the CE0
-algorithm.
-(2) The parameter k+1 computed at Step 3 of the CE0
-algorithm is an interior point of  for all k.
-(3) Assumption A5 is satisﬁed.
-Then,
-Ek+1 %X=Egcek+1 %X ∀k= 01    
-Proof. Similar to the proof of Lemma 2. 
-The above lemma indicates that the behavior of the se-
-quence of p.d.f.’s/p.m.f.’s f · k is closely related to the
-properties of the sequence of reference models. To under-
-stand this, consider the particular case where %x= x. If
-the CE method converges to the optimal solution in the
-sense that limk→	Ek HX=Hx∗, then we must have
-limk→	Ek X= x∗ because Hx <Hx∗ ∀x = x∗. Thus,
-by Lemma 5, a necessary condition for this convergence is
-limk→	Egcek X= x∗. However, unlike MRAS0, where the
-convergence of the sequence of reference models to an opti-
-mal degenerate distribution is guaranteed, the convergence
-of the sequence gcek · k= 12    relies on the choices
-of the families of distributions f ·  and the values of
-the parameter  used (cf. (9)). We now illustrate this issue
-by two simple examples.
-Example 4.1 (The Standard CE Method). Consider
-maximizing the function Hx given by
-Hx=
-
-
-0 x ∈ 01 10
-1 x= 00
-a x= 11
-(10)
-where a > 1, and x = x1 x2 ∈  = 00 01
-10 11.
-If we take 025< 05 and an initial p.m.f.
-f x 0= px10 1−p01−x1qx20 1− q01−x2
-with 0 = p0 q0= 0505
-then because P0x ∈ 00 11 = 05  , we have
-1 = 1. It is also straightforward to see that
-gce1 x=
-
-
-05 x= 00 or 11
-0 otherwise,
-and the parameter 1 computed at Step 3 (with 0Hx= 1)
-of CE0 is given by 1 = 0505. Proceeding iteratively,
-we have k = 1 and gcek x= gce1 x ∀k= 12     i.e., the
-algorithm does not converge to a degenerate distribution at
-the optimal solution.
-On the other hand, if we choose  025, then it turns
-out that k = a and
-gcek x=
-
-
-1 x= 11
-0 otherwise,
-for all k= 12     which means the algorithm converges
-to the optimum.
-Example 4.2 (The Extended Version of the CE
-Method). Consider solving problem (10) by CE0 with the
-performance function 0Hx = Hx. We use the same
-family of p.m.f.’s as in Example 41 with the initial param-
-eter 0 = 1/1+ a1/1+ a. If the values of  are cho-
-sen from the interval 1/1+ a2 a2+ 1/1+ a2, then
-we have k = 1/1+ a1/1+ a, k = 1, and
-gcek x=
-
-
-a
-1+ a x= 00
-1
-1+ a x= 11
-0 otherwise,
-for all k= 12    
-On the other hand, if we choose  = 05 and 0 =
-0505, then it is easy to verify that limk→	 k = a and
-lim
-k→	
-gcek x=
-
-
-1 x= 11
-0 otherwise.
-5. The MRAS1 Algorithm (Monte Carlo
-Version)
-The MRAS0 algorithm describes the idealized situation
-where quantile values and expectations can be evaluated
-exactly. In practice, we will usually resort to its stochastic
-counterpart, where only a ﬁnite number of samples are used
-and expected values are replaced with their corresponding
-sample averages. For example, Step 3 of MRAS0 will be
-replaced with
-˜k+1 = argmax
-∈
-1
-N
-N∑
-i=1
-SHXi
-k
-f Xi ˜k
-IHXi k+1 ln f Xi 
-(11)
-where X1    XN are i.i.d. random samples generated from
-f x ˜k, ˜k is the estimated parameter vector computed at
-the previous iteration, and k+1 is a threshold determined
-by the sample 1−-quantile of HX1    HXN .
-However, the theoretical convergence can no longer be
-guaranteed for a simple stochastic counterpart of MRAS0.
-In particular, the set x Hx  k+1 x ∈ X1    XN 
-involved in (11) may be empty because all the random sam-
-ples generated at the current iteration may be much worse
-than those generated at the previous iteration. Thus, we
-can only expect the algorithm to converge if the expected
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-556 Operations Research 55(3), pp. 549–568, © 2007 INFORMS
-values in the MRAS0 algorithm are closely approximated.
-Obviously, the quality of the approximation will depend
-on the number of samples to be used in the simulation,
-but it is difﬁcult to determine in advance the appropriate
-number of samples. A sample size too small will cause
-the algorithm to fail to converge and result in poor quality
-solutions, whereas a sample size too large may lead to high
-computational cost.
-As mentioned earlier, the parameter , to some extent,
-will affect the performance of the algorithm. Large values
-of  mean that almost all samples generated, regardless of
-their performances, will be used to update the probabilistic
-model, which could slow down the convergence process.
-On the other hand, because a good estimate will necessarily
-require a reasonable number of valid samples, the quan-
-tity N (i.e., the approximate number of samples that will
-be used in parameter updating) cannot be too small. Thus,
-small values of  will require a large number of samples
-to be generated at each iteration and may result in signiﬁ-
-cant simulation efforts. For a given problem, although it is
-clear that we should avoid those values of  that are either
-too close to one or too close to zero, it may be difﬁcult
-to determine a priori which  gives a satisfactory perfor-
-mance.
-To address the above difﬁculties, we adopt the same
-idea as in Homem-de-Mello (2007) and propose a modiﬁed
-Monte Carlo version of MRAS0 in which the sample size N
-is adaptively increasing and the parameter  is adaptively
-decreasing.
-5.1. Algorithm Description
-Roughly speaking, the MRAS1 algorithm is essentially a
-Monte Carlo version of MRAS0 except that the parameter 
-and the sample size N may change from one iteration to
-another. The rate of increase in the sample size is controlled
-by an extra parameter 7> 1, speciﬁed during the initializa-
-tion step. For example, if the initial sample size is N0, then
-after k increments, the sample size will be approximately
-7kN0.
-At each iteration k, random samples are drawn from the
-density/mass function f˜ · ˜k, which is a mixture of the
-initial density/mass f · 0 and the density/mass calculated
-from the previous iteration f · ˜k (cf. Auer et al. 2002 for
-a similar idea in the context of multiarmed bandit models).
-We assume that f · 0 satisﬁes the following condition:
-Assumption A3′. There exists a compact set ( such that
-x Hx  Hx∗ −  ∩  ⊆ (. Moreover, the initial
-density/mass function f x 0 is bounded away from zero
-on (, i.e., f∗ = infx∈( f x 0 > 0.
-Algorithm MRAS1—Monte Carlo version
-• Initialization: Specify 0 ∈ 01, an initial sample
-size N0 > 1,  0, 7 > 1, a mixing coefﬁcient 8 ∈ 01,
-a strictly increasing function S· →+, and an initial
-p.d.f. f x 0 > 0 ∀x ∈ . Set ˜0 ← 0, k← 0.
-• Repeat until a speciﬁed stopping rule is satisﬁed:
-Step 1. Generate Nk i.i.d. samples X
-k
-1     X
-k
-Nk
-accord-
-ing to f˜ · ˜k = 1−8f · ˜k+8f · 0.
-Step 2. Compute the sample 1 − k-quantile
-k+1kNk = H1−kNk, where a is the smallest
-integer greater than a, and Hi is the ith order statistic of
-the sequence HXki  i= 1    Nk.
-Step 3. If k= 0 or k+1kNk k+ /2, then
-3(a). Set k+1 ← k+1kNk, k+1 ← k,
-Nk+1 ←Nk.
-else, ﬁnd the largest ¯ ∈ 0 k such that
-k+1¯Nk k+ /2.
-3(b). If such a ¯ exists, then set
-k+1 ← k+1¯Nk, k+1 ← ¯,
-Nk+1 ←Nk.
-3(c). else (if no such ¯ exists), set k+1 ← k,
-k+1 ← k, Nk+1 ←7Nk.
-endif
-Step 4. Compute ˜k+1 as
-˜k+1 = argmax
-∈
-1
-Nk
-Nk∑
-i=1
-SHXki 
-k
-f˜ Xki  ˜k
-· IHXki  k+1 ln f Xki   (12)
-Step 5. Set k← k+ 1.
-In practice, the initial density f · 0 can be chosen
-according to some prior knowledge of the problem structure
-(cf. §6.2); however, if nothing is known about where the
-good solutions are, one simple choice of f · 0 is the uni-
-form distribution. Intuitively, mixing in the initial density
-forces the algorithm to explore the entire solution space and
-to maintain a global perspective during the search process.
-Also note that if 8= 1, then random samples will always
-be drawn from the initial density, in which case MRAS1
-becomes a pure random sampling approach.
-At Step 2, the sample 1− k-quantile k+1 is calcu-
-lated by ﬁrst ordering the sample performances HXki ,
-i= 1    Nk, from smallest to largest, H1 H2  · · ·
-HNk, and then taking the 1 − kNkth order statistic.
-We use the function k+1kNk to emphasize the depen-
-dencies of k+1 on both k and Nk, so that different sample
-quantile values used during one iteration can be distin-
-guished by their arguments.
-Step 3 of MRAS1 is used to extract a sequence of non-
-decreasing thresholds  k k= 12    from the sequence
-of sample quantiles  k, and to determine the appropriate
-values of k+1 and Nk+1 to be used in subsequent iterations.
-This step is carried out as follows. At each iteration k, we
-ﬁrst check whether the inequality k+1kNk k + /2
-is satisﬁed, where k is the threshold value used in the pre-
-vious iteration. If the inequality holds, then it means that
-both the current k value and the current sample size Nk
-are satisfactory; thus we proceed to Step 3(a) and update
-the parameter vector ˜k+1 in Step 4 by using k+1kNk.
-Otherwise, it indicates that either k is too large or the
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-Operations Research 55(3), pp. 549–568, © 2007 INFORMS 557
-sample size Nk is too small. To determine which, we ﬁx
-the sample size Nk and check if there exists a smaller ¯ <
-k such that the above inequality can be satisﬁed with the
-new sample 1− ¯-quantile. If such a ¯ does exist, then
-the current sample size Nk is still deemed acceptable, and
-we only need to decrease the k value. Accordingly, the
-parameter vector is updated in Step 4 by using the sample
-1− ¯-quantile. On the other hand, if no such ¯ can be
-found, then the parameter vector is updated by using the
-threshold k calculated during the previous iteration and
-the sample size Nk is increased by a factor 7.
-We make the following assumption about the parameter
-vector ˜k+1 computed at Step 4.
-Assumption A4′. The parameter vector ˜k+1 computed at
-Step 4 of MRAS1 is an interior point of  for all k.
-It is important to note that the set x Hx k+1 x ∈
-Xk1     X
-k
-Nk
- could be empty if Step 3(c) is visited. If
-this happens, the right-hand side of (12) will be equal to
-zero, so any  ∈ is a maximizer, and we deﬁne ˜k+1 = ˜k
-in this case.
-5.2. Global Convergence
-In this section, we discuss the convergence properties of
-the MRAS1 algorithm for NEFs. To be speciﬁc, we will
-explore the relations between MRAS1 and MRAS0 and
-show that with high probability, the gaps (e.g., approxi-
-mation errors incurred by replacing expected values with
-sample averages) between the two algorithms can be made
-small enough such that the convergence analysis of MRAS1
-can be ascribed to the convergence analysis of the MRAS0
-algorithm; thus, our analysis relies heavily on the results
-obtained in §3.2. Throughout this section, we denote by
-P˜k · and E˜k · the respective probability and expecta-
-tion taken with respect to the p.d.f./p.m.f. f · ˜k, andP˜k · and E˜k · the respective probability and expecta-
-tion taken with respect to f˜ · ˜k. Note that because the
-sequence ˜k results from random samples generated at
-each iteration of MRAS1, these quantities are also random.
-Let g˜k+1· k= 01     be deﬁned by
-g˜k+1x
-=
-
-
-SHxk/f˜ x ˜kIHx k+1∑Nk
-i=1SHX
-k
-i 
-k/f˜ Xki  ˜kIHXki  k+1
-if x Hx k+1 x ∈ Xk1     XkNk = 
-g˜kx otherwise
-(13)
-where k+1 is given by
-k+1 =
-
-
-k+1kNk if Step 3(a) is visited,
-k+1¯Nk if Step 3(b) is visited,
-k if Step 3(c) is visited.
-The following lemma shows the connection between
-f · ˜k+1 and g˜k+1·, whose proof is similar to the proof
-of Lemma 2, and is thus omitted here.
-Lemma 6. If Assumptions A4′ and A5 hold, then the
-parameter ˜k+1 computed at Step 3 of MRAS1 satisﬁes
-E˜k+1 %X=Eg˜k+1 %X ∀k= 01    
-Note that the region x Hx  k+1 will become
-smaller and smaller as k+1 increases. Lemma 6 shows
-that the sequence of sampling p.d.f.’s/p.m.f.’s f · ˜k+1 is
-adapted to this sequence of shrinking regions. For example,
-consider the case where x Hx  k+1 is convex and
-%x= x. Because Eg˜k+1 X is the convex combination of
-Xk1     X
-k
-Nk
-, the lemma implies that E˜k+1 X ∈ x Hxk+1. Thus, it is natural to expect that the random sam-
-ples generated at the next iteration will fall in the region
-x Hx  k+1 with large probabilities (e.g., consider
-the normal p.d.f. where its mode is equal to its mean). In
-contrast, if we use a ﬁxed sampling distribution for all itera-
-tions as in pure random sampling (i.e., the 8= 1 case), then
-sampling from this sequence of shrinking regions could
-become a substantially difﬁcult problem in practice.
-Next, we present a useful intermediate result, which
-shows the convergence of the quantile estimates when ran-
-dom samples are generated from a sequence of different
-distributions.
-Lemma 7. For any given † ∈ 01, let †k be the set of
-1− †-quantiles of HX with respect to the p.d.f./p.m.f.
-f˜ · ˜k, and let †k†Nk be the corresponding sample
-quantile of HXk1     HX
-k
-Nk
-, where f˜ · ˜k and Nk are
-deﬁned as in MRAS1, and X
-k
-1     X
-k
-Nk
-are i.i.d. with com-
-mon density f˜ · ˜k. Then, the distance from †k†Nk to
-†k tends to zero as k→	 w.p.1.
-Proof. The proof appears in the online appendix. 
-We are now ready to state the main theorem.
-Theorem 3. Let > 0, and deﬁne the -optimal set  =
-x HxHx∗− ∩ . If Assumptions A1, A3′, A4′,
-and A5 are satisﬁed, then there exists a random variable
- such that w.p.1., <	, and
-(1) k >Hx∗−  ∀k.
-(2) E˜k+1 %X ∈ CONV% ∀k  , where
-CONV% indicates the convex hull of the set %.
-Furthermore, let : be a positive constant satisfying the
-condition that the set x SHx  1/: has a strictly
-positive Lebesgue/counting measure. If Assumptions A1,
-A2, A3′, A4′, and A5 are all satisﬁed and 7 > :S∗2,
-where S∗ = SHx∗, then
-(3) limk→	E˜k %X= %x∗ w.p.1.
-Proof. See the appendix. 
-Remark 4. Roughly speaking, the second result can be
-understood as ﬁnite time -optimality. To see this, con-
-sider the special case where Hx is locally concave on
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-558 Operations Research 55(3), pp. 549–568, © 2007 INFORMS
-the set . Let x y ∈  and ; ∈ 01 be arbitrary.
-By the deﬁnition of concavity, we will have H;x +
-1 − ;y  ;Hx + 1 − ;Hy  Hx∗ − , which
-implies that the set  is convex. If in addition %x is
-also convex and one-to-one on  (e.g., multivariate normal
-p.d.f.), then CONV% = %. Thus, it follows that
-%−1E˜k+1 %X ∈  ∀k w.p.1.
-The following results are now immediate.
-Corollary 3 (Multivariate Normal). For continuous
-optimization problems in n, if multivariate normal p.d.f.’s
-are used in MRAS1, i.e.,
-f x ˜k=
-1√
-2,n -k
-exp
-(− 12 x− .˜kT -−1k x− .˜k)
- > 0, 7> :S∗2, and Assumptions A1, A2, A3′, and A4′
-are satisﬁed, then
-lim
-k→	
-.˜k = x∗ and lim
-k→	
--k = 0n×n w.p.1.
-Corollary 4 (Independent Univariate). If the compo-
-nents of the random vector X = X1X2    Xn are inde-
-pendent, each with a univariate p.d.f./p.m.f. of the form
-f xi*i=expxi*i−K*ihxi *i∈ ∀i=1n
- > 0, 7> :S∗2, and Assumptions A1, A2, A3′, A4′, and
-A5 are satisﬁed, then
-lim
-k→	
-E˜k X= x∗ w.p.1 where ˜k = *k1     *kn
-6. Numerical Examples
-In this section, we illustrate the performance of MRAS1
-on both continuous and combinatorial optimization prob-
-lems. In the former case, we test the algorithm on various
-benchmark problems that are well known in global opti-
-mization and compare its performance to both the standard
-CE method and the SA algorithm. In the latter case, we
-apply the algorithm to several asymmetric traveling sales-
-man problems (ATSP), which are typical representatives of
-NP-hard combinatorial optimization problems.
-Because all examples considered in this section are
-minimization problems, whereas MRAS was presented in
-a maximization context, the following modiﬁcations are
-required: (i) S· needs to be initialized as a strictly
-decreasing function instead of strictly increasing. Through-
-out this section, we take SHx = exp−rHx, where
-r is a positive constant. (ii) The sample 1− -quantile
-k+1 will now be calculated by ﬁrst ordering the sam-
-ple performances HXki  i = 1    Nk, from largest to
-smallest, and then taking the 1− Nkth order statistic.
-(iii) We need to replace the “” operator with “” operator
-in (12). (iv) The inequalities at Step 3 need to be replaced
-with k+1kNk k − /2 and k+1¯Nk k − /2,
-respectively.
-In actual implementation of MRAS1 and the CE method,
-a smoothed parameter updating procedure (cf. De Boer
-et al. 2005) is used, i.e., ﬁrst a smoothed parameter vec-
-tor ˆk+1 is computed at each iteration k according to
-ˆk+1 = =˜k+1+ 1− =ˆk ∀k= 01     and ˆ0 = ˜0
-where ˜k+1 is the parameter vector computed at Step 4
-of MRAS1, and = ∈ 01 is a smoothing parameter; then
-f x ˆk+1 (instead of f x ˜k+1) is used in Step 1 to gen-
-erate new samples. Although this modiﬁcation will not
-affect the theoretical convergence results, it may substan-
-tially improve the numerical performance of the algorithm
-(cf. Rubinstein and Kroese 2006 for a discussion).
-Another practical issue is that to obtain a valid estimate
-˜k+1 at each iteration of MRAS1, we must make sure that
-enough samples are used in parameter updating. This can
-be achieved by using an additional parameter Nmin, and
-performing the update (12) only when the number of the
-elite samples (i.e., those samples having performances bet-
-ter than the threshold k+1) is greater than Nmin. In effect,
-this is equivalent to searching ¯ from min k instead of
-0 k at Step 3 of MRAS1, where min =Nmin/Nk → 0 as
-k→	.
-6.1. Continuous Optimization
-In our preliminary experiments, we take the family of
-parameterized p.d.f.’s to be multivariate normal p.d.f.’s. Ini-
-tially, a mean vector .0 and a covariance matrix -0 are
-speciﬁed; then at each iteration k of the algorithm, new
-parameters .˜k+1 and -k+1 are updated according to the
-respective stochastic counterparts of Equations (7) and (8).
-By Corollary 3, the sequence of mean vectors .˜k will
-converge to the optimal solution x∗, and the sequence of
-covariance matrices -k to the zero matrix.
-The following benchmark problems, which have been
-previously studied, e.g., in Corana et al. (1987), Pintér
-(1996), Yao and Liu (1996), and Kroese et al. (2006), are
-used in our experiments. Functions H1 and H2 are low-
-dimensional problems that have only a few local optima;
-however, the minima are separated by plateaus and are rel-
-atively far apart. Functions H3 and H4 are 20-dimensional
-badly-scaled problems. Functions H5 and H6 are highly
-multimodal, and the number of local optima increases
-exponentially with the problem dimension. Function H7 is
-both badly scaled and highly multimodal. The graphical
-representations of some of these functions in two dimen-
-sions are plotted in Figure 1.
-(1) Dejong’s 5th function (n= 2),
-H1x=
-[
-0002+
-25∑
-j=1
-1
-j +∑2i=1xi− aj i6
-]−1
-
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-Operations Research 55(3), pp. 549–568, © 2007 INFORMS 559
-Figure 1. Selected test problems in two dimensions, (a) H1: Dejong’s 5th; (b) H3: Rosenbrock; (c) H5: Trigonometric;
-(d) H7: Pintér.
-0
-50
-–50 –50
-0
-50
-0
-100
-200
-300
-400
-500
-Dejong’s 5th function, where –50 ≤ xi ≤ 50, i = 1, 2
-–5
-0
-5 –5
-0
-5
-0
-2
-4
-6
-8
-10
-×104
-Rosenbrock function, where –5 ≤ xi ≤ 5, i = 1, 2
-–3 –2
-–1 0
-1 2
-3
-–2
-0
-2
-0
-10
-20
-30
-40
-50
-Trigonometric function, where –3 ≤ xi ≤ 3, i = 1, 2
-–5
-0
-5
-–5
-0
-5
-0
-50
-100
-150
-Pintér’s function, where –5 ≤ xi ≤ 5, i = 1, 2
-(a) H1 (b) H3
-(c) H5 (d) H7
-where aj1 = −32 −16, 0, 16, 32, −32, −16, 0, 16, 32,
-−32, −16, 0, 16, 32, −32, −16, 0, 16, 32, −32, −16, 0,
-16, 32,
-aj2 = −32 −32, −32, −32, −32, −16, −16, −16,
-−16, −16, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 32, 32, 32,
-32, 32; with 24 local minima and one global minimum at
-x∗ = −32−32T , H1x∗≈ 0998.
-(2) Shekel’s function (n= 4),
-H2x=
-5∑
-i=1
-x− aiT x− ai+ ci−1
-where a1 = 4 4, 4, 4T , a2 = 1 1, 1, 1T , a3 = 8 8,
-8, 8T , a4 = 6 6, 6, 6T , a5 = 3 7, 3, 7T , and c= 01
-0.2, 0.2, 0.4, 04, x∗ ≈ 4 4, 4, 4T , H2x∗≈−10153.
-(3) Rosenbrock function (n= 20),
-H3x=
-n−1∑
-i=1
-100xi+1− x2i 2+ xi− 12
-where x∗ = 1    1T , H3x∗= 0.
-(4) Powel singular function (n= 20),
-H4x=
-n−2∑
-i=2
-[
-xi−1+10xi2+5xi+1−xi+22+xi−2xi+14
-+10xi−1−xi+24
-]
-
-where x∗ = 0    0T , H4x∗= 0.
-(5) Trigonometric function (n= 20),
-H5x= 1+
-n∑
-i=1
-8 sin27xi− 092+ 6 sin214xi− 092
-+ xi− 092
-where x∗ = 09    09T , H5x∗= 1.
-(6) Griewank function (n= 20),
-H6x=
-1
-4000
-n∑
-i=1
-x2i −
-n∏
-i=1
-cos
-(
-xi√
-i
-)
-+ 1
-where x∗ = 0    0T , H6x∗= 0.
-(7) Pintér’s function (n= 20),
-H7x=
-n∑
-i=1
-ix2i +
-n∑
-i=1
-20i sin2xi−1 sin xi− xi+ sin xi+1
-+
-n∑
-i=1
-ilog101+ix2i−1−2xi+3xi+1−cosxi+12,
-where x0 = xn, xn+1 = x1, x∗ = 0    0T , H7x∗= 0.
-We have experimented with different sets of parame-
-ters in MRAS1. We found empirically that the performance
-of the algorithm is primarily determined by the values of
-parameters r and =, but is insensitive to the choices of the
-initial solutions (i.e., mean vector and covariance matrix),
-provided that the initial sampling variance is large enough.
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-560 Operations Research 55(3), pp. 549–568, © 2007 INFORMS
-Table 1. Performance of different algorithms on benchmark problems H1−H7 based on 100 independent replications
-(standard errors are in parentheses).
-MRAS1 CE (= = 07) CE (= = 02) SA
-Test
-problems H∗i M H∗i M H∗i M H∗i M
-H1 0998 38e−07 100 222 023 61 0998 43e−09 100 1012 092 12
-H2 −1015 66e−07 100 −838 030 72 −912 011 1 −662 035 1
-H3 1164 54e−02 0 7468 1930 0 2263 486 0 2485 2359 0
-H4 32e− 10 18e− 11 100 19e+ 04 28e+ 03 0 25e− 06 75e− 08 100 6819 294 0
-H5 145 64e−02 47 100 00e−00 100 100 46e−09 100 7569 494 0
-H6 47e− 03 58e− 04 55 15e− 04 10e− 04 98 22e− 04 13e− 04 97 012 97e−03 0
-H7 49e− 08 71e− 09 100 475 107 0 21e− 03 75e− 05 0 11e+ 03 934 0
-Roughly speaking, parameters r and = essentially serve
-as trade-offs between explorative search and exploitative
-search. Smaller values of r and = help to maintain the
-search of the algorithm at a more scattered level, whereas
-larger values of r and = will, in general, lead to a more
-rapid decrease in the variance of the underlying sampling
-distribution, so the search will become more concentrated
-around the mean of the sampling distribution. Thus, as a
-general guideline, if explorative search is considered more
-desirable (especially for high-dimensional problems), then
-small values of r and = are often preferred. For all seven
-test problems, our numerical results are based on the fol-
-lowing parameter setting: = 10−5, initial sample size N0 =
-1000, 0 = 01, 8 = 001, 7 = 11, r = 10−4, smoothing
-parameter = = 02, and Nmin = 5n. The initial mean vec-
-tor .0 is an n-by-1 vector with each component randomly
-selected from the interval −5050 according to the uni-
-form distribution, and -0 is an n-by-n diagonal matrix with
-all diagonal elements equal to 500.
-For comparison purposes, we also applied the CE
-method and the SA algorithm to the above test functions.
-For CE, we have used the univariate normal p.d.f. with
-parameter values suggested in Kroese et al. (2006): sample
-size N = 2000,  = 001, and smoothing parameter = =
-07. Again, the initial mean vector .0 is randomly selected
-from −5050n according to the uniform distribution, and
--0 is an n-by-n diagonal matrix with all elements equal
-to 500. We found that the above parameters work well for
-some functions, but in some other cases the variance matri-
-ces in CE may converge too quickly to the zero matrix,
-which freezes the algorithm at some low-quality solutions.
-To address this issue, for each problem, we also tried CE
-with different values of the smoothing parameter. In the
-numerical results reported below, we have used a smaller
-smoothing parameter value = = 02, which gives reason-
-able performance for all test cases. For SA, we have used
-the parameters suggested in Corana et al. (1987): initial
-temperature T = 50000, temperature reduction factor rT =
-085, the search neighborhood of a point x is taken to be
- x= y max1in xi − yi 1, and the initial solution
-is uniformly selected from −5050n.
-For each problem, we performed 100 independent repli-
-cations of all three algorithms, and numerical results are
-reported in Table 1, where H∗i is the averaged value of the
-function Hi· at the best solution visited by the algorithm,
-with standard error in parentheses, and M indicates the
-number of replications in which an -optimal solution was
-found out of 100 trials. We also plotted in Figure 2 the
-average function values of the current best solution given
-the number of samples generated for selected benchmark
-problems. The performance comparison is based on the
-same amount of computational effort, where for each algo-
-rithm the total number of function evaluations (i.e., sample
-size) is set to 50,000 for H1 and H2, and 400,000 for high-
-dimensional cases. Here we choose to use the total num-
-ber of function evaluations to estimate the computational
-effort used by different algorithms because the computa-
-tional time of each algorithm is dominated by the time
-spent in evaluating the objective function.
-Functions H1 and H2 have only a few local minima, and
-because SA combines local search, it may quickly locate
-one of them. However, as we can see, SA stops mak-
-ing improvement even during the early search phase. This
-is caused by the plateaus surrounding the local minima,
-which makes it very difﬁcult for SA to escape local optima.
-In contrast, because both MRAS1 and CE are population
-based, they show more robustness in dealing with local
-optima. We see that CE (= = 07) does not always converge
-to the global optimal solution, but it still performs much
-better than SA does. For H1, MRAS1 and CE (= = 02) con-
-verge in a similar pattern and consistently ﬁnd -optimal
-solutions in all simulation runs. Note that decreasing the
-value of the smoothing parameter slows down the conver-
-gence of CE. In particular, for the H2 case, although better
-average function values are achieved in CE, no -optimal
-solutions were found within the allowed simulation budget.
-For H3, none of these three algorithms found -optimal
-solutions. However, Figure 2(b) indicates that both MRAS1
-and CE perform better than SA when the total sample size
-is large enough. CE with = = 02 converges slowly, but
-slightly outperforms CE (= = 07) after about 150,000 func-
-tion evaluations. MRAS1 performs the best, it has a similar
-convergence rate as CE (= = 07), and ﬁnds better solutions
-than the other algorithms do. On H4, MRAS1 is clearly
-superior to both CE and SA. It converges to the global
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-Operations Research 55(3), pp. 549–568, © 2007 INFORMS 561
-Figure 2. Average performance of MRAS1, CE, and SA on selected benchmark problems.
-0 1 2 3 4 5
-×104
-103
-102
-101
-100
-Total sample size
-F
-un
-ct
-io
-n 
-va
-lu
-e
-106
-108
-1010
-102
-104
-100
-F
-un
-ct
-io
-n 
-va
-lu
-e
-100
-105
-1010
-10–10
-10–5
-F
-un
-ct
-io
-n 
-va
-lu
-e
-103
-104
-105
-101
-102
-100
-F
-un
-ct
-io
-n 
-va
-lu
-e
-0
-–5
-–10
-5
-10
-F
-un
-ct
-io
-n 
-va
-lu
-e
-Dejong’s 5th
-0 0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0
-20-D Rosenbrock
-MRAS
-CE ν = 0.7
-CE ν = 0.2
-SA
-20-D Powel singular 20-D Trigonometric
-0
-0.5
-1.0
-1.5
-2.0
-2.5
-3.0
-3.5
-4.0
-4.5
-5.0
-F
-un
-ct
-io
-n 
-va
-lu
-e
-20-D Griewank 20-D Pintér
-(a) H1
-×105Total sample size
-(b) H3
-0 0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0
-×105Total sample size
-(d) H5
-0 0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0
-×105Total sample size
-(c) H4
-0 0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0
-×105Total sample size
-(f) H7
-0 0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0
-×105Total sample size
-(e) H6
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-562 Operations Research 55(3), pp. 549–568, © 2007 INFORMS
-optimal solution in all 100 runs at an exponential rate. The
-performance of SA is similar to the H3 case, whereas the
-performance of CE (= = 07) is even worse than that of
-SA. As we can see, the algorithm frequently gets trapped at
-solutions that are far from optimal. CE with = = 02 yields
-much better performance.
-H5 and H6 are highly multimodal functions. CE (= = 07)
-works better than both MRAS1 and SA. It not only con-
-verges the fastest but also ﬁnds -optimal solutions in
-almost all runs. SA ﬁnds no -optimal solutions in any
-of the runs. MRAS1 consistently outperforms SA and con-
-verges to the optimal solution in 50% of the total simulation
-runs in both cases. Initially, MRAS1 converges very fast to
-good values near the optimum, then it proceeds at a slower
-rate and spends most of the time in ﬁne-tuning the solution.
-The behavior of MRAS1 can be explained by looking at
-the parameter updating Equations (7) and (8). Because the
-values of H5 and H6 at local minima near the optimum are
-very close to each other, the parameter updating in MRAS1
-is dominated by the density function in the denominator,
-especially when the iteration counter k is small.
-H7 contains both a badly scaled quadratic term and some
-badly scaled noise terms. For this function, SA does not
-seem to be competitive at all. Similar to the H3 and H4
-cases, CE (= = 07) converges the fastest but stagnates at
-some nonoptimal solutions in all runs. Using = = 02 in CE
-greatly improves the solution quality, but slows down the
-convergence speed. The initial behavior of MRAS1 is sim-
-ilar to the H5 and H6 cases, but the algorithm outperforms
-CE (= = 07) after about 170,000 function evaluations and
-then approaches the optimum at an exponential rate.
-The above comparison seems to suggest that MRAS1 is
-better adapted to the optimization of badly scaled multi-
-modal problems, whereas CE works best on problems that
-are well scaled and contain a large number of local optima.
-Of course, a more comprehensive numerical study needs to
-be carried out to conﬁrm this ﬁnding.
-6.2. Combinatorial Optimization
-In this section, we present the performance of MRAS1 on
-various ATSP problems taken from the website http://www.
-iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95.
-For each ATSP problem with Nc cities, an Nc-by-Nc dis-
-tance matrix G is given, whose i jth element Gi j rep-
-resents the distance from city i to city j . The goal is to
-ﬁnd the shortest path that visits all the cities and returns to
-the starting city. Mathematically, the problem can be for-
-mulated as follows:
-min
-x∈
-Hx =min
-x∈
-{Nc−1∑
-i=1
-Gxixi+1 +GxNc x1
-}
- (14)
-where x = x1 x2     xNc  x1 is an admissible tour and
- is the set of all admissible tours.
-We use the same technique as in Rubinstein (2001) and
-De Boer et al. (2005) for solving these problems, i.e., we
-associate for each distance matrix G an initial state transi-
-tion matrix P0, whose i jth element speciﬁes the proba-
-bility of transitioning from city i to city j . Thus, at each
-iteration of MRAS, the following two steps are fundamen-
-tal: (i) generate random (admissible) tours according to the
-transition matrix and evaluate the performance of each sam-
-ple tour; and (ii) update the transition matrix based on the
-sample tours generated from the previous step.
-The detailed discussion of how to generate admissible
-tours can be found, e.g., in De Boer et al. (2005). We now
-brieﬂy address the issue of how to update the transition
-matrix. At each iteration k of MRAS1, the p.m.f. f · Pk
-on  is parameterized by the transition matrix Pk and is
-given by
-f x Pk=
-Nc∏
-l=1
-Nc∑
-i j
-Pki jIx∈i j l
-where i j l is the set of all tours in  such that the
-lth transition is from city i to city j . It is straightforward
-to show that the new transition matrix Pk+1 is updated in
-(12) as
-Pk+1i j
-=
-∑Nk
-l=1SHX
-k
-l 
-k/f˜ Xkl  PkIHXkl  k+1IXkl ∈i j ∑Nk
-l=1SHX
-k
-l 
-k/f˜ Xkl  PkIHXkl  k+1
- (15)
-where Xk1     X
-k
-Nk
-are the i.i.d. sample tours generated
-from f˜ · Pk, k+1 is deﬁned as in (13), and ij represents
-the set of tours in which the transition from city i to city j
-is made.
-For each of the cases, we performed 30 independent
-replications of the algorithm. In Table 2, Ntotal is the total
-number of tours generated (mean and standard error are
-reported), Hbest is the length of the shortest path, H∗ and
-H∗ are the worst and best solutions obtained out of 30 tri-
-als, ∗ and ∗ are the respective relative errors for H∗ and
-H∗, and  is the relative error (mean and standard error
-are reported). For all cases, = 1, the initial samples N0 =
-1000, 0 = 01, 8 = 002, 7 = 15, r = 01, smoothing
-parameter = = 05, and the initial transition matrix P0 is
-initialized as a stochastic matrix whose i jth entry is
-proportional to the inverse of the i jth entry of G, i.e.,
-P0i j∝ 1/Gi j and
-∑
-j
-P0i j= 1 ∀ i. We stop the algo-
-rithm as soon as either one of the following two condi-
-tions is satisﬁed at iteration k: (i) max1i5  k− k−i = 0;
-(ii) Nk > 10N
-2
-c . The performance of MRAS1 is similar to
-that of CE (cf. Rubinstein 2001, De Boer et al. 2005). We
-see that the algorithm yields very good solutions by using
-only a small number of tours.
-7. Conclusions and Future Work
-We have introduced a randomized optimization technique
-called model reference adaptive search (MRAS) for solv-
-ing both continuous and discrete optimization problems.
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-Operations Research 55(3), pp. 549–568, © 2007 INFORMS 563
-Table 2. Performance of MRAS on various ATSP problems based on 30 independent replications.
-ATSP Nc Ntotal (Std. err.) Hbest H∗ H∗ ∗ ∗  (Std. err.)
-ftv33 34 7.41e+04 (3.44e+03) 1286 1364 1286 0.061 0.000 0023 (0.004)
-ftv35 36 1.05e+05 (5.03e+03) 1473 1537 1475 0.043 0.001 0012 (0.002)
-ftv38 39 1.19e+05 (4.90e+03) 1530 1598 1530 0.044 0.000 0017 (0.003)
-p43 43 1.25e+05 (6.29e+03) 5620 5638 5620 0.003 0.000 0.001 (1.4e−4)
-ry48p 48 2.75e+05 (1.07e+04) 14422 14944 14446 0.036 0.002 0018 (0.001)
-ft53 53 2.98e+05 (8.71e+03) 6905 7352 6964 0.065 0.008 0032 (0.003)
-ft70 70 5.16e+05 (2.35e+04) 38673 40154 38744 0.038 0.002 0022 (0.002)
-The method offers an alternative framework for global
-optimization based on which one can design and imple-
-ment other efﬁcient algorithms. More speciﬁcally, we pro-
-posed an instantiation of MRAS called MRAS1, shown
-its probability one convergence under some mild regular-
-ity conditions, and tested its performance on some widely
-used benchmark problems. We also studied the relationship
-between CE and MRAS and established some properties of
-the CE method. This paper can also be seen as a study on
-the effectiveness of combining CE and EDAs.
-The MRAS1 algorithm demonstrated promise on some
-preliminary examples, but practical implementation issues
-remain. For example, selection of the input parameters
-in our numerical experiments was based mainly on trial
-and error. For a given problem, how to determine a pri-
-ori the most appropriate values of these parameters is an
-open issue. Designing an adaptive scheme to choose these
-parameters during the search process may also enhance the
-convergence rate of the algorithm.
-A more important line of research is to extend the
-MRAS method to stochastic optimization problems, where
-the function values can only be observed in the presence
-of noise. Denoting Hx as the random observation of the
-true function value Hx made at point x, the stochastic
-version of problem (1) can be formulated as
-x∗ ∈ argmax
-x∈
-E Hx x ∈ ⊆n (16)
-where E· is the expectation with respect to the probability
-distribution of the observation noise. Because an unbiased
-estimate of E Hx is
-1
-M
-M∑
-i=1
-Hix
-where Hix, i = 1    M , are i.i.d. observations made
-at x, it would be natural to generalize the performance
-function SHxk in MRAS to
-Sk Hx =
-k∏
-i=1
-S Hix (17)
-Clearly, for the deterministic case (i.e., no observation
-noise), we will have the original performance function. In
-particular, if we take S· to be an exponential function
-(e.g., SHx = eHx), then Equation (17) can be writ-
-ten as
-Sk Hx = exp
-( k∑
-i=1
-Hix
-)
-
-Therefore, by the strong law of large numbers, it is possi-
-ble to show that MRAS with the generalized performance
-function will converge w.p.1 to an optimal solution of (16).
-However, for this generalized performance function, we
-need to keep track of all the past observations made at
-all points visited thus far, which could be computation-
-ally difﬁcult to handle when the solution space is large or
-uncountable. Construction of a practically efﬁcient gener-
-alization of MRAS with provable convergence is addressed
-in Hu et al. (2005).
-8. Electronic Companion
-An electronic companion to this paper is available as part
-of the online version that can be found at http://or.journal.
-informs.org.
-Appendix. Proofs of Theorems
-Proof of Theorem 1. In Lemma 2, we have already
-established a relationship between reference models gk·
-and the sequence of sampling distributions f · k.
-Therefore, proving Theorem 1 amounts to showing that
-limk→	Egk %X= %x∗.
-Recall from Lemma 1 that gk+1· can be expressed
-recursively as
-gk+1x =
-SHxIHx k+1gkx
-Egk SHXIHX k+1
-∀x∈k=12 
-Thus,
-Egk+1 SHXIHX k+1
-= Egk SHX
-2IHX k+1
-Egk SHXIHX k+1
-Egk SHXIHX k+1 (18)
-Because k  Hx∗ ∀k, and each strict increment in
-the sequence  k is lower bounded by the quantity > 0,
-there exists a ﬁnite  such that k+1 = k ∀k . Before
-we proceed any further, we need to distinguish between
-two cases:  =Hx∗ and  <Hx∗.
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-564 Operations Research 55(3), pp. 549–568, © 2007 INFORMS
-Case 1. If  = Hx∗ (note that because  > 0, this
-could only happen when the solution space is discrete), then
-from the deﬁnition of gk+1· (see Lemma 1), we obviously
-have
-gk+1x= 0 ∀x = x∗
-and
-gk+1x
-∗= SHx
-∗kIHx=Hx∗∫
- SHx
-kIHx=Hx∗ dx
-= 1 ∀k 
-Hence, it follows immediately that
-Egk+1 %X= %x∗ ∀k 
-Case 2. If  <Hx∗, then from (18), we have
-Egk+1 SHXIHX k+2
-Egk SHXIHX k+1 ∀k − 1 (19)
-i.e., the sequence Egk SHXIHX k+1 k = 12   
-converges.
-Now we show that the limit of the above sequence is
-SHx∗. To do so, we proceed by contradiction, and
-assume that
-S∗ = lim
-k→	
-Egk SHXIHX k+1
-< S∗ = SHx∗ (20)
-Deﬁne the set  as
- = x Hx  ∩ x SHx S∗ + S∗/2∩ 
-Because S· is strictly increasing, its inverse S−1· exists.
-Thus,  can be reformulated as
-= x Hxmax   S−1S∗ + S∗/2∩ 
-Because  < Hx∗,  has a strictly positive Lebesgue/
-discrete measure by A1.
-Note that gk· can be rewritten as
-gkx=
-k−1∏
-i=1
-SHxIHx i+1
-Egi SHXIHX i+1
-· g1x
-Because
-lim
-k→	
-SHxIHx k+1
-Egk SHXIHX k+1
-= SHxIHx  
-S∗
-> 1
-∀x ∈
-we conclude that
-lim
-k→	
-gkx=	 ∀x ∈
-Thus, by Fatou’s lemma, we have
-1= lim inf
-k→	
-∫
-
-gkx dx lim inf
-k→	
-∫
-
-gkx dx
-
-∫
-
-lim inf
-k→	
-gkx dx=	
-which is a contradiction. Hence, it follows that
-lim
-k→	
-Egk SHXIHX k+1= S∗ (21)
-To show that limk→	Egk %X= %x∗, we now bound
-the difference between Egk %X and %x
-∗. Note that
-∀k , we have
-Egk %X− %x∗
-
-∫
-
-%x− %x∗gkx dx
-=
-∫
-	
-%x− %x∗gkx dx (22)
-where 	 = x Hx    ∩  is the support of gk·
-∀k .
-By the assumption on %· in Deﬁnition 1, for any given
-A > 0, there exists a  > 0 such that x− x∗<  implies
-%x−%x∗< A . With A deﬁned from Assumption A2,
-we have from (22),
-Egk %X− %x∗
-
-∫
-Ac∩	
-%x− %x∗gkx dx
-+
-∫
-A∩	
-%x− %x∗gkx dx
- A+
-∫
-A∩	
-%x−%x∗gkxdx ∀k  (23)
-The rest of the proof amounts to showing that the second
-term in (23) is also bounded. Clearly, the term %x −
-%x∗ is bounded on the set A∩	. We only need to ﬁnd
-a bound for gkx.
-By Assumption A2, we have
-sup
-x∈A∩	
-Hx sup
-x∈A
-Hx <Hx∗
-Deﬁne S = S∗ −Ssupx∈A Hx. Because S· is strictly
-increasing, we have S > 0. Thus, it follows that
-SHx S∗ − S ∀x ∈A ∩	 (24)
-On the other hand, from (19) and (21), there exists  
-such that ∀k  ,
-Egk SHXIHX k+1 S
-∗ − 12S (25)
-Observe that gkx can be alternatively expressed as
-gkx=
-k−1∏
-i= 
-SHxIHx i+1
-Egi SHXIHX i+1
-· g  x ∀k  
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-Operations Research 55(3), pp. 549–568, © 2007 INFORMS 565
-Thus, it follows from (24) and (25) that
-gkx
-(
-S∗ − S
-S∗ − S/2
-)k− 
-· g  x ∀x ∈A ∩	 ∀k  
-Therefore,
-Egk %X− %x∗
- A + sup
-x∈A∩	
-%x− %x∗
-∫
-A∩	
-gkx dx
- A + sup
-x∈A∩	
-%x− %x∗
-(
-S∗ − S
-S∗ − S/2
-)k− 
-∀k 
-=
-(
-1+ sup
-x∈A∩	
-%x− %x∗
-)
-A ∀k " 
-where " is given by
-" =max
-{
- 
-⌈
- + ln A
-/
-ln
-(
-S∗ − S
-S∗ − S/2
-)⌉}
-
-Because A is arbitrary, we have
-lim
-k→	
-Egk %X= %x∗
-Finally, the proof is completed by applying Lemma 2 to
-both Cases 1 and 2. 
-Proof of Theorem 3. (1) The ﬁrst part of the proof is an
-extension of the proofs given in Homem-de-Mello (2007).
-First, we claim that given k and k, if k Hx∗−, then
-∃  < 	 w.p.1 and ¯ ∈ 0 k such that k′+1¯Nk′ 
-k+/2 ∀k′  . To show this, we proceed by contradic-
-tion.
-Let ∗k = P˜k HX  k + 2/3. If k  Hx∗ − ,
-then k + 2/3  Hx∗− /3. By Assumptions A1 and
-A3′, we have
-∗k  P˜k
-(
-HXHx∗− 
-3
-)
- 8	 0 > 0 (26)
-where 	 0 =
-∫
- IHxHx∗−/3f x 0 dx is a
-constant.
-Now assume that ∃ ∈ 0 ∗k such that k+1 ˜k <
-k + 2/3 where k+1 ˜k is the 1 − -quantile of
-HX with respect to f˜ · ˜k. By the deﬁnition of quan-
-tiles, we have
-P˜k HX k+1 ˜k  and
-P˜k HX k+1 ˜k 1−> 1−∗k
-(27)
-It follows that P˜k HX  k+1 ˜k  P˜k HX <k + 2/3 = 1 − ∗k by the deﬁnition of ∗k, which con-
-tradicts Equation (27); thus, we must have that if k 
-Hx∗− , then
-k+1 ˜k k+
-2
-3
-∀ ∈ 0 ∗k
-Therefore, by (26), ∃¯ ∈ 0mink8	 0⊆ 0 k
-such that k+1¯ ˜k k+ 2/3 whenever k Hx∗−
-. By Lemma 7, the distance from the sample 1 −
-¯-quantile k+1¯Nk to the set of 1 − ¯-quantiles
-k+1¯ ˜k goes to zero as k→	 w.p.1; thus, ∃  <	
-w.p.1 such that k′+1¯Nk′ k+ /2 ∀k′  .
-Note that from the MRAS1 algorithm, if neither Step 3(a)
-nor 3(b) is visited at the kth iteration, we will have
-k+1 = k and k+1 = k. Thus, whenever k Hx∗− 
-w.p.1, Step 3(a)/3(b) will be visited after a ﬁnite num-
-ber of iterations. Furthermore, because the total number
-of visits to Steps 3(a) and 3(b) is ﬁnite (i.e., bounded by
-2Hx∗−/, where, recall that  is a lower bound
-for Hx), we conclude that there exists  < 	 w.p.1,
-such that
-k >Hx∗−  ∀k w.p.1
-(2) From the MRAS1 algorithm, it is easy to see
-that k+1  k ∀k = 01     By part (1), we have
-k+1  Hx∗ −  ∀k   w.p.1. Thus, by the deﬁni-
-tion of g˜k+1x (cf. (13)), it follows immediately that if
-x Hx  k+1 x ∈ Xk1     XkNk = , then the sup-
-port of g˜k+1x satisﬁes suppg˜k+1 ⊆  ∀k   w.p.1;
-otherwise if x Hx  k+1 x ∈ Xk1     XkNk = ,
-then suppg˜k+1 =  We now discuss these two cases
-separately.
-Case 1. If suppg˜k+1 ⊆ , then we have
-%suppg˜k+1 ⊆ %. Because Eg˜k+1 %X is the
-convex combination of %Xk1      %X
-k
-Nk
-, it follows that
-Eg˜k+1 %X ∈CONV%suppg˜k+1⊆CONV%
-Thus, by Assumptions A4′, A5, and Lemma 6,
-E˜k+1 %X ∈CONV%
-Case 2. If suppg˜k+1 =  (note that this could only
-happen if Step 3(c) is visited), then from the algorithm,
-there exists some kˆ < k + 1 such that k+1 = kˆ and
-suppg˜kˆ = . Without loss of generality, let kˆ be the
-largest iteration counter such that the preceding properties
-hold. Because kˆ = k+1 > Hx∗−  ∀k   w.p.1, we
-have suppg˜kˆ⊆  w.p.1. By following the discussions in
-Case 1, it is clear that
-E˜kˆ %X ∈CONV% w.p1
-Furthermore, because ˜kˆ = ˜kˆ+1 = · · · = ˜k+1 (see the dis-
-cussions in §5.1), we will again have
-E˜k+1 %X ∈CONV% ∀k w.p.1
-Deﬁne gˆk+1x as
-gˆk+1x =
-SHxkIHx k∫
- SHx
-kIHx k dx
-∀k= 12    
-where k is deﬁned as in MRAS1. Note that because k
-is a random variable, gˆk+1x is also a random variable. It
-follows that
-Egˆk+1 %X=
-∫
- :SHx
-kIHx k%x dx∫
- :SHx
-kIHx k dx
-
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-566 Operations Research 55(3), pp. 549–568, © 2007 INFORMS
-Let B = X01     X0N0 X11     X1N1    be a particu-
-lar sample path generated by the algorithm. For each B,
-the sequence  kB k = 12    is non decreasing and
-each strict increase is lower bounded by /2. Thus,
-∃  B > 0 such that k+1B = kB ∀k   B. Now
-deﬁne C1 = B limk→	 kB = Hx∗. By the deﬁ-
-nition of g˜k+1· (cf. (13)), for each B ∈ C1, we clearly
-have limk→	Eg˜kB%X = %x∗; thus, it follows from
-Lemma 6 that limk→	E˜kB%X= %x∗ ∀B ∈C1. The
-rest of the proof amounts to showing that the result also
-holds almost surely (a.s.) on the set Cc1.
-Because limk→	 kB=   B < Hx∗ ∀B ∈Cc1, we
-have by Fatou’s lemma,
-lim inf
-k→	
-∫
-
-:SHxkIHx k dx
-
-∫
-
-lim inf
-k→	
-:SHxkIHx k dx > 0
-∀B ∈Cc1 (28)
-where the last inequality follows from the fact that
-:SHx 1 ∀x ∈ x HxmaxS−11/:    and
-Assumption A1.
-Because f x 0 > 0 ∀x ∈  , we have  ⊆
-suppf˜ · ˜k ∀k; thus,
-Egˆk+1 %X=
-E˜k :kS˜kHXIHX k%X
-E˜k :kS˜kHXIHX k
-∀k= 12    
-where S˜kHx = SHxk/f˜ x ˜k. We now show
-that Eg˜k+1 %X → Egˆk+1 %X a.s. on Cc1 as k → 	.
-Because we are only interested in the limiting behavior of
-Eg˜k+1 %X, it is sufﬁcient to show that
-1/Nk
-∑Nk
-i=1:
-kS˜kHX
-k
-i IHXki  k+1%X
-k
-i 
-1/Nk
-∑Nk
-i=1:kS˜kHX
-k
-i IHXki  k+1
-→Egˆk+1 %X a.s. on Cc1,
-where and hereafter, whenever x Hx  k+1 x ∈
-Xk1     X
-k
-Nk
-=, we deﬁne 0/0= 0.
-For brevity, we use the following shorthand notations:
-"Y k = E˜k :kS˜kHXIHX k
-"Y k% = E˜k :kS˜kHXIHX k%X
-Y ki = :kS˜kHXki IHXki  k+1
-"Y ki = :kS˜kHXki IHXki  k
-We also let 
- = 2Hx∗−/. Note that the total
-number of visits to Steps 3(a) and 3(b) of MRAS1 is
-bounded by 
-, thus for any k > 
-, the total number of
-visits to Step 3(c) is greater than k−
-.
-We have
-1/Nk
-∑Nk
-i=1:
-kS˜kHX
-k
-i IHXki  k+1%X
-k
-i 
-1/Nk
-∑Nk
-i=1:kS˜kHX
-k
-i IHXki  k+1
-−Egˆk+1 %X
-=
-(
-1/Nk
-∑Nk
-i=1 Y ki %Xki 
-1/Nk
-∑Nk
-i=1 Y ki
-− 1/Nk
-∑Nk
-i=1 "Y ki %Xki 
-1/Nk
-∑Nk
-i=1 "Y ki
-)
-+
-(
-1/Nk
-∑Nk
-i=1 "Y ki %Xki 
-1/Nk
-∑Nk
-i=1 "Y ki
-− "Y
-k
-%
-"Y k
-)
-
-Because for each B ∈Cc1, k+1B= kB ∀k  B, it
-is straightforward to see that the ﬁrst term
-1/Nk
-∑Nk
-i=1 Y ki %Xki 
-1/Nk
-∑Nk
-i=1 Y ki
-− 1/Nk
-∑Nk
-i=1 "Y ki %Xki 
-1/Nk
-∑Nk
-i=1 "Y ki
-= 0
-∀k  B ∀B ∈Cc1 (29)
-To show that the second term also converges to zero, we
-denote by k the event k =  k > Hx∗− . For any
-A > 0, we also let 	k be the event
-	k =
-{∣∣∣∣1/Nk
-Nk∑
-i=1
-"Y ki − "Y k
-∣∣∣∣> A
-}
-
-We have
-P	k i.o.= P	k ∩k∪ 	k ∩ ck  i.o.
-= P	k ∩k i.o.
-because P ck i.o.= 0 by part 1 (30)
-It is easy to see that conditional on ˜k and k, "Y k1      "Y kNk
-are i.i.d. and E"Y ki  ˜k k = "Y k ∀ i. Furthermore, by
-Assumption A3′, conditional on the event k, the sup-
-port ak bk of the random variable "Y ki satisﬁes ak bk⊆
-0 :S∗k/8f∗. Therefore, we have from the Hoeffding
-inequality (Hoeffding 1963),
-P	k k ˜k =  k = 
-= P
-(∣∣∣∣1/Nk
-Nk∑
-i=1
-"Y ki − "Y k
-∣∣∣∣> A
-∣∣∣k ˜k =  k = 
-)
- 2 exp
-( −2NkA2
-bk− ak2
-)
- 2 exp
-(−2NkA28f∗2
-:S∗2k
-)
-∀k= 12     (31)
-Because
-P	k ∩k=
-∫
-
-P	k∩k  ˜k= k=f˜k k dd
-
-∫
-
-P	k k ˜k =  k = f˜ k dd
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-Operations Research 55(3), pp. 549–568, © 2007 INFORMS 567
-where f˜k k · · is the joint distribution of random vari-
-ables ˜k and k, we have by (31),
-P	k ∩k 2 exp
-(−2NkA28f∗2
-:S∗2k
-)
- 2 exp
-(−27k−
-N0A28f∗2
-:S∗2k
-)
-∀k
-
-= 2 exp
-(−2N0A282f 2∗
-7
-
-
-7
-:S∗2
-k
-)
-∀k
-
-Because 7/:S∗2 > 1 (by assumption), it follows that
-lim
-k→	
-P	k ∩k= 0
-Furthermore, because e−x < 1/x ∀x > 0, we have
-P	k ∩k <
-7
-
-N0A
-282f 2∗
-(
-:S∗2
-7
-)k
-∀k
-
-and because :S∗2/7< 1, we have
-	∑
-k=0
-P	k ∩k <
-+
-7
-
-N0A
-282f 2∗
-	∑
-k=
-
-(
-:S∗2
-7
-)k
-<	
-Finally, by the Borel-Cantelli lemma and (30),
-P	k io= P	k ∩k io= 0
-Because this holds for any A > 0, we have 1/Nk ·∑Nk
-i=1 "Y ki → "Y k w.p.1.
-By following the same argument as before, we can
-also show that 1/Nk
-∑Nk
-i=1 "Y ki %Xki → "Y k% w.p.1. Because
-lim infk→	 "Y k > 0 ∀B ∈Cc1 (i.e., (28)), we have
-1/Nk
-∑Nk
-i=1 "Y ki %Xki 
-1/Nk
-∑Nk
-i=1 "Y ki
-→ "Y
-k
-%
-"Y k as k→	 a.s. on C
-c
-1
-By the deﬁnition of g˜k+1·, the above result together with
-(29) suggests that
-Eg˜k %X→Egˆk %X as k→	 a.s. on Cc1
-Thus, in conclusion, we have
-Eg˜k %X→Egˆk %X as k→	 w.p.1.
-On the other hand, by Assumptions A1 and A2, and
-following the proof of Theorem 1, it is not difﬁcult to show
-that
-Egˆk %X→ %x∗ as k→	 w.p.1.
-Hence, by Lemma 6, we have
-lim
-k→	
-E˜k %X= limk→	Eg˜k %X= %x
-∗ w.p.1. 
-Acknowledgments
-This work was supported in part by the National Sci-
-ence Foundation under grants DMI-9988867 and DMI-
-0323220, and by the Air Force Ofﬁce of Scientiﬁc Research
-under grants F496200110161 and FA95500410210. The
-authors thank the associate editor and referees for their
-detailed comments and suggestions that led to a substan-
-tially improved paper, and they thank one of the referees
-for pointing out the related work of Wolpert.
-References
-Auer, P., N. Cesa-Bianchi, Y. Freund, R. E. Schapire. 2002. The non-
-stochastic multiarmed bandit problem. SIAM J. Comput. 32 48–77.
-Chang, H. S., M. C. Fu, J. Hu, S. I. Marcus. 2007. An asymptoti-
-cally efﬁcient simulation-based algorithm for ﬁnite horizon stochastic
-dynamic programming. IEEE Trans. Automat. Control. 52 89–94
-Corana, A., M. Marchesi, C. Martini, S. Ridella. 1987. Minimizing multi-
-modal functions of continuous variables with the simulated annealing
-algorithm. ACM Trans. Math. Software 13 262–280.
-De Boer, P. T., D. P. Kroese, S. Mannor, R. Y. Rubinstein. 2005. A tutorial
-on the cross-entropy method. Ann. Oper. Res. 134 19–67.
-Dorigo, M., L. M. Gambardella. 1997. Ant colony system: A cooperative
-learning approach to the traveling salesman problem. IEEE Trans.
-Evolutionary Comput. 1 53–66.
-Glover, F. 1990. Tabu search: A tutorial. Interfaces 20 74–94.
-Hoeffding, W. 1963. Probability inequalities for sums of bounded random
-variables. J. Amer. Statist. Assoc. 58(301) 13–30.
-Homem-de-Mello, T. 2007. A study on the cross-entropy method for rare
-event probability estimation. INFORMS J. Comput. Forthcoming.
-Hu, J., M. C. Fu, S. I. Marcus. 2005. Simulation optimization using
-model reference adaptive search. Winter Simulation Conf. Orlando,
-FL, 811–818.
-Kirkpatrick, S., C. D. Gelatt, M. P. Vecchi. 1983. Optimization by simu-
-lated annealing. Science 220 671–680.
-Kroese, D. P., S. Porotsky, R. Y. Rubinstein. 2006. The cross-entropy
-method for continuous multiextremal optimization. Methodology
-Comput. Appl. Probab. 8 383–407.
-Larrañaga, P., R. Etxeberria, J. A. Lozano, B. Sierra, I. Iñza, J. M. Peña.
-1999. A review of the cooperation between evolutionary computation
-and probabilistic graphical models. Proc. Second Sympos. Artiﬁcial
-Intelligence. Adaptive Systems. CIMAF 99. Special Session on Dis-
-tributions and Evolutionary Computation. Havana, Cuba, 314–324.
-Morris, C. N. 1982. Natural exponential families with quadratic variance
-functions. Ann. Statist. 10 65–80.
-Mühlenbein, H., G. Paaß. 1996. From recombination of genes to the
-estimation of distributions: I. Binary parameters. H.-M. Voigt,
-W. Ebeling, I. Rechenberg, H.-P. Schwefel, eds. Parallel Problem
-Solving from Nature–PPSN IV. Springer Verlag, Berlin, Germany,
-178–187.
-Pintér, J. D. 1996. Global Optimization in Action. Kluwer Academic Pub-
-lishers, Dordrecht, The Netherlands.
-Rubinstein, R. Y. 1997. Optimization of computer simulation models with
-rare events. Eur. J. Oper. Res. 99 89–112.
-Rubinstein, R. Y. 1999. The cross-entropy method for combinatorial
-and continuous optimization. Methodology Comput. Appl. Probab. 2
-127–190.
-Rubinstein, R. Y. 2001. Combinatorial optimization, ants and rare events.
-S. Uryasev, P. M. Pardalos, eds. Stochastic Optimization: Algo-
-rithms and Applications. Kluwer Academic Publishers, Dordrecht,
-The Netherlands, 304–358.
-Hu, Fu, and Marcus: Model Reference Adaptive Search Method for Global Optimization
-568 Operations Research 55(3), pp. 549–568, © 2007 INFORMS
-Rubinstein, R. Y., D. P. Kroese. 2004. The Cross-Entropy Method: A Uni-
-ﬁed Approach to Combinatorial Optimization, Monte-Carlo Simula-
-tion, and Machine Learning. Springer, New York.
-Shi, L., S. Ólafsson. 2000. Nested partitions method for global optimiza-
-tion. Oper. Res. 48 390–407.
-Srinivas, M., L. M. Patnaik. 1994. Genetic algorithms: A survey. Computer
-27 17–26.
-Wolpert, D. H. 2004. Finding bounded rational equilibria part I: Itera-
-tive focusing. T. Vincent, ed. Proc. Eleventh Internat. Sympos. on
-Dynamic Games Appl. Tucson, AZ, 18–21.
-Yao, X., Y. Liu. 1996. Fast evolutionary programming. Proc. 5th Annual
-Conf. Evolutionary Programming. MIT Press, Cambridge, MA,
-451–460.
-Zhang, Q., H. Mühlenbein. 2004. On the convergence of a class of esti-
-mation of distribution algorithm. IEEE Trans. Evolutionary Comput.
-8 127–136.
-Zlochin, M., M. Birattari, N. Meuleau, M. Dorigo. 2004. Model-based
-search for combinatorial optimization: A critical survey. Ann. Oper.
-Res. 131 373–395.
