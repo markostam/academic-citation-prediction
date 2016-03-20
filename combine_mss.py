@@ -26,7 +26,7 @@ def main(txtPath, imgPath):
     #txtPaths is now the list of shared files(REMOVED FOR TESTING). Divide into nFolds sublists for cross validation.
 
     # [1:] due to hidden files in OSX
-    names = [os.path.splitext(i)[0] for i in os.listdir(imgPath)][1:]
+    names = [os.path.splitext(i)[0] for i in os.listdir(imgPath) if '.jpg' in i]
     shuffle(names)    
     
     kf = KFold(len(names), n_folds=5, shuffle=True)        
