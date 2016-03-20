@@ -21,11 +21,7 @@ from sklearn.metrics import roc_curve,f1_score
 
 
 def main(txtPath, imgPath):
-    
-    #nFolds=5
-    #txtPaths is now the list of shared files(REMOVED FOR TESTING). Divide into nFolds sublists for cross validation.
 
-    # [1:] due to hidden files in OSX
     names = [os.path.splitext(i)[0] for i in os.listdir(imgPath) if '.jpg' in i]
     shuffle(names)    
     
@@ -38,7 +34,7 @@ def main(txtPath, imgPath):
     img,txt,cls = [],[],[]
     cite_high = 10 #divider for high vs low citations
 
-    
+    #split papers into high vs low cited True is high False is low
     for f in names:
         
         cites=pattern.search(f)
@@ -53,12 +49,10 @@ def main(txtPath, imgPath):
             exit()
         txt.append(os.path.join(txtPath,f)+".pdf.txt")
         img.append(os.path.join(imgPath,f)+".jpg")
-    
-    #True is good papers, False is bad
-    #we have sublists of complete file paths
-    txtRocs,imgRocs,tiRocs,txtF1,imgF1,tiF1 = [],[],[],[],[],[]
-    
+
+
     '''main k-fold cross validation loop'''
+    txtRocs,imgRocs,tiRocs,txtF1,imgF1,tiF1 = [],[],[],[],[],[]
     for train_index, test_index in kf:
         print("TRAIN:", train_index, "TEST:", test_index)
         IMG_train, IMG_test = [img[i] for i in train_index], [img[i] for i in test_index]
@@ -112,7 +106,7 @@ def main(txtPath, imgPath):
         #chooses classifier based on confidence level
         tiPredictions,tiConfs = [],[]
         for j in xrange(len(imgConfs)):
-            tiConf=max(abs(txtConfs[j]),abs(imgConfs[j]))
+            tiConf=max(abs(txtConfs[j]),abs(imgConfs[j])) #takes confidence furthest from the hyperplane ie most in a class
             tiConfs.append(tiConf)
             if abs(txtConfs[j]) > abs(imgConfs[j]):
                 tiPrediction = txtPredictions[j]
@@ -126,6 +120,22 @@ def main(txtPath, imgPath):
         #append to overall list        
         tiRocs.append([fpr, tpr, thresholds])
         tiF1.append(fMeasure)
+    
+    txt_mean_F1 = sum(txtF1)/len(txtF1)
+    #txt_mean_ROC
+    
+    img_mean_F1 = sum(imgF1)/len(imgF1)
+    #img_mean_ROC
+
+    ti_mean_F1 = sum(tiF1)/len(tiF1)
+    #ti_mean_ROC    
+    
+    print 'Text:'
+    print('F1 Score: ',txt_mean_F1)
+    print 'Images:'
+    print('F1 Score: ',img_mean_F1)
+    print 'Combined:'
+    print('F1 Score: ',ti_mean_F1)
 
 #    avTiRoc=avRoc(tiRocs)
 #    pyplot.plot(fpr,tpr,color='green', marker='o', linestyle='solid')
