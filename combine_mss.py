@@ -54,7 +54,7 @@ def main(txtPath, imgPath):
     
     #True is good papers, False is bad
     #we have sublists of complete file paths
-    txtRocs,imgRocs,tiRocs,txtF1,imgF1,tiF1,tiConfs = [],[],[],[],[],[],[]
+    txtRocs,imgRocs,tiRocs,txtF1,imgF1,tiF1 = [],[],[],[],[],[]
     
     '''main k-fold cross validation loop'''
     for train_index, test_index in kf:
@@ -106,17 +106,23 @@ def main(txtPath, imgPath):
         tiClf.fit(ensemble_input, cls_test)
                 
         
-        
-        for j in range(0,imgConfs):
-            tiConf=(txtConfs[j]+imgConfs[j])/2
+        #chooses classifier based on confidence level
+        tiPredictions,tiConfs = [],[]
+        for j in xrange(len(imgConfs)):
+            tiConf=max(abs(txtConfs[j]),abs(imgConfs[j]))
             tiConfs.append(tiConf)
-            ensemble_input = [[i,j] for i,j in zip(txtPredictions,imgPredictions)]
-            
-            imgPredictions
+            if abs(txtConfs[j]) > abs(imgConfs[j]):
+                tiPrediction = txtPredictions[j]
+            else:
+                tiPrediction = imgPredictions[j]
+            tiPredictions.append(tiPrediction)
         
         fpr, tpr, thresholds = roc_curve(cls_test,tiConfs)
-        
-        
+        fMeasure = f1_score(cls_test, tiPredictions)
+
+        #append to overall list        
+        tiRocs.append([fpr, tpr, thresholds])
+        tiF1.append(fMeasure)
 
     avTiRoc=avRoc(tiRocs)
     pyplot.plot(fpr,tpr,color='green', marker='o', linestyle='solid')
@@ -176,45 +182,3 @@ def imgFeatExtract(image_paths, inVoc):
     stdSlr = StandardScaler().fit(im_features)
     return((stdSlr.transform(im_features),voc))
     
-    
-#returns a pair of lists, x values and y values.
-def buildRoc(confidences, classes, res):
-    threshold=max(confidences)
-    step=threshold/res
-    x=list()
-    y=list()
-    while threshold>0:
-        tp=0
-        fp=0
-        for i in range(len(confidences)):
-            if classes[i]:
-                if confidences[i]>threshold:
-                    tp+=1
-                else:
-                    fp+=1
-        #normalization with control for potential zeroes.
-        if tp+fp==0:
-            x.append(0);
-            y.append(0);
-        else:
-            x.append(fp/(tp+fp))
-            y.append(tp/(tp+fp))
-        threshold-=step
-    pair=(x,y)
-    return(pair)
-def avRoc(pairs):
-    x=list()
-    y=list()
-    n=len(pairs[0])
-    for i in range(n):
-        curx=0
-        cury=0
-        for pair in pairs:
-            curx+=pair[i][0]
-            cury+=pair[i][1]
-        x.append(curx/n)
-        y.append(cury/n)
-    av=(x,y)
-    return(av)
-
-main(sys.argv[1], sys.argv[2])
