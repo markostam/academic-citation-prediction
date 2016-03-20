@@ -103,11 +103,12 @@ def main(txtPath, imgPath):
         imgF1.append(fMeasure)
         
         '''combine classifications'''
-#        #tiClf = RandomForestClassifier(n_estimators=2)
+#        eclf1 = VotingClassifier(estimators=[('txt', txtClf), ('img', imgClf)],voting='hard')
+#        ENSEMBLE input is for possibility of choosing voting classifier in sklearn 
 #        ensemble_input = [[i,j] for i,j in zip(txtPredictions,imgPredictions)]
-#        tiClf.fit(ensemble_input, cls_test)
-#                
-#        
+#        eclf1.fit([ensemble_input[i][1] for i in range(0,16)], cls_train)
+                
+        
         #chooses classifier based on confidence level
         tiPredictions,tiConfs = [],[]
         for j in xrange(len(imgConfs)):
