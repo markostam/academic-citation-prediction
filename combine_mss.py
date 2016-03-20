@@ -21,11 +21,12 @@ from sklearn.metrics import roc_curve,f1_score
 
 
 def main(txtPath, imgPath):
-
+    
+    nFolds = 5
     names = [os.path.splitext(i)[0] for i in os.listdir(imgPath) if '.jpg' in i]
     shuffle(names)    
     
-    kf = KFold(len(names), n_folds=5, shuffle=True)        
+    kf = KFold(len(names), n_folds=nFolds, shuffle=True)        
     kf = [i for i in kf]
     
 
@@ -52,8 +53,14 @@ def main(txtPath, imgPath):
 
 
     '''main k-fold cross validation loop'''
+    print 'Preforming %s fold cross validation' %nFolds
     txtRocs,imgRocs,tiRocs,txtF1,imgF1,tiF1 = [],[],[],[],[],[]
+    count = 1
+    
     for train_index, test_index in kf:
+        print '*******Fold %s********' %count
+        count += 1        
+        
         print("TRAIN:", train_index, "TEST:", test_index)
         IMG_train, IMG_test = [img[i] for i in train_index], [img[i] for i in test_index]
         TXT_train, TXT_test = [txt[i] for i in train_index], [txt[i] for i in test_index]
@@ -129,13 +136,13 @@ def main(txtPath, imgPath):
 
     ti_mean_F1 = sum(tiF1)/len(tiF1)
     #ti_mean_ROC    
-    
+    print '*******Output*******'
     print 'Text:'
-    print('F1 Score: ',txt_mean_F1)
+    print 'F1 Score: %s' %txt_mean_F1
     print 'Images:'
-    print('F1 Score: ',img_mean_F1)
+    print 'F1 Score: %s' %img_mean_F1
     print 'Combined:'
-    print('F1 Score: ',ti_mean_F1)
+    print 'F1 Score: %s' %ti_mean_F1
 
 #    avTiRoc=avRoc(tiRocs)
 #    pyplot.plot(fpr,tpr,color='green', marker='o', linestyle='solid')
@@ -152,7 +159,7 @@ def imgFeatExtract(image_paths, inVoc):
     des_ext = cv2.DescriptorExtractor_create("SIFT")
 
     # Extract features, combine with image storage location
-    print 'extracting features'
+    print 'Extracting img features'
     des_list = []
     for image_path in image_paths:
         if ".jpg" in image_path:
@@ -172,12 +179,12 @@ def imgFeatExtract(image_paths, inVoc):
 
     if inVoc is None: #so that we can build vocab or not
         # build vocabulary with k-means clustering
-        print('Performing clustering K=', k)
+        print('Performing img feature clustering K=%s' %k)
         voc, variance = kmeans(descriptors, k, 1) #voc = visual vocabulary
     else: voc=inVoc
 
     # Calculate frequency vector
-    print('creating frequency vector')
+    print('Creating img frequency vector')
     im_features = np.zeros((len(image_paths), k), "float32")
     for i in xrange(len(image_paths)):
         if ".jpg" in image_path:
@@ -191,7 +198,7 @@ def imgFeatExtract(image_paths, inVoc):
 #    idf = np.array(np.log((1.0*len(image_paths)+1) / (1.0*nbr_occurences + 1)), 'float32')
 
     # Standardization for input ot linear classifier
-    print('stanardizing input for classification')
+    print('Stanardizing img input for classification')
     stdSlr = StandardScaler().fit(im_features)
     return((stdSlr.transform(im_features),voc))
     
