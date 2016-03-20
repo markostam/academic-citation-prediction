@@ -13,6 +13,8 @@ from sklearn.externals import joblib
 from sklearn.cross_validation import *
 from scipy.cluster.vq import *
 from sklearn.preprocessing import StandardScaler
+import random
+from sklearn.metrics import roc_curve,f1_score
 
 #usage; python2 combine.py /path/to/text /path/to/images
 #pulls only files that have both an image and text for sanitization
@@ -20,7 +22,7 @@ from sklearn.preprocessing import StandardScaler
 
 def main(txtPath, imgPath):
     
-    nFolds=5
+    #nFolds=5
     #txtPaths is now the list of shared files(REMOVED FOR TESTING). Divide into nFolds sublists for cross validation.
 
     # [1:] due to hidden files in OSX
@@ -33,7 +35,7 @@ def main(txtPath, imgPath):
 
     #regex to find class, divided into the same sublistings
     pattern=re.compile(r"([0-9]+)-")
-    classes,txtFiles,imgFiles,img,txt,cls = [],[],[],[],[],[]
+    img,txt,cls = [],[],[]
     cite_high = 10 #divider for high vs low citations
 
     
@@ -87,8 +89,8 @@ def main(txtPath, imgPath):
         imgClf=SVC(kernel='linear', probability=True, random_state = random.randint(0,10000))
         #extract features
         IMG_feat=imgFeatExtract(IMG_train+IMG_test,None)
-        IMG_train_feat=[IMG_feat[0][:len(IMG_train)],imgFeat[1]]
-        IMG_test_feat=[IMG_feat[0][-len(IMG_test):],imgFeat[1]]
+        IMG_train_feat=[IMG_feat[0][:len(IMG_train)],IMG_feat[1]]
+        IMG_test_feat=[IMG_feat[0][-len(IMG_test):],IMG_feat[1]]
         imgClf.fit(IMG_train_feat[0],cls_train)
 
         #get confidence and build roc curve
@@ -101,11 +103,11 @@ def main(txtPath, imgPath):
         imgF1.append(fMeasure)
         
         '''combine classifications'''
-        tiClf = RandomForestClassifier(n_estimators=2)
-        ensemble_input = [[i,j] for i,j in zip(txtPredictions,imgPredictions)]
-        tiClf.fit(ensemble_input, cls_test)
-                
-        
+#        #tiClf = RandomForestClassifier(n_estimators=2)
+#        ensemble_input = [[i,j] for i,j in zip(txtPredictions,imgPredictions)]
+#        tiClf.fit(ensemble_input, cls_test)
+#                
+#        
         #chooses classifier based on confidence level
         tiPredictions,tiConfs = [],[]
         for j in xrange(len(imgConfs)):
@@ -124,12 +126,12 @@ def main(txtPath, imgPath):
         tiRocs.append([fpr, tpr, thresholds])
         tiF1.append(fMeasure)
 
-    avTiRoc=avRoc(tiRocs)
-    pyplot.plot(fpr,tpr,color='green', marker='o', linestyle='solid')
-    pyplot.title("Average combined ROC")
-    pyplot.xlabel("False Positive Rate")
-    pyplot.ylabel("True Positive Rate")
-    pyplot.show()
+#    avTiRoc=avRoc(tiRocs)
+#    pyplot.plot(fpr,tpr,color='green', marker='o', linestyle='solid')
+#    pyplot.title("Average combined ROC")
+#    pyplot.xlabel("False Positive Rate")
+#    pyplot.ylabel("True Positive Rate")
+#    pyplot.show()
     
 #take a list of image file names and transform them into a feature matrix. 
 #Returns tuple with the matrix first, vocab second.
@@ -173,12 +175,13 @@ def imgFeatExtract(image_paths, inVoc):
                 im_features[i][w] += 1
 
     # Perform Tf-Idf vectorization
-    print('performing TF-IDF')
-    nbr_occurences = np.sum( (im_features > 0) * 1, axis = 0)
-    idf = np.array(np.log((1.0*len(image_paths)+1) / (1.0*nbr_occurences + 1)), 'float32')
+#    print('performing TF-IDF')
+#    nbr_occurences = np.sum( (im_features > 0) * 1, axis = 0)
+#    idf = np.array(np.log((1.0*len(image_paths)+1) / (1.0*nbr_occurences + 1)), 'float32')
 
     # Standardization for input ot linear classifier
     print('stanardizing input for classification')
     stdSlr = StandardScaler().fit(im_features)
     return((stdSlr.transform(im_features),voc))
     
+main(sys.argv[1], sys.argv[2])
