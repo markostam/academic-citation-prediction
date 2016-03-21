@@ -9,8 +9,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC, SVC
 import matplotlib.pyplot as plt
 import cv2
-import imutils
-from sklearn.externals import joblib
 from sklearn.cross_validation import *
 from scipy.cluster.vq import *
 from sklearn.preprocessing import StandardScaler
@@ -18,10 +16,10 @@ import random
 from sklearn.metrics import roc_curve,f1_score,auc
 from scipy import interp
 
-
-#usage; python2 combine.py /path/to/text /path/to/images
-#pulls only files that have both an image and text for sanitization
-
+'''
+USAGE: python2 combine.py /path/to/text /path/to/images
+pulls only files that have both an image and text for sanitization
+'''
 
 def main(txtPath, imgPath):
     
@@ -127,7 +125,6 @@ def main(txtPath, imgPath):
 #        ensemble_input = [[i,j] for i,j in zip(txtPredictions,imgPredictions)]
 #        eclf1.fit([ensemble_input[i][1] for i in range(0,16)], cls_train)
                 
-        
         #chooses classifier based on confidence level
         tiPredictions,tiConfs = [],[]
         for j in xrange(len(imgConfs)):
@@ -202,7 +199,7 @@ def imgFeatExtract(image_paths, inVoc):
     des_ext = cv2.DescriptorExtractor_create("SIFT")
 
     # Extract features, combine with image storage location
-    print 'Extracting img features'
+    print 'extracting image features'
     des_list = []
     for image_path in image_paths:
         if ".jpg" in image_path:
@@ -222,12 +219,12 @@ def imgFeatExtract(image_paths, inVoc):
 
     if inVoc is None: #so that we can build vocab or not
         # build vocabulary with k-means clustering
-        print('Performing img feature clustering K=%s' %k)
+        print('performing image feature clustering K=%s' %k)
         voc, variance = kmeans(descriptors, k, 1) #voc = visual vocabulary
     else: voc=inVoc
 
     # Calculate frequency vector
-    print('Creating img frequency vector')
+    print('creating img frequency vector')
     im_features = np.zeros((len(image_paths), k), "float32")
     for i in xrange(len(image_paths)):
         if ".jpg" in image_path:
@@ -241,7 +238,7 @@ def imgFeatExtract(image_paths, inVoc):
 #    idf = np.array(np.log((1.0*len(image_paths)+1) / (1.0*nbr_occurences + 1)), 'float32')
 
     # Standardization for input ot linear classifier
-    print('Stanardizing img input for classification')
+    print('stanardizing img input for classification')
     stdSlr = StandardScaler().fit(im_features)
     return((stdSlr.transform(im_features),voc))
 
@@ -259,5 +256,5 @@ def plotROC(mean_fpr, mean_tpr, mean_auc, feature_type):
     plt.legend(loc="lower right")
     plt.show()
     
-#main(sys.argv[1], sys.argv[2])
-main(txtPath, imgPath)
+main(sys.argv[1], sys.argv[2])
+#main(txtPath, imgPath)
