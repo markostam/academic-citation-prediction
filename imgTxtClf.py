@@ -17,7 +17,7 @@ from sklearn.metrics import roc_curve,f1_score,auc
 from scipy import interp
 
 '''
-USAGE: python2 combine.py /path/to/text /path/to/images
+USAGE: python2 imgTxtClf.py /path/to/text /path/to/images
 pulls only files that have both an image and text for sanitization
 '''
 
