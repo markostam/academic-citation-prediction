@@ -73,14 +73,12 @@ def main(txtPath, imgPath):
         cls_train, cls_test = [cls[i] for i in train_index], [cls[i] for i in test_index]    
     
         '''text classifier'''
-        #tfidf extractor
+        #extract features & train
         txtExtract=TfidfVectorizer(input='filename',stop_words='english')
-        #extract train and test features
         print 'extracting text features'
         TXT_feat=txtExtract.fit_transform(TXT_train+TXT_test)
         TXT_train_feat=TXT_feat[:len(TXT_train)]
         TXT_test_feat=TXT_feat[-len(TXT_test):]
-        #train the classfier
         print 'training text classifier'
         txtClf=SVC(kernel='linear', probability=True, random_state = random.randint(0,10000))
         txtClf.fit(TXT_train_feat,cls_train)
@@ -101,10 +99,11 @@ def main(txtPath, imgPath):
         
         '''image classifier'''
         imgClf=SVC(kernel='linear', probability=True, random_state = random.randint(0,10000))
-        #extract features
+        #extract features & train
         IMG_feat=imgFeatExtract(IMG_train+IMG_test,None)
         IMG_train_feat=[IMG_feat[0][:len(IMG_train)],IMG_feat[1]]
         IMG_test_feat=[IMG_feat[0][-len(IMG_test):],IMG_feat[1]]
+        print 'training image classifier'       
         imgClf.fit(IMG_train_feat[0],cls_train)
 
         #get confidence and build roc curve
@@ -122,6 +121,7 @@ def main(txtPath, imgPath):
         imgF1.append(fMeasure)
         
         '''combine classifiers'''
+        #test code for voting clf not implemented
 #        eclf1 = VotingClassifier(estimators=[('txt', txtClf), ('img', imgClf)],voting='hard')
 #        ENSEMBLE input is for possibility of choosing voting classifier in sklearn 
 #        ensemble_input = [[i,j] for i,j in zip(txtPredictions,imgPredictions)]
@@ -193,13 +193,6 @@ def main(txtPath, imgPath):
     ti = csv.writer(open("ti_tpr_%s.csv" %time, "wb"))
     ti.writerow(ti_mean_tpr)
 
-
-#    avTiRoc=avRoc(tiRocs)
-#    plt.plot(fpr,tpr,color='green', marker='o', linestyle='solid')
-#    plt.title("Average combined ROC")
-#    plt.xlabel("False Positive Rate")
-#    plt.ylabel("True Positive Rate")
-#    plt.show()
     
 #take a list of image file names and transform them into a feature matrix. 
 #Returns tuple with the matrix first, vocab second.
