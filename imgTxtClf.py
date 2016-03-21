@@ -4,7 +4,6 @@ import re
 import sys
 import csv
 from time import strftime
-from random import shuffle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC, SVC
 import matplotlib.pyplot as plt
@@ -23,9 +22,9 @@ pulls only files that have both an image and text for sanitization
 
 def main(txtPath, imgPath):
     
-    nFolds = 10
+    nFolds = 2
     names = [os.path.splitext(i)[0] for i in os.listdir(imgPath) if '.jpg' in i]
-    shuffle(names)    
+    random.shuffle(names)    
     
     kf = KFold(len(names), n_folds=nFolds, shuffle=True)        
     kf = [i for i in kf]
@@ -55,15 +54,15 @@ def main(txtPath, imgPath):
 
     '''main k-fold cross validation loop'''
     print 'Performing %s fold cross validation' %nFolds
-    txtF1,imgF1,tiF1 = [],[],[]
+    txtF1,imgF1,tiF1,txtRocs,imgRocs,tiRocs = [],[],[],[],[],[]
     txt_mean_tpr,img_mean_tpr,ti_mean_tpr = 0,0,0
     fpr_space = np.linspace(0, 1, 100)
     
-    count = 1
+    count = 0
     
     for train_index, test_index in kf:
-        print '\n*******Fold %s********' %count
         count += 1        
+        print '\n*******Fold %s********' %count
         
         print "TRAIN: %s" %train_index, "\nTEST: %s" %test_index 
         IMG_train, IMG_test = [img[i] for i in train_index], [img[i] for i in test_index]
@@ -88,8 +87,9 @@ def main(txtPath, imgPath):
         txt_mean_tpr += interp(fpr_space, fpr, tpr)
         txt_mean_tpr[0] = 0
         txt_auc = auc(fpr, tpr)
-        plt.plot(fpr, tpr, lw=1, label='Text ROC fold %d (area = %0.2f)' % (count, txt_auc))
-
+        plotROC(fpr,tpr,txt_auc,'Text fold %d' %count)
+           
+        
         fMeasure = f1_score(cls_test, txtPredictions)
         #append to overall list        
         txtRocs.append([fpr, tpr, thresholds])
@@ -111,7 +111,7 @@ def main(txtPath, imgPath):
         img_mean_tpr += interp(fpr_space, fpr, tpr)
         img_mean_tpr[0] = 0
         img_auc = auc(fpr, tpr)
-        plt.plot(fpr, tpr, lw=1, label='Image ROC fold %d (area = %0.2f)' % (count, img_auc))
+        plotROC(fpr,tpr,img_auc,'Image fold %d' %count)
         
         fMeasure = f1_score(cls_test, imgPredictions)
         #append to overall list        
@@ -137,11 +137,11 @@ def main(txtPath, imgPath):
                 tiPrediction = imgPredictions[j]
             tiPredictions.append(tiPrediction)
         
-        fpr, tpr, thresholds = roc_curve(cls_test,tiConfs)
+        fpr, tpr, thresholds = roc_curve(cls_test,tiConf)
         ti_mean_tpr += interp(fpr_space, fpr, tpr)
         ti_mean_tpr[0] = 0
         ti_auc = auc(fpr, tpr)
-        plt.plot(fpr, tpr, lw=1, label='Combined ROC fold %d (area = %0.2f)' % (count, ti_auc))
+        plotROC(fpr,tpr,ti_auc,'Combined fold %d' %count)
         fMeasure = f1_score(cls_test, tiPredictions)
 
         #append to overall list        
@@ -242,9 +242,10 @@ def imgFeatExtract(image_paths, inVoc):
     stdSlr = StandardScaler().fit(im_features)
     return((stdSlr.transform(im_features),voc))
 
+#function to plot ROC curve
 def plotROC(mean_fpr, mean_tpr, mean_auc, feature_type):
     
-    #function to plot ROC curve
+    plt.figure()
     plt.plot(mean_fpr, mean_tpr, 'k--',
     label='Mean ROC (area = %0.2f)' %mean_auc, lw=2)
     plt.plot([0, 1], [0, 1], '--', color=(0.6, 0.6, 0.6), label='Luck')
@@ -256,5 +257,5 @@ def plotROC(mean_fpr, mean_tpr, mean_auc, feature_type):
     plt.legend(loc="lower right")
     plt.show()
     
-main(sys.argv[1], sys.argv[2])
-#main(txtPath, imgPath)
+#main(sys.argv[1], sys.argv[2]) #for running from command line
+main(txtPath, imgPath) #for running from IDE
