@@ -5,7 +5,7 @@ import sys
 import csv
 from time import strftime
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.svm import LinearSVC, SVC
+from sklearn.svm import SVC, #LinearSVC
 import matplotlib.pyplot as plt
 import cv2
 from sklearn.cross_validation import *
@@ -192,7 +192,7 @@ def main(txtPath, imgPath):
 
     
 #take a list of image file names and transform them into a feature matrix. 
-#Returns tuple with the matrix first, vocab second.
+#returns tuple with the matrix first, vocab second.
 def imgFeatExtract(image_paths, inVoc):
     # Create feature extraction and keypoint detector objects
     fea_det = cv2.FeatureDetector_create("SIFT")
