@@ -137,7 +137,7 @@ def main(txtPath, imgPath):
                 tiPrediction = imgPredictions[j]
             tiPredictions.append(tiPrediction)
         
-        fpr, tpr, thresholds = roc_curve(cls_test,tiConf)
+        fpr, tpr, thresholds = roc_curve(cls_test,tiConfs)
         ti_mean_tpr += interp(fpr_space, fpr, tpr)
         ti_mean_tpr[0] = 0
         ti_auc = auc(fpr, tpr)
