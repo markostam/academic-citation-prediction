@@ -5,7 +5,7 @@ import sys
 import csv
 from time import strftime
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.svm import SVC, #LinearSVC
+from sklearn.svm import SVC #LinearSVC
 import matplotlib.pyplot as plt
 import cv2
 from sklearn.cross_validation import *
@@ -22,7 +22,7 @@ pulls only files that have both an image and text for sanitization
 
 def main(txtPath, imgPath):
     
-    nFolds = 2
+    nFolds = 5
     names = [os.path.splitext(i)[0] for i in os.listdir(imgPath) if '.jpg' in i]
     random.shuffle(names)    
     
@@ -54,21 +54,26 @@ def main(txtPath, imgPath):
 
     '''main k-fold cross validation loop'''
     print 'Performing %s fold cross validation' %nFolds
-    txtF1,imgF1,tiF1,txtRocs,imgRocs,tiRocs = [],[],[],[],[],[]
+    txtF1,imgF1,txtProba,imgProba,txtRocs,imgRocs = [],[],[],[],[],[]
+    clsShuffled = [] 
     txt_mean_tpr,img_mean_tpr,ti_mean_tpr = 0,0,0
     fpr_space = np.linspace(0, 1, 100)
     
     count = 0
     
     for train_index, test_index in kf:
-        count += 1        
-        print '\n*******Fold %s********' %count
+        count += 1
+        plt.figure()        
         
+        #print some stuff about data split then split it        
+        print '\n*******Fold %s********' %count
         print "TRAIN: %s" %train_index, "\nTEST: %s" %test_index 
         IMG_train, IMG_test = [img[i] for i in train_index], [img[i] for i in test_index]
         TXT_train, TXT_test = [txt[i] for i in train_index], [txt[i] for i in test_index]
         cls_train, cls_test = [cls[i] for i in train_index], [cls[i] for i in test_index]    
     
+        clsShuffled.append(ls_test)
+
         '''text classifier'''
         #extract features & train
         txtExtract=TfidfVectorizer(input='filename',stop_words='english')
@@ -83,6 +88,7 @@ def main(txtPath, imgPath):
         #get confidence and build roc curve
         txtConfs = txtClf.decision_function(TXT_test_feat)
         txtPredictions = txtClf.predict(TXT_test_feat)
+        txtProba.append(txtClf.predict_proba(TXT_test_feat))
         fpr, tpr, thresholds = roc_curve(cls_test,txtConfs)
         txt_mean_tpr += interp(fpr_space, fpr, tpr)
         txt_mean_tpr[0] = 0
@@ -96,7 +102,7 @@ def main(txtPath, imgPath):
         txtF1.append(fMeasure)
         
         '''image classifier'''
-        imgClf=SVC(kernel='linear', probability=True, random_state = random.randint(0,10000))
+        imgClf=SVC(kernel='rbf', probability=True, random_state = random.randint(0,10000))
         #extract features & train
         IMG_feat=imgFeatExtract(IMG_train+IMG_test,None)
         IMG_train_feat=[IMG_feat[0][:len(IMG_train)],IMG_feat[1]]
@@ -107,6 +113,7 @@ def main(txtPath, imgPath):
         #get confidence and build roc curve
         imgConfs = imgClf.decision_function(IMG_test_feat[0])
         imgPredictions = imgClf.predict(IMG_test_feat[0])
+        txtProba.append(txtClf.predict_proba(TXT_test_feat))
         fpr, tpr, thresholds = roc_curve(cls_test,imgConfs)
         img_mean_tpr += interp(fpr_space, fpr, tpr)
         img_mean_tpr[0] = 0
@@ -118,36 +125,9 @@ def main(txtPath, imgPath):
         imgRocs.append([fpr, tpr, thresholds])
         imgF1.append(fMeasure)
         
-        '''combine classifiers'''
-        #test code for voting clf not implemented
-#        eclf1 = VotingClassifier(estimators=[('txt', txtClf), ('img', imgClf)],voting='hard')
-#        ENSEMBLE input is for possibility of choosing voting classifier in sklearn 
-#        ensemble_input = [[i,j] for i,j in zip(txtPredictions,imgPredictions)]
-#        eclf1.fit([ensemble_input[i][1] for i in range(0,16)], cls_train)
-                
-        #chooses classifier based on confidence level
-        tiPredictions,tiConfs = [],[]
-        for j in xrange(len(imgConfs)):
-            #chooses confidence of clf furthest from the hyperplane ie most in a class
-            tiConf=max(abs(txtConfs[j]),abs(imgConfs[j])) 
-            tiConfs.append(tiConf)
-            if abs(txtConfs[j]) > abs(imgConfs[j]):
-                tiPrediction = txtPredictions[j]
-            else:
-                tiPrediction = imgPredictions[j]
-            tiPredictions.append(tiPrediction)
-        
-        fpr, tpr, thresholds = roc_curve(cls_test,tiConfs)
-        ti_mean_tpr += interp(fpr_space, fpr, tpr)
-        ti_mean_tpr[0] = 0
-        ti_auc = auc(fpr, tpr)
-        plotROC(fpr,tpr,ti_auc,'Combined fold %d' %count)
-        fMeasure = f1_score(cls_test, tiPredictions)
+    '''meta classifier'''
+    #? = metaClf(txtProba, imgProba, clsShuffled)
 
-        #append to overall list        
-        tiRocs.append([fpr, tpr, thresholds])
-        tiF1.append(fMeasure)
-    
     '''calculate results'''
     txt_mean_F1 = sum(txtF1)/len(txtF1)
     txt_mean_tpr /= nFolds
@@ -169,6 +149,7 @@ def main(txtPath, imgPath):
     print '\nText:'
     print 'F1 Score: %s' %txt_mean_F1
     print 'AUC: %s' %txt_mean_auc
+    plt.figure()
     plotROC(fpr_space,txt_mean_tpr,txt_mean_auc,'Text')
     
     print '\nImages:'
@@ -182,13 +163,13 @@ def main(txtPath, imgPath):
     plotROC(fpr_space,ti_mean_tpr,ti_mean_auc,'Combined')
     
     #save TPR's to CSV
-    time = strftime("%Y-%m-%d_%H:%M:%S")
-    txt = csv.writer(open("txt_tpr_%s.csv" %time, "wb"))
-    txt.writerow(txt_mean_tpr)
-    img = csv.writer(open("img_tpr_%s.csv" %time, "wb"))
-    img.writerow(img_mean_tpr)
-    ti = csv.writer(open("ti_tpr_%s.csv" %time, "wb"))
-    ti.writerow(ti_mean_tpr)
+#    time = strftime("%Y-%m-%d_%H:%M:%S")
+#    txt = csv.writer(open("txt_tpr_%s.csv" %time, "wb"))
+#    txt.writerow(txt_mean_tpr)
+#    img = csv.writer(open("img_tpr_%s.csv" %time, "wb"))
+#    img.writerow(img_mean_tpr)
+#    ti = csv.writer(open("ti_tpr_%s.csv" %time, "wb"))
+#    ti.writerow(ti_mean_tpr)
 
     
 #take a list of image file names and transform them into a feature matrix. 
@@ -242,13 +223,15 @@ def imgFeatExtract(image_paths, inVoc):
     stdSlr = StandardScaler().fit(im_features)
     return((stdSlr.transform(im_features),voc))
 
+def metaClf(txtProba, imgProba, clsShuffled)
+
 #function to plot ROC curve
 def plotROC(mean_fpr, mean_tpr, mean_auc, feature_type):
     
-    plt.figure()
+    #plt.figure()
     plt.plot(mean_fpr, mean_tpr, 'k--',
     label='Mean ROC (area = %0.2f)' %mean_auc, lw=2)
-    plt.plot([0, 1], [0, 1], '--', color=(0.6, 0.6, 0.6), label='Luck')
+    plt.plot([0, 1], [0, 1], '--', color=(0.6, 0.6, 0.6))#, label='Luck')
     plt.xlim([-0.05, 1.05])
     plt.ylim([-0.05, 1.05])
     plt.xlabel('False Positive Rate')
