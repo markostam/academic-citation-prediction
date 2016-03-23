@@ -24,8 +24,13 @@ pulls only files that have both an image and text for sanitization
 def main(txtPath, imgPath):
     
     nFolds = 5
-    names = [os.path.splitext(i)[0] for i in os.listdir(imgPath) if '.jpg' in i]
-    random.shuffle(names)    
+    names = [os.path.splitext(i)[0] for i in os.listdir(imgPath) if '.jpg' in i]    
+    
+    random.shuffle(names)
+    
+    ######SMALL TEST#######
+    #names = names[0:100]
+    #######################
     
     kf = KFold(len(names), n_folds=nFolds, shuffle=True)        
     kf = [i for i in kf]
@@ -116,7 +121,7 @@ def main(txtPath, imgPath):
         #get confidence and build roc curve
         imgConfs = imgClf.decision_function(IMG_test_feat[0])
         imgPredictions = imgClf.predict(IMG_test_feat[0])
-        txtProba.append(txtClf.predict_proba(TXT_test_feat))
+        imgProba.append(imgClf.predict_proba(IMG_test_feat[0]))
         fpr, tpr, thresholds = roc_curve(cls_test,imgConfs)
         img_mean_tpr += interp(fpr_space, fpr, tpr)
         img_mean_tpr[0] = 0
@@ -230,7 +235,7 @@ def metaClf(txtProba, imgProba, clsShuffled, namesShuffled):
     clsShuffled = list(itertools.chain(*clsShuffled))
     namesShuffled = list(itertools.chain(*namesShuffled))
 
-    metaProba = np.concatenate((txtProba,imgProba), axis=1).shape
+    metaProba = np.concatenate((txtProba,imgProba), axis=1)
 
     nFolds = 5
     kf = KFold(len(names), n_folds=nFolds, shuffle=True)        
@@ -258,7 +263,7 @@ def metaClf(txtProba, imgProba, clsShuffled, namesShuffled):
         #get confidence and build roc curve
         metaConfs = metaClf.decision_function(META_test)
         metaPredictions = metaClf.predict(META_test)
-        metaProba.append(metaClf.predict_proba(META_test))
+        #metaProba.append(metaClf.predict_proba(META_test))
         fpr, tpr, thresholds = roc_curve(cls_test,metaConfs)
         meta_mean_tpr += interp(fpr_space, fpr, tpr)
         meta_mean_tpr[0] = 0
@@ -270,10 +275,10 @@ def metaClf(txtProba, imgProba, clsShuffled, namesShuffled):
         metaRocs.append([fpr, tpr, thresholds])
         metaF1.append(fMeasure)
 
-    meta_mean_F1 = sum(tiF1)/len(tiF1)
+    meta_mean_F1 = sum(metaF1)/len(metaF1)
     meta_mean_tpr /= nFolds
     meta_mean_tpr[-1] = 1.0
-    meta_mean_auc = auc(fpr_space, img_mean_tpr)
+    meta_mean_auc = auc(fpr_space, meta_mean_tpr)
 
     return meta_mean_F1, meta_mean_tpr, meta_mean_auc
         
