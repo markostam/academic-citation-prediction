@@ -247,7 +247,6 @@ def metaClf(txtProba, imgProba, clsShuffled, namesShuffled):
 
         #print some stuff about data split then split it        
         print '\n*******Fold %s********' %count
-
         META_train, META_test = [metaProba[i] for i in train_index], [metaProba[i] for i in test_index]
         cls_train, cls_test = [clsShuffled[i] for i in train_index], [clsShuffled[i] for i in test_index]
         namesReshuffled.append([namesShuffled[i] for i in test_index]) #keep track of reshuffled filenames
