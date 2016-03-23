@@ -3,6 +3,7 @@ import os
 import re
 import sys
 import csv
+import itertools
 from time import strftime
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import SVC #LinearSVC
@@ -55,8 +56,8 @@ def main(txtPath, imgPath):
     '''main k-fold cross validation loop'''
     print 'Performing %s fold cross validation' %nFolds
     txtF1,imgF1,txtProba,imgProba,txtRocs,imgRocs = [],[],[],[],[],[]
-    clsShuffled = [] 
-    txt_mean_tpr,img_mean_tpr,ti_mean_tpr = 0,0,0
+    clsShuffled, namesShuffled= [],[] 
+    txt_mean_tpr,img_mean_tpr = 0,0
     fpr_space = np.linspace(0, 1, 100)
     
     count = 0
@@ -67,12 +68,14 @@ def main(txtPath, imgPath):
         
         #print some stuff about data split then split it        
         print '\n*******Fold %s********' %count
-        print "TRAIN: %s" %train_index, "\nTEST: %s" %test_index 
+        #print "TRAIN: %s" %train_index, "\nTEST: %s" %test_index 
         IMG_train, IMG_test = [img[i] for i in train_index], [img[i] for i in test_index]
         TXT_train, TXT_test = [txt[i] for i in train_index], [txt[i] for i in test_index]
         cls_train, cls_test = [cls[i] for i in train_index], [cls[i] for i in test_index]    
-    
-        clsShuffled.append(ls_test)
+        
+        #keep track of order of filenames and class for metaclassifier
+        clsShuffled.append(cls_test)
+        namesShuffled.append(IMG_test)
 
         '''text classifier'''
         #extract features & train
@@ -126,7 +129,7 @@ def main(txtPath, imgPath):
         imgF1.append(fMeasure)
         
     '''meta classifier'''
-    #? = metaClf(txtProba, imgProba, clsShuffled)
+    meta_mean_F1, meta_mean_tpr, meta_mean_auc = metaClf(txtProba, imgProba, clsShuffled, namesShuffled)
 
     '''calculate results'''
     txt_mean_F1 = sum(txtF1)/len(txtF1)
@@ -138,11 +141,6 @@ def main(txtPath, imgPath):
     img_mean_tpr /= nFolds
     img_mean_tpr[-1] = 1.0
     img_mean_auc = auc(fpr_space, img_mean_tpr)
-
-    ti_mean_F1 = sum(tiF1)/len(tiF1)
-    ti_mean_tpr /= nFolds
-    ti_mean_tpr[-1] = 1.0
-    ti_mean_auc = auc(fpr_space, img_mean_tpr)
     
     print '*******Output*******'
     
@@ -158,9 +156,9 @@ def main(txtPath, imgPath):
     plotROC(fpr_space,img_mean_tpr,img_mean_auc,'Image')
 
     print '\nCombined:'
-    print 'F1 Score: %s' %ti_mean_F1
-    print 'AUC: %s' %ti_mean_auc
-    plotROC(fpr_space,ti_mean_tpr,ti_mean_auc,'Combined')
+    print 'F1 Score: %s' %meta_mean_F1
+    print 'AUC: %s' %meta_mean_auc
+    plotROC(fpr_space,meta_mean_tpr,meta_mean_auc,'Combined')
     
     #save TPR's to CSV
 #    time = strftime("%Y-%m-%d_%H:%M:%S")
@@ -223,8 +221,64 @@ def imgFeatExtract(image_paths, inVoc):
     stdSlr = StandardScaler().fit(im_features)
     return((stdSlr.transform(im_features),voc))
 
-def metaClf(txtProba, imgProba, clsShuffled)
+#metaclassifier trained on probability of the txt and img classifier's inputs
+def metaClf(txtProba, imgProba, clsShuffled, namesShuffled):
+    
+    #flatten lists, maintain correct order
+    txtProba = list(itertools.chain(*txtProba))
+    imgProba = list(itertools.chain(*imgProba))
+    clsShuffled = list(itertools.chain(*clsShuffled))
+    namesShuffled = list(itertools.chain(*namesShuffled))
 
+    metaProba = np.concatenate((txtProba,imgProba), axis=1).shape
+
+    nFolds = 5
+    kf = KFold(len(names), n_folds=nFolds, shuffle=True)        
+    kf = [i for i in kf]
+
+    count = 0
+    namesReshuffled = []
+    metaRocs,metaF1 = [],[]
+    meta_mean_tpr = 0
+    
+    for train_index, test_index in kf:
+        count += 1
+        plt.figure()        
+
+        #print some stuff about data split then split it        
+        print '\n*******Fold %s********' %count
+
+        META_train, META_test = [metaProba[i] for i in train_index], [metaProba[i] for i in test_index]
+        cls_train, cls_test = [clsShuffled[i] for i in train_index], [clsShuffled[i] for i in test_index]
+        namesReshuffled.append([namesShuffled[i] for i in test_index]) #keep track of reshuffled filenames
+
+        #train the metaclassifier
+        metaClf=SVC(kernel='linear', probability=True, random_state = random.randint(0,10000))
+        metaClf.fit(META_train,cls_train)
+        
+        #get confidence and build roc curve
+        metaConfs = metaClf.decision_function(META_test)
+        metaPredictions = metaClf.predict(META_test)
+        metaProba.append(metaClf.predict_proba(META_test))
+        fpr, tpr, thresholds = roc_curve(cls_test,metaConfs)
+        meta_mean_tpr += interp(fpr_space, fpr, tpr)
+        meta_mean_tpr[0] = 0
+        meta_auc = auc(fpr, tpr)
+        plotROC(fpr,tpr,meta_auc,'Meta Clf fold %d' %count)
+
+        fMeasure = f1_score(cls_test, metaPredictions)
+        #append to overall list        
+        metaRocs.append([fpr, tpr, thresholds])
+        metaF1.append(fMeasure)
+
+    meta_mean_F1 = sum(tiF1)/len(tiF1)
+    meta_mean_tpr /= nFolds
+    meta_mean_tpr[-1] = 1.0
+    meta_mean_auc = auc(fpr_space, img_mean_tpr)
+
+    return meta_mean_F1, meta_mean_tpr, meta_mean_auc
+        
+    
 #function to plot ROC curve
 def plotROC(mean_fpr, mean_tpr, mean_auc, feature_type):
     
