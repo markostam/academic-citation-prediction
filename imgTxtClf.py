@@ -235,6 +235,7 @@ def metaClf(txtProba, imgProba, clsShuffled, namesShuffled):
     clsShuffled = list(itertools.chain(*clsShuffled))
     namesShuffled = list(itertools.chain(*namesShuffled))
 
+    #arrange txt and img probabilities as features for the meta clf
     metaProba = np.concatenate((txtProba,imgProba), axis=1)
 
     nFolds = 5
@@ -288,7 +289,7 @@ def plotROC(mean_fpr, mean_tpr, mean_auc, feature_type):
     
     #plt.figure()
     plt.plot(mean_fpr, mean_tpr, 'k--',
-    label='Mean ROC (area = %0.2f)' %mean_auc, lw=2)
+    label='ROC (area = %0.2f)' %mean_auc, lw=2)
     plt.plot([0, 1], [0, 1], '--', color=(0.6, 0.6, 0.6))#, label='Luck')
     plt.xlim([-0.05, 1.05])
     plt.ylim([-0.05, 1.05])
