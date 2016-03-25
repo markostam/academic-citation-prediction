@@ -12,9 +12,13 @@ import cv2
 from sklearn.cross_validation import *
 from scipy.cluster.vq import *
 from sklearn.preprocessing import StandardScaler
+from sklearn.externals import joblib
 import random
 from sklearn.metrics import roc_curve,f1_score,auc
 from scipy import interp
+
+#testing
+import sift_pyocl as sift
 
 '''
 USAGE: python2 imgTxtClf.py /path/to/text /path/to/images
@@ -23,18 +27,14 @@ pulls only files that have both an image and text for sanitization
 
 def main(txtPath, imgPath):
     
-    nFolds = 5
+    nFolds = 2
     names = [os.path.splitext(i)[0] for i in os.listdir(imgPath) if '.jpg' in i]    
     
     random.shuffle(names)
     
     ######SMALL TEST#######
-    #names = names[0:100]
-    #######################
-    
-    kf = KFold(len(names), n_folds=nFolds, shuffle=True)        
-    kf = [i for i in kf]
-    
+    names = names[0:100]
+    #######################    
 
     #regex to find class, divided into the same sublistings
     pattern=re.compile(r"([0-9]+)-")
@@ -58,6 +58,8 @@ def main(txtPath, imgPath):
         img.append(os.path.join(imgPath,f)+".jpg")
 
 
+    skf = StratifiedKFold(cls, n_folds=nFolds, shuffle=True)
+
     '''main k-fold cross validation loop'''
     print 'Performing %s fold cross validation' %nFolds
     txtF1,imgF1,txtProba,imgProba,txtRocs,imgRocs = [],[],[],[],[],[]
@@ -67,7 +69,7 @@ def main(txtPath, imgPath):
     
     count = 0
     
-    for train_index, test_index in kf:
+    for train_index, test_index in skf:
         count += 1
         plt.figure()        
         
@@ -92,6 +94,9 @@ def main(txtPath, imgPath):
         print 'training text classifier'
         txtClf=SVC(kernel='linear', probability=True, random_state = random.randint(0,10000))
         txtClf.fit(TXT_train_feat,cls_train)
+
+        #save the text clf
+        joblib.dump((txtClf, TXT_train_feat, TXT_test_feat, cls_train, cls_test), "txtClf.pkl", compress=3)    
         
         #get confidence and build roc curve
         txtConfs = txtClf.decision_function(TXT_test_feat)
@@ -204,7 +209,7 @@ def imgFeatExtract(image_paths, inVoc):
     if inVoc is None: #so that we can build vocab or not
         # build vocabulary with k-means clustering
         print('performing image feature clustering K=%s' %k)
-        voc, variance = kmeans(descriptors, k, 1) #voc = visual vocabulary
+        voc, variance = kmeans(descriptors, n_jobs = -2, k, 1) #voc = visual vocabulary
     else: voc=inVoc
 
     # Calculate frequency vector
