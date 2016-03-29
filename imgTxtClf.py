@@ -1,8 +1,11 @@
+import time
+start = time.time()
 import numpy as np
 import os
 import re
 import sys
 import csv
+import math
 import itertools
 from time import strftime
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -17,24 +20,32 @@ import random
 from sklearn.metrics import roc_curve,f1_score,auc
 from scipy import interp
 
-#testing
-#import sift_pyocl as sift
-
 '''
 USAGE: python2 imgTxtClf.py /path/to/text /path/to/images
 pulls only files that have both an image and text for sanitization
 '''
 
+'''GLOBALS'''
+#precision of ROC plots
+fpr_space = np.linspace(0, 1, 100)
+#image clusters
+imgVoc = 20
+#test size #SET TO NONE FOR FULL SET
+testSize = 100
+#number of folds for cv
+nFolds = 2
+''''''
+
 def main(txtPath, imgPath):
     
-    nFolds = 10
     names = [os.path.splitext(i)[0] for i in os.listdir(imgPath) if '.jpg' in i]    
     
     random.shuffle(names)
     
-    ######SMALL TEST#######
-    #names = names[0:200]
-    #######################    
+    ###TEST FOR SMALER SUBSETS###
+    if testSize is not None:
+        names = [random.choice(names) for i in range(0,testSize)]
+    #############################  
 
     #regex to find class, divided into the same sublistings
     pattern=re.compile(r"([0-9]+)-")
@@ -174,7 +185,7 @@ def main(txtPath, imgPath):
     plotROC(fpr_space,meta_mean_tpr,meta_mean_auc,'Combined')
     plt.show()
     
-    #save TPR's to CSV
+    #save TPR's to CSV for plotting ROC elsewhere
 #    time = strftime("%Y-%m-%d_%H:%M:%S")
 #    txt = csv.writer(open("txt_tpr_%s.csv" %time, "wb"))
 #    txt.writerow(txt_mean_tpr)
@@ -183,6 +194,7 @@ def main(txtPath, imgPath):
 #    ti = csv.writer(open("ti_tpr_%s.csv" %time, "wb"))
 #    ti.writerow(ti_mean_tpr)
 
+    print 'Function time:', time.time()-start, 'seconds.'
     
 #take a list of image file names and transform them into a feature matrix. 
 #returns tuple with the matrix first, vocab second.
@@ -205,7 +217,7 @@ def imgFeatExtract(image_paths, inVoc):
         if ".jpg" in image_path:
             descriptors = np.vstack((descriptors, descriptor))
 
-    k=100
+    k=imgVoc
 
     if inVoc is None: #so that we can build vocab or not
         # build vocabulary with k-means clustering
@@ -224,7 +236,7 @@ def imgFeatExtract(image_paths, inVoc):
                 im_features[i][w] += 1
 
     # Standardization for input ot linear classifier
-    print('stanardizing img input for classification')
+    print('standardizing img input for classification')
     stdSlr = StandardScaler().fit(im_features)
     im_features = stdSlr.transform(im_features)
     
@@ -242,15 +254,18 @@ def metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_me
     clsShuffled = list(itertools.chain(*clsShuffled))
     namesShuffled = list(itertools.chain(*namesShuffled))
     
-    txtConfs_wtd = [i*txt_mean_auc for i in txtConfs]
-    imgConfs_wtd = [i*img_mean_auc for i in imgConfs]
+    txt_auc_sqrt = math.sqrt(txt_mean_auc)
+    img_auc_sqrt = math.sqrt(img_mean_auc)
+    
+    txtConfs_wtd = [i*txt_auc_sqrt for i in txtConfs]
+    imgConfs_wtd = [i*img_auc_sqrt for i in imgConfs]
 
     #arrange txt and img confidences as features for the meta clf
     #and weight the confidences by the auc
     tiConfs = np.vstack((txtConfs_wtd,imgConfs_wtd))
     tiConfs = np.transpose(tiConfs)
 
-    skf = StratifiedKFold(cls, n_folds=nFolds, shuffle=True)
+    skf = StratifiedKFold(clsShuffled, n_folds=nFolds, shuffle=True)
 
     count = 0
     namesReshuffled = []
