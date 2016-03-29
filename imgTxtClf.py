@@ -29,11 +29,11 @@ pulls only files that have both an image and text for sanitization
 #precision of ROC plots
 fpr_space = np.linspace(0, 1, 100)
 #image clusters
-imgVoc = 20
+imgVoc = 100
 #test size #SET TO NONE FOR FULL SET
-testSize = 100
+testSize = 2000
 #number of folds for cv
-nFolds = 2
+nFolds = 10
 ''''''
 
 def main(txtPath, imgPath):
@@ -159,7 +159,7 @@ def main(txtPath, imgPath):
     img_mean_tpr[-1] = 1.0
     img_mean_auc = auc(fpr_space, img_mean_tpr)
     
-    #joblib.dump((clf, training_names, stdSlr, k, voc), "bof.pkl", compress=3)    
+    joblib.dump((imgClf, txtClf, txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, txt_mean_F1, txt_mean_tpr, img_mean_F1, img_mean_tpr), "n2000k100cv10.pkl", compress=3)    
     
     '''meta classifier'''
     meta_mean_F1, meta_mean_tpr, meta_mean_auc = metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc)
@@ -241,7 +241,7 @@ def imgFeatExtract(image_paths, inVoc):
     im_features = stdSlr.transform(im_features)
     
     #save image classifier
-    #joblib.dump((clf, training_names, stdSlr, k, voc), "bof.pkl", compress=3)    
+    joblib.dump((clf, training_names, stdSlr, k, voc), "imgclf.pkl", compress=3)    
 
     return(im_features,voc)
 
@@ -254,8 +254,8 @@ def metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_me
     clsShuffled = list(itertools.chain(*clsShuffled))
     namesShuffled = list(itertools.chain(*namesShuffled))
     
-    txt_auc_sqrt = math.sqrt(txt_mean_auc)
-    img_auc_sqrt = math.sqrt(img_mean_auc)
+    txt_auc_sqrt = math.pow(txt_mean_auc, 1/2)
+    img_auc_sqrt = math.pow(img_mean_auc, 1/2)
     
     txtConfs_wtd = [i*txt_auc_sqrt for i in txtConfs]
     imgConfs_wtd = [i*img_auc_sqrt for i in imgConfs]
@@ -284,7 +284,7 @@ def metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_me
         namesReshuffled.append([namesShuffled[i] for i in test_index]) #keep track of reshuffled filenames
 
         #train the metaclassifier
-        metaClf=SVC(kernel='rbf', probability=False)#, random_state = random.randint(0,10000))
+        metaClf=SVC(kernel='rbf', probability=False, random_state = random.randint(0,10000))
         metaClf.fit(META_train,cls_train)
         
         #get confidence and build roc curve
