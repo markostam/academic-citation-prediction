@@ -31,7 +31,7 @@ fpr_space = np.linspace(0, 1, 100)
 #image clusters
 imgVoc = 100
 #test size #SET TO NONE FOR FULL SET
-testSize = 2000
+testSize = 200
 #number of folds for cv
 nFolds = 10
 ''''''
