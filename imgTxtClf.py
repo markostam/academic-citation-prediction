@@ -1,3 +1,4 @@
+%matplotlib inline
 import time
 start = time.time()
 import numpy as np
@@ -31,7 +32,7 @@ fpr_space = np.linspace(0, 1, 100)
 #image clusters
 imgVoc = 100
 #test size #SET TO NONE FOR FULL SET
-testSize = 200
+testSize = None
 #number of folds for cv
 nFolds = 10
 ''''''
@@ -70,6 +71,18 @@ def main(txtPath, imgPath):
 
     #define stratified crosss validation scheme
     skf = StratifiedKFold(cls, n_folds=nFolds, shuffle=True)
+    
+    #extract text features
+    txtExtract=TfidfVectorizer(input='filename',stop_words='english')
+    print 'extracting text features'
+    TXT_feat=txtExtract.fit_transform(txt)
+    TXT_feat=TXT_feat.toarray()
+    print 'done'
+    
+    #extract image features
+    print 'extracting image features'
+    IMG_feat = imgFeatExtract(img,None)
+    print 'done'
 
     '''main k-fold cross validation loop'''
     print 'Performing %s fold cross validation' %nFolds
@@ -80,6 +93,10 @@ def main(txtPath, imgPath):
     
     count = 0
     
+    #save extracted image and text features for offline 
+    joblib.dump((IMG_feat, TXT_feat, "img_txt_feat_n%s_cv%s_med.pkl" %testSize %nFolds, compress=3)    
+
+    
     for train_index, test_index in skf:
         count += 1
         plt.figure()        
@@ -87,21 +104,17 @@ def main(txtPath, imgPath):
         #print some stuff about data split then split it        
         print '\n*******Fold %s********' %count
         #print "TRAIN: %s" %train_index, "\nTEST: %s" %test_index 
-        IMG_train, IMG_test = [img[i] for i in train_index], [img[i] for i in test_index]
-        TXT_train, TXT_test = [txt[i] for i in train_index], [txt[i] for i in test_index]
+        IMG_train_feat, IMG_test_feat = ([IMG_feat[0][i] for i in train_index],IMG_feat[1]), ([IMG_feat[0][i] for i in test_index],IMG_feat[1])
+        TXT_train_feat, TXT_test_feat = [TXT_feat[i] for i in train_index], [TXT_feat[i] for i in test_index]
         cls_train, cls_test = [cls[i] for i in train_index], [cls[i] for i in test_index]    
+        names_train, names_test = [txt[i] for i in train_index], [txt[i] for i in test_index]    
+
         
         #keep track of order of filenames and class for metaclassifier
         clsShuffled.append(cls_test)
-        namesShuffled.append(IMG_test)
+        namesShuffled.append(names_test)
 
         '''text classifier'''
-        #extract features & train
-        txtExtract=TfidfVectorizer(input='filename',stop_words='english')
-        print 'extracting text features'
-        TXT_feat=txtExtract.fit_transform(TXT_train+TXT_test)
-        TXT_train_feat=TXT_feat[:len(TXT_train)]
-        TXT_test_feat=TXT_feat[-len(TXT_test):]
         print 'training text classifier'
         txtClf=SVC(kernel='linear', probability=False, random_state = random.randint(0,10000))
         txtClf.fit(TXT_train_feat,cls_train)
@@ -117,7 +130,6 @@ def main(txtPath, imgPath):
         txt_mean_tpr[0] = 0
         txt_auc = auc(fpr, tpr)
         plotROC(fpr,tpr,txt_auc,'Text fold %d' %count)
-           
         
         fMeasure = f1_score(cls_test, txtPredictions)
         #append to overall list        
@@ -126,10 +138,6 @@ def main(txtPath, imgPath):
         
         '''image classifier'''
         imgClf=SVC(kernel='rbf', probability=False, random_state = random.randint(0,10000))
-        #extract features & train
-        IMG_feat=imgFeatExtract(IMG_train+IMG_test,None)
-        IMG_train_feat=[IMG_feat[0][:len(IMG_train)],IMG_feat[1]]
-        IMG_test_feat=[IMG_feat[0][-len(IMG_test):],IMG_feat[1]]
         print 'training image classifier'       
         imgClf.fit(IMG_train_feat[0],cls_train)
 
@@ -149,35 +157,37 @@ def main(txtPath, imgPath):
         imgF1.append(fMeasure)
         
     '''calculate results'''
-    txt_mean_F1 = sum(txtF1)/len(txtF1)
     txt_mean_tpr /= nFolds
     txt_mean_tpr[-1] = 1.0
     txt_mean_auc = auc(fpr_space, txt_mean_tpr)
     
-    img_mean_F1 = sum(imgF1)/len(imgF1)
     img_mean_tpr /= nFolds
     img_mean_tpr[-1] = 1.0
     img_mean_auc = auc(fpr_space, img_mean_tpr)
     
-    joblib.dump((imgClf, txtClf, txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, txt_mean_F1, txt_mean_tpr, img_mean_F1, img_mean_tpr), "n2000k100cv10.pkl", compress=3)    
+    #joblib.dump((imgClf, txtClf, txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, txtF1, txt_mean_tpr, imgF1, img_mean_tpr), "n2000k100cv10.pkl", compress=3)    
     
     '''meta classifier'''
-    meta_mean_F1, meta_mean_tpr, meta_mean_auc = metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc)
+    metaF1, meta_mean_tpr, meta_mean_auc = metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc)
 
+    txtF1 = np.asarray(txtF1)
+    imgF1 = np.asarray(imgF1)
+    metaF1 = np.asarray(metaF1)
     
     print '*******Output*******'
+    #f1 score, 95% conf interval and AUC
     
     print '\nText:'
-    print 'F1 Score: %s' %txt_mean_F1
-    print 'AUC: %s' %txt_mean_auc
+    print "F1: %0.2f (+/- %0.2f)" % (txtF1.mean(), txtF1.std() * 2)
+    print 'AUC: %0.2f' %txt_mean_auc
     
     print '\nImages:'
-    print 'F1 Score: %s' %img_mean_F1
-    print 'AUC: %s' %img_mean_auc
+    print "F1: %0.2f (+/- %0.2f)" % (imgF1.mean(), imgF1.std() * 2)
+    print 'AUC: %0.2f' %img_mean_auc
 
     print '\nCombined:'
-    print 'F1 Score: %s' %meta_mean_F1
-    print 'AUC: %s' %meta_mean_auc
+    print "F1: %0.2f (+/- %0.2f)" % (metaF1.mean(), metaF1.std() * 2)
+    print 'AUC: %0.2f' %meta_mean_auc
     
     plt.figure()
     plotROC(fpr_space,txt_mean_tpr,txt_mean_auc,'Text')
@@ -203,11 +213,10 @@ def imgFeatExtract(image_paths, inVoc):
     sift = cv2.SIFT()
 
     # Extract features, combine with image storage location
-    print 'extracting image features'
     des_list = []
     for image_path in image_paths:
         if ".jpg" in image_path:
-            im = cv2.imread(image_path, cv2.IMREAD_COLOR)
+            im = cv2.imread(image_path, cv2.COLOR_BGR2GRAY)
             kpts, des = sift.detectAndCompute(im, None)
             des_list.append((image_path, des))
 
@@ -241,7 +250,7 @@ def imgFeatExtract(image_paths, inVoc):
     im_features = stdSlr.transform(im_features)
     
     #save image classifier
-    joblib.dump((clf, training_names, stdSlr, k, voc), "imgclf.pkl", compress=3)    
+    #joblib.dump((clf, training_names, stdSlr, k, voc), "imgclf.pkl", compress=3)    
 
     return(im_features,voc)
 
@@ -302,12 +311,11 @@ def metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_me
         metaF1.append(fMeasure)
     
     plt.show()
-    meta_mean_F1 = sum(metaF1)/len(metaF1)
     meta_mean_tpr /= nFolds
     meta_mean_tpr[-1] = 1.0
     meta_mean_auc = auc(fpr_space, meta_mean_tpr)
 
-    return meta_mean_F1, meta_mean_tpr, meta_mean_auc
+    return metaF1, meta_mean_tpr, meta_mean_auc
         
     
 #function to plot ROC curve
@@ -323,6 +331,8 @@ def plotROC(mean_fpr, mean_tpr, mean_auc, feature_type):
     plt.title('%s Receiver operating characteristic plot' %feature_type)
     plt.legend(loc="lower right")
     #plt.show()
-    
+
+imgPath = '/home/ubuntu/dbs/concat_jpg_med'
+txtPath = '/home/ubuntu/dbs/txt_med'
 #main(sys.argv[1], sys.argv[2]) #for running from command line
 main(txtPath, imgPath) #for running from IDE
