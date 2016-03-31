@@ -1,4 +1,3 @@
-%matplotlib inline
 import time
 start = time.time()
 import numpy as np
@@ -32,7 +31,7 @@ fpr_space = np.linspace(0, 1, 100)
 #image clusters
 imgVoc = 100
 #test size #SET TO NONE FOR FULL SET
-testSize = None
+testSize = 1600
 #number of folds for cv
 nFolds = 10
 ''''''
@@ -94,7 +93,7 @@ def main(txtPath, imgPath):
     count = 0
     
     #save extracted image and text features for offline 
-    joblib.dump((IMG_feat, TXT_feat, "img_txt_feat_n%s_cv%s_med.pkl" %testSize %nFolds, compress=3)    
+    #joblib.dump(IMG_feat, TXT_feat, "img_txt_feat_n%s_cv%s_med.pkl" %testSize %nFolds, compress=3)    
 
     
     for train_index, test_index in skf:
@@ -210,12 +209,13 @@ def main(txtPath, imgPath):
 #returns tuple with the matrix first, vocab second.
 def imgFeatExtract(image_paths, inVoc):
     # Create feature extraction and keypoint detector objects
-    sift = cv2.SIFT()
+    sift = cv2.SURF()
 
     # Extract features, combine with image storage location
     des_list = []
     for image_path in image_paths:
         if ".jpg" in image_path:
+            print 'processing %s' %image_path
             im = cv2.imread(image_path, cv2.COLOR_BGR2GRAY)
             kpts, des = sift.detectAndCompute(im, None)
             des_list.append((image_path, des))
@@ -332,7 +332,7 @@ def plotROC(mean_fpr, mean_tpr, mean_auc, feature_type):
     plt.legend(loc="lower right")
     #plt.show()
 
-imgPath = '/home/ubuntu/dbs/concat_jpg_med'
-txtPath = '/home/ubuntu/dbs/txt_med'
+imgPath = '/Users/markostamenovic/Downloads/concat_jpg_cs/'
+txtPath = '/Users/markostamenovic/Downloads/txt_cs/'
 #main(sys.argv[1], sys.argv[2]) #for running from command line
 main(txtPath, imgPath) #for running from IDE
