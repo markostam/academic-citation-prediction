@@ -46,7 +46,6 @@ def main(txtPath, imgPath):
     ###TEST FOR SMALER SUBSETS###
     if testSize is not None:
         names = [random.choice(names) for i in range(0,testSize)]
-    #############################  
 
     #regex to find class, divided into the same sublistings
     pattern=re.compile(r"([0-9]+)-")
@@ -85,7 +84,7 @@ def main(txtPath, imgPath):
     print 'done'
 
     '''main k-fold cross validation loop'''
-    print 'Performing %s fold cross validation' %nFolds
+    print '\nPerforming %s fold cross validation' %nFolds
     txtF1,imgF1,txtConfs,imgConfs,txtRocs,imgRocs = [],[],[],[],[],[]
     clsShuffled, namesShuffled= [],[] 
     txt_mean_tpr,img_mean_tpr = 0,0
@@ -93,8 +92,9 @@ def main(txtPath, imgPath):
     
     count = 0
     
+    domain = txtPath[-4:-1]
     #save extracted image and text features for offline 
-    joblib.dump(IMG_feat, TXT_feat, "img_txt_feat_cs.pkl", compress=3)    
+    joblib.dump((IMG_feat, TXT_feat), "img_txt_feat_n%s_cv%s_%s.pkl" %(testSize, nFolds, domain), compress=3)    
 
     
     for train_index, test_index in skf:
@@ -196,13 +196,13 @@ def main(txtPath, imgPath):
     plt.show()
     
     #save TPR's to CSV for plotting ROC elsewhere
-    time = strftime("%Y-%m-%d_%H:%M:%S")
-    txt = csv.writer(open("txt_tpr_%s.csv" %time, "wb"))
+    outtime = strftime("%Y-%m-%d_%H:%M:%S")
+    txt = csv.writer(open("txt_tpr_%s_%s.csv" %(outtime, domain), "wb"))
     txt.writerow(txt_mean_tpr)
-    img = csv.writer(open("img_tpr_%s.csv" %time, "wb"))
+    img = csv.writer(open("img_tpr_%s_%s.csv" %(outtime, domain), "wb"))
     img.writerow(img_mean_tpr)
-    ti = csv.writer(open("ti_tpr_%s.csv" %time, "wb"))
-    ti.writerow(ti_mean_tpr)
+    ti = csv.writer(open("ti_tpr_%s_%s.csv" %(outtime, domain), "wb"))
+    ti.writerow(meta_mean_tpr)
 
     print 'Function time:', time.time()-start, 'seconds.'
     
@@ -217,10 +217,12 @@ def imgFeatExtract(image_paths, inVoc):
     count = 1
     for image_path in image_paths:
         if ".jpg" in image_path:
-            print 'processing image %s: %s' %(count, image_path)
+            print 'processing image %s: \n%s' %(count, image_path)
             im = cv2.imread(image_path, cv2.COLOR_BGR2GRAY)
             sift_ocl = sift.SiftPlan(template=im, devicetype='GPU')
             des = sift_ocl.keypoints(im)
+            des = np.asarray([des[i][4] for i in xrange(len(des))])
+            des = np.float32(des)
             ###deleted because of memory leak in cv2###
             #_, des = surf.detectAndCompute(im, None)
             des_list.append((image_path, des))
