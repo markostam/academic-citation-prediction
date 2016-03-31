@@ -94,8 +94,10 @@ def main(txtPath, imgPath):
     
     domain = txtPath[-4:-1]
     #save extracted image and text features for offline 
-    joblib.dump((IMG_feat, TXT_feat), "img_txt_feat_n%s_cv%s_%s.pkl" %(testSize, nFolds, domain), compress=3)    
-
+    try:    
+        joblib.dump((IMG_feat, TXT_feat), "img_txt_feat_n%s_cv%s_%s.pkl" %(testSize, nFolds, domain), compress=3)    
+    except:
+        print 'error saving the data. possibly too big. look at log.'
     
     for train_index, test_index in skf:
         count += 1
