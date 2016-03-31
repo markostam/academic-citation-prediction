@@ -332,7 +332,7 @@ def plotROC(mean_fpr, mean_tpr, mean_auc, feature_type):
     plt.legend(loc="lower right")
     #plt.show()
 
-imgPath = '/Users/markostamenovic/Downloads/concat_jpg_cs/'
-txtPath = '/Users/markostamenovic/Downloads/txt_cs/'
+#imgPath = 
+#txtPath = 
 #main(sys.argv[1], sys.argv[2]) #for running from command line
 main(txtPath, imgPath) #for running from IDE
