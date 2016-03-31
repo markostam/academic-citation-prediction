@@ -19,6 +19,7 @@ from sklearn.externals import joblib
 import random
 from sklearn.metrics import roc_curve,f1_score,auc
 from scipy import interp
+import sift_pyocl as sift
 
 '''
 USAGE: python2 imgTxtClf.py /path/to/text /path/to/images
@@ -31,7 +32,7 @@ fpr_space = np.linspace(0, 1, 100)
 #image clusters
 imgVoc = 100
 #test size #SET TO NONE FOR FULL SET
-testSize = 1600
+testSize = None
 #number of folds for cv
 nFolds = 10
 ''''''
@@ -93,7 +94,7 @@ def main(txtPath, imgPath):
     count = 0
     
     #save extracted image and text features for offline 
-    #joblib.dump(IMG_feat, TXT_feat, "img_txt_feat_n%s_cv%s_med.pkl" %testSize %nFolds, compress=3)    
+    joblib.dump(IMG_feat, TXT_feat, "img_txt_feat_cs.pkl", compress=3)    
 
     
     for train_index, test_index in skf:
@@ -195,13 +196,13 @@ def main(txtPath, imgPath):
     plt.show()
     
     #save TPR's to CSV for plotting ROC elsewhere
-#    time = strftime("%Y-%m-%d_%H:%M:%S")
-#    txt = csv.writer(open("txt_tpr_%s.csv" %time, "wb"))
-#    txt.writerow(txt_mean_tpr)
-#    img = csv.writer(open("img_tpr_%s.csv" %time, "wb"))
-#    img.writerow(img_mean_tpr)
-#    ti = csv.writer(open("ti_tpr_%s.csv" %time, "wb"))
-#    ti.writerow(ti_mean_tpr)
+    time = strftime("%Y-%m-%d_%H:%M:%S")
+    txt = csv.writer(open("txt_tpr_%s.csv" %time, "wb"))
+    txt.writerow(txt_mean_tpr)
+    img = csv.writer(open("img_tpr_%s.csv" %time, "wb"))
+    img.writerow(img_mean_tpr)
+    ti = csv.writer(open("ti_tpr_%s.csv" %time, "wb"))
+    ti.writerow(ti_mean_tpr)
 
     print 'Function time:', time.time()-start, 'seconds.'
     
@@ -209,16 +210,21 @@ def main(txtPath, imgPath):
 #returns tuple with the matrix first, vocab second.
 def imgFeatExtract(image_paths, inVoc):
     # Create feature extraction and keypoint detector objects
-    sift = cv2.SURF()
+    #surf = cv2.SURF()
 
     # Extract features, combine with image storage location
     des_list = []
+    count = 1
     for image_path in image_paths:
         if ".jpg" in image_path:
-            print 'processing %s' %image_path
+            print 'processing image %s: %s' %(count, image_path)
             im = cv2.imread(image_path, cv2.COLOR_BGR2GRAY)
-            kpts, des = sift.detectAndCompute(im, None)
+            sift_ocl = sift.SiftPlan(template=im, devicetype='GPU')
+            des = sift_ocl.keypoints(im)
+            ###deleted because of memory leak in cv2###
+            #_, des = surf.detectAndCompute(im, None)
             des_list.append((image_path, des))
+            count+=1
 
     # Stack all the descriptors vertically in a numpy array
     descriptors = des_list[0][1]
