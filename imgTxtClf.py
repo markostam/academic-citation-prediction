@@ -33,7 +33,7 @@ fpr_space = np.linspace(0, 1, 500)
 #image clusters
 imgVoc = 100
 #test size #SET TO NONE FOR FULL SET
-testSize = None
+testSize = 100
 #number of folds for cv
 nFolds = 10
 ''''''
@@ -138,7 +138,7 @@ def main(txtPath, imgPath):
         txt_auc = auc(fpr, tpr)
         plotROC(fpr,tpr,txt_auc,'Text fold %d' %count)
         
-        fMeasure = f1_score(cls_test, txtPredict[count])
+        fMeasure = f1_score(cls_test, txtPredict[count-1])
         #append to overall list        
         txtRocs.append([fpr, tpr, thresholds])
         txtF1.append(fMeasure)
@@ -159,7 +159,7 @@ def main(txtPath, imgPath):
         pp.savefig()
         plt.show()        
         
-        fMeasure = f1_score(cls_test, imgPredict[count])
+        fMeasure = f1_score(cls_test, imgPredict[count-1])
         #append to overall list        
         imgRocs.append([fpr, tpr, thresholds])
         imgF1.append(fMeasure)
