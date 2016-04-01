@@ -20,6 +20,7 @@ import random
 from sklearn.metrics import roc_curve,f1_score,auc
 from scipy import interp
 import sift_pyocl as sift
+from matplotlib.backends.backend_pdf import PdfPages
 
 '''
 USAGE: python2 imgTxtClf.py /path/to/text /path/to/images
@@ -28,13 +29,13 @@ pulls only files that have both an image and text for sanitization
 
 '''GLOBALS'''
 #precision of ROC plots
-fpr_space = np.linspace(0, 1, 100)
+fpr_space = np.linspace(0, 1, 500)
 #image clusters
-imgVoc = 100
+imgVoc = 5
 #test size #SET TO NONE FOR FULL SET
-testSize = None
+testSize = 20
 #number of folds for cv
-nFolds = 10
+nFolds = 2
 ''''''
 
 def main(txtPath, imgPath):
@@ -88,7 +89,7 @@ def main(txtPath, imgPath):
     txtF1,imgF1,txtConfs,imgConfs,txtRocs,imgRocs = [],[],[],[],[],[]
     clsShuffled, namesShuffled= [],[] 
     txt_mean_tpr,img_mean_tpr = 0,0
-    fpr_space = np.linspace(0, 1, 100)
+    fpr_space = np.linspace(0, 1, 500)
     
     count = 0
     
@@ -98,6 +99,10 @@ def main(txtPath, imgPath):
         joblib.dump((IMG_feat, TXT_feat), "img_txt_feat_n%s_cv%s_%s.pkl" %(testSize, nFolds, domain), compress=3)    
     except:
         print 'error saving the data. possibly too big. look at log.'
+    
+    pp = PdfPages('img_txt_feat_n%s_cv%s_%s.pdf' %(testSize, nFolds, domain))
+    
+    
     
     for train_index, test_index in skf:
         count += 1
@@ -151,6 +156,7 @@ def main(txtPath, imgPath):
         img_mean_tpr[0] = 0
         img_auc = auc(fpr, tpr)
         plotROC(fpr,tpr,img_auc,'Image fold %d' %count)
+        pp.savefig()
         plt.show()        
         
         fMeasure = f1_score(cls_test, imgPredictions)
@@ -191,21 +197,38 @@ def main(txtPath, imgPath):
     print "F1: %0.2f (+/- %0.2f)" % (metaF1.mean(), metaF1.std() * 2)
     print 'AUC: %0.2f' %meta_mean_auc
     
+    
+    outtime = strftime("%Y-%m-%d_%H:%M:%S")
+    with open('Fscores_n%s_cv%s_%s.csv' %(testSize, nFolds, domain), 'w') as fp:
+        a = csv.writer(fp, delimiter=',')
+        data = [[outtime, 'F1', 'AUC'],
+                ['Text', "%0.2f (+/- %0.2f)" % (txtF1.mean(), txtF1.std() * 2),'%0.2f' %img_mean_auc],
+                ['Images', "%0.2f (+/- %0.2f)" % (imgF1.mean(), imgF1.std() * 2),'%0.2f' %img_mean_auc],
+                ['Combined', "%0.2f (+/- %0.2f)" % (metaF1.mean(), metaF1.std() * 2),'%0.2f' %meta_mean_auc]]
+        a.writerows(data)    
+    
     plt.figure()
     plotROC(fpr_space,txt_mean_tpr,txt_mean_auc,'Text')
     plotROC(fpr_space,img_mean_tpr,img_mean_auc,'Image')
     plotROC(fpr_space,meta_mean_tpr,meta_mean_auc,'Combined')
+    pp.savefig()
     plt.show()
     
     #save TPR's to CSV for plotting ROC elsewhere
-    outtime = strftime("%Y-%m-%d_%H:%M:%S")
-    txt = csv.writer(open("txt_tpr_%s_%s.csv" %(outtime, domain), "wb"))
-    txt.writerow(txt_mean_tpr)
-    img = csv.writer(open("img_tpr_%s_%s.csv" %(outtime, domain), "wb"))
-    img.writerow(img_mean_tpr)
-    ti = csv.writer(open("ti_tpr_%s_%s.csv" %(outtime, domain), "wb"))
-    ti.writerow(meta_mean_tpr)
+    ROCS = csv.writer(open('ROCS_n%s_cv%s_%s.csv' %(testSize, nFolds, domain), "ab"))
+    ROCS.writerow([["domain: %s" %domain],["n = %s" %testSize],["nFolds = %s" %domain],["%s" %outtime]])   
+    ROCS.writerow(txt_mean_tpr)
+    ROCS.writerow(img_mean_tpr)
+    ROCS.writerow(meta_mean_tpr)
 
+#    txt = csv.writer(open("txt_tpr_%s_%s.csv" %(outtime, domain), "wb"))
+#    txt.writerow(txt_mean_tpr)
+#    img = csv.writer(open("img_tpr_%s_%s.csv" %(outtime, domain), "wb"))
+#    img.writerow(img_mean_tpr)
+#    ti = csv.writer(open("ti_tpr_%s_%s.csv" %(outtime, domain), "wb"))
+#    ti.writerow(meta_mean_tpr)
+
+    pp.close()
     print 'Function time:', time.time()-start, 'seconds.'
     
 #take a list of image file names and transform them into a feature matrix. 
