@@ -31,11 +31,11 @@ pulls only files that have both an image and text for sanitization
 #precision of ROC plots
 fpr_space = np.linspace(0, 1, 500)
 #image clusters
-imgVoc = 5
+imgVoc = 100
 #test size #SET TO NONE FOR FULL SET
-testSize = 20
+testSize = None
 #number of folds for cv
-nFolds = 2
+nFolds = 10
 ''''''
 
 def main(txtPath, imgPath):
@@ -81,17 +81,17 @@ def main(txtPath, imgPath):
     
     #extract image features
     print 'extracting image features'
-    IMG_feat = imgFeatExtract(img,None)
+    IMG_feat = imgFeatExtract(img)
     print 'done'
 
     '''main k-fold cross validation loop'''
     print '\nPerforming %s fold cross validation' %nFolds
     txtF1,imgF1,txtConfs,imgConfs,txtRocs,imgRocs = [],[],[],[],[],[]
-    clsShuffled, namesShuffled= [],[] 
+    clsShuffled, namesShuffled= [],[]
+    imgPredict, txtPredict = [],[]
     txt_mean_tpr,img_mean_tpr = 0,0
     fpr_space = np.linspace(0, 1, 500)
     
-    count = 0
     
     domain = txtPath[-4:-1]
     #save extracted image and text features for offline 
@@ -103,7 +103,7 @@ def main(txtPath, imgPath):
     pp = PdfPages('img_txt_feat_n%s_cv%s_%s.pdf' %(testSize, nFolds, domain))
     
     
-    
+    count = 0
     for train_index, test_index in skf:
         count += 1
         plt.figure()        
@@ -131,14 +131,14 @@ def main(txtPath, imgPath):
         
         #get confidence and build roc curve
         txtConfs.append(txtClf.decision_function(TXT_test_feat))
-        txtPredictions = txtClf.predict(TXT_test_feat)
+        txtPredict.append(txtClf.predict(TXT_test_feat))
         fpr, tpr, thresholds = roc_curve(cls_test,txtConfs[count-1])
         txt_mean_tpr += interp(fpr_space, fpr, tpr)
         txt_mean_tpr[0] = 0
         txt_auc = auc(fpr, tpr)
         plotROC(fpr,tpr,txt_auc,'Text fold %d' %count)
         
-        fMeasure = f1_score(cls_test, txtPredictions)
+        fMeasure = f1_score(cls_test, txtPredict[count])
         #append to overall list        
         txtRocs.append([fpr, tpr, thresholds])
         txtF1.append(fMeasure)
@@ -150,7 +150,7 @@ def main(txtPath, imgPath):
 
         #get confidence and build roc curve
         imgConfs.append(imgClf.decision_function(IMG_test_feat[0]))
-        imgPredictions = imgClf.predict(IMG_test_feat[0])
+        imgPredict.append(imgClf.predict(IMG_test_feat[0]))
         fpr, tpr, thresholds = roc_curve(cls_test,imgConfs[count-1])
         img_mean_tpr += interp(fpr_space, fpr, tpr)
         img_mean_tpr[0] = 0
@@ -159,7 +159,7 @@ def main(txtPath, imgPath):
         pp.savefig()
         plt.show()        
         
-        fMeasure = f1_score(cls_test, imgPredictions)
+        fMeasure = f1_score(cls_test, imgPredict[count])
         #append to overall list        
         imgRocs.append([fpr, tpr, thresholds])
         imgF1.append(fMeasure)
@@ -173,14 +173,22 @@ def main(txtPath, imgPath):
     img_mean_tpr[-1] = 1.0
     img_mean_auc = auc(fpr_space, img_mean_tpr)
     
-    #joblib.dump((imgClf, txtClf, txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, txtF1, txt_mean_tpr, imgF1, img_mean_tpr), "n2000k100cv10.pkl", compress=3)    
+    try:
+        joblib.dump((txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc), "meta_input_n%s_cv%s_%s.pdf" %(testSize, nFolds, domain), compress=3)    
+    except:
+        print 'error saving metaclf input.'
+
     
     '''meta classifier'''
     metaF1, meta_mean_tpr, meta_mean_auc = metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc)
-
+    
+    '''nonlinear classifier'''
+    tiNL_F1, tiNL_tpr, tiNL_auc = nonlinClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, txtPredict, imgPredict)    
+    
     txtF1 = np.asarray(txtF1)
     imgF1 = np.asarray(imgF1)
     metaF1 = np.asarray(metaF1)
+    tiNLF1 = np.asarray(tiNL_F1)
     
     print '*******Output*******'
     #f1 score, 95% conf interval and AUC
@@ -197,6 +205,9 @@ def main(txtPath, imgPath):
     print "F1: %0.2f (+/- %0.2f)" % (metaF1.mean(), metaF1.std() * 2)
     print 'AUC: %0.2f' %meta_mean_auc
     
+    print '\nNonlinear:'
+    print "F1: %0.2f (+/- %0.2f)" % (metaF1.mean(), metaF1.std() * 2)
+    print 'AUC: %0.2f' %meta_mean_auc
     
     outtime = strftime("%Y-%m-%d_%H:%M:%S")
     with open('Fscores_n%s_cv%s_%s.csv' %(testSize, nFolds, domain), 'w') as fp:
@@ -204,13 +215,15 @@ def main(txtPath, imgPath):
         data = [[outtime, 'F1', 'AUC'],
                 ['Text', "%0.2f (+/- %0.2f)" % (txtF1.mean(), txtF1.std() * 2),'%0.2f' %img_mean_auc],
                 ['Images', "%0.2f (+/- %0.2f)" % (imgF1.mean(), imgF1.std() * 2),'%0.2f' %img_mean_auc],
-                ['Combined', "%0.2f (+/- %0.2f)" % (metaF1.mean(), metaF1.std() * 2),'%0.2f' %meta_mean_auc]]
+                ['Combined', "%0.2f (+/- %0.2f)" % (metaF1.mean(), metaF1.std() * 2),'%0.2f' %meta_mean_auc],
+                ['Nonlinear', "%0.2f (+/- %0.2f)" % (tiNLF1.mean(), tiNLF1.std() * 2),'%0.2f' %tiNL_auc]]
         a.writerows(data)    
     
     plt.figure()
     plotROC(fpr_space,txt_mean_tpr,txt_mean_auc,'Text')
     plotROC(fpr_space,img_mean_tpr,img_mean_auc,'Image')
     plotROC(fpr_space,meta_mean_tpr,meta_mean_auc,'Combined')
+    plotROC(fpr_space,tiNL_tpr,tiNL_auc,'Nonlinear')
     pp.savefig()
     plt.show()
     
@@ -220,6 +233,7 @@ def main(txtPath, imgPath):
     ROCS.writerow(txt_mean_tpr)
     ROCS.writerow(img_mean_tpr)
     ROCS.writerow(meta_mean_tpr)
+    ROCS.writerow(tiNL_tpr)
 
 #    txt = csv.writer(open("txt_tpr_%s_%s.csv" %(outtime, domain), "wb"))
 #    txt.writerow(txt_mean_tpr)
@@ -233,7 +247,7 @@ def main(txtPath, imgPath):
     
 #take a list of image file names and transform them into a feature matrix. 
 #returns tuple with the matrix first, vocab second.
-def imgFeatExtract(image_paths, inVoc):
+def imgFeatExtract(image_paths):
     # Create feature extraction and keypoint detector objects
     #surf = cv2.SURF()
 
@@ -254,19 +268,16 @@ def imgFeatExtract(image_paths, inVoc):
             count+=1
 
     # Stack all the descriptors vertically in a numpy array
+    print 'stacking descriptor features in numpy array'
     descriptors = des_list[0][1]
     for image_path, descriptor in des_list[1:]:
         if ".jpg" in image_path:
             descriptors = np.vstack((descriptors, descriptor))
-
-    k=imgVoc
-
-    if inVoc is None: #so that we can build vocab or not
-        # build vocabulary with k-means clustering
-        #vocabulary = centroids
-        print('performing image feature clustering K=%s' %k)
-        voc, variance = kmeans(descriptors, k, 1) #voc = visual vocabulary
-    else: voc=inVoc
+    
+    #vocabulary = cluster centroids
+    k=imgVoc #number of clusters
+    print('performing image feature clustering K=%s' %k)
+    voc, variance = kmeans(descriptors, k, 1) #voc = visual vocabulary
 
     # Calculate frequency vector
     print('creating img frequency vector')
@@ -286,6 +297,39 @@ def imgFeatExtract(image_paths, inVoc):
     #joblib.dump((clf, training_names, stdSlr, k, voc), "imgclf.pkl", compress=3)    
 
     return(im_features,voc)
+
+def nonlinClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, txtPredict, imgPredict):
+
+#    for fold in xrange(len(txtConfs)):
+#        txtConfs_wtd = [i*txt_auc_sqrt for i in txtConfs[fold]]
+#        imgConfs_wtd = [i*img_auc_sqrt for i in imgConfs[fold]]
+    #flatten lists, maintain correct order
+    txtConfs = list(itertools.chain(*txtConfs))
+    imgConfs = list(itertools.chain(*imgConfs))
+    txtPredict = list(itertools.chain(*txtPredict))
+    imgPredict = list(itertools.chain(*imgPredict))
+    clsShuffled = list(itertools.chain(*clsShuffled))
+    namesShuffled = list(itertools.chain(*namesShuffled))    
+       
+    txt_auc_sqrt = math.pow(txt_mean_auc, 1/2)
+    img_auc_sqrt = math.pow(img_mean_auc, 1/2)
+    
+    txtConfs_wtd = [i*txt_auc_sqrt for i in txtConfs]
+    imgConfs_wtd = [i*img_auc_sqrt for i in imgConfs]
+    
+    #nonlinear selector
+    tiNLPredict = [txtPredict[f] if txtConfs_wtd[f] >= imgConfs_wtd[f] else imgPredict[f] for f in xrange(len(txtPredict))]  
+    tiNLConfs = [txtConfs[f] if txtConfs_wtd[f] >= imgConfs_wtd[f] else imgConfs[f] for f in xrange(len(txtPredict))]     
+    
+    #get confidence and build roc curve
+    fpr, tpr, thresholds = roc_curve(clsShuffled,tiNLConfs[count-1])
+    tiNL_tpr = interp(fpr_space, fpr, tpr)
+    tiNL_tpr[0] = 0
+    tiNL_tpr[-1] = 1.0
+    tiNL_auc = auc(fpr_space, tiNL_tpr)       
+    tiNL_F1 = f1_score(clsShuffled, tiNLPredict)
+    
+    return tiNL_F1, tiNL_tpr, tiNL_auc     
 
 #metaclassifier trained on probability of the txt and img classifier's inputs
 def metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc):
@@ -361,7 +405,7 @@ def plotROC(mean_fpr, mean_tpr, mean_auc, feature_type):
     plt.ylim([-0.05, 1.05])
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
-    plt.title('%s Receiver operating characteristic plot' %feature_type)
+    plt.title('%s Receiver Operating Characteristic Plot' %feature_type)
     plt.legend(loc="lower right")
     #plt.show()
 
