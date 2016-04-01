@@ -322,7 +322,7 @@ def nonlinClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_
     tiNLConfs = [txtConfs[f] if txtConfs_wtd[f] >= imgConfs_wtd[f] else imgConfs[f] for f in xrange(len(txtPredict))]     
     
     #get confidence and build roc curve
-    fpr, tpr, thresholds = roc_curve(clsShuffled,tiNLConfs[count-1])
+    fpr, tpr, thresholds = roc_curve(clsShuffled,tiNLConfs)
     tiNL_tpr = interp(fpr_space, fpr, tpr)
     tiNL_tpr[0] = 0
     tiNL_tpr[-1] = 1.0
