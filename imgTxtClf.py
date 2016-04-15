@@ -6,6 +6,7 @@ import re
 import sys
 import csv
 import math
+import pickle
 import itertools
 from time import strftime
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -33,13 +34,15 @@ fpr_space = np.linspace(0, 1, 500)
 #image clusters
 imgVoc = 100
 #test size #SET TO NONE FOR FULL SET
-testSize = 100
+testSize = 3000
 #number of folds for cv
-nFolds = 10
+nFolds = 2
 ''''''
 
 def main(txtPath, imgPath):
     
+    domain = txtPath[-4:-1]
+
     names = [os.path.splitext(i)[0] for i in os.listdir(imgPath) if '.jpg' in i]    
     
     random.shuffle(names)
@@ -88,17 +91,16 @@ def main(txtPath, imgPath):
     print '\nPerforming %s fold cross validation' %nFolds
     txtF1,imgF1,txtConfs,imgConfs,txtRocs,imgRocs = [],[],[],[],[],[]
     clsShuffled, namesShuffled= [],[]
-    imgPredict, txtPredict = [],[]
+    imgPredict, txtPredict, imgProbas, txtProbas = [],[],[],[]
     txt_mean_tpr,img_mean_tpr = 0,0
     fpr_space = np.linspace(0, 1, 500)
-    
-    
-    domain = txtPath[-4:-1]
+       
     #save extracted image and text features for offline 
-    try:    
-        joblib.dump((IMG_feat, TXT_feat), "img_txt_feat_n%s_cv%s_%s.pkl" %(testSize, nFolds, domain), compress=3)    
-    except:
-        print 'error saving the data. possibly too big. look at log.'
+#    try:
+#        with open("img_txt_feat_n%s_cv%s_%s.pkl" %(testSize, nFolds, domain), 'wb') as handle:
+#            pickle.dump((IMG_feat, TXT_feat), handle)    
+#    except:
+#        print 'error saving the data. possibly too big. look at log.'
     
     pp = PdfPages('img_txt_feat_n%s_cv%s_%s.pdf' %(testSize, nFolds, domain))
     
@@ -123,7 +125,7 @@ def main(txtPath, imgPath):
 
         '''text classifier'''
         print 'training text classifier'
-        txtClf=SVC(kernel='linear', probability=False, random_state = random.randint(0,10000))
+        txtClf=SVC(kernel='linear', probability=True, random_state = random.randint(0,10000))
         txtClf.fit(TXT_train_feat,cls_train)
 
         #save the text clf
@@ -132,6 +134,7 @@ def main(txtPath, imgPath):
         #get confidence and build roc curve
         txtConfs.append(txtClf.decision_function(TXT_test_feat))
         txtPredict.append(txtClf.predict(TXT_test_feat))
+        txtProbas.append(txtClf.predict_proba(TXT_test_feat))
         fpr, tpr, thresholds = roc_curve(cls_test,txtConfs[count-1])
         txt_mean_tpr += interp(fpr_space, fpr, tpr)
         txt_mean_tpr[0] = 0
@@ -143,14 +146,18 @@ def main(txtPath, imgPath):
         txtRocs.append([fpr, tpr, thresholds])
         txtF1.append(fMeasure)
         
+        #print and save most informative features
+        show_most_informative_features(txtExtract, txtClf, testSize, nFolds, domain, n=20)        
+        
         '''image classifier'''
-        imgClf=SVC(kernel='rbf', probability=False, random_state = random.randint(0,10000))
+        imgClf=SVC(kernel='rbf', probability=True, random_state = random.randint(0,10000))
         print 'training image classifier'       
         imgClf.fit(IMG_train_feat[0],cls_train)
 
         #get confidence and build roc curve
         imgConfs.append(imgClf.decision_function(IMG_test_feat[0]))
         imgPredict.append(imgClf.predict(IMG_test_feat[0]))
+        imgProbas.append(imgClf.predict_proba(IMG_test_feat[0]))
         fpr, tpr, thresholds = roc_curve(cls_test,imgConfs[count-1])
         img_mean_tpr += interp(fpr_space, fpr, tpr)
         img_mean_tpr[0] = 0
@@ -174,7 +181,7 @@ def main(txtPath, imgPath):
     img_mean_auc = auc(fpr_space, img_mean_tpr)
     
     try:
-        joblib.dump((txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc), "meta_input_n%s_cv%s_%s.pdf" %(testSize, nFolds, domain), compress=3)    
+        joblib.dump((txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, imgProbas, txtProbas, txtPredict, imgPredict, imgClf, txtClf), "meta_input_n%s_cv%s_%s.pkl" %(testSize, nFolds, domain), compress=3)    
     except:
         print 'error saving metaclf input.'
 
@@ -183,7 +190,7 @@ def main(txtPath, imgPath):
     metaF1, meta_mean_tpr, meta_mean_auc = metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc)
     
     '''nonlinear classifier'''
-    tiNL_F1, tiNL_tpr, tiNL_auc = nonlinClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, txtPredict, imgPredict)    
+    tiNL_F1, tiNL_tpr, tiNL_auc = nonlinClf(txtProbas, imgProbas, txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, txtPredict, imgPredict)    
     
     txtF1 = np.asarray(txtF1)
     imgF1 = np.asarray(imgF1)
@@ -213,7 +220,7 @@ def main(txtPath, imgPath):
     with open('Fscores_n%s_cv%s_%s.csv' %(testSize, nFolds, domain), 'w') as fp:
         a = csv.writer(fp, delimiter=',')
         data = [[outtime, 'F1', 'AUC'],
-                ['Text', "%0.2f (+/- %0.2f)" % (txtF1.mean(), txtF1.std() * 2),'%0.2f' %img_mean_auc],
+                ['Text', "%0.2f (+/- %0.2f)" % (txtF1.mean(), txtF1.std() * 2),'%0.2f' %txt_mean_auc],
                 ['Images', "%0.2f (+/- %0.2f)" % (imgF1.mean(), imgF1.std() * 2),'%0.2f' %img_mean_auc],
                 ['Combined', "%0.2f (+/- %0.2f)" % (metaF1.mean(), metaF1.std() * 2),'%0.2f' %meta_mean_auc],
                 ['Nonlinear', "%0.2f (+/- %0.2f)" % (tiNLF1.mean(), tiNLF1.std() * 2),'%0.2f' %tiNL_auc]]
@@ -222,8 +229,8 @@ def main(txtPath, imgPath):
     plt.figure()
     plotROC(fpr_space,txt_mean_tpr,txt_mean_auc,'Text')
     plotROC(fpr_space,img_mean_tpr,img_mean_auc,'Image')
-    plotROC(fpr_space,meta_mean_tpr,meta_mean_auc,'Combined')
     plotROC(fpr_space,tiNL_tpr,tiNL_auc,'Nonlinear')
+    plotROC(fpr_space,meta_mean_tpr,meta_mean_auc,'Combined')
     pp.savefig()
     plt.show()
     
@@ -257,8 +264,10 @@ def imgFeatExtract(image_paths):
     for image_path in image_paths:
         if ".jpg" in image_path:
             print 'processing image %s: \n%s' %(count, image_path)
-            im = cv2.imread(image_path, cv2.COLOR_BGR2GRAY)
-            sift_ocl = sift.SiftPlan(template=im, devicetype='GPU')
+            im = cv2.imread(image_path, 1) #read in image
+            im = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY) #convert to grayscale
+            im = cv2.resize(im, (im.shape[1],300)) #normalize shape
+            sift_ocl = sift.SiftPlan(template=im, devicetype='GPU2')
             des = sift_ocl.keypoints(im)
             des = np.asarray([des[i][4] for i in xrange(len(des))])
             des = np.float32(des)
@@ -269,10 +278,17 @@ def imgFeatExtract(image_paths):
 
     # Stack all the descriptors vertically in a numpy array
     print 'stacking descriptor features in numpy array'
+    count=1    
     descriptors = des_list[0][1]
     for image_path, descriptor in des_list[1:]:
-        if ".jpg" in image_path:
-            descriptors = np.vstack((descriptors, descriptor))
+        try:        
+            if ".jpg" in image_path:
+                print 'stacking image %s: \n%s' %(count, image_path)
+                descriptors = np.vstack((descriptors, descriptor))
+                count+=1
+        except:
+            print 'error! image %s: wrong size \n%s' %(count, image_path)
+            pass
     
     #vocabulary = cluster centroids
     k=imgVoc #number of clusters
@@ -298,7 +314,7 @@ def imgFeatExtract(image_paths):
 
     return(im_features,voc)
 
-def nonlinClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, txtPredict, imgPredict):
+def nonlinClf(txtProbas, imgProbas, txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, txtPredict, imgPredict):
 
 #    for fold in xrange(len(txtConfs)):
 #        txtConfs_wtd = [i*txt_auc_sqrt for i in txtConfs[fold]]
@@ -308,21 +324,25 @@ def nonlinClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_
     imgConfs = list(itertools.chain(*imgConfs))
     txtPredict = list(itertools.chain(*txtPredict))
     imgPredict = list(itertools.chain(*imgPredict))
+    txtProbas = list([max(i) for i in list(itertools.chain(*txtProbas))])
+    imgProbas = list([max(i) for i in list(itertools.chain(*imgProbas))])
     clsShuffled = list(itertools.chain(*clsShuffled))
     namesShuffled = list(itertools.chain(*namesShuffled))    
        
     txt_auc_sqrt = math.pow(txt_mean_auc, 1/2)
     img_auc_sqrt = math.pow(img_mean_auc, 1/2)
     
-    txtConfs_wtd = [i*txt_auc_sqrt for i in txtConfs]
-    imgConfs_wtd = [i*img_auc_sqrt for i in imgConfs]
-    
+    #txtConfs_wtd = [i*txt_auc_sqrt for i in txtConfs]
+    #imgConfs_wtd = [i*img_auc_sqrt for i in imgConfs]
+    txtProbas_wtd = [i*txt_auc_sqrt for i in txtProbas]
+    imgProbas_wtd = [i*img_auc_sqrt for i in imgProbas]
+
     #nonlinear selector
-    tiNLPredict = [txtPredict[f] if txtConfs_wtd[f] >= imgConfs_wtd[f] else imgPredict[f] for f in xrange(len(txtPredict))]  
-    tiNLConfs = [txtConfs[f] if txtConfs_wtd[f] >= imgConfs_wtd[f] else imgConfs[f] for f in xrange(len(txtPredict))]     
+    tiNLPredict = [txtPredict[f] if txtProbas_wtd[f]+0.25 >= imgProbas_wtd[f] else imgPredict[f] for f in xrange(len(txtPredict))]  
+    tiNLConfs = [txtConfs[f] if txtProbas_wtd[f]+0.25 >= imgProbas_wtd[f] else imgConfs[f] for f in xrange(len(txtPredict))]     
     
     #get confidence and build roc curve
-    fpr, tpr, thresholds = roc_curve(clsShuffled,tiNLConfs[count-1])
+    fpr, tpr, thresholds = roc_curve(clsShuffled,tiNLConfs)
     tiNL_tpr = interp(fpr_space, fpr, tpr)
     tiNL_tpr[0] = 0
     tiNL_tpr[-1] = 1.0
@@ -339,6 +359,9 @@ def metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_me
     imgConfs = list(itertools.chain(*imgConfs))
     clsShuffled = list(itertools.chain(*clsShuffled))
     namesShuffled = list(itertools.chain(*namesShuffled))
+    #txtProbas = [max(i) for i in list(itertools.chain(*txtProbas))]
+    #imgProbas = [max(i) for i in list(itertools.chain(*imgProbas))]
+
     
     txt_auc_sqrt = math.pow(txt_mean_auc, 1/2)
     img_auc_sqrt = math.pow(img_mean_auc, 1/2)
@@ -370,7 +393,7 @@ def metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_me
         namesReshuffled.append([namesShuffled[i] for i in test_index]) #keep track of reshuffled filenames
 
         #train the metaclassifier
-        metaClf=SVC(kernel='rbf', probability=False, random_state = random.randint(0,10000))
+        metaClf=SVC(kernel='rbf', probability=False, decision_function_shape='ovr', gamma = 0.01, random_state = random.randint(0,10000))
         metaClf.fit(META_train,cls_train)
         
         #get confidence and build roc curve
@@ -409,7 +432,19 @@ def plotROC(mean_fpr, mean_tpr, mean_auc, feature_type):
     plt.legend(loc="lower right")
     #plt.show()
 
+#function to print and save most informative text features in classifier
+def show_most_informative_features(vectorizer, clf, testSize, nFolds, domain, n=20):
+    feature_names = vectorizer.get_feature_names()
+    coefs_with_fns = sorted(zip(clf.coef_[0], feature_names))
+    top = zip(coefs_with_fns[:n], coefs_with_fns[:-(n + 1):-1])
+    with open('infoGain_n%s_cv%s_%s.csv' %(testSize, nFolds, domain), 'w') as fp:   
+        for (coef_1, fn_1), (coef_2, fn_2) in top:
+            print "\t%.4f\t%-15s\t\t%.4f\t%-15s" % (round(coef_1,2), fn_1, round(coef_2,2), fn_2)
+            a = csv.writer(fp, delimiter=',')
+            row = [[round(coef_1,2), fn_1.encode('ascii', 'ignore'), round(coef_2,2), fn_2.encode('ascii', 'ignore')]]
+            a.writerows(row)    
+
 #imgPath = 
 #txtPath = 
-#main(sys.argv[1], sys.argv[2]) #for running from command line
-main(txtPath, imgPath) #for running from IDE
+#main(txtPath, imgPath) #for running from IDE
+main(sys.argv[1], sys.argv[2]) #for running from command line
