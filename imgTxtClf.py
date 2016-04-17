@@ -37,12 +37,15 @@ imgVoc = 100
 testSize = 2000
 #number of folds for cv
 nFolds = 2
+#granularity of roc curve
+fpr_space = np.linspace(0, 1, 500)
 ''''''
 
 def main(txtPath, imgPath):
     
     #get txt img and class values. also set domain name for file output.
     txt,img,cls = getPathsCitations(imgPath, txtPath)
+    #check if we are usin more than one domain
     if imgPath2:
         txt2,img2,cls2 = getPathsCitations(imgPath2, txtPath2)
         txt+=txt2
@@ -53,8 +56,6 @@ def main(txtPath, imgPath):
         domain = txtPath[-4:-1]
         
 
-    #define stratified crosss validation scheme
-    skf = StratifiedKFold(cls, n_folds=nFolds, shuffle=True)
     
     #extract text features
     txtExtract=TfidfVectorizer(input='filename',stop_words='english')
@@ -67,90 +68,74 @@ def main(txtPath, imgPath):
     print 'extracting image features'
     IMG_feat = imgFeatExtract(img)
     print 'done'
-
-    '''main k-fold cross validation loop'''
-    print '\nPerforming %s fold cross validation' %nFolds
-    txtF1,imgF1,txtConfs,imgConfs,txtRocs,imgRocs = [],[],[],[],[],[]
-    clsShuffled, namesShuffled= [],[]
-    imgPredict, txtPredict, imgProbas, txtProbas = [],[],[],[]
-    txt_mean_tpr,img_mean_tpr = 0,0
-    fpr_space = np.linspace(0, 1, 500)
-       
-    #save extracted image and text features for offline 
-#    try:
-#        with open("img_txt_feat_n%s_cv%s_%s.pkl" %(testSize, nFolds, domain), 'wb') as handle:
-#            pickle.dump((IMG_feat, TXT_feat), handle)    
-#    except:
-#        print 'error saving the data. possibly too big. look at log.'
     
+    '''save extracted image and text features for later
+    #not worth it about 15gb of data
+    try:
+        with open("img_txt_feat_n%s_cv%s_%s.pkl" %(testSize, nFolds, domain), 'wb') as handle:
+            pickle.dump((IMG_feat, TXT_feat), handle)    
+    except:
+        print 'error saving the data. possibly too big. look at log.'''
+    
+    #initiate test report pdf
     pp = PdfPages('img_txt_feat_n%s_cv%s_%s.pdf' %(testSize, nFolds, domain))
     
+    '''main k-fold cross validation loop'''
+    print '\nPerforming %s fold cross validation' %nFolds
+    #define stratified crosss validation scheme
+    skf = StratifiedKFold(cls, n_folds=nFolds, shuffle=True)
     
+    #initiate clf/stats variables    
+    txtF1, txtRocs = [],[]
+    imgF1, imgRocs = [],[]
+    clsShuffled, namesShuffled= [],[]
+    txt_mean_tpr,img_mean_tpr = 0,0
+
     count = 0
     for train_index, test_index in skf:
         count += 1
         plt.figure()        
         
-        #print some stuff about data split then split it        
+        #split data into test and train sets for this fold        
         print '\n*******Fold %s********' %count
         #print "TRAIN: %s" %train_index, "\nTEST: %s" %test_index 
         IMG_train_feat, IMG_test_feat = ([IMG_feat[0][i] for i in train_index],IMG_feat[1]), ([IMG_feat[0][i] for i in test_index],IMG_feat[1])
         TXT_train_feat, TXT_test_feat = [TXT_feat[i] for i in train_index], [TXT_feat[i] for i in test_index]
         cls_train, cls_test = [cls[i] for i in train_index], [cls[i] for i in test_index]    
         names_train, names_test = [txt[i] for i in train_index], [txt[i] for i in test_index]    
-
         
         #keep track of order of filenames and class for metaclassifier
         clsShuffled.append(cls_test)
         namesShuffled.append(names_test)
 
         '''text classifier'''
-        print 'training text classifier'
-        txtClf=SVC(kernel='linear', probability=True, random_state = random.randint(0,10000))
-        txtClf.fit(TXT_train_feat,cls_train)
-
-        #save the text clf
-        #joblib.dump((txtClf, TXT_train_feat, TXT_test_feat, cls_train, cls_test), "txtClf.pkl", compress=3)    
-        
-        #get confidence and build roc curve
-        txtConfs.append(txtClf.decision_function(TXT_test_feat))
-        txtPredict.append(txtClf.predict(TXT_test_feat))
-        txtProbas.append(txtClf.predict_proba(TXT_test_feat))
-        fpr, tpr, thresholds = roc_curve(cls_test,txtConfs[count-1])
+        #train classifier and get values
+        kernel='linear'
+        txtConfs, txtProbas, txtPredict, txtClf, fpr, tpr, thresholds, fMeasure, txt_auc = trainSVM(TXT_train_feat,cls_train,TXT_test_feat,cls_test,count,kernel)        
+        #append to overall text values
         txt_mean_tpr += interp(fpr_space, fpr, tpr)
         txt_mean_tpr[0] = 0
-        txt_auc = auc(fpr, tpr)
-        plotROC(fpr,tpr,txt_auc,'Text fold %d' %count)
-        
-        fMeasure = f1_score(cls_test, txtPredict[count-1])
-        #append to overall list        
         txtRocs.append([fpr, tpr, thresholds])
         txtF1.append(fMeasure)
-        
-        #print and save most informative features
+        #plot text roc
+        plotROC(fpr,tpr,txt_auc,'Text fold %d' %count)
+        #print and save most informative txt features by coefficient weight
         show_most_informative_features(txtExtract, txtClf, testSize, nFolds, domain, count, n=20)        
         
         '''image classifier'''
-        imgClf=SVC(kernel='rbf', probability=True, random_state = random.randint(0,10000))
-        print 'training image classifier'       
-        imgClf.fit(IMG_train_feat[0],cls_train)
-
-        #get confidence and build roc curve
-        imgConfs.append(imgClf.decision_function(IMG_test_feat[0]))
-        imgPredict.append(imgClf.predict(IMG_test_feat[0]))
-        imgProbas.append(imgClf.predict_proba(IMG_test_feat[0]))
-        fpr, tpr, thresholds = roc_curve(cls_test,imgConfs[count-1])
+        #train classifier and get values
+        kernel='rbf'
+        imgConfs, imgProbas, imgPredict, imgClf, fpr, tpr, thresholds, fMeasure, img_auc = trainSVM(IMG_train_feat,cls_train,IMG_test_feat,cls_test,count,kernel)        
+        #append to overall text values
         img_mean_tpr += interp(fpr_space, fpr, tpr)
         img_mean_tpr[0] = 0
-        img_auc = auc(fpr, tpr)
-        plotROC(fpr,tpr,img_auc,'Image fold %d' %count)
-        pp.savefig()
-        plt.show()        
-        
-        fMeasure = f1_score(cls_test, imgPredict[count-1])
-        #append to overall list        
         imgRocs.append([fpr, tpr, thresholds])
         imgF1.append(fMeasure)
+        #plot image roc
+        plotROC(fpr,tpr,img_auc,'Image fold %d' %count)
+        #save and show figure
+        pp.savefig()
+        plt.show() 
         
     '''calculate results'''
     txt_mean_tpr /= nFolds
@@ -161,11 +146,11 @@ def main(txtPath, imgPath):
     img_mean_tpr[-1] = 1.0
     img_mean_auc = auc(fpr_space, img_mean_tpr)
     
+    '''save outputs of text and image svm's'''
     try:
         joblib.dump((txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, imgProbas, txtProbas, txtPredict, imgPredict, imgClf, txtClf), "meta_input_n%s_cv%s_%s.pkl" %(testSize, nFolds, domain), compress=3)    
     except:
         print 'error saving metaclf input.'
-
     
     '''meta classifier'''
     metaF1, meta_mean_tpr, meta_mean_auc = metaClf(txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc)
@@ -458,6 +443,24 @@ def getPathsCitations(imgPath, txtPath):
     
     return txt, img, cls
 
+def trainSVM(train_feat,train_values,test_feat,test_values,cv_fold,kernel):
+    
+    confs,predicts,probas = [],[],[]
+    
+    print 'training text classifier'
+    clf=SVC(kernel=kernel, probability=True, random_state = random.randint(0,10000))
+    clf.fit(train_feat,train_values)
+   
+    #get confidence and build roc curve
+    confs = clf.decision_function(test_feat)
+    predicts = clf.predict(test_feat)
+    probas = clf.predict_proba(test_feat)
+    fpr, tpr, thresholds = roc_curve(test_values,confs)
+    AUC = auc(fpr, tpr)
+    fMeasure = f1_score(test_values, predicts)
+
+    return confs, probas, predicts, clf, fpr, tpr, thresholds, fMeasure, AUC
+    
 #imgPath = 
 #txtPath = 
 ##main(txtPath, imgPath) #for running from IDE
