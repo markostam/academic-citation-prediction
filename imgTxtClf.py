@@ -80,17 +80,17 @@ def main(txtPath, imgPath):
     #initiate test report pdf
     pp = PdfPages('img_txt_feat_n%s_cv%s_%s.pdf' %(testSize, nFolds, domain))
     
-    '''main k-fold cross validation loop'''
+    '''do txt and image classification with cv'''
     print '\nPerforming %s fold cross validation' %nFolds
     #define stratified crosss validation scheme
     skf = StratifiedKFold(cls, n_folds=nFolds, shuffle=True)
-    
     #initiate clf/stats variables    
     txtF1, txtRocs = [],[]
     imgF1, imgRocs = [],[]
     clsShuffled, namesShuffled= [],[]
     txt_mean_tpr,img_mean_tpr = 0,0
-
+    
+    #main cv loop
     count = 0
     for train_index, test_index in skf:
         count += 1
@@ -163,25 +163,15 @@ def main(txtPath, imgPath):
     metaF1 = np.asarray(metaF1)
     tiNLF1 = np.asarray(tiNL_F1)
     
+    '''print output'''
     print '*******Output*******'
     #f1 score, 95% conf interval and AUC
+    printStats(txtF1,txt_mean_auc,Text)
+    printStats(imgF1,img_mean_auc,Text)
+    printStats(metaF1,meta_mean_auc,Text)
+    printStats(txtF1,tiNL_auc,Text)
     
-    print '\nText:'
-    print "F1: %0.2f (+/- %0.2f)" % (txtF1.mean(), txtF1.std() * 2)
-    print 'AUC: %0.2f' %txt_mean_auc
-    
-    print '\nImages:'
-    print "F1: %0.2f (+/- %0.2f)" % (imgF1.mean(), imgF1.std() * 2)
-    print 'AUC: %0.2f' %img_mean_auc
-
-    print '\nCombined:'
-    print "F1: %0.2f (+/- %0.2f)" % (metaF1.mean(), metaF1.std() * 2)
-    print 'AUC: %0.2f' %meta_mean_auc
-    
-    print '\nNonlinear:'
-    print "F1: %0.2f (+/- %0.2f)" % (metaF1.mean(), metaF1.std() * 2)
-    print 'AUC: %0.2f' %meta_mean_auc
-    
+    '''save output'''
     outtime = strftime("%Y-%m-%d_%H:%M:%S")
     with open('Fscores_n%s_cv%s_%s.csv' %(testSize, nFolds, domain), 'w') as fp:
         a = csv.writer(fp, delimiter=',')
@@ -192,6 +182,7 @@ def main(txtPath, imgPath):
                 ['Nonlinear', "%0.2f (+/- %0.2f)" % (tiNLF1.mean(), tiNLF1.std() * 2),'%0.2f' %tiNL_auc]]
         a.writerows(data)    
     
+    '''plot overall roc's'''
     plt.figure()
     plotROC(fpr_space,txt_mean_tpr,txt_mean_auc,'Text')
     plotROC(fpr_space,img_mean_tpr,img_mean_auc,'Image')
@@ -199,25 +190,26 @@ def main(txtPath, imgPath):
     plotROC(fpr_space,meta_mean_tpr,meta_mean_auc,'Combined')
     pp.savefig()
     plt.show()
+    pp.close()
     
-    #save TPR's to CSV for plotting ROC elsewhere
+    '''save TPR's to CSV for plotting ROC elsewhere'''
     ROCS = csv.writer(open('ROCS_n%s_cv%s_%s.csv' %(testSize, nFolds, domain), "ab"))
     ROCS.writerow([["domain: %s" %domain],["n = %s" %testSize],["nFolds = %s" %domain],["%s" %outtime]])   
     ROCS.writerow(txt_mean_tpr)
     ROCS.writerow(img_mean_tpr)
     ROCS.writerow(meta_mean_tpr)
     ROCS.writerow(tiNL_tpr)
-
-#    txt = csv.writer(open("txt_tpr_%s_%s.csv" %(outtime, domain), "wb"))
-#    txt.writerow(txt_mean_tpr)
-#    img = csv.writer(open("img_tpr_%s_%s.csv" %(outtime, domain), "wb"))
-#    img.writerow(img_mean_tpr)
-#    ti = csv.writer(open("ti_tpr_%s_%s.csv" %(outtime, domain), "wb"))
-#    ti.writerow(meta_mean_tpr)
-
-    pp.close()
-    print 'Function time:', time.time()-start, 'seconds.'
     
+    print 'Function time:', time.time()-start, 'seconds.'
+'''
+     txt = csv.writer(open("txt_tpr_%s_%s.csv" %(outtime, domain), "wb"))
+     txt.writerow(txt_mean_tpr)
+     img = csv.writer(open("img_tpr_%s_%s.csv" %(outtime, domain), "wb"))
+     img.writerow(img_mean_tpr)
+     ti = csv.writer(open("ti_tpr_%s_%s.csv" %(outtime, domain), "wb"))
+     ti.writerow(meta_mean_tpr)
+'''
+ 
 #take a list of image file names and transform them into a feature matrix. 
 #returns tuple with the matrix first, vocab second.
 def imgFeatExtract(image_paths):
@@ -460,6 +452,11 @@ def trainSVM(train_feat,train_values,test_feat,test_values,cv_fold,kernel):
     fMeasure = f1_score(test_values, predicts)
 
     return confs, probas, predicts, clf, fpr, tpr, thresholds, fMeasure, AUC
+    
+def printStats(F1,AUC,featureName):
+    print '\n%s:' %featureName
+    print "F1: %0.2f (+/- %0.2f)" % (F1.mean(), F1.std()*2)
+    print 'AUC: %0.2f' %AUC
     
 #imgPath = 
 #txtPath = 
