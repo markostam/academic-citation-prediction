@@ -6,7 +6,7 @@ import re
 import sys
 import csv
 import math
-import pickle
+import text
 import itertools
 from time import strftime
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -56,9 +56,15 @@ def main(txtPath, imgPath):
         domain = txtPath[-4:-1]
         
 
+    #define custom stop words
+    my_words=[]
+    #add years
+    for i in range (1980,2020):
+        my_words.append(str(i))
+    my_stop_words = text.ENGLISH_STOP_WORDS.union(my_words)
     
     #extract text features
-    txtExtract=TfidfVectorizer(input='filename',stop_words='english')
+    txtExtract=TfidfVectorizer(input='filename',stop_words=set(my_stop_words))
     print 'extracting text features'
     TXT_feat=txtExtract.fit_transform(txt)
     TXT_feat=TXT_feat.toarray()
@@ -274,9 +280,6 @@ def imgFeatExtract(image_paths):
 
 def nonlinClf(txtProbas, imgProbas, txtConfs, imgConfs, clsShuffled, namesShuffled, txt_mean_auc, img_mean_auc, txtPredict, imgPredict):
 
-#    for fold in xrange(len(txtConfs)):
-#        txtConfs_wtd = [i*txt_auc_sqrt for i in txtConfs[fold]]
-#        imgConfs_wtd = [i*img_auc_sqrt for i in imgConfs[fold]]
     #flatten lists, maintain correct order
     txtConfs = list(itertools.chain(*txtConfs))
     imgConfs = list(itertools.chain(*imgConfs))
@@ -464,4 +467,3 @@ def printStats(F1,AUC,featureName):
 #main(sys.argv[1], sys.argv[2]) #for running from command line
 ##main(sys.argv[1], sys.argv[2]) #for running from command line
 main(txtPath, imgPath) #for running from IDE
-#
