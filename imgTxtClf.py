@@ -34,43 +34,24 @@ fpr_space = np.linspace(0, 1, 500)
 #image clusters
 imgVoc = 100
 #test size #SET TO NONE FOR FULL SET
-testSize = 3000
+testSize = 2000
 #number of folds for cv
 nFolds = 2
 ''''''
 
 def main(txtPath, imgPath):
     
-    domain = txtPath[-4:-1]
-
-    names = [os.path.splitext(i)[0] for i in os.listdir(imgPath) if '.jpg' in i]    
-    
-    random.shuffle(names)
-    
-    ###TEST FOR SMALER SUBSETS###
-    if testSize is not None:
-        names = [random.choice(names) for i in range(0,testSize)]
-
-    #regex to find class, divided into the same sublistings
-    pattern=re.compile(r"([0-9]+)-")
-    img,txt,cls = [],[],[]
-    cite_high = 10 #divider for high vs low citations
-
-    #split papers into high vs low cited True = high, False = low
-    for f in names:
+    #get txt img and class values. also set domain name for file output.
+    txt,img,cls = getPathsCitations(imgPath, txtPath)
+    if imgPath2:
+        txt2,img2,cls2 = getPathsCitations(imgPath2, txtPath2)
+        txt+=txt2
+        img+=img2
+        cls+=cls2
+        domain = 'all'
+    else:
+        domain = txtPath[-4:-1]
         
-        cites=pattern.search(f)
-        if cites:
-            if int(cites.group(1)) >= cite_high: 
-                cls.append(True) 
-            else: 
-                cls.append(False)
-        else: 
-            print(f)
-            print("WARNING: file name not formatted correctly. giving up.")
-            exit()
-        txt.append(os.path.join(txtPath,f)+".pdf.txt")
-        img.append(os.path.join(imgPath,f)+".jpg")
 
     #define stratified crosss validation scheme
     skf = StratifiedKFold(cls, n_folds=nFolds, shuffle=True)
@@ -147,7 +128,7 @@ def main(txtPath, imgPath):
         txtF1.append(fMeasure)
         
         #print and save most informative features
-        show_most_informative_features(txtExtract, txtClf, testSize, nFolds, domain, n=20)        
+        show_most_informative_features(txtExtract, txtClf, testSize, nFolds, domain, count, n=20)        
         
         '''image classifier'''
         imgClf=SVC(kernel='rbf', probability=True, random_state = random.randint(0,10000))
@@ -229,7 +210,7 @@ def main(txtPath, imgPath):
     plt.figure()
     plotROC(fpr_space,txt_mean_tpr,txt_mean_auc,'Text')
     plotROC(fpr_space,img_mean_tpr,img_mean_auc,'Image')
-    plotROC(fpr_space,tiNL_tpr,tiNL_auc,'Nonlinear')
+    #plotROC(fpr_space,tiNL_tpr,tiNL_auc,'Nonlinear')
     plotROC(fpr_space,meta_mean_tpr,meta_mean_auc,'Combined')
     pp.savefig()
     plt.show()
@@ -433,18 +414,54 @@ def plotROC(mean_fpr, mean_tpr, mean_auc, feature_type):
     #plt.show()
 
 #function to print and save most informative text features in classifier
-def show_most_informative_features(vectorizer, clf, testSize, nFolds, domain, n=20):
+def show_most_informative_features(vectorizer, clf, testSize, nFolds, domain, count, n=20):
     feature_names = vectorizer.get_feature_names()
     coefs_with_fns = sorted(zip(clf.coef_[0], feature_names))
     top = zip(coefs_with_fns[:n], coefs_with_fns[:-(n + 1):-1])
-    with open('infoGain_n%s_cv%s_%s.csv' %(testSize, nFolds, domain), 'w') as fp:   
+    with open('infoGain_n%s_cv%s_%s_foldNum%s.csv' %(testSize, nFolds, domain, count), 'w') as fp:   
         for (coef_1, fn_1), (coef_2, fn_2) in top:
             print "\t%.4f\t%-15s\t\t%.4f\t%-15s" % (round(coef_1,2), fn_1, round(coef_2,2), fn_2)
             a = csv.writer(fp, delimiter=',')
             row = [[round(coef_1,2), fn_1.encode('ascii', 'ignore'), round(coef_2,2), fn_2.encode('ascii', 'ignore')]]
-            a.writerows(row)    
+            a.writerows(row)
+            
+# get image and text paths and citation counts
+def getPathsCitations(imgPath, txtPath):
+    names = [os.path.splitext(i)[0] for i in os.listdir(imgPath) if '.jpg' in i]
+  
+    random.shuffle(names)
+    
+    ###TEST FOR SMALER SUBSETS###
+    if testSize is not None:
+        names = [random.choice(names) for i in range(0,testSize)]
+
+    #regex to find class, divided into the same sublistings
+    pattern=re.compile(r"([0-9]+)-")
+    img,txt,cls = [],[],[]
+    cite_high = 10 #divider for high vs low citations
+
+    #split papers into high vs low cited True = high, False = low
+    for f in names:
+        
+        cites=pattern.search(f)
+        if cites:
+            if int(cites.group(1)) >= cite_high: 
+                cls.append(True) 
+            else: 
+                cls.append(False)
+        else: 
+            print(f)
+            print("WARNING: file name not formatted correctly. giving up.")
+            exit()
+        txt.append(os.path.join(txtPath,f)+".pdf.txt")
+        img.append(os.path.join(imgPath,f)+".jpg")
+    
+    return txt, img, cls
 
 #imgPath = 
 #txtPath = 
-#main(txtPath, imgPath) #for running from IDE
-main(sys.argv[1], sys.argv[2]) #for running from command line
+##main(txtPath, imgPath) #for running from IDE
+#main(sys.argv[1], sys.argv[2]) #for running from command line
+##main(sys.argv[1], sys.argv[2]) #for running from command line
+main(txtPath, imgPath) #for running from IDE
+#
