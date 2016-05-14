@@ -24,6 +24,15 @@ import sift_pyocl as sift
 from matplotlib.backends.backend_pdf import PdfPages
 
 '''
+FUNCTION TO TRAIN A COUPLE CLASSIFIERS ON
+A FOLDER OF IMAGE FILES AND A CORRESPONDING FOLDER OF TEXT FILES
+FUNCTION THEN COMBINES THE TEXT AND IMAGE CLASSIFIERS USING:
+A) A METACLASSIFIER TRAINED ON THE CONFIDENCE OF THE TEXT AND IMAGE FILES
+B) A NONLINEAR CLASSIFIER TRAINED ON THE CONFIDENCES
+2 X 5-FOLD CROSS VALIDATION
+
+Originally used to automatically classify academic papers based on citation counts
+
 USAGE: python2 imgTxtClf.py /path/to/text /path/to/images
 pulls only files that have both an image and text for sanitization
 '''
@@ -45,7 +54,7 @@ def main(txtPath, imgPath):
     
     #get txt img and class values. also set domain name for file output.
     txt,img,cls = getPathsCitations(imgPath, txtPath)
-    #check if we are usin more than one domain
+    #check if we are using more than one domain
     if imgPath2:
         txt2,img2,cls2 = getPathsCitations(imgPath2, txtPath2)
         txt+=txt2
@@ -54,11 +63,10 @@ def main(txtPath, imgPath):
         domain = 'all'
     else:
         domain = txtPath[-4:-1]
-        
 
     #define custom stop words
     my_words=[]
-    #add years
+    #add years to stopwords to prevent from overfitting for age of paper
     for i in range (1980,2020):
         my_words.append(str(i))
     my_stop_words = text.ENGLISH_STOP_WORDS.union(my_words)
@@ -96,7 +104,7 @@ def main(txtPath, imgPath):
     clsShuffled, namesShuffled= [],[]
     txt_mean_tpr,img_mean_tpr = 0,0
     
-    #main cv loop
+    '''main cv loop'''
     count = 0
     for train_index, test_index in skf:
         count += 1
@@ -463,7 +471,5 @@ def printStats(F1,AUC,featureName):
     
 #imgPath = 
 #txtPath = 
-##main(txtPath, imgPath) #for running from IDE
-#main(sys.argv[1], sys.argv[2]) #for running from command line
-##main(sys.argv[1], sys.argv[2]) #for running from command line
-main(txtPath, imgPath) #for running from IDE
+main(sys.argv[1], sys.argv[2]) #for running from command line
+#main(txtPath, imgPath) #for running from IDE
