@@ -1,26 +1,4 @@
 
-# image-text-bow-clf
+# Machine Analysis of High Impact Research to through Text and Image Analysis 
 
-python computer vision + textual bag of words classifier. 
-used to automatically identify highly cited academic papers by combining visual and image bag of words svm classifiers.
-
-## File list
-
-imgTxtClf.py - extract features and train cv classifier
-
-## Usage
-```
-python imgTxtClf.py /path/to/text /path/to/images
-```
-
-## Troubleshooting
-
-Make sure dataset folders are clear of hidden files, as these will cause the classifier to fail.
-
-If you get 
-
-```python
-AttributeError: 'LinearSVC' object has no attribute 'classes_'
-```
-
-error, then simply retrain the model. 
+System to automatically classify an academic paper with respect to the number of citations it will receive based on a combination of visual and text features. A scraper was written to automatically collect academic PDF's and their corresponding number of citations. Visual and text classifiers were then built and tied together with a metaclassifier. Tool used include scrapy, python and sklearn.  
